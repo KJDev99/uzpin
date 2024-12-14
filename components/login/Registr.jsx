@@ -209,6 +209,13 @@ export default function Register({ setLogin, loginCount }) {
               Apple orqali
             </button>
           </div>
+          <div className="text-center text-sm text-[black] mt-3">
+            Saytda ro&apos;yxatdan o&apos;tish bilan{" "}
+            <Link href="#" className="text-[#FFBA00]">
+              Foydalanish shartlari
+            </Link>{" "}
+            ni qabul qilganingizni tasdiqlaysiz.
+          </div>
 
           <button
             type="submit"
