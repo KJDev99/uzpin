@@ -57,7 +57,7 @@ export default function Navbar() {
             <button className="text-gray-300 hover:text-[#FDB000] transition-colors">
               <Heart className="h-6 w-6" />
             </button>
-            <Link href={"/profile"}>
+            <Link href={"/login"}>
               <button className="text-gray-300 hover:text-[#FDB000] transition-colors flex gap-2 border border-[#ACACAC] rounded px-4 py-2">
                 <User className="h-6 w-6" />
                 <p>Kirish</p>
