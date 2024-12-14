@@ -33,7 +33,7 @@ export default function Balans() {
         </div>
 
         <div className="space-y-6">
-          <h2 className="text-xl font-semibold">Hisobni to'ldirish</h2>
+          <h2 className="text-xl font-semibold">Hisobni to&apos;ldirish</h2>
           <div className="space-y-4">
             <div>
               <label className="block text-sm text-gray-600 mb-2">
@@ -46,7 +46,7 @@ export default function Balans() {
               />
             </div>
             <button className="w-full py-3 bg-[#FFC149] hover:bg-[#FFB529] text-black font-medium rounded-lg transition-colors">
-              To'ldirish
+              To&apos;ldirish
             </button>
           </div>
         </div>

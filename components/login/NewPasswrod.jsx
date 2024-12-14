@@ -109,7 +109,7 @@ export default function NewPasswrod({ setLogin, loginCount }) {
             />
             {errors.confirmPassword && (
               <p className="text-red-500 text-sm mt-1 px-1">
-                Parollar mos kelmayapti yoki bo'sh
+                Parollar mos kelmayapti yoki bo&apos;sh
               </p>
             )}
           </div>

@@ -4,7 +4,7 @@ export default function Profil() {
   return (
     <div className="w-[460px] max-w-md   overflow-hidden">
       <div className="px-6 py-4">
-        <h2 className="text-xl font-bold mb-4">Profil ma'lumotlari</h2>
+        <h2 className="text-xl font-bold mb-4">Profil ma&apos;lumotlari</h2>
       </div>
       <form className="px-6 py-4 space-y-6">
         <div className="space-y-2">
@@ -55,7 +55,7 @@ export default function Profil() {
             htmlFor="playerId"
             className="block text-sm font-medium text-gray-700"
           >
-            O'yinchi IDsi
+            O&apos;yinchi IDsi
           </label>
           <input
             id="playerId"
