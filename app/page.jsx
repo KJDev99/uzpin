@@ -15,9 +15,13 @@ export default function Home() {
       <div className="hero_bg">
         <HeaderSlider />
         <TopGameCards />
-        <PubgBanner />
+      </div>
+      <PubgBanner />
+      <div className="hero_bgsec2">
         <TopGiftCard />
-        <PubgBanner />
+      </div>
+      <PubgBanner />
+      <div className="hero_bgsec3">
         <BestSales />
       </div>
     </div>

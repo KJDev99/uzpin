@@ -46,7 +46,7 @@ const games = [
 export default function TopGameCards() {
   return (
     <div className="w-full px-0 py-6">
-      <h2 className="text-2xl font-bold mb-4 text-white text-white ml-[140px]">
+      <h2 className="text-2xl font-bold mb-4 text-white ml-[140px]">
         Ommabop o&apos;yinlar
       </h2>
       <div className="overflow-x-auto pb-6 pl-20">
@@ -70,7 +70,7 @@ export default function TopGameCards() {
                   <h3 className="font-semibold text-xl text-white">
                     {game.title}
                   </h3>
-                  <button className="w-full bg-yellow-400 hover:bg-yellow-500 text-black py-3 rounded text-lg">
+                  <button className="w-full bg-[#FFBA00] text-black py-3 font-medium rounded-[10px] text-lg">
                     Ko&apos;proq ko&apos;rish
                   </button>
                 </div>

@@ -67,13 +67,13 @@ export default function HeaderSlider() {
             <div
               key={slide.id}
               className={`transition-all duration-400 ease-linear ${
-                offset === -1 && "relative w-[3%]"
+                offset === -1 && "relative w-[2%]"
               }
-              ${offset === 0 && "relative w-[70%]"}
-              ${offset === 1 && "relative w-[22%]"}
-              ${offset === 2 && "relative w-[15%]"}
+              ${offset === 0 && "relative w-[79%]"}
+              ${offset === 1 && "relative w-[17%]"}
+              ${offset === 2 && "relative w-[12%]"}
               `}
-              style={{ height: "400px" }}
+              style={{ height: "460px" }}
             >
               <div className="relative h-full w-full overflow-hidden rounded">
                 <Image
@@ -103,7 +103,6 @@ export default function HeaderSlider() {
         })}
       </div>
 
-      {/* Navigation Dots */}
       <div className="absolute bottom-4 left-1/2 flex -translate-x-1/2 gap-2">
         {slides.map((_, index) => (
           <button

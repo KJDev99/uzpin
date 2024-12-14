@@ -93,7 +93,7 @@ export default function BestSales() {
                     <h3 className="font-semibold text-lg text-white">
                       {promo.game}
                     </h3>
-                    <p className="text-sm text-yellow-400">{promo.region}</p>
+                    <p className="text-sm text-[#FFBA00]">{promo.region}</p>
                   </div>
                   <div className="flex justify-between items-center">
                     <p className="text-sm text-zinc-400">
@@ -103,7 +103,7 @@ export default function BestSales() {
                       {promo.price} UZS
                     </p>
                   </div>
-                  <button className="w-full bg-yellow-400 hover:bg-yellow-500 text-black py-2 rounded text-lg">
+                  <button className="w-full bg-[#FFBA00] text-black py-3 font-medium rounded-[10px] text-lg">
                     Sotib olish
                   </button>
                 </div>

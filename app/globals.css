@@ -11,6 +11,12 @@ body {
 .hero_bg {
   background: url("/heromainbg.png") center/cover no-repeat;
 }
+.hero_bgsec2 {
+  background: url("/herosec2.png") center/cover no-repeat;
+}
+.hero_bgsec3 {
+  background: url("/herosec3.png") center/cover no-repeat;
+}
 .footer {
   background: url("/footerbg.png") center/cover no-repeat;
 }
@@ -20,8 +26,8 @@ body {
   height: 456px;
 }
 .game_bg {
-  background: url("/herobg1.png") center/cover no-repeat;
-  height: 456px;
+  background: url("/pubgbggame.png") center/cover no-repeat;
+  height: 500px;
 }
 .games_bg {
   background: url("/allgamesbg.png") center/cover no-repeat;

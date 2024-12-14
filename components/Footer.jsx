@@ -7,47 +7,64 @@ import { FaInstagram } from "react-icons/fa6";
 export default function Footer() {
   return (
     <footer className="footer bg-black text-gray-400">
-      {/* Features Section */}
       <div className="max-w-7xl mx-auto py-8 border-b border-gray-800">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           <div className="flex items-center gap-4">
-            <DollarSign className="w-8 h-8 text-gray-500" />
+            <Image src={"/icons/wallet.svg"} width={33} height={33} alt="img" />
             <div>
-              <h3 className="text-white font-medium">Arzon narxlar</h3>
-              <p className="text-sm">Eng arzon narxlar faqatgina bizda</p>
+              <h3 className="text-[#ACACAC] font-medium">Arzon narxlar</h3>
+              <p className="text-sm text-[#ACACAC] font-[300]">
+                Eng arzon narxlar faqatgina bizda
+              </p>
             </div>
           </div>
 
           <div className="flex items-center gap-4">
-            <GamepadIcon className="w-8 h-8 text-gray-500" />
+            <Image src={"/icons/game.svg"} width={33} height={33} alt="img" />
             <div>
-              <h3 className="text-white font-medium">Ommabop o&apos;yinlar</h3>
-              <p className="text-sm">Eng ommabop o&apos;yinlar to&apos;plami</p>
+              <h3 className="text-[#ACACAC] font-medium">
+                Ommabop o&apos;yinlar
+              </h3>
+              <p className="text-sm text-[#ACACAC] font-[300]">
+                Eng ommabop o&apos;yinlar to&apos;plami
+              </p>
             </div>
           </div>
 
           <div className="flex items-center gap-4">
-            <ShieldCheck className="w-8 h-8 text-gray-500" />
+            <Image
+              src={"/icons/shield-tick.svg"}
+              width={33}
+              height={33}
+              alt="img"
+            />
             <div>
-              <h3 className="text-white font-medium">Yuqori xavfsizlik</h3>
-              <p className="text-sm">Ishonchli va xavfsiz xizmatlar</p>
+              <h3 className="text-[#ACACAC] font-medium">Yuqori xavfsizlik</h3>
+              <p className="text-sm text-[#ACACAC] font-[300]">
+                Ishonchli va xavfsiz xizmatlar
+              </p>
             </div>
           </div>
 
           <div className="flex items-center gap-4">
-            <Users className="w-8 h-8 text-gray-500" />
+            <Image
+              src={"/icons/like-shapes.svg"}
+              width={33}
+              height={33}
+              alt="img"
+            />
             <div>
-              <h3 className="text-white font-medium">Ishonchli hamkor</h3>
-              <p className="text-sm">Uzoq yillik hamkorlik va qulay servis</p>
+              <h3 className="text-[#ACACAC] font-medium">Ishonchli hamkor</h3>
+              <p className="text-sm text-[#ACACAC] font-[300]">
+                Uzoq yillik hamkorlik va qulay servis
+              </p>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Main Footer Content */}
-      <div className="max-w-7xl mx-auto px-4 py-12">
+      <div className="max-w-7xl mx-auto px-4 pt-12 pb-5">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          {/* Logo Section */}
           <div className="md:col-span-1">
             <Link href="/" className="flex items-center">
               <Image
@@ -61,6 +78,16 @@ export default function Footer() {
             <div className="mt-[150px]">
               <div className="flex space-x-12">
                 <Link
+                  href="https://t.me/uzpin"
+                  target="_blank"
+                  className="hover:text-white transition-colors"
+                >
+                  <span className="flex items-center gap-2 text-lg">
+                    <FaInstagram />
+                    Uzpin
+                  </span>
+                </Link>
+                <Link
                   href="https://instagram.com/uzpin"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -71,30 +98,19 @@ export default function Footer() {
                     Uzpin
                   </span>
                 </Link>
-                <Link
-                  href="https://t.me/uzpin"
-                  target="_blank"
-                  className="hover:text-white transition-colors"
-                >
-                  <span className="flex items-center gap-2 text-lg">
-                    <FaInstagram />
-                    Uzpin
-                  </span>
-                </Link>
               </div>
             </div>
           </div>
           <div></div>
-          {/* Games Links */}
           <div>
-            <h3 className="text-white font-medium mb-4">
+            <h3 className="text-[#ACACAC] font-bold mb-[30px]">
               Barcha o&apos;yinlar
             </h3>
             <ul className="space-y-2">
               <li>
                 <Link
                   href="/games/pubg-mobile"
-                  className="hover:text-white transition-colors"
+                  className="text-[#ACACAC] transition-colors"
                 >
                   PUBG Mobile
                 </Link>
@@ -102,7 +118,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/games/free-fire"
-                  className="hover:text-white transition-colors"
+                  className="text-[#ACACAC] transition-colors"
                 >
                   Free Fire
                 </Link>
@@ -110,7 +126,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/games/steam"
-                  className="hover:text-white transition-colors"
+                  className="text-[#ACACAC] transition-colors"
                 >
                   STEAM
                 </Link>
@@ -118,7 +134,7 @@ export default function Footer() {
               <li>
                 <Link
                   href="/games/sm-coin"
-                  className="hover:text-white transition-colors"
+                  className="text-[#ACACAC] transition-colors"
                 >
                   SM-Coin
                 </Link>
@@ -126,14 +142,15 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Section Links */}
           <div>
-            <h3 className="text-white font-medium mb-4">Bo&apos;limlar</h3>
+            <h3 className="text-[#ACACAC] font-bold mb-[30px]">
+              Bo&apos;limlar
+            </h3>
             <ul className="space-y-2">
               <li>
                 <Link
                   href="/asosiy"
-                  className="hover:text-white transition-colors"
+                  className="text-[#ACACAC] transition-colors"
                 >
                   Asosiy
                 </Link>
@@ -141,23 +158,20 @@ export default function Footer() {
               <li>
                 <Link
                   href="/games"
-                  className="hover:text-white transition-colors"
+                  className="text-[#ACACAC] transition-colors"
                 >
                   Barcha o&apos;yinlar
                 </Link>
               </li>
               <li>
-                <Link
-                  href="/help"
-                  className="hover:text-white transition-colors"
-                >
+                <Link href="/help" className="text-[#ACACAC] transition-colors">
                   Yordam
                 </Link>
               </li>
               <li>
                 <Link
                   href="/register"
-                  className="hover:text-white transition-colors"
+                  className="text-[#ACACAC] transition-colors"
                 >
                   Tizimga kirish
                 </Link>
@@ -165,27 +179,25 @@ export default function Footer() {
               <li>
                 <Link
                   href="/contact"
-                  className="hover:text-white transition-colors"
+                  className="text-[#ACACAC] transition-colors"
                 >
                   Biz bilan bog&apos;lanish
                 </Link>
               </li>
             </ul>
           </div>
-
-          {/* Social Links */}
         </div>
 
-        {/* Bottom Bar */}
-        <div className="mt-12 pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-sm">Barcha huquqlar himoyalangan.</p>
-          <p className="text-sm mt-2 md:mt-0">
+        <div className=" pt-8 flex flex-col md:flex-row justify-center gap-[52px] items-center">
+          <p className="text-sm text-[#ACACAC]">
+            Barcha huquqlar himoyalangan.
+          </p>
+          <p className="text-sm text-[#ACACAC] mt-2 md:mt-0">
             Made by{" "}
             <Link
               href="https://upgrow.uz"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[#FDB000] hover:text-[#FDB000]/80 transition-colors"
             >
               Upgrow.uz
             </Link>

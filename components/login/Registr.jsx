@@ -21,11 +21,11 @@ export default function Register({ setLogin, loginCount }) {
   };
 
   const handleGoogleLogin = async () => {
-    // await signIn("google", { callbackUrl: "/" });
+    await signIn("google", { callbackUrl: "/" });
   };
 
   const handleAppleLogin = async () => {
-    // await signIn("apple", { callbackUrl: "/" });
+    await signIn("apple", { callbackUrl: "/" });
   };
 
   const handleTelegramLogin = () => {
