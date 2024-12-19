@@ -48,18 +48,18 @@ const promoCodes = [
 
 export default function BestSales() {
   return (
-    <div className="w-full px-0 pt-14 pb-10">
-      <h2 className="text-2xl font-bold mb-4 text-white ml-[140px]">
+    <div className="w-full px-0 pt-14 pb-10 max-sm:pt-6 max-sm:pb-0">
+      <h2 className="text-2xl font-bold mb-4 text-white ml-[140px] max-sm:ml-6 max-sm:font-medium max-sm:text-xl">
         Eng ko&apos;p sotilgan promokodlar
       </h2>
-      <div className="overflow-x-auto pb-6 px-20">
+      <div className="overflow-x-auto pb-6 px-20 max-sm:px-6 max-sm:pb-0">
         <div className="flex space-x-4 min-w-full snap-mandatory">
           {promoCodes.map((promo, index) => (
             <div
               key={index}
-              className="flex-shrink-0 w-[270px] snap-center main_card rounded-[10px]"
+              className="flex-shrink-0 w-[270px] snap-center main_card rounded-[10px] max-sm:w-[140px]"
             >
-              <div className="p-4 ">
+              <div className="p-4 max-sm:p-2.5">
                 <div className="relative aspect-square overflow-hidden">
                   <Image
                     src={promo.image}
@@ -88,22 +88,24 @@ export default function BestSales() {
                     )}
                   </div>
                 </div>
-                <div className="p-4 space-y-3">
+                <div className="p-4 space-y-3 max-sm:px-0 max-sm:pb-0">
                   <div>
-                    <h3 className="font-semibold text-lg text-white">
+                    <h3 className="font-semibold text-lg text-white max-sm:font-medium max-sm:text-sm">
                       {promo.game}
                     </h3>
-                    <p className="text-sm text-[#FFBA00]">{promo.region}</p>
+                    <p className="text-sm text-[#FFBA00] max-sm:text-[10px] font-normal">
+                      {promo.region}
+                    </p>
                   </div>
                   <div className="flex justify-between items-center">
-                    <p className="text-sm text-zinc-400">
+                    <p className="text-sm text-zinc-400 max-sm:text-xs max-sm:font-medium">
                       {promo.amount} {promo.currency}
                     </p>
-                    <p className="font-semibold text-white">
+                    <p className="font-semibold text-white max-sm:text-xs max-sm:font-medium">
                       {promo.price} UZS
                     </p>
                   </div>
-                  <button className="w-full bg-[#FFBA00] text-black py-3 font-medium rounded-[10px] text-lg">
+                  <button className="w-full bg-[#FFBA00] text-black py-3 font-medium rounded-[10px] text-lg max-sm:text-xs max-sm:py-2">
                     Sotib olish
                   </button>
                 </div>
