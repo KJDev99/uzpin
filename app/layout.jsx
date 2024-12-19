@@ -2,6 +2,7 @@ import Navbar from "@/components/Navbar";
 import "./globals.css";
 import Footer from "@/components/Footer";
 import Head from "next/head";
+import BottomNavbar from "@/components/BottomNavbar";
 
 export const metadata = {
   title: "UZpin",
@@ -17,6 +18,7 @@ export default function RootLayout({ children }) {
       <body>
         <Navbar />
         {children}
+        <BottomNavbar/>
         <Footer />
       </body>
     </html>

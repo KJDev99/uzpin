@@ -22,8 +22,18 @@ body {
 }
 
 .pubg_bg {
-  background: url("/herobg1.png") center/cover no-repeat;
+  background: url("/pubg_bg.png") center/cover no-repeat;
   height: 456px;
+  @media (max-width: 640px) {
+    height: 200px;
+  }
+}
+.freefire_bg{
+  background: url("/free_fire_bg.png") center/cover no-repeat;
+  height: 456px;
+  @media (max-width: 640px) {
+    height: 200px;
+  }
 }
 .game_bg {
   background: url("/pubgbggame.png") center/cover no-repeat;

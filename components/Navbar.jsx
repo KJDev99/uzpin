@@ -1,13 +1,16 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Search, Heart, User } from "lucide-react";
+import SearchModal from "./searchModal/SearchModal";
 
 export default function Navbar() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   return (
     <nav className="bg-black border-b border-gray-800">
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-7xl mx-auto px-5">
         <div className="flex items-center justify-between h-[100px]">
           <Link href="/" className="flex items-center">
             <Image
@@ -15,7 +18,7 @@ export default function Navbar() {
               alt="target icon"
               width={150}
               height={24}
-              className="ml-1 mr-20"
+              className="ml-1 mr-20 max-sm:max-w-[108px] max-sm:max-h-[20px]"
             />
           </Link>
 
@@ -40,8 +43,8 @@ export default function Navbar() {
             </Link>
           </div>
 
-          <div className="flex-1 max-w-lg mx-10">
-            <div className="relative">
+          <div className="flex-1 max-w-lg mx-5 max-sm:flex justify-end">
+            <div className="relative max-sm:hidden">
               <input
                 type="text"
                 className="w-full bg-gray-800/50 border border-gray-700 rounded-md py-2 pl-4 pr-10 text-gray-300 placeholder-gray-500 focus:outline-none focus:border-[#FDB000]"
@@ -51,15 +54,22 @@ export default function Navbar() {
                 <Search className="h-5 w-5 text-gray-400" />
               </button>
             </div>
+            <button
+              onClick={() => setIsModalOpen(true)}
+              className="text-white px-4 py-2 sm:hidden"
+            >
+              <Search className="h-6 w-6" />
+            </button>
+            <SearchModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
           </div>
 
-          <div className="flex items-center space-x-10">
+          <div className="flex items-center space-x-10 max-sm:space-x-0">
             {/* <button className="text-gray-300 hover:text-[#FDB000] transition-colors">
               <Heart className="h-6 w-6" />
             </button> */}
             <Link href={"/login"}>
-              <button className="text-gray-300 hover:text-[#FDB000] transition-colors flex gap-2 border border-[#ACACAC] rounded px-4 py-2">
-                <User className="h-6 w-6" />
+              <button className="max-md:hidden text-gray-300 hover:text-[#FDB000] transition-colors flex gap-2 border border-[#ACACAC] rounded px-4 py-2">
+                <User className="h-5 w-[28px]" />
                 <p>Kirish</p>
               </button>
             </Link>

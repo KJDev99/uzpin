@@ -1,4 +1,5 @@
 import BestSales from "@/components/hero/BestSales";
+import FreeFireBanner from "@/components/hero/FreeFireBanner";
 import HeaderSlider from "@/components/hero/HeaderSlider";
 import PubgBanner from "@/components/hero/PubgBanner";
 import TopGameCards from "@/components/hero/TopGameCard";
@@ -20,7 +21,7 @@ export default function Home() {
       <div className="hero_bgsec2">
         <TopGiftCard />
       </div>
-      <PubgBanner />
+      <FreeFireBanner/>
       <div className="hero_bgsec3">
         <BestSales />
       </div>
