@@ -4,7 +4,7 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap");
 
-body {
+*{
   font-family: "Roboto Condensed", sans-serif;
 }
 
@@ -38,10 +38,16 @@ body {
 .game_bg {
   background: url("/pubgbggame.png") center/cover no-repeat;
   height: 500px;
+  @media (max-width: 640px) {
+    height: 200px;
+  }
 }
 .games_bg {
   background: url("/allgamesbg.png") center/cover no-repeat;
   height: 500px;
+  @media (max-width: 640px) {
+    height: 200px;
+  }
 }
 .main_card {
   background: url("/cardbg.png") center/cover no-repeat;

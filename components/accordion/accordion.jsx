@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 const data = [
   {
@@ -26,17 +26,18 @@ const data = [
 
 export default function AccordionComponent() {
   const [openIndex, setOpenIndex] = useState(null);
+  const contentRefs = useRef([]);
 
   const toggleAccordion = (index) => {
     setOpenIndex(openIndex === index ? null : index);
   };
 
   return (
-    <div className="w-full max-w-[1000px] pt-10 mx-auto">
-      <h2 className="text-center font-semibold text-[32px] leading-[37px]">
+    <div className="w-full max-w-[1000px] pt-10 mx-auto max-sm:px-4">
+      <h2 className="text-center font-semibold text-[32px] leading-[37.5px] max-sm:text-xl max-sm:leading-[30px]">
         Yordam
       </h2>
-      <p className="text-center mt-5 text-xl leading-[23px]">
+      <p className="text-center mt-5 text-xl leading-[23.44px] max-sm:text-sm">
         Tez tez beriladigan savollar
       </p>
       <div className="mt-10">
@@ -44,13 +45,13 @@ export default function AccordionComponent() {
           <div key={index} className="border-b border-[#acacac] mb-2">
             <button
               onClick={() => toggleAccordion(index)}
-              className="w-full text-left py-3 px-10 bg-transparent focus:outline-none flex justify-between items-center"
+              className="w-full text-left py-5 px-10 bg-transparent focus:outline-none flex justify-between items-center max-sm:px-0"
             >
-              <span className="font-semibold text-[24px] leading-10 text-[#313131]">
+              <span className="font-semibold text-[24px] leading-[40.8px] text-[#313131] max-sm:text-base">
                 {item.question}
               </span>
               <svg
-                className={`w-[34px] h-[34px] transform transition-transform ${
+                className={`w-[34px] h-[34px] transform transition-transform duration-700 ${
                   openIndex === index ? "rotate-180" : ""
                 }`}
                 width="34"
@@ -72,11 +73,20 @@ export default function AccordionComponent() {
                 />
               </svg>
             </button>
-            {openIndex === index && (
-              <div className="px-20 py-5 text-[#313131] bg-transparent">
+            <div
+              ref={(el) => (contentRefs.current[index] = el)}
+              className="overflow-hidden transition-all duration-700"
+              style={{
+                maxHeight:
+                  openIndex === index
+                    ? `${contentRefs.current[index]?.scrollHeight}px`
+                    : "0",
+              }}
+            >
+              <div className="px-20 py-5 text-[#313131] bg-transparent max-sm:px-5 max-sm:py-[10px]">
                 {item.answer}
               </div>
-            )}
+            </div>
           </div>
         ))}
       </div>

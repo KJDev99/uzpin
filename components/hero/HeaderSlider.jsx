@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
+import HeaderSwiper from "./HeaderSwiper";
 
 const slides = [
   {
@@ -58,8 +59,8 @@ export default function HeaderSlider() {
   };
 
   return (
-    <div className="relative w-full overflow-hidden py-8">
-      <div className="relative flex items-center justify-center gap-2">
+    <div className="relative w-full overflow-hidden py-8 max-sm:py-5 max-sm:px-[10px]">
+      <div className="relative flex items-center justify-center gap-2 max-sm:hidden">
         {[-1, 0, 1, 2].map((offset) => {
           const index = getSlideIndex(activeSlide + offset);
           const slide = slides[index];
@@ -103,7 +104,7 @@ export default function HeaderSlider() {
         })}
       </div>
 
-      <div className="absolute bottom-4 left-1/2 flex -translate-x-1/2 gap-2">
+      <div className="absolute bottom-4 left-1/2 flex -translate-x-1/2 gap-2 max-sm:hidden">
         {slides.map((_, index) => (
           <button
             key={index}
@@ -117,6 +118,8 @@ export default function HeaderSlider() {
           />
         ))}
       </div>
+
+      <HeaderSwiper/>
     </div>
   );
 }

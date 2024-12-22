@@ -20,7 +20,6 @@ export default function Balans() {
       </div>
 
       <div className="grid md:grid-cols-2 gap-8">
-        {/* Balance Card */}
         <div className="bg-[#FFFCF6] p-6 rounded-2xl shadow-sm">
           <div className="space-y-4">
             <h2 className="text-gray-600">Uzpin hamyon</h2>

@@ -14,7 +14,7 @@ export default function Home() {
   return (
     <div>
       <div className="hero_bg">
-        <HeaderSlider />
+        <HeaderSlider/>
         <TopGameCards />
       </div>
       <PubgBanner />
