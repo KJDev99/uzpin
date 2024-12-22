@@ -69,7 +69,7 @@ export default function AllGames() {
                   {game.range} {game.currency}
                 </p>
                 <Link href="/all-games/1">
-                  <button className="w-full px-4 py-3 text-yellow-500 hover:bg-gray-50 transition-colors duration-200 flex items-center justify-end group max-sm:hidden">
+                  <button className="w-full px-4 py-3 text-[#acacac] hover:text-[#ffba00] transition-colors duration-200 flex items-center justify-end group max-sm:hidden">
                     <span>Ko&apos;proq ko&apos;rish</span>
                     <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
                   </button>

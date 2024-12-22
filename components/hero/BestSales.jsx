@@ -64,11 +64,11 @@ export default function BestSales() {
                   <Image
                     src={promo.image}
                     alt={promo.game}
-                    className="object-cover rounded h-[228px] w-full"
+                    className="object-cover rounded h-[228px] w-full max-sm:max-w-[120px] max-sm:max-h-[120px]"
                     width={228}
                     height={228}
                   />
-                  <div className="absolute bottom-1 pb-5 rounded-b left-[50%] flex items-center justify-center gap-2 translate-x-[-50%] bg_linear_card w-full">
+                  <div className="absolute bottom-1 pb-5 rounded-b left-[50%] flex items-center justify-center gap-2 translate-x-[-50%] bg_linear_card w-full max-sm:hidden">
                     {promo.currency === "Diamonds" ? (
                       <Image
                         src={"/diamond.png"}
@@ -93,12 +93,18 @@ export default function BestSales() {
                     <h3 className="font-semibold text-lg text-white max-sm:font-medium max-sm:text-sm">
                       {promo.game}
                     </h3>
-                    <p className="text-sm text-[#FFBA00] max-sm:text-[10px] font-normal">
+                    <p className="text-sm text-[#FFBA00] max-sm:text-[10px] font-normal max-sm:hidden">
                       {promo.region}
+                    </p>
+                    <p className="text-xs text-[#f9f9f9] mt-[6px] max-sm:text-xs max-sm:font-medium sm:hidden">
+                      {promo.amount} {promo.currency}
                     </p>
                   </div>
                   <div className="flex justify-between items-center">
-                    <p className="text-sm text-zinc-400 max-sm:text-xs max-sm:font-medium">
+                    <p className="text-sm text-[#FFBA00] max-sm:text-[10px] font-normal sm:hidden">
+                      {promo.region}
+                    </p>
+                    <p className="text-sm text-zinc-400 max-sm:text-xs max-sm:font-medium max-sm:hidden">
                       {promo.amount} {promo.currency}
                     </p>
                     <p className="font-semibold text-white max-sm:text-xs max-sm:font-medium">
