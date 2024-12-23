@@ -15,30 +15,6 @@ const games = [
     currency: "UC",
     range: "60 - 8 100",
   },
-  {
-    title: "STEAM",
-    image: "/img.png",
-    currency: "STEAM promokod",
-    range: "5$ - 100$",
-  },
-  {
-    title: "Free Fire",
-    image: "/img.png",
-    currency: "Diamonds",
-    range: "100 - 2 000",
-  },
-  {
-    title: "STEAM",
-    image: "/img.png",
-    currency: "STEAM promokod",
-    range: "5$ - 100$",
-  },
-  {
-    title: "STEAM",
-    image: "/img.png",
-    currency: "STEAM promokod",
-    range: "5$ - 100$",
-  },
 ];
 
 export default function AllGames() {
@@ -57,7 +33,6 @@ export default function AllGames() {
                   alt={game.title}
                   width={200}
                   height={200}
-                  // fill
                   className="object-cover w-[200px] h-[200px] max-sm:w-[146px] max-sm:h-[126px]"
                 />
               </div>

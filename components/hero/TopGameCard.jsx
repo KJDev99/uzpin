@@ -1,49 +1,34 @@
-import Image from "next/image";
+"use client";
 
-const games = [
-  {
-    title: "Mobile Legends",
-    image: "/img.png",
-    link: "#",
-  },
-  {
-    title: "PUBG Mobile",
-    image: "/img.png",
-    link: "#",
-  },
-  {
-    title: "STEAM",
-    image: "/img.png",
-    link: "#",
-  },
-  {
-    title: "Free Fire",
-    image: "/img.png",
-    link: "#",
-  },
-  {
-    title: "Mobile Legends",
-    image: "/img.png",
-    link: "#",
-  },
-  {
-    title: "PUBG Mobile",
-    image: "/img.png",
-    link: "#",
-  },
-  {
-    title: "STEAM",
-    image: "/img.png",
-    link: "#",
-  },
-  {
-    title: "Free Fire",
-    image: "/img.png",
-    link: "#",
-  },
-];
+import { useEffect, useState, useCallback } from "react";
+import Image from "next/image";
+import axiosInstance from "@/libs/axios";
 
 export default function TopGameCards() {
+  const [games, setGames] = useState([]);
+
+  const fetchGames = useCallback(async () => {
+    try {
+      const response = await axiosInstance.get("/client/games");
+      const fetchedGames = response.data.map((game) => ({
+        title: game.name,
+        image: game.photo,
+        link: "#",
+      }));
+      setGames(fetchedGames);
+    } catch (error) {
+      console.error("Error fetching games:", error);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchGames();
+  }, [fetchGames]);
+
+  if (!games.length) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className="w-full px-0 py-6">
       <h2 className="text-2xl font-bold mb-4 text-white ml-[140px] max-sm:ml-6 max-sm:text-[20px]">
