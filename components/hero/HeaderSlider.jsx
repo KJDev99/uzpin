@@ -4,6 +4,8 @@ import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import HeaderSwiper from "./HeaderSwiper";
 import axiosInstance from "@/libs/axios";
+import Link from "next/link";
+import Loader from "../Loader";
 
 export default function HeaderSlider() {
   const [slides, setSlides] = useState([]);
@@ -15,8 +17,8 @@ export default function HeaderSlider() {
       const banners = response.data.map((banner) => ({
         id: banner.id,
         title: banner.name || "No Title",
-        subtitle: "Special Offer", // Statik qiymat yoki API dan kiritish
-        buttonText: "Buy Now", // Statik qiymat yoki API dan kiritish
+        subtitle: "O'yin promokodlari!",
+        buttonText: "Sotib Olish",
         image: banner.cover,
       }));
       setSlides(banners);
@@ -47,7 +49,7 @@ export default function HeaderSlider() {
   };
 
   if (!slides.length) {
-    return <div>Loading...</div>;
+    return <Loader />;
   }
 
   return (
@@ -84,9 +86,11 @@ export default function HeaderSlider() {
                       <p className="mb-4 text-lg text-gray-200">
                         {slide.subtitle}
                       </p>
-                      <button className="rounded-lg bg-yellow-500 px-6 py-2 font-semibold text-black transition-colors hover:bg-yellow-400">
-                        {slide.buttonText}
-                      </button>
+                      <Link href={`/all-games/${slide.id}`}>
+                        <button className="rounded-lg bg-yellow-500 px-6 py-2 font-semibold text-black transition-colors hover:bg-yellow-400">
+                          {slide.buttonText}
+                        </button>
+                      </Link>
                     </div>
                   </div>
                 )}

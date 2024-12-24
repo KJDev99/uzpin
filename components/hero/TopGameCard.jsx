@@ -3,6 +3,8 @@
 import { useEffect, useState, useCallback } from "react";
 import Image from "next/image";
 import axiosInstance from "@/libs/axios";
+import Loader from "../Loader";
+import Link from "next/link";
 
 export default function TopGameCards() {
   const [games, setGames] = useState([]);
@@ -13,7 +15,7 @@ export default function TopGameCards() {
       const fetchedGames = response.data.map((game) => ({
         title: game.name,
         image: game.photo,
-        link: "#",
+        id: game.id,
       }));
       setGames(fetchedGames);
     } catch (error) {
@@ -26,7 +28,7 @@ export default function TopGameCards() {
   }, [fetchGames]);
 
   if (!games.length) {
-    return <div>Loading...</div>;
+    return <Loader />;
   }
 
   return (
@@ -55,9 +57,11 @@ export default function TopGameCards() {
                   <h3 className="font-semibold text-xl text-white max-sm:font-medium max-sm:text-sm">
                     {game.title}
                   </h3>
-                  <button className="w-full bg-[#FFBA00] text-black py-3 font-medium rounded-[10px] text-lg max-sm:text-[12px] max-sm:py-2">
-                    Ko&apos;proq ko&apos;rish
-                  </button>
+                  <Link href={`/all-games/${game.id}`}>
+                    <button className="w-full bg-[#FFBA00] text-black py-3 font-medium rounded-[10px] text-lg max-sm:text-[12px] max-sm:py-2">
+                      Ko&apos;proq ko&apos;rish
+                    </button>
+                  </Link>
                 </div>
               </div>
             </div>

@@ -5,6 +5,8 @@ import "swiper/css";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import axiosInstance from "@/libs/axios";
+import Link from "next/link";
+import Loader from "../Loader";
 
 const HeaderSwiper = () => {
   const [slides, setSlides] = useState([]);
@@ -17,9 +19,9 @@ const HeaderSwiper = () => {
         const banners = response.data.map((banner) => ({
           id: banner.id,
           title: banner.name || "No Title",
-          subtitle: "Special Offer", // Istalgan matn bilan o'zgartiring
-          buttonText: "Buy Now", // Har bir banner uchun umumiy tugma matni
-          image: banner.cover, // API'dan kelgan rasm URL'si
+          subtitle: "O'yin promokodlari!",
+          buttonText: "Sotib olish",
+          image: banner.cover,
         }));
         setSlides(banners);
       } catch (error) {
@@ -33,7 +35,7 @@ const HeaderSwiper = () => {
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <Loader />;
   }
 
   return (
@@ -60,9 +62,11 @@ const HeaderSwiper = () => {
               <p className="absolute top-[48px] left-[20px] font-medium text-[16px] leading-[18px] text-[#ffffff]">
                 {slide.subtitle}
               </p>
+              {/* <Link href={`/all-games/${slide.id}`}> */}
               <button className="absolute bottom-[20px] left-[20px] font-medium text-xs py-[5px] px-[14px] bg-[#ffba00] rounded-[5px]">
                 {slide.buttonText}
               </button>
+              {/* </Link> */}
             </div>
           </SwiperSlide>
         ))}
