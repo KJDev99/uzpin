@@ -1,49 +1,36 @@
-import Image from "next/image";
+"use client";
 
-const games = [
-  {
-    title: "Mobile Legends",
-    image: "/img.png",
-    link: "#",
-  },
-  {
-    title: "PUBG Mobile",
-    image: "/img.png",
-    link: "#",
-  },
-  {
-    title: "STEAM",
-    image: "/img.png",
-    link: "#",
-  },
-  {
-    title: "Free Fire",
-    image: "/img.png",
-    link: "#",
-  },
-  {
-    title: "Mobile Legends",
-    image: "/img.png",
-    link: "#",
-  },
-  {
-    title: "PUBG Mobile",
-    image: "/img.png",
-    link: "#",
-  },
-  {
-    title: "STEAM",
-    image: "/img.png",
-    link: "#",
-  },
-  {
-    title: "Free Fire",
-    image: "/img.png",
-    link: "#",
-  },
-];
+import { useEffect, useState, useCallback } from "react";
+import Image from "next/image";
+import axiosInstance from "@/libs/axios";
+import Loader from "../Loader";
+import Link from "next/link";
 
 export default function TopGameCards() {
+  const [games, setGames] = useState([]);
+
+  const fetchGames = useCallback(async () => {
+    try {
+      const response = await axiosInstance.get("/client/games");
+      const fetchedGames = response.data.map((game) => ({
+        title: game.name,
+        image: game.photo,
+        id: game.id,
+      }));
+      setGames(fetchedGames);
+    } catch (error) {
+      console.error("Error fetching games:", error);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchGames();
+  }, [fetchGames]);
+
+  if (!games.length) {
+    return <Loader />;
+  }
+
   return (
     <div className="w-full px-0 py-6">
       <h2 className="text-2xl font-bold mb-4 text-white ml-[140px] max-sm:ml-6 max-sm:text-[20px]">
@@ -61,18 +48,20 @@ export default function TopGameCards() {
                   <Image
                     src={game.image}
                     alt={game.title}
-                    className="object-cover rounded-lg max-sm:max-w-[142px] max-sm:max-h-[126px] max-sm:rounded-[5px]"
-                    width={280}
-                    height={280}
+                    className="object-cover w-[270px] h-[311px] rounded-lg max-sm:max-w-[142px] max-sm:max-h-[126px] max-sm:rounded-[5px]"
+                    width={270}
+                    height={311}
                   />
                 </div>
-                <div className="p-4 space-y-2 max-sm:p-0 max-sm:pt-[10px] max-sm:space-y-[18px]">
-                  <h3 className="font-semibold text-xl text-white max-sm:font-medium max-sm:text-sm">
+                <div className="pt-5 space-y-2 max-sm:p-0 max-sm:pt-[10px] max-sm:space-y-[18px]">
+                  <h3 className="font-medium text-xl text-white max-sm:text-sm">
                     {game.title}
                   </h3>
-                  <button className="w-full bg-[#FFBA00] text-black py-3 font-medium rounded-[10px] text-lg max-sm:text-[12px] max-sm:py-2">
-                    Ko&apos;proq ko&apos;rish
-                  </button>
+                  <Link href={`/all-games/${game.id}`}>
+                    <button className="w-full mt-5 bg-[#FFBA00] text-black py-3 font-medium rounded-[10px] text-xl leading-[23px] max-sm:text-[12px] max-sm:py-2">
+                      Ko&apos;proq ko&apos;rish
+                    </button>
+                  </Link>
                 </div>
               </div>
             </div>

@@ -75,8 +75,8 @@ export default function Footer() {
                 className="ml-1 max-sm:max-w-[108px] max-sm:max-h-5"
               />
             </Link>
-            <div className="mt-[150px]">
-              <div className="flex space-x-12">
+            <div className="mt-[150px] max-sm:mt-[30px]">
+              <div className="flex space-x-12 max-sm:space-x-[120px]">
                 <Link
                   href="https://t.me/uzpin"
                   target="_blank"
