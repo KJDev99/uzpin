@@ -1,24 +1,41 @@
 import { X } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
+import { Toast } from "../Toast";
+import axiosInstance from "@/libs/axios";
 
 export default function ForgetPassword({ setLogin, loginCount }) {
   const [inputValue, setInputValue] = useState("");
   const [error, setError] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!inputValue) {
       setError(true);
+      setTimeout(() => setError(false), [3000]);
     } else {
+      try {
+        await axiosInstance.post("client/auth/reset", {
+          email: inputValue,
+        });
+        rounter.push("");
+        setLogin(4);
+      } catch (error) {
+        console.error("Xatolik yuz berdi:", error);
+        setError(true);
+        setTimeout(() => setError(false), [3000]);
+      }
       setError(false);
-      setLogin(4); // Proceed to the next step
+      setLogin(4);
     }
   };
 
   return (
     <div className="flex justify-center items-center  ">
+      {error && (
+        <Toast status="false" text="Kirish Jarayonida nimadir xato bo'ldi" />
+      )}
       <div className="bg-white shadow-md rounded-lg p-8 w-full max-w-md">
         <div className="flex justify-end mb-[20px]">
           <Link href="/">

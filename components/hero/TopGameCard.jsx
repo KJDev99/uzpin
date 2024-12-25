@@ -8,8 +8,10 @@ import Link from "next/link";
 
 export default function TopGameCards() {
   const [games, setGames] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const fetchGames = useCallback(async () => {
+    setLoading(true);
     try {
       const response = await axiosInstance.get("/client/games");
       const fetchedGames = response.data.map((game) => ({
@@ -20,6 +22,8 @@ export default function TopGameCards() {
       setGames(fetchedGames);
     } catch (error) {
       console.error("Error fetching games:", error);
+    } finally {
+      setLoading(false);
     }
   }, []);
 
@@ -27,7 +31,7 @@ export default function TopGameCards() {
     fetchGames();
   }, [fetchGames]);
 
-  if (!games.length) {
+  if (loading) {
     return <Loader />;
   }
 
@@ -59,7 +63,6 @@ export default function TopGameCards() {
                   </h3>
                   <Link href={`/all-games/${game.id}`}>
                     <button className="w-full mt-5 bg-[#FFBA00] text-black py-3 font-medium rounded-[10px] text-xl leading-[23px] max-sm:text-[12px] max-sm:py-2">
-
                       Ko&apos;proq ko&apos;rish
                     </button>
                   </Link>

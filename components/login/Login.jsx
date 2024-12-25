@@ -7,6 +7,10 @@ import { RiTelegram2Fill } from "react-icons/ri";
 import { FcGoogle } from "react-icons/fc";
 import { IoLogoApple } from "react-icons/io5";
 import { signIn } from "next-auth/react";
+import axiosInstance from "@/libs/axios";
+import { Alert } from "../Alert";
+import { Toast } from "../Toast";
+import { useRouter } from "next/navigation";
 
 export default function Login({ setLogin, loginCount }) {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -16,12 +20,13 @@ export default function Login({ setLogin, loginCount }) {
     emailOrPhone: false,
     password: false,
   });
+  const [error, setError] = useState(false);
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
   };
-
-  const handleSubmit = (e) => {
+  const rounter = useRouter();
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     let hasError = false;
@@ -41,7 +46,19 @@ export default function Login({ setLogin, loginCount }) {
     }
 
     if (!hasError) {
-      alert("Sizga yaxshi xabar bor sabr qiling ");
+      try {
+        const response = await axiosInstance.post("client/auth/login", {
+          email: emailOrPhone,
+          password: password,
+        });
+        console.log("Server javobi:", response.data);
+        localStorage.setItem("profileData", JSON.stringify(response.data));
+        rounter.push("/");
+      } catch (error) {
+        console.error("Xatolik yuz berdi:", error);
+        setError(true);
+        setTimeout(() => setError(false), [3000]);
+      }
     }
   };
 
@@ -59,6 +76,9 @@ export default function Login({ setLogin, loginCount }) {
 
   return (
     <div className="flex justify-center items-center">
+      {error && (
+        <Toast status="false" text="Kirish Jarayonida nimadir xato bo'ldi" />
+      )}
       <div className="bg-white shadow-md rounded-lg p-8 w-full max-w-md">
         <div className="flex justify-end mb-[20px]">
           <Link href="/">

@@ -5,6 +5,7 @@ import ForgetPassword from "@/components/login/ForgetPassword";
 import PasswordCheck from "@/components/login/PasswordCheck";
 import NewPasswrod from "@/components/login/NewPasswrod";
 import Register from "@/components/login/Registr";
+import PasswordVerify from "@/components/login/PasswordVerify";
 
 export default function Page() {
   const [loginCount, setLogin] = useState(1);
@@ -19,6 +20,8 @@ export default function Page() {
       case 4:
         return <PasswordCheck setLogin={setLogin} loginCount={loginCount} />;
       case 5:
+        return <PasswordVerify setLogin={setLogin} loginCount={loginCount} />;
+      case 6:
         return <NewPasswrod setLogin={setLogin} loginCount={loginCount} />;
     }
   };

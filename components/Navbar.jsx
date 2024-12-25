@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Search, Heart, User } from "lucide-react";
@@ -8,6 +8,12 @@ import SearchModal from "./searchModal/SearchModal";
 
 export default function Navbar() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [profileData, setProfileData] = useState();
+
+  useEffect(() => {
+    setProfileData(JSON.parse(localStorage.getItem("profileData")));
+  }, []);
+
   return (
     <nav className="bg-black border-b border-gray-800">
       <div className="max-w-7xl mx-auto px-5">
@@ -60,19 +66,29 @@ export default function Navbar() {
             >
               <Search className="h-6 w-6" />
             </button>
-            <SearchModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+            <SearchModal
+              isOpen={isModalOpen}
+              onClose={() => setIsModalOpen(false)}
+            />
           </div>
 
           <div className="flex items-center space-x-10 max-sm:space-x-0">
-            {/* <button className="text-gray-300 hover:text-[#FDB000] transition-colors">
-              <Heart className="h-6 w-6" />
-            </button> */}
-            <Link href={"/login"}>
-              <button className="max-md:hidden text-gray-300 hover:text-[#FDB000] transition-colors flex gap-2 border border-[#ACACAC] rounded px-4 py-2">
-                <User className="h-5 w-[28px]" />
-                <p>Kirish</p>
-              </button>
-            </Link>
+            {profileData ? (
+              <Link href={"/profile"}>
+                <button className="max-md:hidden text-gray-300 hover:text-[#FDB000] transition-colors flex gap-2 border border-[#ACACAC] rounded px-4 py-2">
+                  <User className="h-5 w-[28px]" />
+                  <p>{profileData.fullname}</p>
+                </button>
+              </Link>
+            ) : (
+              <Link href={"/login"}>
+                <button className="max-md:hidden text-gray-300 hover:text-[#FDB000] transition-colors flex gap-2 border border-[#ACACAC] rounded px-4 py-2">
+                  <User className="h-5 w-[28px]" />
+                  <p>Kirish</p>
+                </button>
+              </Link>
+            )}
+
             <button className="flex items-center">
               <Image
                 src="/flaguz.png"

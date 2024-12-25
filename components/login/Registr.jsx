@@ -7,6 +7,7 @@ import { RiTelegram2Fill } from "react-icons/ri";
 import { FcGoogle } from "react-icons/fc";
 import { IoLogoApple } from "react-icons/io5";
 import { signIn } from "next-auth/react";
+import axiosInstance from "@/libs/axios";
 
 export default function Register({ setLogin, loginCount }) {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -49,10 +50,27 @@ export default function Register({ setLogin, loginCount }) {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (validateForm()) {
-      alert("Ro'yxatdan o'tish muvaffaqiyatli amalga oshirildi!");
+      const requestData = {
+        fullname: name,
+        email: email,
+        password: password,
+        confirm_password: confirmPassword,
+      };
+
+      try {
+        const response = await axiosInstance.post(
+          "client/auth/register",
+          requestData
+        );
+        console.log("Server javobi:", response.data);
+        setLogin(5);
+      } catch (error) {
+        console.error("Xatolik yuz berdi:", error);
+        alert("Xatolik yuz berdi! Qaytadan urinib ko'ring.");
+      }
     }
   };
 

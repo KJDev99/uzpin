@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRef, useState } from "react";
 import { Toast } from "../Toast";
 
-export default function PasswordCheck({ setLogin }) {
+export default function PasswordVerify({ setLogin }) {
   const [code, setCode] = useState(["", "", "", ""]);
   const [disabledBtn, setDisabledBtn] = useState(true);
   const [error, setError] = useState();
@@ -39,10 +39,10 @@ export default function PasswordCheck({ setLogin }) {
     if (code.every((num) => num !== "")) {
       const enteredCode = code.join("");
       try {
-        await axiosInstance.post("client/auth/reset/verify", {
+        await axiosInstance.post("client/auth/verify", {
           code: enteredCode,
         });
-        setLogin(6);
+        setLogin(1);
       } catch (error) {
         setError(true);
         setTimeout(() => setError(false), [3000]);
@@ -68,7 +68,7 @@ export default function PasswordCheck({ setLogin }) {
             Tasdiqlash
           </h2>
           <p className="mb-3 text-center text-[#909090] text-sm">
-            Telefon raqamingizga yuborilgan 4 xonali kodni kiriting
+            Emailingizga yuborilgan 4 xonali kodni kiriting
           </p>
         </div>
         <form onSubmit={handleSubmit}>

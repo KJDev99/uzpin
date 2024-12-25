@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { PiEyeClosedBold } from "react-icons/pi";
 import { AiOutlineEye } from "react-icons/ai";
+import { Toast } from "../Toast";
 
 export default function NewPasswrod({ setLogin, loginCount }) {
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -12,12 +13,13 @@ export default function NewPasswrod({ setLogin, loginCount }) {
     password: false,
     confirmPassword: false,
   });
+  const [error, setError] = useState(false);
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     let formIsValid = true;
 
@@ -36,12 +38,24 @@ export default function NewPasswrod({ setLogin, loginCount }) {
     setErrors(newErrors);
 
     if (formIsValid) {
-      console.log("Form submitted successfully!");
+      try {
+        await axiosInstance.post("client/auth/reset/password", {
+          new_password: password,
+          confirm_password: confirmPassword,
+        });
+        setLogin(1);
+      } catch (error) {
+        setError(true);
+        setTimeout(() => setError(false), [3000]);
+      }
     }
   };
 
   return (
     <div className="flex justify-center items-center">
+      {error && (
+        <Toast status="false" text="Kirish Jarayonida nimadir xato bo'ldi" />
+      )}
       <div className="bg-white shadow-md rounded-lg p-8 w-full max-w-md">
         <div className="flex justify-end mb-[20px]">
           <Link href="/">
