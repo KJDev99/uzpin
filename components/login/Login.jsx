@@ -51,9 +51,11 @@ export default function Login({ setLogin, loginCount }) {
           email: emailOrPhone,
           password: password,
         });
-        console.log("Server javobi:", response.data);
         localStorage.setItem("profileData", JSON.stringify(response.data));
         rounter.push("/");
+        setTimeout(() => {
+          location.reload();
+        }, 300);
       } catch (error) {
         console.error("Xatolik yuz berdi:", error);
         setError(true);

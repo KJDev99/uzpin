@@ -17,26 +17,38 @@ export default function ProfilInfo() {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
 
-  const token = JSON.parse(localStorage.getItem("profileData"))?.access;
+  const [token, setToken] = useState(null);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const storedProfileData = localStorage.getItem("profileData");
+      if (storedProfileData) {
+        const parsedProfileData = JSON.parse(storedProfileData);
+        setToken(parsedProfileData?.access || null);
+      }
+    }
+  }, []);
 
   useEffect(() => {
     const fetchProfile = async () => {
-      try {
-        const response = await axiosInstance.get("/client/profile", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        setProfileData({
-          fullname: response.data.fullname,
-          email: response.data.email,
-          phone: response.data.phone || "",
-          old_password: "",
-          new_password: "",
-          confirm_password: "",
-        });
-      } catch (error) {
-        console.error("Failed to fetch profile data", error);
+      if (token) {
+        try {
+          const response = await axiosInstance.get("/client/profile", {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          setProfileData({
+            fullname: response.data.fullname,
+            email: response.data.email,
+            phone: response.data.phone || "",
+            old_password: "",
+            new_password: "",
+            confirm_password: "",
+          });
+        } catch (error) {
+          console.error("Failed to fetch profile data", error);
+        }
       }
     };
 
