@@ -48,17 +48,18 @@ export default function TopGameCards() {
                   <Image
                     src={game.image}
                     alt={game.title}
-                    className="object-cover rounded-lg max-sm:max-w-[142px] max-sm:max-h-[126px] max-sm:rounded-[5px]"
-                    width={280}
-                    height={280}
+                    className="object-cover w-[270px] h-[311px] rounded-lg max-sm:max-w-[142px] max-sm:max-h-[126px] max-sm:rounded-[5px]"
+                    width={270}
+                    height={311}
                   />
                 </div>
-                <div className="p-4 space-y-2 max-sm:p-0 max-sm:pt-[10px] max-sm:space-y-[18px]">
-                  <h3 className="font-semibold text-xl text-white max-sm:font-medium max-sm:text-sm">
+                <div className="pt-5 space-y-2 max-sm:p-0 max-sm:pt-[10px] max-sm:space-y-[18px]">
+                  <h3 className="font-medium text-xl text-white max-sm:text-sm">
                     {game.title}
                   </h3>
                   <Link href={`/all-games/${game.id}`}>
-                    <button className="w-full bg-[#FFBA00] text-black py-3 font-medium rounded-[10px] text-lg max-sm:text-[12px] max-sm:py-2">
+                    <button className="w-full mt-5 bg-[#FFBA00] text-black py-3 font-medium rounded-[10px] text-xl leading-[23px] max-sm:text-[12px] max-sm:py-2">
+
                       Ko&apos;proq ko&apos;rish
                     </button>
                   </Link>
