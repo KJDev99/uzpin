@@ -3,70 +3,64 @@
 import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import HeaderSwiper from "./HeaderSwiper";
-
-const slides = [
-  {
-    id: 1,
-    title: "PUBG Mobile",
-    subtitle: "O'yin promokodlari",
-    buttonText: "Sotib olish",
-    image: "/herobg.png",
-  },
-  {
-    id: 2,
-    title: "Free Fire",
-    subtitle: "Game Promotions",
-    buttonText: "Buy Now",
-    image: "/herobg1.png",
-  },
-  {
-    id: 3,
-    title: "Battlegrounds",
-    subtitle: "Special Offers",
-    buttonText: "Get Now",
-    image: "/herobg2.png",
-  },
-  {
-    id: 4,
-    title: "PUBG PC",
-    subtitle: "Limited Time Deals",
-    buttonText: "Purchase",
-    image: "/herobg3.png",
-  },
-  {
-    id: 5,
-    title: "Mobile Legends",
-    subtitle: "New Season Offers",
-    buttonText: "Buy",
-    image: "/herobg4.png",
-  },
-];
+import axiosInstance from "@/libs/axios";
+import Link from "next/link";
+import Loader from "../Loader";
 
 export default function HeaderSlider() {
+  const [slides, setSlides] = useState([]);
   const [activeSlide, setActiveSlide] = useState(0);
 
-  const nextSlide = useCallback(() => {
-    setActiveSlide((prevActive) => (prevActive + 1) % slides.length);
+  const fetchSlides = useCallback(async () => {
+    try {
+      const response = await axiosInstance.get("client/banner");
+      const banners = response.data.map((banner) => ({
+        id: banner.id,
+        title: banner.name || "No Title",
+        subtitle: "O'yin promokodlari!",
+        buttonText: "Sotib Olish",
+        image: banner.cover,
+      }));
+      setSlides(banners);
+    } catch (error) {
+      console.error("Error fetching slides:", error);
+    }
   }, []);
 
   useEffect(() => {
-    const interval = setInterval(nextSlide, 5000);
-    return () => clearInterval(interval);
-  }, [nextSlide]);
+    fetchSlides();
+  }, [fetchSlides]);
+
+  const nextSlide = useCallback(() => {
+    setActiveSlide((prevActive) =>
+      slides.length ? (prevActive + 1) % slides.length : 0
+    );
+  }, [slides.length]);
+
+  useEffect(() => {
+    if (slides.length) {
+      const interval = setInterval(nextSlide, 5000);
+      return () => clearInterval(interval);
+    }
+  }, [nextSlide, slides.length]);
 
   const getSlideIndex = (index) => {
     return (index + slides.length) % slides.length;
   };
 
+  if (!slides.length) {
+    return <Loader />;
+  }
+
   return (
     <div className="relative w-full overflow-hidden py-8 max-sm:py-5 max-sm:px-[10px]">
       <div className="relative flex items-center justify-center gap-2 max-sm:hidden">
-        {[-1, 0, 1, 2].map((offset) => {
+        {[-1, 0, 1, 2].map((offset, key) => {
           const index = getSlideIndex(activeSlide + offset);
           const slide = slides[index];
           return (
             <div
-              key={slide.id}
+              key={key}
               className={`transition-all duration-400 ease-linear ${
                 offset === -1 && "relative w-[2%]"
               }
@@ -92,9 +86,11 @@ export default function HeaderSlider() {
                       <p className="mb-4 text-lg text-gray-200">
                         {slide.subtitle}
                       </p>
-                      <button className="rounded-lg bg-yellow-500 px-6 py-2 font-semibold text-black transition-colors hover:bg-yellow-400">
-                        {slide.buttonText}
-                      </button>
+                      <Link href={`/all-games/${slide.id}`}>
+                        <button className="rounded-lg bg-yellow-500 px-6 py-2 font-semibold text-black transition-colors hover:bg-yellow-400">
+                          {slide.buttonText}
+                        </button>
+                      </Link>
                     </div>
                   </div>
                 )}
@@ -119,7 +115,7 @@ export default function HeaderSlider() {
         ))}
       </div>
 
-      <HeaderSwiper/>
+      <HeaderSwiper />
     </div>
   );
 }

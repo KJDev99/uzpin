@@ -4,7 +4,7 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap");
 
-*{
+* {
   font-family: "Roboto Condensed", sans-serif;
 }
 
@@ -28,7 +28,7 @@
     height: 200px;
   }
 }
-.freefire_bg{
+.freefire_bg {
   background: url("/free_fire_bg.png") center/cover no-repeat;
   height: 456px;
   @media (max-width: 640px) {
@@ -36,7 +36,6 @@
   }
 }
 .game_bg {
-  background: url("/pubgbggame.png") center/cover no-repeat;
   height: 500px;
   @media (max-width: 640px) {
     height: 200px;

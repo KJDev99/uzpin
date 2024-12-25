@@ -59,6 +59,7 @@ export default function TopGameCards() {
                   </h3>
                   <Link href={`/all-games/${game.id}`}>
                     <button className="w-full mt-5 bg-[#FFBA00] text-black py-3 font-medium rounded-[10px] text-xl leading-[23px] max-sm:text-[12px] max-sm:py-2">
+
                       Ko&apos;proq ko&apos;rish
                     </button>
                   </Link>
