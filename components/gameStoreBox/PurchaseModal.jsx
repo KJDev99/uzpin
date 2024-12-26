@@ -12,7 +12,7 @@ export function PurchaseModal({
   cart,
   totalUC,
   totalPrice,
-  // openModal,
+  clear,
 }) {
   const [playerId, setPlayerId] = useState("");
 
@@ -54,6 +54,7 @@ export function PurchaseModal({
       setError(true);
     } finally {
       setTimeout(() => {
+        clear();
         onClose();
         setError(false);
         setSuccess(false);
