@@ -142,7 +142,7 @@ export default function Login({ setLogin, loginCount }) {
             />
             {errors.emailOrPhone && (
               <p className="text-red-500 text-sm mt-1 px-1">
-                Maydonni to‘ldirish shart
+                Maydonni to&apos;ldirish shart
               </p>
             )}
           </div>
