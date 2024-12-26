@@ -1,13 +1,36 @@
 "use client";
 
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { X } from "lucide-react";
 import Image from "next/image";
 import { MdOutlineContentCopy } from "react-icons/md";
+import UploadComponent from "../UploadComponent";
+import axiosInstance from "@/libs/axios";
+import { Alert } from "../Alert";
 
-export default function BalansCardModal({ isOpen, onClose }) {
+export default function BalansCardModal({
+  isOpen,
+  onClose,
+  selectedCurrency,
+  inputValue,
+}) {
+ main
   const modalRef = useRef(null);
   const [selectedFile, setSelectedFile] = useState(null);
+  const [error, setError] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [photo, setPhoto] = useState("");
+  const [token, setToken] = useState(null);
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && isOpen) {
+      const storedProfileData = localStorage.getItem("profileData");
+      if (storedProfileData) {
+        const parsedProfileData = JSON.parse(storedProfileData);
+        setToken(parsedProfileData?.access || null);
+      }
+    }
+  }, [isOpen]);
 
   if (!isOpen) {
     return null;
@@ -20,18 +43,61 @@ export default function BalansCardModal({ isOpen, onClose }) {
     { id: 4, src: "/allgamesbg.png", alt: "Image 4" },
   ];
 
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-    setSelectedFile(file);
+  const handleUploadSuccess = (key, url) => {
+    setPhoto(url);
   };
 
   const clearFile = () => {
-    setSelectedFile(null);
     modalRef.current.value = "";
+  };
+
+  const fetchHandle = async () => {
+    const formattedData = {
+      currency: selectedCurrency,
+      amount: inputValue,
+      chek: photo,
+      from_bot: true,
+    };
+
+    try {
+      const response = await axiosInstance.post(
+        "/client/transaction/create",
+        formattedData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setSuccess(true);
+    } catch (error) {
+      setError(true);
+      console.log(error);
+    } finally {
+      setTimeout(() => {
+        onClose();
+        setError(false);
+        setSuccess(false);
+      }, 3000);
+    }
   };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0">
+      {error && (
+        <Alert
+          status={false}
+          title="Mablag’ yetarli emas!"
+          message="Iltimos hisobingizni to’ldiring"
+        />
+      )}
+      {success && (
+        <Alert
+          status={true}
+          title="Muvaffaqiyatli bajarildi!"
+          message="Iltimos haridingiz tasdiqlanishini kuting"
+        />
+      )}
       <div className="bg-white rounded-[10px] shadow-lg">
         <div className="flex relative justify-between min-w-10 min-h-10">
           <div className="w-[682px] mt-8 ml-8 mb-8">
@@ -57,7 +123,7 @@ export default function BalansCardModal({ isOpen, onClose }) {
             </p>
             <div
               className={`max-w-[482px] mt-5 p-[35px] mx-auto border-2 border-gray-500 border-dashed rounded-lg text-center ${
-                selectedFile ? "hidden" : ""
+                photo ? "hidden" : ""
               }`}
             >
               <Image
@@ -73,12 +139,8 @@ export default function BalansCardModal({ isOpen, onClose }) {
               <p className="mt-2.5 text-[14px] leading-4 text-[#828282]">
                 yoki
               </p>
-              <input
-                onChange={handleFileChange}
-                type="file"
-                className="hidden"
-                accept="image/*"
-                ref={modalRef}
+              <UploadComponent
+                onUploadSuccess={(url) => handleUploadSuccess("cover", url)}
               />
               <button
                 onClick={() => modalRef.current.click()}
@@ -87,20 +149,20 @@ export default function BalansCardModal({ isOpen, onClose }) {
                 Faylni tanlang
               </button>
             </div>
-            {selectedFile && (
+            {photo.length && (
               <div className="flex flex-col">
                 <div className="max-w-[482px] w-full mx-auto mt-5 py-5 px-8 border border-[#828282] rounded-[10px] flex items-center justify-between">
                   <div>
-                    <p>{selectedFile.name}</p>
-                    <p className="text-[14px] text-[#828282] leading-4">
-                      {(selectedFile.size / 1024).toFixed(2)} KB
-                    </p>
+                    <p>check</p>
                   </div>
                   <button onClick={clearFile} className="text-black underline">
                     <X className="h-6 w-6" />
                   </button>
                 </div>
-                <button className="mx-auto mt-5 font-medium leading-[18px] bg-[#ffba00] py-[10px] px-[60px] rounded-[10px]">
+                <button
+                  onClick={fetchHandle}
+                  className="mx-auto mt-5 font-medium leading-[18px] bg-[#ffba00] py-[10px] px-[60px] rounded-[10px]"
+                >
                   Yuborish
                 </button>
               </div>

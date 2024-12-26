@@ -245,18 +245,9 @@ export default function GameStore({ data }) {
             cart={cart}
             totalUC={totalUC}
             totalPrice={totalPrice}
-            // openModal={() => setShowModalMessage(true)}
+            clear={() => ClearTash()}
           />
         )}
-        {/* {showModalMessage && (
-          <Alert
-            isOpen={showModalMessage}
-            onClose={() => setShowModalMessage(false)}
-            status={true}
-            title="Muvaffaqiyatli bajarildi!"
-            message="Iltimos haridingiz tasdiqlanishini kuting"
-          />
-        )} */}
       </div>
     </>
   );

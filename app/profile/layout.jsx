@@ -5,7 +5,7 @@ import ProfileTop from "./ProfileTop";
 
 export default function ProfileLayout({ children }) {
   return (
-    <div className="relative mx-[120px] flex flex-wrap">
+    <div className="relative mx-[120px] flex flex-wrap max-md:mx-5">
       <ProfileTop />
       <div className="flex-1 pl-10">
         <main>{children}</main>

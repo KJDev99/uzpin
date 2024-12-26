@@ -8,7 +8,6 @@ import { FcGoogle } from "react-icons/fc";
 import { IoLogoApple } from "react-icons/io5";
 import { signIn } from "next-auth/react";
 import axiosInstance from "@/libs/axios";
-import { Alert } from "../Alert";
 import { Toast } from "../Toast";
 import { useRouter } from "next/navigation";
 
@@ -65,9 +64,19 @@ export default function Login({ setLogin, loginCount }) {
   };
 
   const handleGoogleLogin = async () => {
-    await signIn("google", { callbackUrl: "/" });
-  };
+    try {
+      const response = await axiosInstance.get("/client/auth/google/login");
+      const { auth_url } = response.data;
 
+      if (auth_url) {
+        window.location.href = auth_url;
+      } else {
+        console.error("Auth URL not received from server");
+      }
+    } catch (error) {
+      console.error("Error during Google login:", error);
+    }
+  };
   const handleAppleLogin = async () => {
     await signIn("apple", { callbackUrl: "/" });
   };
@@ -133,7 +142,7 @@ export default function Login({ setLogin, loginCount }) {
             />
             {errors.emailOrPhone && (
               <p className="text-red-500 text-sm mt-1 px-1">
-                Maydonni to‘ldirish shart
+                Maydonni to&apos;ldirish shart
               </p>
             )}
           </div>
@@ -194,9 +203,9 @@ export default function Login({ setLogin, loginCount }) {
             <button
               type="button"
               onClick={handleGoogleLogin}
-              className="flex items-center justify-center  text-[black] font-semibold py-2 px-4 rounded-[5px] gap-5 w-full mb-[10px] border-2 border-[#313131] "
+              className="flex items-center justify-center text-[black] font-semibold py-2 px-4 rounded-[5px] gap-5 w-full mb-[10px] border-2 border-[#313131]"
             >
-              <FcGoogle className=" p-0 text-[28px] rounded-full" />
+              <FcGoogle className="p-0 text-[28px] rounded-full" />
               Google orqali
             </button>
             <button

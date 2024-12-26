@@ -57,8 +57,8 @@ export default function Navbar() {
 
   return (
     <nav className="bg-black border-b border-gray-800">
-      <div className="max-w-7xl mx-auto px-5">
-        <div className="flex items-center justify-between h-[100px]">
+      <div className="max-w-7xl mx-auto px-5 max-md:overflow-hidden">
+        <div className="flex items-center justify-between h-[100px] max-md:h-20">
           <Link href="/" className="flex items-center">
             <Image
               src="/logo.svg"
