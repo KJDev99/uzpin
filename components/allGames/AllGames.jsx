@@ -38,7 +38,7 @@ export default function AllGames() {
       {games.map((game) => (
         <div
           key={game.id}
-          className="overflow-hidden hover:shadow-lg transition-shadow duration-200 bg-white rounded-lg max-sm:rounded-[10px] max-sm:max-w-[166px]"
+          className="overflow-hidden hover:shadow-lg transition-shadow duration-200 bg-white rounded-lg max-sm:rounded-[10px] max-sm:max-w-[166px] max-md:mx-auto"
         >
           <Link href={`/all-games/${game.id}`} className="p-0">
             <div className="flex items-start gap-4 p-4 h-max max-sm:flex-col max-sm:p-[10px] max-sm:gap-[10px]">

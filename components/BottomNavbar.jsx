@@ -3,6 +3,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import { IoIosHelpCircleOutline } from "react-icons/io";
+import { useEffect, useState } from "react";
 
 export default function BottomNavbar() {
   const pathname = usePathname();
@@ -16,8 +18,18 @@ export default function BottomNavbar() {
         return "helpme";
       case "/login":
         return "login";
+      case "/profile":
+      case "/profile/balance":
+      case "/profile/purchases":
+      case "/profile/transactions":
+      case "/profile/logout":
+        return "profile";
     }
   };
+  const [profileData, setProfileData] = useState();
+  useEffect(() => {
+    setProfileData(JSON.parse(localStorage.getItem("profileData")));
+  }, []);
 
   const active = isActive(pathname);
   return (
@@ -77,20 +89,24 @@ export default function BottomNavbar() {
       </Link>
       <Link href="/help-me">
         <div className="flex flex-col items-center">
-          <Image src="/heart-icon.svg" width={24} height={24} alt="home icon" />
+          <IoIosHelpCircleOutline
+            className={`font-normal text-2xl  ${
+              active === "helpme" ? "text-[#FFBA00]" : "text-[#828282]"
+            }`}
+          />
           <p
             className={`font-normal text-xs leading-[14px] mt-1 ${
               active === "helpme" ? "text-[#FFBA00]" : "text-[#828282]"
             }`}
           >
-            Sevimlilar
+            Yordam
           </p>
         </div>
       </Link>
-      <Link href="/login">
-        <div className="flex flex-col items-center">
-          {
-            active === "login" ? (
+      {profileData ? (
+        <Link href="/profile">
+          <div className="flex flex-col items-center">
+            {active === "profile" ? (
               <Image
                 src="/user-icon1.svg"
                 width={24}
@@ -104,17 +120,44 @@ export default function BottomNavbar() {
                 height={24}
                 alt="home icon"
               />
-            )
-          }
-          <p
-            className={`font-normal text-xs leading-[14px] mt-1 ${
-              active === "login" ? "text-[#FFBA00]" : "text-[#828282]"
-            }`}
-          >
-            Profil
-          </p>
-        </div>
-      </Link>
+            )}
+            <p
+              className={`font-normal text-xs leading-[14px] mt-1 ${
+                active === "profile" ? "text-[#FFBA00]" : "text-[#828282]"
+              }`}
+            >
+              {profileData.fullname || "profile"}
+            </p>
+          </div>
+        </Link>
+      ) : (
+        <Link href="/login">
+          <div className="flex flex-col items-center">
+            {active === "login" ? (
+              <Image
+                src="/user-icon1.svg"
+                width={24}
+                height={24}
+                alt="home icon"
+              />
+            ) : (
+              <Image
+                src="/user-icon.svg"
+                width={24}
+                height={24}
+                alt="home icon"
+              />
+            )}
+            <p
+              className={`font-normal text-xs leading-[14px] mt-1 ${
+                active === "login" ? "text-[#FFBA00]" : "text-[#828282]"
+              }`}
+            >
+              Profil
+            </p>
+          </div>
+        </Link>
+      )}
     </div>
   );
 }

@@ -113,7 +113,7 @@ export default function Navbar() {
             />
           </div>
 
-          <div className="flex w-[200px]  items-center space-x-10 max-sm:space-x-0">
+          <div className="flex w-[200px] max-md:w-max items-center space-x-10 max-sm:space-x-0">
             {profileData ? (
               <Link href={"/profile"}>
                 <button className="max-md:hidden text-[black] font-medium transition-colors flex gap-2 border bg-[#FFBA00] border-[#FFBA00] rounded px-4 py-2">
@@ -133,13 +133,13 @@ export default function Navbar() {
             )}
 
             <div
-              className={`relative flex  justify-end overflow-hidden  transition-all ${
-                isHovered ? "w-[150px]" : "w-max"
+              className={`relative flex  justify-end md:overflow-hidden  transition-all ${
+                isHovered ? "w-[150px] max-md:w-max" : "w-max"
               }`}
               onMouseEnter={() => setIsHovered(true)}
               onMouseLeave={() => setIsHovered(false)}
             >
-              <button className="flex grow-1 w-6 items-center justify-end">
+              <button className="flex grow-1 w-7 items-center justify-end">
                 <Image
                   src={
                     languages.find((lang) => lang.code === selectedLang).flag
@@ -147,13 +147,13 @@ export default function Navbar() {
                   alt={languages.find((lang) => lang.code === selectedLang).alt}
                   width={28}
                   height={20}
-                  className="cursor-pointer h-5 w-7"
+                  className="cursor-pointer w-7"
                 />
               </button>
 
               <div
-                className={`absolute w-max left-[100px flex gap-2 transition-all duration-300 translate-x-2 ${
-                  isHovered ? "left-0" : "left-[100px]"
+                className={`absolute z-[999] max-md:flex max-md:flex-col max-md:top-4 max-md:pt-3 w-max left-[100px flex gap-2 transition-all duration-300 translate-x-2 ${
+                  isHovered ? "left-[0px] max-md:left-[-8px]" : "left-[100px]"
                 }`}
               >
                 {languages
