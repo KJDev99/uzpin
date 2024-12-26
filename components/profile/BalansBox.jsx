@@ -1,6 +1,13 @@
-import React from "react";
+'use client';
+
+import React, { useState } from "react";
+import BalansCardModal from "./BalansCardModal";
 
 export default function BalansBox() {
+  const [isOpen, setIsOpen] = useState(false);
+  const openModal = () => setIsOpen(true);
+  const closeModal = () => setIsOpen(false);
+
   return (
     <div className="p-6 max-w-4xl mx-auto">
       <div className="flex justify-between items-center mb-8">
@@ -43,12 +50,13 @@ export default function BalansBox() {
                 className="w-full p-3 border rounded-lg border-[#E7E7E7] bg-[#F9F9F9] focus:ring-yellow-400"
               />
             </div>
-            <button className="w-full py-3 bg-[#FFC149] hover:bg-[#FFB529] text-black font-medium rounded-lg transition-colors">
+            <button onClick={openModal} className="w-full py-3 bg-[#FFC149] hover:bg-[#FFB529] text-black font-medium rounded-lg transition-colors">
               To&apos;ldirish
             </button>
           </div>
         </div>
       </div>
+      <BalansCardModal isOpen={isOpen} onClose={closeModal} />
     </div>
   );
 }
