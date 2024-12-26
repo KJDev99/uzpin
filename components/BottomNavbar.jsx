@@ -19,6 +19,7 @@ export default function BottomNavbar() {
       case "/login":
         return "login";
       case "/profile":
+      case "/profile/profile-mobile":
       case "/profile/balance":
       case "/profile/purchases":
       case "/profile/transactions":
@@ -104,7 +105,7 @@ export default function BottomNavbar() {
         </div>
       </Link>
       {profileData ? (
-        <Link href="/profile">
+        <Link href="/profile/profile-mobile">
           <div className="flex flex-col items-center">
             {active === "profile" ? (
               <Image

@@ -1,7 +1,9 @@
 "use client";
 
+import axiosInstance from "@/libs/axios";
 import Image from "next/image";
-import { Diamond, Gamepad2 } from "lucide-react";
+import { useEffect, useState } from "react";
+import Loader from "../Loader";
 
 const promoCodes = [
   {
@@ -20,41 +22,37 @@ const promoCodes = [
     image: "/img.png",
     region: "Global",
   },
-  {
-    game: "Free Fire",
-    currency: "Diamonds",
-    amount: 100,
-    price: 100000,
-    image: "/img.png",
-    region: "Global",
-  },
-  {
-    game: "PUBG Mobile",
-    currency: "UC",
-    amount: 180,
-    price: 25900,
-    image: "/img.png",
-    region: "Global",
-  },
-  {
-    game: "Mobile Legends",
-    currency: "Diamonds",
-    amount: 100,
-    price: 80900,
-    image: "/img.png",
-    region: "Global",
-  },
 ];
 
 export default function BestSales() {
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setLoading(true);
+    const fetchStats = async () => {
+      try {
+        const response = await axiosInstance.get(`/client/popular/promocodes`);
+        setData(response.data || []);
+      } catch (error) {
+        console.error("Ma'lumotlarni yuklashda xatolik:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchStats();
+  }, []);
+  if (loading) {
+    return <Loader />;
+  }
   return (
-    <div className="w-full px-0 pt-14 pb-10 max-sm:pt-6 max-sm:pb-0">
+    <div className="w-full px-0 pt-14 pb-10 max-sm:pt-6 max-sm:pb-6">
       <h2 className="text-2xl font-bold mb-4 text-white ml-[140px] max-sm:ml-6 max-sm:font-medium max-sm:text-xl">
         Eng ko&apos;p sotilgan promokodlar
       </h2>
       <div className="overflow-x-auto pb-6 px-20 max-sm:px-6 max-sm:pb-0">
         <div className="flex space-x-4 min-w-full snap-mandatory">
-          {promoCodes.map((promo, index) => (
+          {data.map((promo, index) => (
             <div
               key={index}
               className="flex-shrink-0 w-[270px] snap-center main_card rounded-[10px] max-sm:w-[140px]"
@@ -62,8 +60,8 @@ export default function BestSales() {
               <div className="p-4 max-sm:p-2.5">
                 <div className="relative aspect-square overflow-hidden">
                   <Image
-                    src={promo.image}
-                    alt={promo.game}
+                    src={"/img.png"}
+                    alt={"img"}
                     className="object-cover rounded h-[228px] w-full max-sm:max-w-[120px] max-sm:max-h-[120px]"
                     width={228}
                     height={228}
@@ -91,21 +89,21 @@ export default function BestSales() {
                 <div className="p-4 space-y-3 max-sm:px-0 max-sm:pb-0">
                   <div>
                     <h3 className="font-semibold text-lg text-white max-sm:font-medium max-sm:text-sm">
-                      {promo.game}
+                      {promo.name}
                     </h3>
                     <p className="text-sm text-[#FFBA00] max-sm:text-[10px] font-normal max-sm:hidden">
-                      {promo.region}
+                      Global
                     </p>
                     <p className="text-xs text-[#f9f9f9] mt-[6px] max-sm:text-xs max-sm:font-medium sm:hidden">
-                      {promo.amount} {promo.currency}
+                      {promo.price} Sum
                     </p>
                   </div>
                   <div className="flex justify-between items-center">
                     <p className="text-sm text-[#FFBA00] max-sm:text-[10px] font-normal sm:hidden">
-                      {promo.region}
+                      Global
                     </p>
                     <p className="text-sm text-zinc-400 max-sm:text-xs max-sm:font-medium max-sm:hidden">
-                      {promo.amount} {promo.currency}
+                      {promo.amount} Sum
                     </p>
                     <p className="font-semibold text-white max-sm:text-xs max-sm:font-medium">
                       {promo.price} UZS

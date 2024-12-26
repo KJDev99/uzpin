@@ -6,16 +6,18 @@ import { GoTrash } from "react-icons/go";
 import { PurchaseModal } from "./PurchaseModal";
 import { Alert } from "../Alert";
 import axiosInstance from "@/libs/axios";
+import Loader from "../Loader";
 
 export default function GameStore({ data }) {
   const [cart, setCart] = useState([]);
   const [showPurchaseModal, setShowPurchaseModal] = useState(false);
   // const [showModalMessage, setShowModalMessage] = useState(false);
-
+  const [loading, setLoading] = useState(false);
   const [code, setCode] = useState([]);
   console.log(data);
 
   const fetchStats = async () => {
+    setLoading(true);
     if (data.id) {
       try {
         const response = await axiosInstance.get(
@@ -24,6 +26,8 @@ export default function GameStore({ data }) {
         setCode(response.data || []);
       } catch (error) {
         console.error("Ma'lumotlarni yuklashda xatolik:", error);
+      } finally {
+        setLoading(false);
       }
     }
   };
@@ -78,6 +82,9 @@ export default function GameStore({ data }) {
     setCart([]);
   };
 
+  if (loading) {
+    return <Loader />;
+  }
   return (
     <>
       <div

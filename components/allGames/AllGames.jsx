@@ -8,10 +8,11 @@ import axiosInstance from "@/libs/axios";
 
 export default function AllGames() {
   const [games, setGames] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    setLoading(true);
     const fetchGames = async () => {
       try {
         const response = await axiosInstance.get("/client/games");

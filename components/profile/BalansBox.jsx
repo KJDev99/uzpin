@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import BalansCardModal from "./BalansCardModal";
 import axiosInstance from "@/libs/axios";
+import Loader from "../Loader";
 
 export default function BalansBox() {
   const [isOpen, setIsOpen] = useState(false);
@@ -15,6 +16,8 @@ export default function BalansBox() {
   const [balance, setBalance] = useState();
   const [token, setToken] = useState(null);
   const [fullname, setFullName] = useState(null);
+
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -32,6 +35,7 @@ export default function BalansBox() {
   };
 
   useEffect(() => {
+    setLoading(true);
     const fetchHandle = async () => {
       try {
         const response = await axiosInstance.get("/client/balance", {
@@ -42,10 +46,18 @@ export default function BalansBox() {
         setBalance(response.data);
       } catch (error) {
         console.log(error);
+      } finally {
+        setLoading(false);
       }
     };
-    fetchHandle();
+    if (token) {
+      fetchHandle();
+    }
   }, [token]);
+
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <div className="p-6 max-w-4xl mx-auto">
@@ -130,6 +142,7 @@ export default function BalansBox() {
         onClose={closeModal}
         selectedCurrency={selectedCurrency}
         inputValue={inputValue}
+        setInputValue={setInputValue}
       />
     </div>
   );

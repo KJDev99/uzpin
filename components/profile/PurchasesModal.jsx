@@ -4,7 +4,7 @@ import { X } from "lucide-react";
 import { MdOutlineContentCopy } from "react-icons/md";
 import { GrDocumentDownload } from "react-icons/gr";
 
-export default function PurchasesModal({ isOpen, onClose }) {
+export default function PurchasesModal({ selectedPurchase, isOpen, onClose }) {
   if (!isOpen) {
     return null;
   }

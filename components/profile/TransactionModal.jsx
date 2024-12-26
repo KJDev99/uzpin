@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 
-export default function TransactionModal({ isOpen, onClose }) {
+export default function TransactionModal({ isOpen, onClose, checkUrl }) {
   if (!isOpen) return null;
 
   const handleOverlayClick = (e) => {
@@ -18,7 +18,7 @@ export default function TransactionModal({ isOpen, onClose }) {
     >
       <div className="bg-white rounded-[10px] shadow-lg">
         <div className="flex relative justify-between min-w-10 min-h-10">
-          <Image src="/allgamesbg.png" width={400} height={800} alt="Image 1" />
+          <Image src={checkUrl} width={400} height={800} alt="Image 1" />
         </div>
       </div>
     </div>

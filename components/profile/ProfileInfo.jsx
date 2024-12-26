@@ -2,6 +2,9 @@
 import React, { useEffect, useState } from "react";
 import axiosInstance from "@/libs/axios";
 import { Toast } from "../Toast";
+import { IoIosArrowBack } from "react-icons/io";
+import Link from "next/link";
+import Loader from "../Loader";
 
 export default function ProfilInfo() {
   const [profileData, setProfileData] = useState({
@@ -18,6 +21,7 @@ export default function ProfilInfo() {
   const [error, setError] = useState(false);
 
   const [token, setToken] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -30,6 +34,7 @@ export default function ProfilInfo() {
   }, []);
 
   useEffect(() => {
+    setLoading(true);
     const fetchProfile = async () => {
       if (token) {
         try {
@@ -48,6 +53,8 @@ export default function ProfilInfo() {
           });
         } catch (error) {
           console.error("Failed to fetch profile data", error);
+        } finally {
+          setLoading(false);
         }
       }
     };
@@ -98,6 +105,10 @@ export default function ProfilInfo() {
     }
   };
 
+  if (loading) {
+    return <Loader />;
+  }
+
   return (
     <div className="w-full overflow-hidden ">
       {success && (
@@ -109,11 +120,18 @@ export default function ProfilInfo() {
           text="Malumotlar o'zgartirilmadi! Xatolik yuz berdi"
         />
       )}
-      <div className="px-6 py-4">
-        <h2 className="text-xl font-bold mb-4">Profil ma&apos;lumotlari</h2>
+      <div className="px-6 py-4 max-md:border-b max-md:hidden">
+        <h2 className="text-xl font-bold md:mb-4">Profil ma&apos;lumotlari</h2>
       </div>
+      <Link
+        href={"/profile/profile-mobile"}
+        className="md:px-6 py-4 max-md:border-b flex items-center max-md:gap-5 md:hidden"
+      >
+        <IoIosArrowBack className="text-2xl md:hidden" />
+        <h2 className="text-xl font-bold md:mb-4">Profil ma&apos;lumotlari</h2>
+      </Link>
       <form
-        className="px-6 py-4  border w-full grid grid-cols-2 gap-5"
+        className="px-6 py-4  md:border w-full grid grid-cols-2 max-md:grid-cols-1 gap-5 max-md:mb-10"
         onSubmit={handleSubmit}
       >
         <div className="space-y-2">
@@ -217,7 +235,7 @@ export default function ProfilInfo() {
 
         <button
           type="submit"
-          className="w-full px-4 py-2 bg-[#F7B73B] hover:bg-[#E5A82C] text-black font-medium rounded-md shadow-sm outline-none"
+          className="w-full mt-4 px-4 py-2 bg-[#ffba00] hover:bg-[#ffba00] border-b-2 border-[#313131] text-black font-medium rounded-md shadow-sm outline-none"
         >
           Saqlash
         </button>

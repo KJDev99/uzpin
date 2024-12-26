@@ -41,8 +41,8 @@ export function Sidebar() {
   const pathname = usePathname();
 
   return (
-    <div className="absolute left-0 z-30 h-[610px] w-[380px] rounded-[8px] shadow-lg">
-      <div className="h-full py-6">
+    <div className="absolute left-0 z-30 h-[610px] w-[380px] rounded-[8px] md:shadow-lg max-md:h-max">
+      <div className="h-full py-2">
         <div className="px-3 py-2">
           {sidebarItems.map((item) => (
             <button
@@ -54,7 +54,7 @@ export function Sidebar() {
               }`}
             >
               <Link
-                className="flex items-center gap-4 px-5 py-3"
+                className="flex items-center gap-4 px-2 py-3"
                 href={item.href}
               >
                 <item.icon className=" h-6 w-6" />

@@ -13,8 +13,8 @@ export default function BalansCardModal({
   onClose,
   selectedCurrency,
   inputValue,
+  setInputValue,
 }) {
- main
   const modalRef = useRef(null);
   const [selectedFile, setSelectedFile] = useState(null);
   const [error, setError] = useState(false);
@@ -75,6 +75,8 @@ export default function BalansCardModal({
       console.log(error);
     } finally {
       setTimeout(() => {
+        setInputValue("");
+        setPhoto("");
         onClose();
         setError(false);
         setSuccess(false);

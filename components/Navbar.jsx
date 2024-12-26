@@ -115,14 +115,16 @@ export default function Navbar() {
 
           <div className="flex w-[200px] max-md:w-max items-center space-x-10 max-sm:space-x-0">
             {profileData ? (
-              <Link href={"/profile"}>
-                <button className="max-md:hidden text-[black] font-medium transition-colors flex gap-2 border bg-[#FFBA00] border-[#FFBA00] rounded px-4 py-2">
-                  <PiUser className="h-5 text-lg font-bold" />
-                  {!isHovered && (
-                    <p className="font-bold">{profileData.fullname}</p>
-                  )}
-                </button>
-              </Link>
+              <>
+                <Link href={"/profile"}>
+                  <button className="max-md:hidden text-[black] font-medium transition-colors flex gap-2 border bg-[#FFBA00] border-[#FFBA00] rounded px-4 py-2">
+                    <PiUser className="h-5 text-lg font-bold" />
+                    {!isHovered && (
+                      <p className="font-bold">{profileData.fullname}</p>
+                    )}
+                  </button>
+                </Link>
+              </>
             ) : (
               <Link href={"/login"}>
                 <button className="max-md:hidden text-[#ACACAC]  transition-colors flex gap-2 border border-[#ACACAC] rounded px-4 py-2">
