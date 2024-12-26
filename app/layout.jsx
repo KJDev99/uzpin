@@ -3,6 +3,7 @@ import "./globals.css";
 import Footer from "@/components/Footer";
 import Head from "next/head";
 import BottomNavbar from "@/components/BottomNavbar";
+import ClientProvider from "@/components/ClientProvider";
 
 export const metadata = {
   title: "UZpin",
@@ -16,10 +17,12 @@ export default function RootLayout({ children }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <body>
-        <Navbar />
-        {children}
-        <BottomNavbar/>
-        <Footer />
+        <ClientProvider>
+          <Navbar />
+          {children}
+          <BottomNavbar />
+          <Footer />
+        </ClientProvider>
       </body>
     </html>
   );
