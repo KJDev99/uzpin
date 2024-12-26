@@ -6,11 +6,9 @@ import Image from "next/image";
 import { MdOutlineContentCopy } from "react-icons/md";
 
 export default function BalansCardModal({ isOpen, onClose }) {
-  // Hooklar har doim chaqiriladi
   const modalRef = useRef(null);
   const [selectedFile, setSelectedFile] = useState(null);
 
-  // Modal ochiq bo'lmasa, hech narsa ko'rsatilmaydi
   if (!isOpen) {
     return null;
   }
@@ -38,7 +36,8 @@ export default function BalansCardModal({ isOpen, onClose }) {
         <div className="flex relative justify-between min-w-10 min-h-10">
           <div className="w-[682px] mt-8 ml-8 mb-8">
             <p className="font-medium text-[20px] leading-[22px]">
-              To’lovni amalga oshirish uchun quyidagi kartalardan birini tanlang
+              To&apos;lovni amalga oshirish uchun quyidagi kartalardan birini
+              tanlang
             </p>
             <div className="flex gap-[30px] mt-[18px]">
               {images.map((image) => (
@@ -54,7 +53,7 @@ export default function BalansCardModal({ isOpen, onClose }) {
               ))}
             </div>
             <p className="mt-[38px] font-medium text-[20px] leading-[22px]">
-              Pul o’tkazmasi chekini yuklang
+              Pul o&apos;tkazmasi chekini yuklang
             </p>
             <div
               className={`max-w-[482px] mt-5 p-[35px] mx-auto border-2 border-gray-500 border-dashed rounded-lg text-center ${
@@ -69,7 +68,7 @@ export default function BalansCardModal({ isOpen, onClose }) {
                 alt="img"
               />
               <p className="mt-2.5 text-[14px] leading-4 text-[#828282]">
-                Nusxa olingan chekni qo’ying
+                Nusxa olingan chekni qo&apos;ying
               </p>
               <p className="mt-2.5 text-[14px] leading-4 text-[#828282]">
                 yoki
@@ -125,9 +124,9 @@ export default function BalansCardModal({ isOpen, onClose }) {
               Karta raqamidan nusxa olish
             </button>
             <p className="mt-[87px] text-[14px] leading-[18px]">
-              *Balansni to’ldirishda muammoga duch kelsangiz Telegram orqali{" "}
-              <a href="t.me/Barbossa_gaming">@Barbossa_gaming</a> ga murojaat
-              qiling
+              *Balansni to&apos;ldirishda muammoga duch kelsangiz Telegram
+              orqali <a href="t.me/Barbossa_gaming">@Barbossa_gaming</a> ga
+              murojaat qiling
             </p>
           </div>
           <button onClick={onClose} className="absolute top-2 right-2">
