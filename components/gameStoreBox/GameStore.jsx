@@ -10,7 +10,7 @@ import axiosInstance from "@/libs/axios";
 export default function GameStore({ data }) {
   const [cart, setCart] = useState([]);
   const [showPurchaseModal, setShowPurchaseModal] = useState(false);
-  const [showModalMessage, setShowModalMessage] = useState(false);
+  // const [showModalMessage, setShowModalMessage] = useState(false);
 
   const [code, setCode] = useState([]);
   console.log(data);
@@ -119,7 +119,7 @@ export default function GameStore({ data }) {
             {code.map((pkg) => (
               <div
                 key={pkg.id}
-                className="rounded-lg p-4 border hover:border-[#FFBA00] transition-all ease-linear bg-white max-sm:p-0"
+                className="rounded-lg p-4 border hover:border-[#FFBA00] transition-all ease-linear bg-white max-sm:p-0 h-max"
               >
                 <div className="flex flex-col max-sm:px-[10px] max-sm:pb-[10px] max-sm:pt-5">
                   <Image
@@ -212,11 +212,14 @@ export default function GameStore({ data }) {
                   </div>
                 </div>
                 <div className="mt-6 space-y-2 max-sm:flex max-sm:items-center max-sm:gap-5 max-sm:mt-[11px] max-sm:space-y-0">
-                  <button className="w-full py-2 bg-[#FFBA00] rounded text-black font-medium mb-[10px] border-b-2 border-[black] max-sm:m-0">
+                  <button
+                    onClick={() => setShowPurchaseModal(1)}
+                    className="w-full py-2 bg-[#FFBA00] rounded text-black font-medium mb-[10px] border-b-2 border-[black] max-sm:m-0"
+                  >
                     Sotib olish
                   </button>
                   <button
-                    onClick={() => setShowPurchaseModal(true)}
+                    onClick={() => setShowPurchaseModal(2)}
                     className="w-full py-2 bg-[#FFBA00] rounded text-black font-medium border-b-2 border-[black]"
                   >
                     ID orqali olish
@@ -242,10 +245,10 @@ export default function GameStore({ data }) {
             cart={cart}
             totalUC={totalUC}
             totalPrice={totalPrice}
-            openModal={() => setShowModalMessage(true)}
+            // openModal={() => setShowModalMessage(true)}
           />
         )}
-        {showModalMessage && (
+        {/* {showModalMessage && (
           <Alert
             isOpen={showModalMessage}
             onClose={() => setShowModalMessage(false)}
@@ -253,7 +256,7 @@ export default function GameStore({ data }) {
             title="Muvaffaqiyatli bajarildi!"
             message="Iltimos haridingiz tasdiqlanishini kuting"
           />
-        )}
+        )} */}
       </div>
     </>
   );

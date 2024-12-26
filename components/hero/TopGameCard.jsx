@@ -38,7 +38,7 @@ export default function TopGameCards() {
   return (
     <div className="w-full px-0 py-6">
       <h2 className="text-2xl font-bold mb-4 text-white ml-[140px] max-sm:ml-6 max-sm:text-[20px]">
-        Ommabop o&apos;yinlar
+        O&apos;yinlar
       </h2>
       <div className="overflow-x-auto pb-6 pl-20 max-sm:pl-[10px]">
         <div className="flex space-x-4 min-w-full snap-mandatory">
