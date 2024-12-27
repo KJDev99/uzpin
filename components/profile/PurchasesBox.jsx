@@ -17,6 +17,8 @@ export default function PurchasesBox() {
 
   const openModal = (purchase) => {
     setSelectedPurchase(purchase);
+    console.log(purchase, "iddd");
+
     setIsOpen(true);
   };
 
@@ -167,7 +169,7 @@ export default function PurchasesBox() {
       <PurchasesModal
         isOpen={isOpen}
         onClose={closeModal}
-        purchase={selectedPurchase}
+        selectedPurchase={selectedPurchase}
       />
     </div>
   );

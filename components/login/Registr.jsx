@@ -9,7 +9,7 @@ import { IoLogoApple } from "react-icons/io5";
 import { signIn } from "next-auth/react";
 import axiosInstance from "@/libs/axios";
 
-export default function Register({ setLogin, loginCount }) {
+export default function Register({ setLogin, loginCount, setMainEmail }) {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -67,6 +67,7 @@ export default function Register({ setLogin, loginCount }) {
         );
         console.log("Server javobi:", response.data);
         setLogin(5);
+        setMainEmail(email);
       } catch (error) {
         console.error("Xatolik yuz berdi:", error);
         alert("Xatolik yuz berdi! Qaytadan urinib ko'ring.");

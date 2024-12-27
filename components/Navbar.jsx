@@ -127,9 +127,9 @@ export default function Navbar() {
               </>
             ) : (
               <Link href={"/login"}>
-                <button className="max-md:hidden text-[#ACACAC]  transition-colors flex gap-2 border border-[#ACACAC] rounded px-4 py-2">
-                  <PiUser className="h-5" />
-                  {i18n.t("login")}
+                <button className="max-md:hidden text-[#ACACAC] font-medium transition-colors flex gap-2 border border-[#ACACAC] rounded px-4 py-2">
+                  <PiUser className="h-5 text-lg font-bold" />
+                  {!isHovered && <p>{i18n.t("login")}</p>}
                 </button>
               </Link>
             )}

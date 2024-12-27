@@ -9,18 +9,43 @@ import PasswordVerify from "@/components/login/PasswordVerify";
 
 export default function Page() {
   const [loginCount, setLogin] = useState(1);
+  const [mainEmail, setMainEmail] = useState();
   const renderComponent = () => {
     switch (loginCount) {
       case 1:
         return <Login setLogin={setLogin} loginCount={loginCount} />;
       case 2:
-        return <Register setLogin={setLogin} loginCount={loginCount} />;
+        return (
+          <Register
+            setLogin={setLogin}
+            loginCount={loginCount}
+            setMainEmail={setMainEmail}
+          />
+        );
       case 3:
-        return <ForgetPassword setLogin={setLogin} loginCount={loginCount} />;
+        return (
+          <ForgetPassword
+            setLogin={setLogin}
+            loginCount={loginCount}
+            setMainEmail={setMainEmail}
+          />
+        );
       case 4:
-        return <PasswordCheck setLogin={setLogin} loginCount={loginCount} />;
+        return (
+          <PasswordCheck
+            mainEmail={mainEmail}
+            setLogin={setLogin}
+            loginCount={loginCount}
+          />
+        );
       case 5:
-        return <PasswordVerify setLogin={setLogin} loginCount={loginCount} />;
+        return (
+          <PasswordVerify
+            setLogin={setLogin}
+            loginCount={loginCount}
+            mainEmail={mainEmail}
+          />
+        );
       case 6:
         return <NewPasswrod setLogin={setLogin} loginCount={loginCount} />;
     }

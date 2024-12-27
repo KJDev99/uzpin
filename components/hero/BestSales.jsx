@@ -5,25 +5,6 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import Loader from "../Loader";
 
-const promoCodes = [
-  {
-    game: "PUBG Mobile",
-    currency: "UC",
-    amount: 60,
-    price: 12900,
-    image: "/img.png",
-    region: "Global",
-  },
-  {
-    game: "Mobile Legends",
-    currency: "Diamonds",
-    amount: 100,
-    price: 80900,
-    image: "/img.png",
-    region: "Global",
-  },
-];
-
 export default function BestSales() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -34,6 +15,7 @@ export default function BestSales() {
       try {
         const response = await axiosInstance.get(`/client/popular/promocodes`);
         setData(response.data || []);
+        console.log(response.data);
       } catch (error) {
         console.error("Ma'lumotlarni yuklashda xatolik:", error);
       } finally {
@@ -59,31 +41,31 @@ export default function BestSales() {
             >
               <div className="p-4 max-sm:p-2.5">
                 <div className="relative aspect-square overflow-hidden">
-                  <Image
-                    src={"/img.png"}
-                    alt={"img"}
-                    className="object-cover rounded h-[228px] w-full max-sm:max-w-[120px] max-sm:max-h-[120px]"
-                    width={228}
-                    height={228}
-                  />
+                  {promo.photo ? (
+                    <Image
+                      src={`${promo.photo}`}
+                      alt={"img"}
+                      className="object-cover rounded h-[228px] w-full max-sm:max-w-[120px] max-sm:max-h-[120px]"
+                      width={228}
+                      height={228}
+                    />
+                  ) : (
+                    <Image
+                      src={`/img.png`}
+                      alt={"img"}
+                      className="object-cover rounded h-[228px] w-full max-sm:max-w-[120px] max-sm:max-h-[120px]"
+                      width={228}
+                      height={228}
+                    />
+                  )}
                   <div className="absolute bottom-1 pb-5 rounded-b left-[50%] flex items-center justify-center gap-2 translate-x-[-50%] bg_linear_card w-full max-sm:hidden">
-                    {promo.currency === "Diamonds" ? (
-                      <Image
-                        src={"/diamond.png"}
-                        height={97}
-                        width={134}
-                        className="w-[134px] h-[97px]"
-                        alt="diamong"
-                      />
-                    ) : (
-                      <Image
-                        src={"/uc.png"}
-                        height={109}
-                        width={122}
-                        className="w-[122px] h-[109px]"
-                        alt="diamong"
-                      />
-                    )}
+                    <Image
+                      src={"/uc.png"}
+                      height={109}
+                      width={122}
+                      className="w-[122px] h-[109px]"
+                      alt="diamong"
+                    />
                   </div>
                 </div>
                 <div className="p-4 space-y-3 max-sm:px-0 max-sm:pb-0">
@@ -94,16 +76,13 @@ export default function BestSales() {
                     <p className="text-sm text-[#FFBA00] max-sm:text-[10px] font-normal max-sm:hidden">
                       Global
                     </p>
-                    <p className="text-xs text-[#f9f9f9] mt-[6px] max-sm:text-xs max-sm:font-medium sm:hidden">
-                      {promo.price} Sum
-                    </p>
                   </div>
                   <div className="flex justify-between items-center">
                     <p className="text-sm text-[#FFBA00] max-sm:text-[10px] font-normal sm:hidden">
                       Global
                     </p>
                     <p className="text-sm text-zinc-400 max-sm:text-xs max-sm:font-medium max-sm:hidden">
-                      {promo.amount} Sum
+                      {promo.name}
                     </p>
                     <p className="font-semibold text-white max-sm:text-xs max-sm:font-medium">
                       {promo.price} UZS

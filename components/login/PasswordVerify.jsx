@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRef, useState } from "react";
 import { Toast } from "../Toast";
 
-export default function PasswordVerify({ setLogin }) {
+export default function PasswordVerify({ setLogin, mainEmail }) {
   const [code, setCode] = useState(["", "", "", ""]);
   const [disabledBtn, setDisabledBtn] = useState(true);
   const [error, setError] = useState();
@@ -41,6 +41,7 @@ export default function PasswordVerify({ setLogin }) {
       try {
         await axiosInstance.post("client/auth/verify", {
           code: enteredCode,
+          email: mainEmail,
         });
         setLogin(1);
       } catch (error) {

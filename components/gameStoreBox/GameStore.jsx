@@ -128,14 +128,24 @@ export default function GameStore({ data }) {
                 key={pkg.id}
                 className="rounded-lg p-4 border hover:border-[#FFBA00] transition-all ease-linear bg-white max-sm:p-0 h-max"
               >
-                <div className="flex flex-col max-sm:px-[10px] max-sm:pb-[10px] max-sm:pt-5">
-                  <Image
-                    src="/uccard.png"
-                    alt={`${pkg.name} UC`}
-                    width={190}
-                    height={190}
-                    className="mb-4 w-full max-sm:w-[126px] max-sm:h-[126px] max-sm:mx-auto"
-                  />
+                <div className="flex flex-col max-sm:px-[10px]  max-sm:pb-[10px] max-sm:pt-5">
+                  {pkg.photo ? (
+                    <Image
+                      src={pkg.photo}
+                      alt={`${pkg.name} UC`}
+                      width={190}
+                      height={190}
+                      className="mb-4 w-full max-sm:w-[126px] h-[190px] max-sm:h-[126px] max-sm:mx-auto"
+                    />
+                  ) : (
+                    <Image
+                      src="/uccard.png"
+                      alt={`${pkg.name} UC`}
+                      width={190}
+                      height={190}
+                      className="mb-4 w-full max-sm:w-[126px] max-sm:h-[126px] max-sm:mx-auto"
+                    />
+                  )}
                   <h3 className="text-xl font-bold mb-2 max-sm:font-medium max-sm:text-sm">
                     {pkg.name}
                   </h3>
@@ -144,7 +154,7 @@ export default function GameStore({ data }) {
                       {pkg.price.toLocaleString()} UZS
                     </p>
                     <p className="text-[#828282] text-xs mb-4 max-sm:text-[10px] max-sm:leading-[11px]">
-                      Sotuvda bor: 0
+                      Sotuvda bor: {pkg.count}
                     </p>
                   </div>
                   <div className="flex justify-between items-center gap-2">

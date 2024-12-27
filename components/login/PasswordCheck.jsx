@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRef, useState } from "react";
 import { Toast } from "../Toast";
 
-export default function PasswordCheck({ setLogin }) {
+export default function PasswordCheck({ setLogin, mainEmail }) {
   const [code, setCode] = useState(["", "", "", ""]);
   const [disabledBtn, setDisabledBtn] = useState(true);
   const [error, setError] = useState();
@@ -40,6 +40,7 @@ export default function PasswordCheck({ setLogin }) {
       const enteredCode = code.join("");
       try {
         await axiosInstance.post("client/auth/reset/verify", {
+          email: mainEmail,
           code: enteredCode,
         });
         setLogin(6);
@@ -65,10 +66,10 @@ export default function PasswordCheck({ setLogin }) {
         </div>
         <div className="flex flex-col gap-4">
           <h2 className="text-[#141311] font-medium text-center text-3xl">
-            Tasdiqlash
+            Tasdiqlash.
           </h2>
           <p className="mb-3 text-center text-[#909090] text-sm">
-            Telefon raqamingizga yuborilgan 4 xonali kodni kiriting
+            Emailingizga yuborilgan 4 xonali kodni kiriting
           </p>
         </div>
         <form onSubmit={handleSubmit}>
@@ -89,7 +90,7 @@ export default function PasswordCheck({ setLogin }) {
 
           <button
             id="submit-button"
-            onClick={() => setLogin(5)}
+            onClick={() => setLogin(4)}
             disabled={disabledBtn}
             className="w-full bg-[#FFBA00] text-[#313131] py-2 px-4 rounded-lg mt-2 font-medium border-2 border-[transparent] border-b-[#313131] disabled:bg-gray-300 disabled:border-none disabled:cursor-not-allowed"
           >

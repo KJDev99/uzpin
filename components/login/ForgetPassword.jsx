@@ -3,11 +3,13 @@ import Link from "next/link";
 import { useState } from "react";
 import { Toast } from "../Toast";
 import axiosInstance from "@/libs/axios";
+import { useRouter } from "next/navigation";
 
-export default function ForgetPassword({ setLogin, loginCount }) {
+export default function ForgetPassword({ setLogin, loginCount, setMainEmail }) {
   const [inputValue, setInputValue] = useState("");
   const [error, setError] = useState(false);
 
+  const rounter = useRouter();
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -21,6 +23,7 @@ export default function ForgetPassword({ setLogin, loginCount }) {
         });
         rounter.push("");
         setLogin(4);
+        setMainEmail(inputValue);
       } catch (error) {
         console.error("Xatolik yuz berdi:", error);
         setError(true);
