@@ -7,6 +7,7 @@ import { MdOutlineContentCopy } from "react-icons/md";
 import UploadComponent from "../UploadComponent";
 import axiosInstance from "@/libs/axios";
 import { Alert } from "../Alert";
+import Loader from "../Loader";
 
 export default function BalansCardModal({
   isOpen,
@@ -21,6 +22,8 @@ export default function BalansCardModal({
   const [success, setSuccess] = useState(false);
   const [photo, setPhoto] = useState("");
   const [token, setToken] = useState(null);
+  const [cart, setCart] = useState();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (typeof window !== "undefined" && isOpen) {
@@ -31,6 +34,31 @@ export default function BalansCardModal({
       }
     }
   }, [isOpen]);
+
+  useEffect(() => {
+    setLoading(true);
+    const fetchCard = async () => {
+      try {
+        const response = await axiosInstance.get(
+          `/client/card/${selectedCurrency}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        setCart(response.data);
+        console.log(response.data);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    if (token) {
+      fetchCard();
+    }
+  }, [token, selectedCurrency]);
 
   if (!isOpen) {
     return null;
@@ -83,6 +111,8 @@ export default function BalansCardModal({
       }, 3000);
     }
   };
+
+  if (loading) <Loader />;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0">
