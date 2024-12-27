@@ -50,7 +50,7 @@ export default function BalansCardModal({
 
   const clearFile = () => {
     modalRef.current.value = "";
-    setSelectedFile('');
+    setPhoto('');
   };
 
   const fetchHandle = async () => {
@@ -143,7 +143,7 @@ export default function BalansCardModal({
               <p className="mt-2.5 text-[14px] leading-4 text-[#828282]">
                 yoki
               </p>
-              <div className="">
+              <div className="hidden">
                 <UploadComponent
                   triggerRef={modalRef}
                   onUploadSuccess={(url) => handleUploadSuccess("cover", url)}
