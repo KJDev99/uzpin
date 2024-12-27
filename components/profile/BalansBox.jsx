@@ -6,11 +6,13 @@ import axiosInstance from "@/libs/axios";
 import Loader from "../Loader";
 import Link from "next/link";
 import { IoIosArrowBack } from "react-icons/io";
+import Image from "next/image";
 
 export default function BalansBox() {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedCurrency, setSelectedCurrency] = useState("UZS");
   const [inputValue, setInputValue] = useState("");
+  const [visibleCard, setVisibleCard] = useState(false);
 
   const openModal = () => setIsOpen(true);
   const closeModal = () => setIsOpen(false);
@@ -20,6 +22,10 @@ export default function BalansBox() {
   const [fullname, setFullName] = useState(null);
 
   const [loading, setLoading] = useState(false);
+
+  const toggleCardVisibile = () => {
+    setVisibleCard((prev) => !prev);
+  };
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -56,6 +62,13 @@ export default function BalansBox() {
       fetchHandle();
     }
   }, [token]);
+
+  const images = [
+    { id: 1, src: "/allgamesbg.png", alt: "Image 1" },
+    { id: 2, src: "/allgamesbg.png", alt: "Image 2" },
+    { id: 3, src: "/allgamesbg.png", alt: "Image 3" },
+    { id: 4, src: "/allgamesbg.png", alt: "Image 4" },
+  ];
 
   if (loading) {
     return <Loader />;
@@ -187,10 +200,44 @@ export default function BalansBox() {
             </div>
             <button
               onClick={openModal}
-              className="w-full py-3 bg-[#FFC149] hover:bg-[#FFB529] text-black font-medium rounded-lg transition-colors"
+              className="w-full py-3 bg-[#FFC149] hover:bg-[#FFB529] text-black font-medium rounded-lg transition-colors max-sm:hidden"
             >
               To&apos;ldirish
             </button>
+            <button
+              onClick={toggleCardVisibile}
+              className="w-full py-3 bg-[#FFC149] hover:bg-[#FFB529] text-black font-medium rounded-lg transition-colors sm:hidden"
+            >
+              To&apos;ldirish
+            </button>
+          </div>
+          {/* {visibleCard && <BalansCardModal />} */}
+          <div className={`${visibleCard ? "block" : "hidden"}`}>
+            <div>
+              <h3 className="font-semibold text-[16px]">Kartani tanlang</h3>
+              <p className="mt-2.5 font-medium text-[#313131] text-[14px]">
+                To’lovni amalga oshirish uchun quyidagi kartalardan birini
+                tanlang.
+              </p>
+              <div className="flex flex-wrap gap-[11px] mt-6">
+                {images.map((image) => (
+                  <div key={image.id} className='rounded-[5px] border border-[#ffba00] p-1'>
+                    <Image
+                      src={image.src}
+                      className="rounded-[3px] w-[72px] h-[45px]"
+                      width={72}
+                      height={45}
+                      alt={image.alt}
+                    />
+                    <p className="mt-[6px] font-normal text-[14px] text-[#313131]">Uzcard</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              
+            </div>
           </div>
         </div>
       </div>

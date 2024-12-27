@@ -1,10 +1,15 @@
+"use client";
 import Link from "next/link";
 import Image from "next/image";
-import { DollarSign, GamepadIcon, ShieldCheck, Users } from "lucide-react";
 import { RiTelegram2Fill } from "react-icons/ri";
 import { FaInstagram } from "react-icons/fa6";
+import { usePathname } from "next/navigation";
 
 export default function Footer() {
+  const pathname = usePathname();
+
+  if (pathname == "/login") return false;
+
   return (
     <footer className="footer bg-black text-gray-400">
       <div className="max-w-7xl mx-auto py-8 border-b border-gray-800">

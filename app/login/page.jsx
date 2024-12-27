@@ -52,8 +52,13 @@ export default function Page() {
   };
 
   return (
-    <div className="login_bg absolute left-0 top-0 min-h-screen max-h-max py-[30px] w-full flex justify-center items-center">
-      {renderComponent()}
-    </div>
+    <>
+      <div className="login_bg max-md:hidden absolute left-0 top-0 min-h-screen max-h-max py-[30px] w-full flex justify-center items-center z-[99]">
+        {renderComponent()}
+      </div>
+      <div className="bg-[white] md:hidden absolute left-0 top-0 min-h-screen max-h-max py-[30px] w-full flex justify-center items-center z-[99]">
+        {renderComponent()}
+      </div>
+    </>
   );
 }

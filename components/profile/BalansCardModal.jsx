@@ -7,6 +7,7 @@ import { MdOutlineContentCopy } from "react-icons/md";
 import UploadComponent from "../UploadComponent";
 import axiosInstance from "@/libs/axios";
 import { Alert } from "../Alert";
+import Loader from "../Loader";
 
 export default function BalansCardModal({
   isOpen,
@@ -16,12 +17,12 @@ export default function BalansCardModal({
   setInputValue,
 }) {
   const modalRef = useRef(null);
-  const [selectedFile, setSelectedFile] = useState(null);
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
   const [photo, setPhoto] = useState("");
   const [token, setToken] = useState(null);
-
+  const [cart, setCart] = useState();
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (typeof window !== "undefined" && isOpen) {
@@ -32,6 +33,31 @@ export default function BalansCardModal({
       }
     }
   }, [isOpen]);
+
+  useEffect(() => {
+    setLoading(true);
+    const fetchCard = async () => {
+      try {
+        const response = await axiosInstance.get(
+          `/client/card/${selectedCurrency}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        setCart(response.data);
+        console.log(response.data);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    if (token) {
+      fetchCard();
+    }
+  }, [token, selectedCurrency]);
 
   if (!isOpen) {
     return null;
@@ -50,7 +76,7 @@ export default function BalansCardModal({
 
   const clearFile = () => {
     modalRef.current.value = "";
-    setPhoto('');
+    setPhoto("");
   };
 
   const fetchHandle = async () => {
@@ -86,6 +112,8 @@ export default function BalansCardModal({
     }
   };
 
+  if (loading) <Loader />;
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0">
       {error && (
@@ -103,7 +131,7 @@ export default function BalansCardModal({
         />
       )}
       <div className="bg-white rounded-[10px] shadow-lg">
-        <div className="flex relative justify-between min-w-10 min-h-10">
+        <div className="flex relative justify-between">
           <div className="w-[682px] mt-8 ml-8 mb-8">
             <p className="font-medium text-[20px] leading-[22px]">
               To&apos;lovni amalga oshirish uchun quyidagi kartalardan birini
