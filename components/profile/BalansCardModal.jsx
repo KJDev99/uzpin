@@ -22,6 +22,7 @@ export default function BalansCardModal({
   const [photo, setPhoto] = useState("");
   const [token, setToken] = useState(null);
 
+
   useEffect(() => {
     if (typeof window !== "undefined" && isOpen) {
       const storedProfileData = localStorage.getItem("profileData");
@@ -49,6 +50,7 @@ export default function BalansCardModal({
 
   const clearFile = () => {
     modalRef.current.value = "";
+    setSelectedFile('');
   };
 
   const fetchHandle = async () => {
@@ -141,9 +143,12 @@ export default function BalansCardModal({
               <p className="mt-2.5 text-[14px] leading-4 text-[#828282]">
                 yoki
               </p>
-              <UploadComponent
-                onUploadSuccess={(url) => handleUploadSuccess("cover", url)}
-              />
+              <div className="">
+                <UploadComponent
+                  triggerRef={modalRef}
+                  onUploadSuccess={(url) => handleUploadSuccess("cover", url)}
+                />
+              </div>
               <button
                 onClick={() => modalRef.current.click()}
                 className="mt-2.5 font-medium text-xl border border-black py-2 px-8 rounded-[10px]"

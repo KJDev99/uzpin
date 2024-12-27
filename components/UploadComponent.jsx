@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import axiosInstance from "@/libs/axios";
 
-const UploadComponent = ({ onUploadSuccess }) => {
+const UploadComponent = ({ onUploadSuccess, triggerRef }) => {
   const [uploading, setUploading] = useState(false);
 
   const handleFileChange = async () => {
@@ -30,6 +30,7 @@ const UploadComponent = ({ onUploadSuccess }) => {
 
   return (
     <input
+      ref={triggerRef}
       type="file"
       accept="image/*,video/*"
       onChange={handleFileChange}
