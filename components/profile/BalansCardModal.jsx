@@ -3,7 +3,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { X } from "lucide-react";
 import Image from "next/image";
-import { MdOutlineContentCopy } from "react-icons/md";
+import { MdCheck, MdOutlineContentCopy } from "react-icons/md";
 import UploadComponent from "../UploadComponent";
 import axiosInstance from "@/libs/axios";
 import { Alert } from "../Alert";
@@ -21,8 +21,29 @@ export default function BalansCardModal({
   const [success, setSuccess] = useState(false);
   const [photo, setPhoto] = useState("");
   const [token, setToken] = useState(null);
-  const [cart, setCart] = useState();
+  const [cart, setCart] = useState([]);
   const [loading, setLoading] = useState(false);
+
+  const [selectedCard, setSelectedCard] = useState(null);
+
+  const [copied, setCopied] = useState(false);
+  const handleCardSelect = (card) => {
+    setSelectedCard(card);
+  };
+
+  const copyCardNumber = () => {
+    if (selectedCard.card_number) {
+      navigator.clipboard
+        .writeText(selectedCard.card_number)
+        .then(() => {
+          setCopied(true);
+          setTimeout(() => setCopied(false), 4000);
+        })
+        .catch(() => {
+          console.log("Karta raqamini nusxalashda xatolik yuz berdi.");
+        });
+    }
+  };
 
   useEffect(() => {
     if (typeof window !== "undefined" && isOpen) {
@@ -63,13 +84,6 @@ export default function BalansCardModal({
     return null;
   }
 
-  const images = [
-    { id: 1, src: "/allgamesbg.png", alt: "Image 1" },
-    { id: 2, src: "/allgamesbg.png", alt: "Image 2" },
-    { id: 3, src: "/allgamesbg.png", alt: "Image 3" },
-    { id: 4, src: "/allgamesbg.png", alt: "Image 4" },
-  ];
-
   const handleUploadSuccess = (key, url) => {
     setPhoto(url);
   };
@@ -85,6 +99,7 @@ export default function BalansCardModal({
       amount: inputValue,
       chek: photo,
       from_bot: true,
+      card: selectedCard.id,
     };
 
     try {
@@ -138,17 +153,22 @@ export default function BalansCardModal({
               tanlang
             </p>
             <div className="flex gap-[30px] mt-[18px]">
-              {images.map((image) => (
-                <div key={image.id}>
-                  <Image
-                    src={image.src}
-                    className="rounded-[5px] w-[123px] h-[77px]"
-                    width={123}
-                    height={77}
-                    alt={image.alt}
-                  />
-                </div>
-              ))}
+              {cart.length > 0 &&
+                cart.map((card) => (
+                  <div key={card.id} onClick={() => handleCardSelect(card)}>
+                    <Image
+                      src={card.photo}
+                      className={`rounded-[5px] w-[127px] h-[81px] p-1  cursor-pointer border-2 ${
+                        selectedCard?.id === card.id
+                          ? " border-[#ffbb00]"
+                          : " border-[#fff]"
+                      }`}
+                      width={123}
+                      height={77}
+                      alt={card.card_name}
+                    />
+                  </div>
+                ))}
             </div>
             <p className="mt-[38px] font-medium text-[20px] leading-[22px]">
               Pul o&apos;tkazmasi chekini yuklang
@@ -203,29 +223,41 @@ export default function BalansCardModal({
               </div>
             )}
           </div>
-
-          <div className="w-[310px] px-[24px] pt-8 pb-8 bg-[#f9f9f9] rounded-tr-[10px] rounded-br-[10px]">
-            <p className="font-semibold text-[24px] leading-[28px]">UZCARD</p>
-            <p className="mt-2.5 font-semibold text-[24px] leading-[28px]">
-              Sherzodjon Akramov
-            </p>
-            <Image
-              src="/allgamesbg.png"
-              className="mt-5 rounded-xl w-[241px] h-[152px]"
-              width={241}
-              height={152}
-              alt="img"
-            />
-            <button className="flex items-center gap-[5px] mt-10 py-[10px] px-[15px] font-medium text-[16px] leading-[18px] bg-[#ffba00] rounded-[10px]">
-              <MdOutlineContentCopy size={24} />
-              Karta raqamidan nusxa olish
-            </button>
-            <p className="mt-[87px] text-[14px] leading-[18px]">
-              *Balansni to&apos;ldirishda muammoga duch kelsangiz Telegram
-              orqali <a href="t.me/Barbossa_gaming">@Barbossa_gaming</a> ga
-              murojaat qiling
-            </p>
-          </div>
+          {selectedCard && (
+            <div className="w-[310px] px-[24px] pt-8 pb-8 bg-[#f9f9f9] rounded-tr-[10px] rounded-br-[10px]">
+              <p className="font-semibold text-[24px] leading-[28px]">
+                {selectedCard.card_name}
+              </p>
+              <p className="mt-2.5 font-semibold text-[24px] leading-[28px]">
+                {selectedCard.card_holder}
+              </p>
+              <Image
+                src={selectedCard.photo}
+                className="mt-5 rounded-xl w-[241px] h-[152px]"
+                width={241}
+                height={152}
+                alt="img"
+              />
+              <button
+                className="flex items-center gap-[5px] mt-10 py-[10px] px-[15px] font-medium text-[16px] leading-[18px] bg-[#ffba00] rounded-[10px]"
+                onClick={copyCardNumber}
+              >
+                {copied ? (
+                  <MdCheck size={24} />
+                ) : (
+                  <MdOutlineContentCopy size={24} />
+                )}
+                {copied
+                  ? "Karta raqamidan nusxa olindi"
+                  : "Karta raqamidan nusxa olish"}
+              </button>
+              <p className="mt-[87px] text-[14px] leading-[18px]">
+                *Balansni to&apos;ldirishda muammoga duch kelsangiz Telegram
+                orqali <a href="t.me/Barbossa_gaming">@Barbossa_gaming</a> ga
+                murojaat qiling
+              </p>
+            </div>
+          )}
           <button onClick={onClose} className="absolute top-2 right-2">
             <X className="h-6 w-6" />
           </button>

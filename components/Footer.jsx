@@ -114,7 +114,7 @@ export default function Footer() {
             <ul className="space-y-2">
               <li>
                 <Link
-                  href="/games/pubg-mobile"
+                  href="/all-games"
                   className="text-[#ACACAC] transition-colors"
                 >
                   PUBG Mobile
@@ -122,7 +122,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/games/free-fire"
+                  href="/all-games"
                   className="text-[#ACACAC] transition-colors"
                 >
                   Free Fire
@@ -130,7 +130,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/games/steam"
+                  href="/all-games"
                   className="text-[#ACACAC] transition-colors"
                 >
                   STEAM
@@ -138,7 +138,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/games/sm-coin"
+                  href="/all-games"
                   className="text-[#ACACAC] transition-colors"
                 >
                   SM-Coin
@@ -154,7 +154,7 @@ export default function Footer() {
             <ul className="space-y-2">
               <li>
                 <Link
-                  href="/asosiy"
+                  href="/"
                   className="text-[#ACACAC] transition-colors"
                 >
                   Asosiy
@@ -162,20 +162,20 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/games"
+                  href="/all-games"
                   className="text-[#ACACAC] transition-colors"
                 >
                   Barcha o&apos;yinlar
                 </Link>
               </li>
               <li>
-                <Link href="/help" className="text-[#ACACAC] transition-colors">
+                <Link href="/help-me" className="text-[#ACACAC] transition-colors">
                   Yordam
                 </Link>
               </li>
               <li>
                 <Link
-                  href="/register"
+                  href="/login"
                   className="text-[#ACACAC] transition-colors"
                 >
                   Tizimga kirish
@@ -183,7 +183,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link
-                  href="/contact"
+                  href="/help-me"
                   className="text-[#ACACAC] transition-colors"
                 >
                   Biz bilan bog&apos;lanish
