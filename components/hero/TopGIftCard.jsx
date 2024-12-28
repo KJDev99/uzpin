@@ -1,49 +1,54 @@
-import Image from "next/image";
+"use client";
 
-const games = [
-  {
-    title: "Google Play",
-    image: "/play-market.png",
-    link: "#",
-  },
-  {
-    title: "iTunes",
-    image: "/itunes.png",
-    link: "#",
-  },
-  {
-    title: "STEAM",
-    image: "/steam.png",
-    link: "#",
-  },
-  {
-    title: "Play Station",
-    image: "/playstation.png",
-    link: "#",
-  },
-  {
-    title: "Google Play",
-    image: "/play-market.png",
-    link: "#",
-  },
-  {
-    title: "iTunes",
-    image: "/itunes.png",
-    link: "#",
-  },
-  {
-    title: "STEAM",
-    image: "/steam.png",
-    link: "#",
-  },
-  {
-    title: "Play Station",
-    image: "/playstation.png",
-    link: "#",
-  },
-];
+import Image from "next/image";
+import { useTranslation } from "react-i18next";
 
 export default function TopGiftCard() {
+  const { t } = useTranslation();
+
+  const games = [
+    {
+      title: "Google Play",
+      image: "/play-market.png",
+      link: "#",
+    },
+    {
+      title: "iTunes",
+      image: "/itunes.png",
+      link: "#",
+    },
+    {
+      title: "STEAM",
+      image: "/steam.png",
+      link: "#",
+    },
+    {
+      title: "Play Station",
+      image: "/playstation.png",
+      link: "#",
+    },
+    {
+      title: "Google Play",
+      image: "/play-market.png",
+      link: "#",
+    },
+    {
+      title: "iTunes",
+      image: "/itunes.png",
+      link: "#",
+    },
+    {
+      title: "STEAM",
+      image: "/steam.png",
+      link: "#",
+    },
+    {
+      title: "Play Station",
+      image: "/playstation.png",
+      link: "#",
+    },
+  ];
+
   return (
     <div className="w-full px-0 pt-14 pb-10 max-sm:pt-4 max-sm:pb-6">
       <h2 className="text-2xl font-bold mb-4 text-white ml-[140px] max-sm:ml-6 max-sm:mb-4 max-sm:text-xl max-sm:font-medium">
