@@ -17,8 +17,6 @@ export default function PurchasesBox() {
 
   const openModal = (purchase) => {
     setSelectedPurchase(purchase);
-    console.log(purchase, "iddd");
-
     setIsOpen(true);
   };
 

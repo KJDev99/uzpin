@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Check, X } from "lucide-react";
 import axiosInstance from "@/libs/axios";
 import { Alert } from "../Alert";
+import PurchasesModal from "../profile/PurchasesModal";
 
 export function PurchaseModal({
   isOpen,
@@ -20,6 +21,16 @@ export function PurchaseModal({
 
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
+
+  const [isOpenBuy, setIsOpenBuy] = useState(false);
+  const [buyCode, setBuyCode] = useState();
+
+  const closeModal = () => {
+    setBuyCode(null);
+    setIsOpenBuy(false);
+    onClose();
+  };
+
   useEffect(() => {
     if (typeof window !== "undefined") {
       const storedProfileData = localStorage.getItem("profileData");
@@ -49,48 +60,50 @@ export function PurchaseModal({
           },
         }
       );
-      setSuccess(true);
+      // setSuccess(true);
+      setBuyCode(response.data[0].id);
+      console.log(response.data[0].id);
+      setIsOpenBuy(true);
+      setIsOpen(true);
     } catch (error) {
       setError(true);
     } finally {
-      setTimeout(() => {
-        clear();
-        onClose();
-        setError(false);
-        setSuccess(false);
-      }, 3000);
+      clear();
+      // onClose();
+      setError(false);
+      // setSuccess(false);
     }
   };
-  const fetchBuyHandleId = async () => {
-    const formattedData = {
-      currency: "RUB",
-      items: cart.map((item) => ({
-        promocode: item.id,
-        count: item.quantity,
-      })),
-    };
+  // const fetchBuyHandleId = async () => {
+  //   const formattedData = {
+  //     currency: "RUB",
+  //     items: cart.map((item) => ({
+  //       promocode: item.id,
+  //       count: item.quantity,
+  //     })),
+  //   };
 
-    try {
-      const response = await axiosInstance.post(
-        "/client/promocode/buy",
-        formattedData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      setSuccess(true);
-    } catch (error) {
-      setError(true);
-    } finally {
-      setTimeout(() => {
-        onClose();
-        setError(false);
-        setSuccess(false);
-      }, 3000);
-    }
-  };
+  //   try {
+  //     const response = await axiosInstance.post(
+  //       "/client/promocode/buy",
+  //       formattedData,
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${token}`,
+  //         },
+  //       }
+  //     );
+  //     setSuccess(true);
+  //   } catch (error) {
+  //     setError(true);
+  //   } finally {
+  //     setTimeout(() => {
+  //       onClose();
+  //       setError(false);
+  //       setSuccess(false);
+  //     }, 3000);
+  //   }
+  // };
 
   return (
     <div
@@ -195,7 +208,7 @@ export function PurchaseModal({
                 </label>
               </div>
               <button
-                onClick={fetchBuyHandleId}
+                // onClick={fetchBuyHandleId}
                 className="w-full py-2 bg-[#FFBA00] rounded text-black font-medium border-b-2 border-[black]"
               >
                 Sotib olish
@@ -213,6 +226,11 @@ export function PurchaseModal({
           )}
         </div>
       </div>
+      <PurchasesModal
+        isOpen={isOpenBuy}
+        onClose={closeModal}
+        selectedPurchase={buyCode}
+      />
     </div>
   );
 }

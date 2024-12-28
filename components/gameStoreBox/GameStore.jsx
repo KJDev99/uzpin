@@ -14,7 +14,6 @@ export default function GameStore({ data }) {
   // const [showModalMessage, setShowModalMessage] = useState(false);
   const [loading, setLoading] = useState(false);
   const [code, setCode] = useState([]);
-  console.log(data);
 
   const fetchStats = async () => {
     setLoading(true);
@@ -128,7 +127,7 @@ export default function GameStore({ data }) {
                 key={pkg.id}
                 className="rounded-lg p-4 border hover:border-[#FFBA00] transition-all ease-linear bg-white max-sm:p-0 h-max"
               >
-                <div className="flex flex-col max-sm:px-[10px]  max-sm:pb-[10px] max-sm:pt-5">
+                <div className="flex flex-col max-sm:px-[10px] max-sm:pb-[10px] max-sm:pt-5">
                   {pkg.photo ? (
                     <Image
                       src={pkg.photo}
@@ -159,9 +158,11 @@ export default function GameStore({ data }) {
                   </div>
                   <div className="flex justify-between items-center gap-2">
                     <button
-                      className={`px-2 py-1 text-[28px] ${
-                        getQuantity(pkg.id) === 0 && "opacity-40"
-                      } max-sm:p-0`}
+                      className={`px-2 py-1 text-[28px] max-sm:p-0 ${
+                        getQuantity(pkg.id) === 0
+                          ? "opacity-40 cursor-not-allowed"
+                          : ""
+                      }`}
                       onClick={() => updateQuantity(pkg.id, false)}
                       disabled={getQuantity(pkg.id) === 0}
                     >
@@ -171,8 +172,13 @@ export default function GameStore({ data }) {
                       {getQuantity(pkg.id)}
                     </span>
                     <button
-                      className="px-2 py-1 text-[28px] max-sm:p-0"
+                      className={`px-2 py-1 text-[28px] max-sm:p-0 ${
+                        getQuantity(pkg.id) >= pkg.count
+                          ? "opacity-40 cursor-not-allowed"
+                          : ""
+                      }`}
                       onClick={() => updateQuantity(pkg.id, true)}
+                      disabled={getQuantity(pkg.id) >= pkg.count}
                     >
                       +
                     </button>

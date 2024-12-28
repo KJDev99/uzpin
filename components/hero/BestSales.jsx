@@ -4,6 +4,7 @@ import axiosInstance from "@/libs/axios";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import Loader from "../Loader";
+import Link from "next/link";
 
 export default function BestSales() {
   const [data, setData] = useState([]);
@@ -88,9 +89,11 @@ export default function BestSales() {
                       {promo.price} UZS
                     </p>
                   </div>
-                  <button className="w-full bg-[#FFBA00] text-black py-3 font-medium rounded-[10px] text-lg max-sm:text-xs max-sm:py-2">
-                    Sotib olish
-                  </button>
+                  <Link href={`/all-games/${promo.game}`}>
+                    <button className="w-full mt-5 bg-[#FFBA00] text-black py-3 font-medium rounded-[10px] text-xl leading-[23px] max-sm:text-[12px] max-sm:py-2">
+                      Ko&apos;proq ko&apos;rish
+                    </button>
+                  </Link>
                 </div>
               </div>
             </div>
