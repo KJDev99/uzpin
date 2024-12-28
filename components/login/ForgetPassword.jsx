@@ -1,3 +1,5 @@
+"use client"
+
 import { X } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
@@ -6,8 +8,10 @@ import axiosInstance from "@/libs/axios";
 import { useRouter } from "next/navigation";
 import { FaChevronLeft } from "react-icons/fa6";
 import Image from "next/image";
+import {useTranslation} from 'react-i18next'
 
 export default function ForgetPassword({ setLogin, loginCount, setMainEmail }) {
+  const {t} = useTranslation()
   const [inputValue, setInputValue] = useState("");
   const [error, setError] = useState(false);
 
@@ -39,7 +43,7 @@ export default function ForgetPassword({ setLogin, loginCount, setMainEmail }) {
   return (
     <div className="flex justify-center items-center  ">
       {error && (
-        <Toast status="false" text="Kirish Jarayonida nimadir xato bo'ldi" />
+        <Toast status="false" text={t('login-text16')} />
       )}
       <div className="bg-white shadow-md rounded-lg p-8 w-full max-w-md max-sm:p-4 max-sm:shadow-none">
         <div className="flex justify-end mb-[20px] max-sm:hidden">
@@ -56,12 +60,11 @@ export default function ForgetPassword({ setLogin, loginCount, setMainEmail }) {
               <FaChevronLeft className="h-6 w-6 absolute top-[15%] -left-[15%] sm:hidden" />
             </Link>
             <h2 className="text-[#141311] font-medium text-center text-3xl">
-              Parolni unutdingizmi?
+              {t('login-text5')}
             </h2>
           </div>
           <p className="mb-3 text-center text-[#909090] text-sm">
-            Tasdiqlash jarayoni uchun telefon raqamingizni kiriting, biz sizning
-            telefon raqamingizga 4 raqamli kod yuboramiz.
+            {t('login-text17')}
           </p>
         </div>
         <form onSubmit={handleSubmit}>
@@ -70,7 +73,7 @@ export default function ForgetPassword({ setLogin, loginCount, setMainEmail }) {
               className="block text-[#828282] text-sm px-5 pb-2"
               htmlFor="email"
             >
-              Elektron pochta yoki telefon raqam
+              {t('login-text2')}
             </label>
             <input
               type="text"
@@ -84,7 +87,7 @@ export default function ForgetPassword({ setLogin, loginCount, setMainEmail }) {
             />
             {error && (
               <p className="text-red-500 text-sm mt-1 px-1">
-                Maydonni to‘ldirish shart
+                {t('login-text3')}
               </p>
             )}
           </div>
@@ -93,7 +96,7 @@ export default function ForgetPassword({ setLogin, loginCount, setMainEmail }) {
             type="submit"
             className="w-full bg-[#FFBA00] text-[#313131] py-2 px-4 rounded-lg mt-2 font-medium mb-6 border-2 border-[transparent] border-b-[#313131]"
           >
-            Kod yuborish
+            {t('login-text18')}
           </button>
         </form>
       </div>

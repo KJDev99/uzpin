@@ -1,3 +1,5 @@
+"use client";
+
 import axiosInstance from "@/libs/axios";
 import { X } from "lucide-react";
 import Link from "next/link";
@@ -5,8 +7,10 @@ import { useRef, useState } from "react";
 import { Toast } from "../Toast";
 import Image from "next/image";
 import { FaChevronLeft } from "react-icons/fa6";
+import { useTranslation } from "react-i18next";
 
 export default function PasswordCheck({ setLogin, mainEmail }) {
+  const { t } = useTranslation();
   const [code, setCode] = useState(["", "", "", ""]);
   const [disabledBtn, setDisabledBtn] = useState(true);
   const [error, setError] = useState();
@@ -67,15 +71,21 @@ export default function PasswordCheck({ setLogin, mainEmail }) {
           </Link>
         </div>
         <div className="flex relative flex-col items-center gap-4">
-          <Image src="/logo.svg" className="sm:hidden" width={162} height={31} alt="logo" />
+          <Image
+            src="/logo.svg"
+            className="sm:hidden"
+            width={162}
+            height={31}
+            alt="logo"
+          />
           <Link href="/">
             <FaChevronLeft className="h-6 w-6 absolute top-[60%] left-[0%] sm:hidden" />
           </Link>
           <h2 className="text-[#141311] font-medium text-center text-3xl max-sm:mt-[46px]">
-            Tasdiqlash.
+            {t("login-text19")}
           </h2>
           <p className="mb-3 text-center text-[#909090] text-sm">
-            Emailingizga yuborilgan 4 xonali kodni kiriting
+            {t("login-text20")}
           </p>
         </div>
         <form onSubmit={handleSubmit}>
@@ -100,14 +110,14 @@ export default function PasswordCheck({ setLogin, mainEmail }) {
             disabled={disabledBtn}
             className="w-full bg-[#FFBA00] text-[#313131] py-2 px-4 rounded-lg mt-2 font-medium border-2 border-[transparent] border-b-[#313131] disabled:bg-gray-300 disabled:border-none disabled:cursor-not-allowed"
           >
-            Tasdiqlash
+            {t("login-text19")}
           </button>
           <div className="text-center text-sm text-[black] mt-3 mb-5">
-            Agar kod kelmagan bo‘lsa{" "}
+            {t("login-text21")}{" "}
             <Link href="#" className="text-[#FFBA00]">
-              qayta yuborishni
+              {t("login-text22")}
             </Link>{" "}
-            bosing
+            {t("login-text23")}
           </div>
         </form>
       </div>

@@ -1,14 +1,18 @@
+'use client'
+
 import AccordionComponent from "@/components/accordion/accordion";
 import React from "react";
 import Image from "next/image";
+import {useTranslation} from 'react-i18next'
 
 export default function HelpMeComponent() {
+   const { t } = useTranslation();
   return (
     <div className="game__content_bg">
       <AccordionComponent />
       <div className="w-full max-w-[1140px] mt-[100px] pb-[100px] mx-auto">
         <p className="text-center font-semibold text-[24px] leading-10 max-sm:text-base">
-          Yordam berishga tayyormiz
+          {t('help-text10')}
         </p>
         <div className="mt-10 flex justify-center gap-[30px] mx-auto max-sm:flex-col max-sm:items-center">
           <a
@@ -26,7 +30,7 @@ export default function HelpMeComponent() {
             </div>
             <div>
               <p className="font-medium text-xl text-[#313131] leading-[23px] max-sm:text-xs">
-                Qo&apos;ngiroq qilish
+                {t('help-text11')}
               </p>
               <p className="mt-5 font-medium text-[24px] leading-[28px] max-sm:mt-2 max-sm:text-base">
                 +998 90 111 22 33
@@ -49,7 +53,7 @@ export default function HelpMeComponent() {
             </div>
             <div>
               <p className="font-medium text-xl text-[#313131] leading-[23px] max-sm:text-xs">
-                Telegram orqali murojaat qilish
+                {t('help-text12')}
               </p>
               <p className="mt-5 font-medium text-[24px] leading-[28px] max-sm:mt-2 max-sm:text-base">
                 @barbossa_gaming
@@ -72,7 +76,7 @@ export default function HelpMeComponent() {
             </div>
             <div>
               <p className="font-medium text-xl text-[#313131] leading-[23px] max-sm:text-xs">
-                Email orqali yozish
+                {t('help-text13')}
               </p>
               <p className="mt-5 font-medium text-[24px] leading-[28px] max-sm:mt-2 max-sm:text-base">
                 uzpin@mail.ru
