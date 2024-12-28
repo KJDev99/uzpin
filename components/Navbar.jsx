@@ -3,8 +3,6 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Search } from "lucide-react";
-import SearchModal from "./searchModal/SearchModal";
 import { PiUser } from "react-icons/pi";
 import { useTranslation } from "react-i18next";
 import axiosInstance from "@/libs/axios";
