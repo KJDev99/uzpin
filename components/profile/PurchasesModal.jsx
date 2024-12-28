@@ -95,15 +95,15 @@ export default function PurchasesModal({ selectedPurchase, isOpen, onClose }) {
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 max-sm:px-2">
       {allStates && <Toast type="success" text="Promodlar Nusxalandi!" />}
       <div className="max-w-[547px] w-full bg-white rounded-[10px] shadow-lg">
         <div className="flex flex-col relative justify-between min-w-10 min-h-10">
-          <div className="flex justify-between px-10 pt-[60px]">
-            <p className="font-semibold text-[24px] leading-[28px]">
+          <div className="flex justify-between px-10 pt-[60px] max-sm:pt-5">
+            <p className="font-semibold text-[24px] leading-[28px] max-sm:mx-auto">
               Promokodlar
             </p>
-            <div className="flex gap-5 items-center">
+            <div className="flex gap-5 items-center max-sm:hidden">
               <button
                 onClick={copyAllValues}
                 className="flex gap-2.5 py-[7px] px-2 border border-[#313131] rounded-[5px] items-center font-medium text-[14px] leading-4"
@@ -124,7 +124,7 @@ export default function PurchasesModal({ selectedPurchase, isOpen, onClose }) {
               data.values.map((item, index) => (
                 <li
                   key={index}
-                  className="flex items-center gap-5 mb-3 font-light text-[16px]"
+                  className="flex w-full items-center justify-between mb-3 font-light text-[16px]"
                 >
                   {index + 1}. {item}
                   {activeStates[index] ? (
@@ -138,6 +138,21 @@ export default function PurchasesModal({ selectedPurchase, isOpen, onClose }) {
                   )}
                 </li>
               ))}
+            <div className="flex mt-[30px] gap-5 items-center sm:hidden">
+              <button
+                onClick={copyAllValues}
+                className="flex w-full gap-2.5 justify-center py-3 bg-[#ffba00] rounded-[5px] items-center font-medium text-[14px] leading-4"
+              >
+                <MdOutlineContentCopy size={16} /> Nusxa olish
+              </button>
+              <button
+                onClick={downloadAllValues}
+                className="flex w-full gap-2.5 justify-center py-3 bg-[#ffba00] rounded-[5px] items-center font-medium text-[14px] leading-4"
+              >
+                <GrDocumentDownload size={16} />
+                Yuklab olish
+              </button>
+            </div>
           </ul>
           <button onClick={onClose} className="absolute top-5 right-5">
             <X className="h-6 w-6" />

@@ -3,42 +3,42 @@ import Image from "next/image";
 const games = [
   {
     title: "Google Play",
-    image: "/img.png",
+    image: "/play-market.png",
     link: "#",
   },
   {
     title: "iTunes",
-    image: "/img.png",
+    image: "/itunes.png",
     link: "#",
   },
   {
     title: "STEAM",
-    image: "/img.png",
+    image: "/steam.png",
     link: "#",
   },
   {
     title: "Play Station",
-    image: "/img.png",
+    image: "/playstation.png",
     link: "#",
   },
   {
     title: "Google Play",
-    image: "/img.png",
+    image: "/play-market.png",
     link: "#",
   },
   {
     title: "iTunes",
-    image: "/img.png",
+    image: "/itunes.png",
     link: "#",
   },
   {
     title: "STEAM",
-    image: "/img.png",
+    image: "/steam.png",
     link: "#",
   },
   {
     title: "Play Station",
-    image: "/img.png",
+    image: "/playstation.png",
     link: "#",
   },
 ];

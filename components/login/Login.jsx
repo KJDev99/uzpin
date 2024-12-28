@@ -90,7 +90,7 @@ export default function Login({ setLogin, loginCount }) {
       {error && (
         <Toast status="false" text="Kirish Jarayonida nimadir xato bo'ldi" />
       )}
-      <div className="bg-white shadow-md rounded-lg p-8 w-full max-w-md">
+      <div className="bg-white shadow-md rounded-lg p-8 w-full max-w-md max-sm:p-4">
         <div className="flex justify-end mb-[20px]">
           <Link href="/">
             <button className="text-[#313131]">
@@ -100,7 +100,7 @@ export default function Login({ setLogin, loginCount }) {
         </div>
         <div className="flex gap-4">
           <button
-            className={`w-[190px] h-[50px] border-none outline-none text-lg rounded-[5px] ${
+            className={`w-[190px] h-[50px] border-none outline-none text-lg rounded-[5px] max-sm:w-[164px] ${
               loginCount == 1
                 ? "bg-[#313131] text-[#F9F9F9]"
                 : "bg-[#F4F4F4] text-[#828282]"
@@ -110,7 +110,7 @@ export default function Login({ setLogin, loginCount }) {
             Kirish
           </button>
           <button
-            className={`w-[190px] h-[50px] border-none outline-none text-lg rounded-[5px] ${
+            className={`w-[190px] h-[50px] border-none outline-none text-lg rounded-[5px] max-sm:w-[164px] ${
               loginCount == 2
                 ? "bg-[#313131] text-[#F9F9F9]"
                 : "bg-[#F4F4F4] text-[#828282]"

@@ -3,6 +3,8 @@ import { X } from "lucide-react";
 import Link from "next/link";
 import { useRef, useState } from "react";
 import { Toast } from "../Toast";
+import Image from "next/image";
+import { FaChevronLeft } from "react-icons/fa6";
 
 export default function PasswordCheck({ setLogin, mainEmail }) {
   const [code, setCode] = useState(["", "", "", ""]);
@@ -56,16 +58,20 @@ export default function PasswordCheck({ setLogin, mainEmail }) {
       {error && (
         <Toast status="false" text="Kirish Jarayonida nimadir xato bo'ldi" />
       )}
-      <div className="bg-white shadow-md rounded-lg p-8 w-full max-w-md">
-        <div className="flex justify-end mb-[20px]">
+      <div className="bg-white shadow-md rounded-lg p-8 w-full max-w-md max-sm:p-0 max-sm:shadow-none">
+        <div className="flex justify-end mb-[20px] max-sm:hidden">
           <Link href="/">
             <button className="text-[#313131]">
               <X className="h-6 w-6" />
             </button>
           </Link>
         </div>
-        <div className="flex flex-col gap-4">
-          <h2 className="text-[#141311] font-medium text-center text-3xl">
+        <div className="flex relative flex-col items-center gap-4">
+          <Image src="/logo.svg" className="sm:hidden" width={162} height={31} alt="logo" />
+          <Link href="/">
+            <FaChevronLeft className="h-6 w-6 absolute top-[60%] left-[0%] sm:hidden" />
+          </Link>
+          <h2 className="text-[#141311] font-medium text-center text-3xl max-sm:mt-[46px]">
             Tasdiqlash.
           </h2>
           <p className="mb-3 text-center text-[#909090] text-sm">

@@ -17,7 +17,6 @@ export default function BalansCardModal({
   setInputValue,
 }) {
   const modalRef = useRef(null);
-  const [selectedFile, setSelectedFile] = useState(null);
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
   const [photo, setPhoto] = useState("");
@@ -91,6 +90,7 @@ export default function BalansCardModal({
 
   const clearFile = () => {
     modalRef.current.value = "";
+    setPhoto("");
   };
 
   const fetchHandle = async () => {
@@ -146,7 +146,7 @@ export default function BalansCardModal({
         />
       )}
       <div className="bg-white rounded-[10px] shadow-lg">
-        <div className="flex relative justify-between min-w-10 min-h-10">
+        <div className="flex relative justify-between">
           <div className="w-[682px] mt-8 ml-8 mb-8">
             <p className="font-medium text-[20px] leading-[22px]">
               To&apos;lovni amalga oshirish uchun quyidagi kartalardan birini
@@ -191,9 +191,12 @@ export default function BalansCardModal({
               <p className="mt-2.5 text-[14px] leading-4 text-[#828282]">
                 yoki
               </p>
-              <UploadComponent
-                onUploadSuccess={(url) => handleUploadSuccess("cover", url)}
-              />
+              <div className="hidden">
+                <UploadComponent
+                  triggerRef={modalRef}
+                  onUploadSuccess={(url) => handleUploadSuccess("cover", url)}
+                />
+              </div>
               <button
                 onClick={() => modalRef.current.click()}
                 className="mt-2.5 font-medium text-xl border border-black py-2 px-8 rounded-[10px]"
