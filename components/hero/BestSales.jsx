@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import Loader from "../Loader";
 import { useTranslation } from "react-i18next";
+import Link from "next/link";
 
 export default function BestSales() {
   const { t } = useTranslation();

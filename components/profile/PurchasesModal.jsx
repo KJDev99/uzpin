@@ -39,7 +39,7 @@ export default function PurchasesModal({ selectedPurchase, isOpen, onClose }) {
       );
 
       setData(response.data || []);
-      setActiveStates(new Array(response.data.values.length).fill(false)); // Qo‘shimcha holat massivini tayyorlash
+      setActiveStates(new Array(response.data.values.length).fill(false));
       console.log(response.data, "test");
     } catch (error) {
       console.error("Xatolik yuz berdi:", error);

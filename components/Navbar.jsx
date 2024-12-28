@@ -8,10 +8,10 @@ import SearchModal from "./searchModal/SearchModal";
 import { PiUser } from "react-icons/pi";
 import { useTranslation } from "react-i18next";
 import axiosInstance from "@/libs/axios";
+import SearchComponent from "./searchModal/SearchComponent";
 
 export default function Navbar() {
   const { i18n } = useTranslation();
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [profileData, setProfileData] = useState();
   const { t } = useTranslation();
 
@@ -91,26 +91,7 @@ export default function Navbar() {
           </div>
 
           <div className="flex-1 max-w-lg mx-5 max-sm:flex justify-end">
-            <div className="relative max-sm:hidden">
-              <input
-                type="text"
-                className="w-full bg-gray-800/50 border border-gray-700 rounded-md py-2 pl-4 pr-10 text-gray-300 placeholder-gray-500 focus:outline-none focus:border-[#FDB000]"
-                placeholder={t("Qidiruv")}
-              />
-              <button className="absolute right-3 top-1/2 -translate-y-1/2">
-                <Search className="h-5 w-5 text-gray-400" />
-              </button>
-            </div>
-            <button
-              onClick={() => setIsModalOpen(true)}
-              className="text-white px-4 py-2 sm:hidden"
-            >
-              <Search className="h-6 w-6" />
-            </button>
-            <SearchModal
-              isOpen={isModalOpen}
-              onClose={() => setIsModalOpen(false)}
-            />
+            <SearchComponent />
           </div>
 
           <div className="flex w-[200px] max-md:w-max items-center space-x-10 max-sm:space-x-0">
