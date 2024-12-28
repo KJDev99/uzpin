@@ -5,8 +5,10 @@ import Image from "next/image";
 import axiosInstance from "@/libs/axios";
 import Loader from "../Loader";
 import Link from "next/link";
+import { useTranslation } from "react-i18next";
 
 export default function TopGameCards() {
+  const { t } = useTranslation();
   const [games, setGames] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -38,7 +40,7 @@ export default function TopGameCards() {
   return (
     <div className="w-full px-0 py-6">
       <h2 className="text-2xl font-bold mb-4 text-white ml-[140px] max-sm:ml-6 max-sm:text-[20px]">
-        O&apos;yinlar
+        {t("popular-games")}
       </h2>
       <div className="overflow-x-auto pb-6 pl-20 max-sm:pl-[10px]">
         <div className="flex space-x-4 min-w-full snap-mandatory">
@@ -63,7 +65,7 @@ export default function TopGameCards() {
                   </h3>
                   <Link href={`/all-games/${game.id}`}>
                     <button className="w-full mt-5 bg-[#FFBA00] text-black py-3 font-medium rounded-[10px] text-xl leading-[23px] max-sm:text-[12px] max-sm:py-2">
-                      Ko&apos;proq ko&apos;rish
+                      {t("see-more")}
                     </button>
                   </Link>
                 </div>

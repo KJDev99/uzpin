@@ -81,13 +81,16 @@ export default function SearchComponent() {
             className="bg-white p-[6px] pr-5 rounded-lg w-96 shadow-lg"
             onClick={(e) => e.stopPropagation()}
           >
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full py-[13px] px-5 border border-gray-300 rounded-lg outline-none"
-              placeholder="Qidiruv"
-            />
+            <div className="flex items-center gap-5">
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full h-[46px] py-[13px] px-5 border border-gray-300 rounded-lg outline-none"
+                placeholder="Qidiruv"
+              />
+              <Search className="w-6 h-6"/>
+            </div>
             {results.length > 0 && (
               <div className="mt-2">
                 {results.map((result) => (

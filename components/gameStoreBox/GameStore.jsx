@@ -7,8 +7,10 @@ import { PurchaseModal } from "./PurchaseModal";
 import { Alert } from "../Alert";
 import axiosInstance from "@/libs/axios";
 import Loader from "../Loader";
+import { useTranslation } from "react-i18next";
 
 export default function GameStore({ data }) {
+  const { t } = useTranslation();
   const [cart, setCart] = useState([]);
   const [showPurchaseModal, setShowPurchaseModal] = useState(false);
   // const [showModalMessage, setShowModalMessage] = useState(false);
@@ -101,12 +103,10 @@ export default function GameStore({ data }) {
             {data.name}
           </h1>
           <p className="col-span-5 mb-2 text-2xl font-medium text-[#313131] max-sm:text-xl max-sm:text-[#000000] max-sm:mb-[10px]">
-            {data.name} promokodlarni qanday sotib olish mumkin:
+            {data.name} {t("all-games-text1")}
           </p>
           <p className="col-span-3 text-lg text-[#313131] mb-[10px] max-sm:text-sm max-sm:col-span-5">
-            O&apos;zingizga kerakli Promokodlarni bir nechtasini tanlab sotib
-            olishingiz mumkin, qisqa vaqt ichida promokodlar {data.name}{" "}
-            hisobingizga o&apos;tkazib beriladi.
+            {t("all-games-text2")} {data.name} {t("all-games-text3")}
           </p>
           <p className="col-span-3 text text-[#313131] mb-10 flex justify-center items-start gap-[10px] max-sm:col-span-5 max-sm:text-sm max-sm:leading-[14px]">
             <Image
@@ -116,8 +116,7 @@ export default function GameStore({ data }) {
               height={16}
               className="mt-1"
             />
-            Eslatma: Ushbu mahsulotlar Xitoy, Yaponiy, Koreya, Tayvan, Vetnam
-            serverlari uchun taalluqli emas.
+            {t('all-games-text4')}
           </p>
         </div>
         <div className="grid grid-cols-5 gap-[50px] mb-[40px]">
@@ -153,7 +152,7 @@ export default function GameStore({ data }) {
                       {pkg.price.toLocaleString()} UZS
                     </p>
                     <p className="text-[#828282] text-xs mb-4 max-sm:text-[10px] max-sm:leading-[11px]">
-                      Sotuvda bor: {pkg.count}
+                    {t('all-games-text5')} {pkg.count}
                     </p>
                   </div>
                   <div className="flex justify-between items-center gap-2">
@@ -194,11 +193,11 @@ export default function GameStore({ data }) {
             }`}
           >
             <div className="flex items-center justify-between">
-              <h2 className="text-xl font-medium">Tanlangan:</h2>
+              <h2 className="text-xl font-medium">{t('all-games-text6')}</h2>
               <div className="flex cursor-pointer" onClick={() => ClearTash()}>
                 <p className="text-[#828282] flex gap-[10px] items-center max-sm:text-sm max-sm:leading-4">
                   <GoTrash />
-                  Tozalash
+                  {t('all-games-text7')}
                 </p>
               </div>
             </div>
@@ -226,9 +225,9 @@ export default function GameStore({ data }) {
                   ))}
                   <div className="border-t pt-4">
                     <div className="flex flex-col">
-                      <span className="max-sm:hidden">Jami:</span>
+                      <span className="max-sm:hidden">{t('all-games-text8')}</span>
                       <div className="flex justify-between font-bold max-sm:font-medium max-sm:leading-[18px]">
-                        <div>Ummumiy Hisob:</div>
+                        <div className="sm:hidden">{t('all-games-text9')}</div>
                         <div>{totalPrice.toLocaleString()} UZS</div>
                       </div>
                     </div>
@@ -239,13 +238,13 @@ export default function GameStore({ data }) {
                     onClick={() => setShowPurchaseModal(1)}
                     className="w-full py-2 bg-[#FFBA00] rounded text-black font-medium mb-[10px] border-b-2 border-[black] max-sm:m-0"
                   >
-                    Sotib olish
+                    {t('all-games-text10')}
                   </button>
                   <button
                     onClick={() => setShowPurchaseModal(2)}
                     className="w-full py-2 bg-[#FFBA00] rounded text-black font-medium border-b-2 border-[black]"
                   >
-                    ID orqali olish
+                    {t('all-games-text11')}
                   </button>
                 </div>
               </>

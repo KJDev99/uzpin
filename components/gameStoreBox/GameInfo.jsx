@@ -1,6 +1,10 @@
+"use client";
+
 import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 export default function GameInfo({ data }) {
+  const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState("description");
 
   return (
@@ -15,7 +19,7 @@ export default function GameInfo({ data }) {
             }`}
             onClick={() => setActiveTab("description")}
           >
-            O&apos;yin Tavsifi
+            {t('all-games-text15')}
           </button>
           <button
             className={`py-2 w-[50%] text-start ${
@@ -25,7 +29,7 @@ export default function GameInfo({ data }) {
             }`}
             onClick={() => setActiveTab("promo")}
           >
-            {data.name} promokodni faollashtirish
+            {data.name} {t('all-games-text16')}
           </button>
         </div>
       </div>
@@ -37,7 +41,7 @@ export default function GameInfo({ data }) {
           } lg:block`}
         >
           <h2 className="text-xl font-bold mb-4 max-sm:hidden">
-            O&apos;yin tavsifi
+          {t('all-games-text15')}
           </h2>
           <div className="prose prose-gray max-w-none max-sm:text-sm">
             {data.desc}
@@ -51,7 +55,7 @@ export default function GameInfo({ data }) {
           {data.video && (
             <>
               <h2 className="text-xl font-bold mb-4 max-sm:hidden">
-                {data.name} promokodni faollashtirish
+                {data.name} {t('all-games-text16')}
               </h2>
 
               <div className="mt-4 aspect-video w-full">

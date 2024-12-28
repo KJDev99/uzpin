@@ -1,11 +1,12 @@
 "use client";
 
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay } from "swiper/modules";
 import "swiper/css";
+import "swiper/css/autoplay";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import axiosInstance from "@/libs/axios";
-import Link from "next/link";
 import Loader from "../Loader";
 
 const HeaderSwiper = () => {
@@ -44,7 +45,11 @@ const HeaderSwiper = () => {
         spaceBetween={10}
         slidesPerView={1.07}
         loop={true}
-        autoplay={{ delay: 3000, disableOnInteraction: false }}
+        autoplay={{
+          delay: 3000,
+          disableOnInteraction: false,
+        }}
+        modules={[Autoplay]}
       >
         {slides.map((slide) => (
           <SwiperSlide key={slide.id}>
@@ -62,11 +67,9 @@ const HeaderSwiper = () => {
               <p className="absolute top-[48px] left-[20px] font-medium text-[16px] leading-[18px] text-[#ffffff]">
                 {slide.subtitle}
               </p>
-              {/* <Link href={`/all-games/${slide.id}`}> */}
               <button className="absolute bottom-[20px] left-[20px] font-medium text-xs py-[5px] px-[14px] bg-[#ffba00] rounded-[5px]">
                 {slide.buttonText}
               </button>
-              {/* </Link> */}
             </div>
           </SwiperSlide>
         ))}

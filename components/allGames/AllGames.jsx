@@ -5,8 +5,10 @@ import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import Loader from "../Loader";
 import axiosInstance from "@/libs/axios";
+import {useTranslation} from 'react-i18next'
 
 export default function AllGames() {
+  const { t } = useTranslation();
   const [games, setGames] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -58,12 +60,12 @@ export default function AllGames() {
                 </h3>
                 <div>
                   <button className="w-full px-4 py-3 text-[#acacac] hover:text-[#ffba00] transition-colors duration-200 flex items-center justify-end group max-sm:hidden">
-                    <span>Ko&apos;proq ko&apos;rish</span>
+                    <span>{t('see-more')}</span>
                     <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
                   </button>
 
                   <button className="max-w-[146px] w-full mt-[18px] rounded-[5px] py-2 bg-[#ffba00] font-medium text-xs sm:hidden">
-                    <span>Ko&apos;proq ko&apos;rish</span>
+                    <span>{t('see-more')}</span>
                   </button>
                 </div>
               </div>
