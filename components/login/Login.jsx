@@ -192,14 +192,16 @@ export default function Login({ setLogin, loginCount }) {
           </div>
 
           <div className="flex flex-col justify-between items-center my-4">
-            <button
-              type="button"
-              onClick={handleTelegramLogin}
-              className="flex text-[black] items-center justify-center font-semibold py-2 px-4 rounded-[5px] gap-5 w-full mb-[10px] border-2 border-[#313131]"
-            >
-              <RiTelegram2Fill className="bg-[#2AABEE] text-[white] p-1 text-[28px] rounded-full" />
-              Telegram orqali
-            </button>
+            <Link href="/telegram-login.html" target="_blank">
+              <button
+                type="button"
+                // onClick={handleTelegramLogin}
+                className="flex text-[black] items-center justify-center font-semibold py-2 px-4 rounded-[5px] gap-5 w-full mb-[10px] border-2 border-[#313131]"
+              >
+                <RiTelegram2Fill className="bg-[#2AABEE] text-[white] p-1 text-[28px] rounded-full" />
+                Telegram orqali
+              </button>
+            </Link>
             <button
               type="button"
               onClick={handleGoogleLogin}
