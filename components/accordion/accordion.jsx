@@ -1,32 +1,30 @@
 "use client";
 import { useState, useRef } from "react";
-
-const data = [
-  {
-    question: "Bu platformaga ishonch hosil qilish mumkinmi?",
-    answer:
-      "Albatta! Platformamiz kafolatlangan xizmatlarni mijozlarga taqdim etadi. Agar kodni aktivatsiya qilishda muammo bo‘lsa yangisiga almashtirib beramiz yoki pulingizni qaytarib beramiz!",
-  },
-  {
-    question: "Bu platformaning afzalliklari qanday?",
-    answer:
-      "Biz mijozlarimizga sifatli va tezkor xizmatni taqdim etamiz. Har bir mijozga individual yondashuvni kafolatlaymiz.",
-  },
-  {
-    question: "Aloqa uchun qanday murojaat qilish mumkin?",
-    answer:
-      "Bizning qo'llab-quvvatlash xizmatimiz haftaning har kuni ishlaydi.",
-  },
-  {
-    question: "To'lovni qanday amalga oshirish mumkin?",
-    answer:
-      "To'lovni bank kartalari, elektron hamyonlar yoki PayPal orqali amalga oshirishingiz mumkin.",
-  },
-];
+import {useTranslation} from 'react-i18next'
 
 export default function AccordionComponent() {
+  const {t} = useTranslation()
   const [openIndex, setOpenIndex] = useState(null);
   const contentRefs = useRef([]);
+
+  const data = [
+    {
+      question: t("help-text1"),
+      answer: t("help-text2"),
+    },
+    {
+      question: t("help-text3"),
+      answer: t("help-text4"),
+    },
+    {
+      question: t("help-text5"),
+      answer: t("help-text6"),
+    },
+    {
+      question: t("help-text7"),
+      answer: t("help-text8"),
+    },
+  ];
 
   const toggleAccordion = (index) => {
     setOpenIndex(openIndex === index ? null : index);
@@ -35,10 +33,10 @@ export default function AccordionComponent() {
   return (
     <div className="w-full max-w-[1000px] pt-10 mx-auto max-sm:px-4">
       <h2 className="text-center font-semibold text-[32px] leading-[37.5px] max-sm:text-xl max-sm:leading-[30px]">
-        Yordam
+        {t('help')}
       </h2>
       <p className="text-center mt-5 text-xl leading-[23.44px] max-sm:text-sm">
-        Tez tez beriladigan savollar
+        {t('help-text9')}
       </p>
       <div className="mt-10">
         {data.map((item, index) => (

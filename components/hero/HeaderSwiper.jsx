@@ -8,8 +8,10 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import axiosInstance from "@/libs/axios";
 import Loader from "../Loader";
+import {useTranslation} from 'react-i18next'
 
 const HeaderSwiper = () => {
+  const {t} = useTranslation();
   const [slides, setSlides] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -20,8 +22,8 @@ const HeaderSwiper = () => {
         const banners = response.data.map((banner) => ({
           id: banner.id,
           title: banner.name || "No Title",
-          subtitle: "O'yin promokodlari!",
-          buttonText: "Sotib olish",
+          subtitle: t("promocode"),
+          buttonText: t("purchase"),
           image: banner.cover,
         }));
         setSlides(banners);

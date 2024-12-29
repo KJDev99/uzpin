@@ -5,8 +5,10 @@ import { Toast } from "../Toast";
 import { IoIosArrowBack } from "react-icons/io";
 import Link from "next/link";
 import Loader from "../Loader";
+import { useTranslation } from "react-i18next";
 
 export default function ProfilInfo() {
+  const { t } = useTranslation();
   const [profileData, setProfileData] = useState({
     fullname: "",
     email: "",
@@ -112,23 +114,23 @@ export default function ProfilInfo() {
   return (
     <div className="w-full overflow-hidden ">
       {success && (
-        <Toast type="success" text="Malumotlar Muvofaqiyatli O'zgartirildi" />
+        <Toast type="success" text={t('profile6')} />
       )}
       {error && (
         <Toast
           type="false"
-          text="Malumotlar o'zgartirilmadi! Xatolik yuz berdi"
+          text={t('profile7')}
         />
       )}
       <div className="px-6 py-4 max-md:border-b max-md:hidden">
-        <h2 className="text-xl font-bold md:mb-4">Profil ma&apos;lumotlari</h2>
+        <h2 className="text-xl font-bold md:mb-4">{t('profile1')}</h2>
       </div>
       <Link
         href={"/profile/profile-mobile"}
         className="md:px-6 py-4 max-md:border-b flex items-center max-md:gap-5 md:hidden"
       >
         <IoIosArrowBack className="text-2xl md:hidden" />
-        <h2 className="text-xl font-bold md:mb-4">Profil ma&apos;lumotlari</h2>
+        <h2 className="text-xl font-bold md:mb-4">{t('profile1')}</h2>
       </Link>
       <form
         className="px-6 py-4  md:border w-full grid grid-cols-2 max-md:grid-cols-1 gap-5 max-md:mb-10"
@@ -139,7 +141,7 @@ export default function ProfilInfo() {
             htmlFor="fullname"
             className="block text-sm font-medium text-gray-700"
           >
-            Ism
+            {t('login-text9')}
           </label>
           <input
             id="fullname"
@@ -155,7 +157,7 @@ export default function ProfilInfo() {
             htmlFor="email"
             className="block text-sm font-medium text-gray-700"
           >
-            Elektron pochta
+            {t('profile8')}
           </label>
           <input
             id="email"
@@ -171,7 +173,7 @@ export default function ProfilInfo() {
             htmlFor="phone"
             className="block text-sm font-medium text-gray-700"
           >
-            Telefon raqam
+            {t('profile9')}
           </label>
           <input
             id="phone"
@@ -187,7 +189,7 @@ export default function ProfilInfo() {
             htmlFor="old_password"
             className="block text-sm font-medium text-gray-700"
           >
-            Eski parol
+            {t('profile10')}
           </label>
           <input
             id="old_password"
@@ -204,7 +206,7 @@ export default function ProfilInfo() {
             htmlFor="new_password"
             className="block text-sm font-medium text-gray-700"
           >
-            Yangi parol
+            {t('profile11')}
           </label>
           <input
             id="new_password"
@@ -221,7 +223,7 @@ export default function ProfilInfo() {
             htmlFor="confirm_password"
             className="block text-sm font-medium text-gray-700"
           >
-            Parolni tasdiqlash
+            {t('profile12')}
           </label>
           <input
             id="confirm_password"
@@ -237,7 +239,7 @@ export default function ProfilInfo() {
           type="submit"
           className="w-full mt-4 px-4 py-2 bg-[#ffba00] hover:bg-[#ffba00] border-b-2 border-[#313131] text-black font-medium rounded-md shadow-sm outline-none"
         >
-          Saqlash
+          {t('profile13')}
         </button>
       </form>
     </div>

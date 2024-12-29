@@ -1,3 +1,5 @@
+"use client";
+
 import { X } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
@@ -8,8 +10,10 @@ import { FcGoogle } from "react-icons/fc";
 import { IoLogoApple } from "react-icons/io5";
 import { signIn } from "next-auth/react";
 import axiosInstance from "@/libs/axios";
+import { useTranslation } from "react-i18next";
 
 export default function Register({ setLogin, loginCount, setMainEmail }) {
+  const { t } = useTranslation();
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -94,7 +98,7 @@ export default function Register({ setLogin, loginCount, setMainEmail }) {
             }`}
             onClick={() => setLogin(1)}
           >
-            Kirish
+            {t("login")}
           </button>
           <button
             className={`w-[190px] h-[50px] border-none outline-none text-lg rounded-[5px] max-sm:w-[164px] ${
@@ -104,7 +108,7 @@ export default function Register({ setLogin, loginCount, setMainEmail }) {
             }`}
             onClick={() => setLogin(2)}
           >
-            Ro&apos;yxatdan o&apos;tish
+            {t("login-text1")}
           </button>
         </div>
         <form onSubmit={handleSubmit}>
@@ -113,12 +117,12 @@ export default function Register({ setLogin, loginCount, setMainEmail }) {
               className="block text-[#828282] text-sm px-5 pb-2"
               htmlFor="name"
             >
-              Ism
+              {t("login-text9")}
             </label>
             <input
               type="text"
               id="name"
-              placeholder="Ismingiz"
+              placeholder={t("login-text10")}
               value={name}
               onChange={(e) => setName(e.target.value)}
               className="w-full px-4 py-2 border rounded-lg border-[#ACACAC] outline-none text-[#000000]"
@@ -133,7 +137,7 @@ export default function Register({ setLogin, loginCount, setMainEmail }) {
               className="block text-[#828282] text-sm px-5 pb-2"
               htmlFor="email"
             >
-              Elektron pochta yoki telefon raqam
+              {t("login-text2")}
             </label>
             <input
               type="text"
@@ -153,12 +157,12 @@ export default function Register({ setLogin, loginCount, setMainEmail }) {
               className="block text-[#828282] text-sm px-5 pb-2"
               htmlFor="password"
             >
-              Parol
+              {t("login-text4")}
             </label>
             <input
               type={passwordVisible ? "text" : "password"}
               id="password"
-              placeholder="Parol"
+              placeholder={t("login-text4")}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="w-full px-4 py-2 border rounded-lg border-[#ACACAC] outline-none text-[#000000]"
@@ -180,12 +184,12 @@ export default function Register({ setLogin, loginCount, setMainEmail }) {
               className="block text-[#828282] text-sm px-5 pb-2"
               htmlFor="confirmPassword"
             >
-              Parolni takrorlang
+              {t("login-text11")}
             </label>
             <input
               type={passwordVisible ? "text" : "password"}
               id="confirmPassword"
-              placeholder="Parolni tasdiqlang"
+              placeholder={t("login-text11")}
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               className="w-full px-4 py-2 border rounded-lg border-[#ACACAC] outline-none text-[#000000]"
@@ -198,7 +202,7 @@ export default function Register({ setLogin, loginCount, setMainEmail }) {
           </div>
           <div className="flex gap-6 justify-center items-center">
             <div className="w-[130px] bg-[#828282] h-[1px]"></div>
-            <p className="text-[#828282]">yoki</p>
+            <p className="text-[#828282]">{t("login-text12")}</p>
             <div className="w-[130px] bg-[#828282] h-[1px]"></div>
           </div>
 
@@ -209,7 +213,7 @@ export default function Register({ setLogin, loginCount, setMainEmail }) {
               className="flex text-[black] items-center justify-center font-semibold py-2 px-4 rounded-[5px] gap-5 w-full mb-[10px] border-2 border-[#313131]"
             >
               <RiTelegram2Fill className="bg-[#2AABEE] text-[white] p-1 text-[28px] rounded-full" />
-              Telegram orqali
+              {t("login-text6")}
             </button>
             <button
               type="button"
@@ -217,7 +221,7 @@ export default function Register({ setLogin, loginCount, setMainEmail }) {
               className="flex items-center justify-center  text-[black] font-semibold py-2 px-4 rounded-[5px] gap-5 w-full mb-[10px] border-2 border-[#313131] "
             >
               <FcGoogle className=" p-0 text-[28px] rounded-full" />
-              Google orqali
+              {t("login-text7")}
             </button>
             <button
               type="button"
@@ -225,22 +229,22 @@ export default function Register({ setLogin, loginCount, setMainEmail }) {
               className="flex items-center justify-center  text-[black] font-semibold py-2 px-4 rounded-[5px] gap-5 w-full mb-[10px] border-2 border-[#313131] "
             >
               <IoLogoApple className=" text-[28px] rounded-full" />
-              Apple orqali
+              {t("login-text8")}
             </button>
           </div>
           <div className="text-center text-sm text-[black] mt-3">
-            Saytda ro&apos;yxatdan o&apos;tish bilan{" "}
+            {t("login-text13")}
             <Link href="#" className="text-[#FFBA00]">
-              Foydalanish shartlari
-            </Link>{" "}
-            ni qabul qilganingizni tasdiqlaysiz.
+            {t('login-text14')}
+            </Link>
+            {t('login-text15')}
           </div>
 
           <button
             type="submit"
             className="w-full bg-[#FFBA00] font-medium text-[#313131] py-2 px-4 rounded-lg mt-6 mb-6 border-2 border-[transparent] border-b-[#313131]"
           >
-            Ro&apos;yxatdan o&apos;tish
+            {t('login-text1')}
           </button>
         </form>
       </div>

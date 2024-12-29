@@ -5,8 +5,10 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { IoIosHelpCircleOutline } from "react-icons/io";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 export default function BottomNavbar() {
+  const { t } = useTranslation();
   const pathname = usePathname();
   const isActive = (path) => {
     switch (path) {
@@ -34,7 +36,7 @@ export default function BottomNavbar() {
 
   const active = isActive(pathname);
 
-  if(pathname==='/login') return false 
+  if (pathname === "/login") return false;
 
   return (
     <div className="md:hidden max-w-[335px] flex justify-between gap-[22px] bg-white rounded-[10px] fixed bottom-5 left-0 right-0 mx-auto z-50 pt-[10px] pb-[26px] px-[20px]">
@@ -61,7 +63,7 @@ export default function BottomNavbar() {
               active === "home" ? "text-[#FFBA00]" : "text-[#828282]"
             }`}
           >
-            Bosh sahifa
+            {t('home1')}
           </p>
         </div>
       </Link>
@@ -87,7 +89,7 @@ export default function BottomNavbar() {
               active === "allgames" ? "text-[#FFBA00]" : "text-[#828282]"
             }`}
           >
-            Barcha o&apos;yinlar
+            {t('all_games')}
           </p>
         </div>
       </Link>
@@ -103,7 +105,7 @@ export default function BottomNavbar() {
               active === "helpme" ? "text-[#FFBA00]" : "text-[#828282]"
             }`}
           >
-            Yordam
+            {t('help')}
           </p>
         </div>
       </Link>
@@ -157,7 +159,7 @@ export default function BottomNavbar() {
                 active === "login" ? "text-[#FFBA00]" : "text-[#828282]"
               }`}
             >
-              Profil
+              {t('login1')}
             </p>
           </div>
         </Link>

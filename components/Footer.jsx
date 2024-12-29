@@ -4,10 +4,10 @@ import Image from "next/image";
 import { RiTelegram2Fill } from "react-icons/ri";
 import { FaInstagram } from "react-icons/fa6";
 import { usePathname } from "next/navigation";
-import {useTranslation} from 'react-i18next'
+import { useTranslation } from "react-i18next";
 
 export default function Footer() {
-  const {t} = useTranslation()
+  const { t } = useTranslation();
   const pathname = usePathname();
 
   if (pathname == "/login") return false;
@@ -19,9 +19,11 @@ export default function Footer() {
           <div className="flex items-center gap-4 max-sm:flex-col">
             <Image src={"/icons/wallet.svg"} width={33} height={33} alt="img" />
             <div className="max-sm:text-center">
-              <h3 className="text-[#ACACAC] font-medium">{t('footer1-text1')}</h3>
+              <h3 className="text-[#ACACAC] font-medium">
+                {t("footer1-text1")}
+              </h3>
               <p className="text-sm text-[#ACACAC] font-[300]">
-                {t('footer1-text2')}
+                {t("footer1-text2")}
               </p>
             </div>
           </div>
@@ -30,10 +32,10 @@ export default function Footer() {
             <Image src={"/icons/game.svg"} width={33} height={33} alt="img" />
             <div className="max-sm:text-center">
               <h3 className="text-[#ACACAC] font-medium">
-                {t('footer1-text3')}
+                {t("footer1-text3")}
               </h3>
               <p className="text-sm text-[#ACACAC] font-[300]">
-                {t('footer1-text4')}
+                {t("footer1-text4")}
               </p>
             </div>
           </div>
@@ -46,9 +48,11 @@ export default function Footer() {
               alt="img"
             />
             <div className="text-center">
-              <h3 className="text-[#ACACAC] font-medium">{t('footer1-text5')}</h3>
+              <h3 className="text-[#ACACAC] font-medium">
+                {t("footer1-text5")}
+              </h3>
               <p className="text-sm text-[#ACACAC] font-[300]">
-                {t('footer1-text6')}
+                {t("footer1-text6")}
               </p>
             </div>
           </div>
@@ -61,9 +65,11 @@ export default function Footer() {
               alt="img"
             />
             <div className="text-center">
-              <h3 className="text-[#ACACAC] font-medium">{t('footer1-text7')}</h3>
+              <h3 className="text-[#ACACAC] font-medium">
+                {t("footer1-text7")}
+              </h3>
               <p className="text-sm text-[#ACACAC] font-[300]">
-                {t('footer1-text8')}
+                {t("footer1-text8")}
               </p>
             </div>
           </div>
@@ -111,7 +117,7 @@ export default function Footer() {
           <div></div>
           <div>
             <h3 className="text-[#ACACAC] font-bold mb-[30px]">
-              {t('all_games')}
+              {t("all_games")}
             </h3>
             <ul className="space-y-2">
               <li>
@@ -151,15 +157,12 @@ export default function Footer() {
 
           <div>
             <h3 className="text-[#ACACAC] font-bold mb-[30px]">
-              {t('footer1-text9')}
+              {t("footer1-text9")}
             </h3>
             <ul className="space-y-2">
               <li>
-                <Link
-                  href="/"
-                  className="text-[#ACACAC] transition-colors"
-                >
-                  {t('home')}
+                <Link href="/" className="text-[#ACACAC] transition-colors">
+                  {t("home")}
                 </Link>
               </li>
               <li>
@@ -167,20 +170,7 @@ export default function Footer() {
                   href="/all-games"
                   className="text-[#ACACAC] transition-colors"
                 >
-                  {t('all_games')}
-                </Link>
-              </li>
-              <li>
-                <Link href="/help-me" className="text-[#ACACAC] transition-colors">
-                  {t('help')}
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/login"
-                  className="text-[#ACACAC] transition-colors"
-                >
-                  {t('footer1-text10')}
+                  {t("all_games")}
                 </Link>
               </li>
               <li>
@@ -188,7 +178,23 @@ export default function Footer() {
                   href="/help-me"
                   className="text-[#ACACAC] transition-colors"
                 >
-                  {t('footer1-text11')}
+                  {t("help")}
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/login"
+                  className="text-[#ACACAC] transition-colors"
+                >
+                  {t("footer1-text10")}
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/help-me"
+                  className="text-[#ACACAC] transition-colors"
+                >
+                  {t("footer1-text11")}
                 </Link>
               </li>
             </ul>
@@ -197,10 +203,10 @@ export default function Footer() {
 
         <div className=" pt-8 flex flex-col md:flex-row justify-center gap-[52px] items-center max-sm:flex-row">
           <p className="text-sm text-[#ACACAC] max-sm:text-[10px]">
-            {t('footer1-text12')}
+            {t("footer1-text12")}
           </p>
           <p className="text-sm text-[#ACACAC] mt-2 md:mt-0 max-sm:text-[10px] max-sm:mt-0">
-            Made by
+            Made by{" "}
             <Link
               href="https://upgrow.uz"
               target="_blank"

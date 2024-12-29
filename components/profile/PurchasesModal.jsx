@@ -8,8 +8,10 @@ import Loader from "../Loader";
 import { useEffect, useState } from "react";
 import axiosInstance from "@/libs/axios";
 import { Toast } from "../Toast";
+import { useTranslation } from "react-i18next";
 
 export default function PurchasesModal({ selectedPurchase, isOpen, onClose }) {
+  const { t } = useTranslation();
   const [token, setToken] = useState(null);
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState();
@@ -101,21 +103,21 @@ export default function PurchasesModal({ selectedPurchase, isOpen, onClose }) {
         <div className="flex flex-col relative justify-between min-w-10 min-h-10">
           <div className="flex justify-between px-10 pt-[60px] max-sm:pt-5">
             <p className="font-semibold text-[24px] leading-[28px] max-sm:mx-auto">
-              Promokodlar
+              {t("profile38")}
             </p>
             <div className="flex gap-5 items-center max-sm:hidden">
               <button
                 onClick={copyAllValues}
                 className="flex gap-2.5 py-[7px] px-2 border border-[#313131] rounded-[5px] items-center font-medium text-[14px] leading-4"
               >
-                <MdOutlineContentCopy size={16} /> Nusxa olish
+                <MdOutlineContentCopy size={16} /> {t("profile39")}
               </button>
               <button
                 onClick={downloadAllValues}
                 className="flex gap-2.5 py-[7px] px-2 border border-[#313131] rounded-[5px] items-center font-medium text-[14px] leading-4"
               >
                 <GrDocumentDownload size={16} />
-                Yuklab olish
+                {t("profile40")}
               </button>
             </div>
           </div>
@@ -143,14 +145,14 @@ export default function PurchasesModal({ selectedPurchase, isOpen, onClose }) {
                 onClick={copyAllValues}
                 className="flex w-full gap-2.5 justify-center py-3 bg-[#ffba00] rounded-[5px] items-center font-medium text-[14px] leading-4"
               >
-                <MdOutlineContentCopy size={16} /> Nusxa olish
+                <MdOutlineContentCopy size={16} /> {t("profile39")}
               </button>
               <button
                 onClick={downloadAllValues}
                 className="flex w-full gap-2.5 justify-center py-3 bg-[#ffba00] rounded-[5px] items-center font-medium text-[14px] leading-4"
               >
                 <GrDocumentDownload size={16} />
-                Yuklab olish
+                {t("profile40")}
               </button>
             </div>
           </ul>

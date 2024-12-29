@@ -133,8 +133,10 @@ export default function Navbar() {
               </button>
 
               <div
-                className={`absolute z-[999] max-md:flex max-md:flex-col max-md:top-4 max-md:pt-3 w-max left-[100px flex gap-2 transition-all duration-300 translate-x-2 ${
-                  isHovered ? "left-[0px] max-md:left-[-8px]" : "left-[100px]"
+                className={`fixed z-[999] max-md:flex max-md:flex-col max-md:top-12 max-md:pt-3 w-max  flex gap-2 transition-all duration-300 translate-x-2 ${
+                  isHovered
+                    ? "right-[184px] max-md:right-[6%]"
+                    : "right-[-100px]"
                 }`}
               >
                 {languages

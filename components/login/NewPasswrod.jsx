@@ -1,3 +1,5 @@
+"use client";
+
 import { X } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
@@ -6,8 +8,10 @@ import { AiOutlineEye } from "react-icons/ai";
 import { Toast } from "../Toast";
 import Image from "next/image";
 import { FaChevronLeft } from "react-icons/fa6";
+import { useTranslation } from "react-i18next";
 
 export default function NewPasswrod({ setLogin, loginCount }) {
+  const { t } = useTranslation();
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -56,7 +60,7 @@ export default function NewPasswrod({ setLogin, loginCount }) {
   return (
     <div className="flex justify-center items-center">
       {error && (
-        <Toast status="false" text="Kirish Jarayonida nimadir xato bo'ldi" />
+        <Toast status="false" text={t('login-text16')} />
       )}
       <div className="bg-white shadow-md rounded-lg p-8 w-full max-w-md max-sm:shadow-none max-sm:p-0">
         <div className="flex justify-end mb-[20px] max-sm:hidden">
@@ -67,15 +71,21 @@ export default function NewPasswrod({ setLogin, loginCount }) {
           </Link>
         </div>
         <div className="flex relative flex-col items-center gap-4">
-          <Image src="/logo.svg" className="sm:hidden" width={162} height={31} alt="logo" />
+          <Image
+            src="/logo.svg"
+            className="sm:hidden"
+            width={162}
+            height={31}
+            alt="logo"
+          />
           <Link href="/">
             <FaChevronLeft className="h-6 w-6 absolute top-[62%] left-[0%] sm:hidden" />
           </Link>
           <h2 className="text-[#141311] font-medium text-center text-3xl max-sm:mt-[60px]">
-            Parolni yangilash
+            {t('login-text24')}
           </h2>
           <p className="mb-3 text-center text-[#909090] text-sm">
-            Kirish uchun yangi parol o‘rnating
+            {t('login-text25')}
           </p>
         </div>
         <form onSubmit={handleSubmit}>
@@ -84,12 +94,12 @@ export default function NewPasswrod({ setLogin, loginCount }) {
               className="block text-[#828282] text-sm px-5 pb-2"
               htmlFor="password"
             >
-              Parol
+              {t('login-text4')}
             </label>
             <input
               type={passwordVisible ? "text" : "password"}
               id="password"
-              placeholder="Parol"
+              placeholder={t('login-text4')}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className={`w-[382px] px-4 py-2 border rounded-lg outline-none text-[#000000] ${
@@ -104,7 +114,7 @@ export default function NewPasswrod({ setLogin, loginCount }) {
               {passwordVisible ? <AiOutlineEye /> : <PiEyeClosedBold />}
             </button>
             {errors.password && (
-              <p className="text-red-500 text-sm mt-1 px-1">Parolni kiriting</p>
+              <p className="text-red-500 text-sm mt-1 px-1">{t('login-text26')}</p>
             )}
           </div>
 
@@ -113,12 +123,12 @@ export default function NewPasswrod({ setLogin, loginCount }) {
               className="block text-[#828282] text-sm px-5 pb-2"
               htmlFor="confirmPassword"
             >
-              Parolni takrorlang
+              {t('login-text11')}
             </label>
             <input
               type={passwordVisible ? "text" : "password"}
               id="confirmPassword"
-              placeholder="Parolni takrorlang"
+              placeholder={t('login-text11')}
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               className={`w-[382px] px-4 py-2 border rounded-lg outline-none text-[#000000] ${
@@ -129,7 +139,7 @@ export default function NewPasswrod({ setLogin, loginCount }) {
             />
             {errors.confirmPassword && (
               <p className="text-red-500 text-sm mt-1 px-1">
-                Parollar mos kelmayapti yoki bo&apos;sh
+                {t('login-text27')}
               </p>
             )}
           </div>
@@ -138,7 +148,7 @@ export default function NewPasswrod({ setLogin, loginCount }) {
             type="submit"
             className="w-full bg-[#FFBA00] font-medium text-[#313131] py-2 px-4 rounded-lg mt-6 mb-6 border-2 border-[transparent] border-b-[#313131]"
           >
-            Tasdiqlash
+            {t('login-text19')}
           </button>
         </form>
       </div>
