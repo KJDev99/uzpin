@@ -6,8 +6,10 @@ import HeaderSwiper from "./HeaderSwiper";
 import axiosInstance from "@/libs/axios";
 import Link from "next/link";
 import Loader from "../Loader";
+import { useTranslation } from "react-i18next";
 
 export default function HeaderSlider() {
+  const { t } = useTranslation();
   const [slides, setSlides] = useState([]);
   const [activeSlide, setActiveSlide] = useState(0);
 
@@ -17,8 +19,8 @@ export default function HeaderSlider() {
       const banners = response.data.map((banner) => ({
         id: banner.id,
         title: banner.name || "No Title",
-        subtitle: "O'yin promokodlari!",
-        buttonText: "Sotib Olish",
+        subtitle: t("promocode"),
+        buttonText: t("purchase"),
         image: banner.cover,
       }));
       setSlides(banners);

@@ -1,8 +1,11 @@
 {
   "home": "Asosiy",
+  "home1": "Bosh sahifa",
   "all_games": "Barcha O'yinlar",
   "help": "Yordam",
   "login": "Kirish",
+  "login1": "Profil",
+  "search": "Qidirish",
 
   "popular-games": "Ommabop o'yinlar",
   "see-more": "Ko'proq ko'rish",

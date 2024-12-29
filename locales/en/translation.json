@@ -1,8 +1,11 @@
 {
   "home": "Home",
+  "home1": "Bosh sahifa",
   "all_games": "All Games",
   "help": "Help",
   "login": "Login",
+  "login1": "Profil",
+  "search": "Search",
 
   "popular-games": "Popular Games",
   "see-more": "See more",

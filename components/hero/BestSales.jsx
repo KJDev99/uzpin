@@ -33,7 +33,7 @@ export default function BestSales() {
   return (
     <div className="w-full px-0 pt-14 pb-10 max-sm:pt-6 max-sm:pb-6">
       <h2 className="text-2xl font-bold mb-4 text-white ml-[140px] max-sm:ml-6 max-sm:font-medium max-sm:text-xl">
-        {t('best-selling')}
+        {t("best-selling")}
       </h2>
       <div className="overflow-x-auto pb-6 px-20 max-sm:px-6 max-sm:pb-0">
         <div className="flex space-x-4 min-w-full snap-mandatory">
@@ -77,12 +77,12 @@ export default function BestSales() {
                       {promo.name}
                     </h3>
                     <p className="text-sm text-[#FFBA00] max-sm:text-[10px] font-normal max-sm:hidden">
-                      {t('global')}
+                      {t("global")}
                     </p>
                   </div>
                   <div className="flex justify-between items-center">
                     <p className="text-sm text-[#FFBA00] max-sm:text-[10px] font-normal sm:hidden">
-                      {t('global')}
+                      {t("global")}
                     </p>
                     <p className="text-sm text-zinc-400 max-sm:text-xs max-sm:font-medium max-sm:hidden">
                       {promo.name}
@@ -91,9 +91,11 @@ export default function BestSales() {
                       {promo.price} UZS
                     </p>
                   </div>
-                  <button className="w-full bg-[#FFBA00] text-black py-3 font-medium rounded-[10px] text-lg max-sm:text-xs max-sm:py-2">
-                    {t('purchase')}
-                  </button>
+                  <Link href={`/all-games/${promo.game}`}>
+                    <button className="w-full bg-[#FFBA00] text-black py-3 font-medium rounded-[10px] text-lg max-sm:text-xs max-sm:py-2">
+                      {t("purchase")}
+                    </button>
+                  </Link>
                 </div>
               </div>
             </div>

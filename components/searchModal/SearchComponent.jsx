@@ -4,8 +4,10 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Search } from "lucide-react";
 import axiosInstance from "@/libs/axios";
+import { useTranslation } from "react-i18next";
 
 export default function SearchComponent() {
+  const { t } = useTranslation();
   const [searchQuery, setSearchQuery] = useState("");
   const [results, setResults] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -47,7 +49,7 @@ export default function SearchComponent() {
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           className="w-full bg-gray-800/50 border border-gray-700 rounded-md py-2 pl-4 pr-10 text-gray-300 placeholder-gray-500 focus:outline-none focus:border-[#FDB000]"
-          placeholder="Qidiruv"
+          placeholder={t('search')}
         />
         <button className="absolute right-3 top-1/2 -translate-y-1/2">
           <Search className="h-5 w-5 text-gray-400" />
@@ -87,9 +89,9 @@ export default function SearchComponent() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full h-[46px] py-[13px] px-5 border border-gray-300 rounded-lg outline-none"
-                placeholder="Qidiruv"
+                placeholder={t('search')}
               />
-              <Search className="w-6 h-6"/>
+              <Search className="w-6 h-6" />
             </div>
             {results.length > 0 && (
               <div className="mt-2">
