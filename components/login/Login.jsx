@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { X } from "lucide-react";
 import Link from "next/link";
@@ -12,10 +12,10 @@ import { signIn } from "next-auth/react";
 import axiosInstance from "@/libs/axios";
 import { Toast } from "../Toast";
 import { useRouter } from "next/navigation";
-import {useTranslation} from 'react-i18next'
+import { useTranslation } from "react-i18next";
 
 export default function Login({ setLogin, loginCount }) {
-  const {t} = useTranslation()
+  const { t } = useTranslation();
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [emailOrPhone, setEmailOrPhone] = useState("");
   const [password, setPassword] = useState("");
@@ -91,9 +91,7 @@ export default function Login({ setLogin, loginCount }) {
 
   return (
     <div className="flex justify-center items-center">
-      {error && (
-        <Toast status="false" text={t('login-text16')} />
-      )}
+      {error && <Toast status="false" text={t("login-text16")} />}
       <div className="bg-white shadow-md rounded-lg p-8 w-full max-w-md max-sm:p-4">
         <div className="flex justify-end mb-[20px]">
           <Link href="/">
@@ -111,7 +109,7 @@ export default function Login({ setLogin, loginCount }) {
             }`}
             onClick={() => setLogin(1)}
           >
-            {t('login')}
+            {t("login")}
           </button>
           <button
             className={`w-[190px] h-[50px] border-none outline-none text-lg rounded-[5px] max-sm:w-[164px] ${
@@ -121,7 +119,7 @@ export default function Login({ setLogin, loginCount }) {
             }`}
             onClick={() => setLogin(2)}
           >
-            {t('login-text1')}
+            {t("login-text1")}
           </button>
         </div>
         <form onSubmit={handleSubmit}>
@@ -130,7 +128,7 @@ export default function Login({ setLogin, loginCount }) {
               className="block text-[#828282] text-sm px-5 pb-2"
               htmlFor="email"
             >
-              {t('login-text2')}
+              {t("login-text2")}
             </label>
             <input
               type="text"
@@ -146,7 +144,7 @@ export default function Login({ setLogin, loginCount }) {
             />
             {errors.emailOrPhone && (
               <p className="text-red-500 text-sm mt-1 px-1">
-                {t('login-text3')}
+                {t("login-text3")}
               </p>
             )}
           </div>
@@ -156,12 +154,12 @@ export default function Login({ setLogin, loginCount }) {
               className="block text-[#828282] text-sm px-5 pb-2"
               htmlFor="password"
             >
-              {t('login-text4')}
+              {t("login-text4")}
             </label>
             <input
               type={passwordVisible ? "text" : "password"}
               id="password"
-              placeholder={t('login-text4')}
+              placeholder={t("login-text4")}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className={`w-full px-4 py-2 border rounded-lg outline-none text-[#000000] ${
@@ -177,7 +175,7 @@ export default function Login({ setLogin, loginCount }) {
             </button>
             {errors.password && (
               <p className="text-red-500 text-sm mt-1 px-1">
-                {t('login-text3')}
+                {t("login-text3")}
               </p>
             )}
           </div>
@@ -186,17 +184,16 @@ export default function Login({ setLogin, loginCount }) {
             className="text-[#FFBA00] cursor-pointer ml-5 mb-4 text-sm"
             onClick={() => setLogin(3)}
           >
-            {t('login-text5')}
+            {t("login-text5")}
           </p>
 
           <div className="flex gap-6 justify-center items-center">
             <div className="w-[130px] bg-[#828282] h-[1px]"></div>
-            <p className="text-[#828282]">{t('login-text12')}</p>
+            <p className="text-[#828282]">{t("login-text12")}</p>
             <div className="w-[130px] bg-[#828282] h-[1px]"></div>
           </div>
 
           <div className="flex flex-col justify-between items-center my-4">
-
             <Link href="/telegram-login.html" target="_blank">
               <button
                 type="button"
@@ -204,7 +201,7 @@ export default function Login({ setLogin, loginCount }) {
                 className="flex text-[black] items-center justify-center font-semibold py-2 px-4 rounded-[5px] gap-5 w-full mb-[10px] border-2 border-[#313131]"
               >
                 <RiTelegram2Fill className="bg-[#2AABEE] text-[white] p-1 text-[28px] rounded-full" />
-                {t('login-text6')}
+                {t("login-text6")}
               </button>
             </Link>
 
@@ -214,7 +211,7 @@ export default function Login({ setLogin, loginCount }) {
               className="flex items-center justify-center text-[black] font-semibold py-2 px-4 rounded-[5px] gap-5 w-full mb-[10px] border-2 border-[#313131]"
             >
               <FcGoogle className="p-0 text-[28px] rounded-full" />
-              {t('login-text7')}
+              {t("login-text7")}
             </button>
             <button
               type="button"
@@ -222,7 +219,7 @@ export default function Login({ setLogin, loginCount }) {
               className="flex items-center justify-center  text-[black] font-semibold py-2 px-4 rounded-[5px] gap-5 w-full mb-[10px] border-2 border-[#313131] "
             >
               <IoLogoApple className=" text-[28px] rounded-full" />
-              {t('login-text8')}
+              {t("login-text8")}
             </button>
           </div>
 
@@ -230,7 +227,7 @@ export default function Login({ setLogin, loginCount }) {
             type="submit"
             className="w-full bg-[#FFBA00] text-[#313131] py-2 px-4 font-medium  rounded-lg mt-2 mb-6 border-2 border-[transparent] border-b-[#313131]"
           >
-            {t('login')}
+            {t("login")}
           </button>
         </form>
       </div>
