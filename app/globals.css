@@ -2,32 +2,32 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url("https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap");
-
-* {
-  font-family: "Roboto Condensed", sans-serif;
+:root {
+  --font-roboto-condensed: "Roboto Condensed", sans-serif;
+  --font-readex-pro: "Readex Pro", sans-serif;
 }
 
-/* Scrollbar o'zi */
+body {
+  font-family: var(--font-readex-pro);
+}
+
+.redux_pro {
+  font-family: var(--font-roboto-condensed);
+}
+
 ::-webkit-scrollbar {
   width: 5px;
-  height: 12px; 
+  height: 12px;
 }
 
-/* Scroll ichidagi track */
 ::-webkit-scrollbar-track {
   background: #f4f4f4;
-  /* border-radius: 10px;  */
 }
 
-/* Scroll qismi */
 ::-webkit-scrollbar-thumb {
   background: #ffba00;
-  /* background: #888; */
-  /* border-radius: 10px; */
 }
 
-/* Hoverda thumb rangi */
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }

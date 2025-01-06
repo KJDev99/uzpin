@@ -141,7 +141,7 @@ export default function Login({ setLogin, loginCount }) {
         <form onSubmit={handleSubmit}>
           <div className="mb-4 mt-5">
             <label
-              className="block text-[#828282] text-[16px] leading-[18px] px-5 pb-2"
+              className="block text-[#828282] text-[16px] leading-[18px] px-5 pb-2 font-readex"
               htmlFor="email"
             >
               {t("login-text2")}
