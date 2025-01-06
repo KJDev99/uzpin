@@ -141,7 +141,7 @@ export default function Login({ setLogin, loginCount }) {
         <form onSubmit={handleSubmit}>
           <div className="mb-4 mt-5">
             <label
-              className="block text-[#828282] text-[16px] leading-[18px] px-5 pb-2"
+              className="block text-[#828282] text-[16px] leading-[18px] px-5 pb-2 font-readex"
               htmlFor="email"
             >
               {t("login-text2")}
@@ -210,7 +210,7 @@ export default function Login({ setLogin, loginCount }) {
           </div>
 
           <div className="flex flex-col justify-between items-center my-5">
-            <Link href="/telegram-login.html">
+            <Link href="/telegram-login.html" className="w-full">
               <button
                 type="button"
                 className="flex items-center justify-center text-[black] font-medium text-[20px] leading-[23px] py-2 px-4 rounded-[5px] gap-5 w-full mb-[10px] border-2 border-[#313131]"

@@ -82,10 +82,10 @@ export default function NewPasswrod({ setLogin, mainEmail }) {
             <FaChevronLeft className="h-6 w-6 absolute top-[62%] left-[0%] sm:hidden" />
           </Link>
 
-          <h2 className="text-[#141311] font-medium text-center text-[32px] leading-[40px] max-sm:mt-[60px]">
+          <h2 className="text-[#141311] font-medium redux_pro text-center text-[32px] leading-[40px] max-sm:mt-[60px]">
             {t("login-text24")}
           </h2>
-          <p className="mb-3 text-center text-[#909090] font-light text-[14px] leading-[21px]">
+          <p className="mb-3 text-center redux_pro text-[#909090] font-light text-[14px] leading-[21px]">
             {t("login-text25")}
           </p>
         </div>

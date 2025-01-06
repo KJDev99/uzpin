@@ -38,7 +38,7 @@ export default function BestSales() {
 
   return (
     <div className="w-full px-0 pt-14 pb-10 max-sm:pt-6 max-sm:pb-6">
-      <h2 className="text-[32px] leading-[37px] font-medium mb-4 text-white ml-[140px] max-sm:ml-6 max-sm:font-medium max-sm:text-xl">
+      <h2 className="text-[32px] leading-[37px] font-medium mb-5 text-white ml-[140px] max-sm:ml-6 max-sm:font-medium max-sm:text-xl">
         {t("best-selling")}
       </h2>
       <div className="pb-6 px-20 max-sm:px-6 max-sm:pb-0">
@@ -84,17 +84,20 @@ export default function BestSales() {
                       <h3 className="font-bold text-[24px] leading-[28px] text-white max-sm:font-medium max-sm:text-sm">
                         {promo.name}
                       </h3>
-                      <p className="mt-[5px] text-sm text-[#FFBA00] max-sm:text-[10px] font-normal max-sm:hidden">
+                      <p className="mt-[5px] text-[16px] leading-[18px] text-[#FFBA00] max-sm:text-[10px] font-normal max-sm:hidden">
                         {t("global")}
                       </p>
                     </div>
                     <div className="flex justify-between items-center">
-                      <p className="font-normal text-white max-sm:text-xs max-sm:font-medium">
+                      <p className="font-medium text-[20px] leading-[23px] text-white max-sm:text-xs max-sm:font-medium">
+                        {promo.name}
+                      </p>
+                      <p className="font-normal text-[16px] leading-[18px] text-white max-sm:text-xs max-sm:font-medium">
                         {promo.price} UZS
                       </p>
                     </div>
                     <Link href={`/all-games/${promo.game}`}>
-                      <button className="w-full mt-8 bg-[#FFBA00] text-black py-3 font-medium rounded-[10px] text-lg max-sm:text-xs max-sm:py-2">
+                      <button className="w-full mt-8 bg-[#FFBA00] text-black py-3 font-medium rounded-[10px] text-[20px] leading-[23px] max-sm:text-xs max-sm:py-2">
                         {t("purchase")}
                       </button>
                     </Link>

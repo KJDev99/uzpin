@@ -14,14 +14,14 @@ export default function Home() {
   return (
     <div>
       <div className="hero_bg">
-        <HeaderSlider/>
+        <HeaderSlider />
         <TopGameCards />
       </div>
       <PubgBanner />
       <div className="hero_bgsec2">
         <TopGiftCard />
       </div>
-      <FreeFireBanner/>
+      <FreeFireBanner />
       <div className="hero_bgsec3">
         <BestSales />
       </div>

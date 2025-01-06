@@ -91,10 +91,10 @@ export default function PasswordCheck({ setLogin, mainEmail }) {
           <Link href="/">
             <FaChevronLeft className="h-6 w-6 absolute top-[60%] left-[0%] sm:hidden" />
           </Link>
-          <h2 className="text-[#141311] font-medium text-center text-3xl max-sm:mt-[46px]">
+          <h2 className="text-[#141311] font-medium redux_pro text-center text-[32px] leading-[40px] max-sm:mt-[46px]">
             {t("login-text19")}
           </h2>
-          <p className="mb-3 text-center text-[#909090] text-sm">
+          <p className="mb-3 redux_pro font-light text-center text-[#909090] text-sm">
             {t("login-text20")}
           </p>
         </div>
@@ -118,16 +118,16 @@ export default function PasswordCheck({ setLogin, mainEmail }) {
             id="submit-button"
             onClick={() => setLogin(4)}
             disabled={disabledBtn}
-            className="w-full bg-[#FFBA00] text-[#313131] py-2 px-4 rounded-lg mt-2 font-medium border-2 border-[transparent] border-b-[#313131] disabled:bg-gray-300 disabled:border-none disabled:cursor-not-allowed"
+            className="w-full bg-[#FFBA00] text-[#313131] py-2 px-4 rounded-lg mt-2 font-medium text-[20px] leading-[23px] border-2 border-[transparent] border-b-[#313131] disabled:bg-gray-300 disabled:border-none disabled:cursor-not-allowed"
           >
             {t("login-text19")}
           </button>
-          <div className="text-center text-sm text-[black] mt-3 mb-5">
+          <div className="text-center font-light text-sm text-[#909090] mt-3 mb-5">
             {t("login-text21")}{" "}
             <button
               onClick={() => TryPassWord()}
               href="#"
-              className="text-[#FFBA00]"
+              className="text-[#FFBA00] font-normal"
             >
               {t("login-text22")}
             </button>{" "}
