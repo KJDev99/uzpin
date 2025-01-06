@@ -67,22 +67,22 @@ export default function Navbar() {
             />
           </Link>
 
-          <div className="hidden md:flex items-center space-x-10">
+          <div className="hidden md:flex items-center space-x-10 font-medium text-[20px] leading-[23px]">
             <Link
               href="/"
-              className="text-white hover:text-[#FDB000] transition-colors"
+              className="text-[#acacac] hover:text-[#FDB000] transition-colors"
             >
               {t("home")}
             </Link>
             <Link
               href="/all-games"
-              className="text-gray-300 hover:text-[#FDB000] transition-colors"
+              className="text-[#acacac] hover:text-[#FDB000] transition-colors"
             >
               {t("all_games")}
             </Link>
             <Link
               href="/help-me"
-              className="text-gray-300 hover:text-[#FDB000] transition-colors"
+              className="text-[#acacac] hover:text-[#FDB000] transition-colors"
             >
               {t("help")}
             </Link>

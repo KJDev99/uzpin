@@ -19,7 +19,7 @@ export default function GameInfo({ data }) {
             }`}
             onClick={() => setActiveTab("description")}
           >
-            {t('all-games-text15')}
+            {t("all-games-text15")}
           </button>
           <button
             className={`py-2 w-[50%] text-start ${
@@ -29,7 +29,7 @@ export default function GameInfo({ data }) {
             }`}
             onClick={() => setActiveTab("promo")}
           >
-            {data.name} {t('all-games-text16')}
+            {data.name} {t("all-games-text16")}
           </button>
         </div>
       </div>
@@ -41,7 +41,7 @@ export default function GameInfo({ data }) {
           } lg:block`}
         >
           <h2 className="text-xl font-bold mb-4 max-sm:hidden">
-          {t('all-games-text15')}
+            {t("all-games-text15")}
           </h2>
           <div className="prose prose-gray max-w-none max-sm:text-sm">
             {data.desc}
@@ -55,11 +55,11 @@ export default function GameInfo({ data }) {
           {data.video && (
             <>
               <h2 className="text-xl font-bold mb-4 max-sm:hidden">
-                {data.name} {t('all-games-text16')}
+                {data.name} {t("all-games-text16")}
               </h2>
 
               <div className="mt-4 aspect-video w-full">
-                <video src={data.video} width="100%" height="335px"></video>
+                <video src={data.video} controls autoPlay muted loop width="100%" height="335px"></video>
               </div>
             </>
           )}

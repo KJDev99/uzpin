@@ -8,6 +8,30 @@
   font-family: "Roboto Condensed", sans-serif;
 }
 
+/* Scrollbar o'zi */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 12px; 
+}
+
+/* Scroll ichidagi track */
+::-webkit-scrollbar-track {
+  background: #f4f4f4;
+  /* border-radius: 10px;  */
+}
+
+/* Scroll qismi */
+::-webkit-scrollbar-thumb {
+  background: #ffba00;
+  /* background: #888; */
+  /* border-radius: 10px; */
+}
+
+/* Hoverda thumb rangi */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
 .hero_bg {
   background: url("/heromainbg.png") center/cover no-repeat;
 }

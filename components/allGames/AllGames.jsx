@@ -1,11 +1,11 @@
 "use client";
 import Image from "next/image";
 import { useState, useEffect } from "react";
-import { ArrowRight } from "lucide-react";
+import { FaArrowRightLong } from "react-icons/fa6";
 import Link from "next/link";
 import Loader from "../Loader";
 import axiosInstance from "@/libs/axios";
-import {useTranslation} from 'react-i18next'
+import { useTranslation } from "react-i18next";
 
 export default function AllGames() {
   const { t } = useTranslation();
@@ -41,7 +41,7 @@ export default function AllGames() {
       {games.map((game) => (
         <div
           key={game.id}
-          className="overflow-hidden hover:shadow-lg transition-shadow duration-200 bg-white rounded-lg max-sm:rounded-[10px] max-sm:max-w-[166px] max-md:mx-auto"
+          className="overflow-hidden border hover:border-[#ffba00] hover:shadow-lg transition-shadow duration-200 bg-white rounded-lg max-sm:rounded-[10px] max-sm:max-w-[166px] max-md:mx-auto"
         >
           <Link href={`/all-games/${game.id}`} className="p-0">
             <div className="flex items-start gap-4 p-4 h-max max-sm:flex-col max-sm:p-[10px] max-sm:gap-[10px]">
@@ -59,13 +59,13 @@ export default function AllGames() {
                   {game.name}
                 </h3>
                 <div>
-                  <button className="w-full px-4 py-3 text-[#acacac] hover:text-[#ffba00] transition-colors duration-200 flex items-center justify-end group max-sm:hidden">
-                    <span>{t('see-more')}</span>
-                    <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
+                  <button className="w-full px-4 py-3 text-[#acacac] hover:text-[#ffba00] transition-colors duration-200 flex items-center gap-4 justify-end group max-sm:hidden">
+                    <span>{t("see-more")}</span>
+                    <FaArrowRightLong className="w-[18px] h-[20px] transition-transform duration-200 group-hover:translate-x-1" />
                   </button>
 
-                  <button className="max-w-[146px] w-full mt-[18px] rounded-[5px] py-2 bg-[#ffba00] font-medium text-xs sm:hidden">
-                    <span>{t('see-more')}</span>
+                  <button className="max-w-[146px] w-full mt-[18px] rounded-[5px] py-2 bg-[#ffba00] font-medium text-[20px] leading-[23px] sm:hidden">
+                    <span>{t("see-more")}</span>
                   </button>
                 </div>
               </div>

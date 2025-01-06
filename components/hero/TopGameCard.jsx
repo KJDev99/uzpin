@@ -39,10 +39,10 @@ export default function TopGameCards() {
 
   return (
     <div className="w-full px-0 py-6">
-      <h2 className="text-2xl font-bold mb-4 text-white ml-[140px] max-sm:ml-6 max-sm:text-[20px]">
+      <h2 className="text-[32px] leading-[37px] font-medium mb-4 text-white ml-[140px] max-sm:ml-6 max-sm:text-[20px]">
         {t("popular-games")}
       </h2>
-      <div className="overflow-x-auto pb-6 pl-20 max-sm:pl-[10px]">
+      <div className="overflow-x-auto scrollbar-hide pb-6 pl-20 max-sm:pl-[10px]">
         <div className="flex space-x-4 min-w-full snap-mandatory">
           {games.map((game, indx) => (
             <div
@@ -60,7 +60,7 @@ export default function TopGameCards() {
                   />
                 </div>
                 <div className="pt-5 space-y-2 max-sm:p-0 max-sm:pt-[10px] max-sm:space-y-[18px]">
-                  <h3 className="font-medium text-xl text-white max-sm:text-sm">
+                  <h3 className="font-medium text-[24px] leading-[28px] text-white max-sm:text-sm">
                     {game.title}
                   </h3>
                   <Link href={`/all-games/${game.id}`}>
