@@ -9,8 +9,9 @@ import { Toast } from "../Toast";
 import Image from "next/image";
 import { FaChevronLeft } from "react-icons/fa6";
 import { useTranslation } from "react-i18next";
+import axiosInstance from "@/libs/axios";
 
-export default function NewPasswrod({ setLogin, loginCount }) {
+export default function NewPasswrod({ setLogin, mainEmail }) {
   const { t } = useTranslation();
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [password, setPassword] = useState("");
@@ -46,6 +47,7 @@ export default function NewPasswrod({ setLogin, loginCount }) {
     if (formIsValid) {
       try {
         await axiosInstance.post("client/auth/reset/password", {
+          // email: mainEmail,
           new_password: password,
           confirm_password: confirmPassword,
         });
@@ -59,9 +61,7 @@ export default function NewPasswrod({ setLogin, loginCount }) {
 
   return (
     <div className="flex justify-center items-center">
-      {error && (
-        <Toast status="false" text={t('login-text16')} />
-      )}
+      {error && <Toast status="false" text={t("login-text16")} />}
       <div className="bg-white shadow-md rounded-lg p-8 w-full max-w-md max-sm:shadow-none max-sm:p-0">
         <div className="flex justify-end mb-[20px] max-sm:hidden">
           <Link href="/">
@@ -82,10 +82,10 @@ export default function NewPasswrod({ setLogin, loginCount }) {
             <FaChevronLeft className="h-6 w-6 absolute top-[62%] left-[0%] sm:hidden" />
           </Link>
           <h2 className="text-[#141311] font-medium text-center text-3xl max-sm:mt-[60px]">
-            {t('login-text24')}
+            {t("login-text24")}
           </h2>
           <p className="mb-3 text-center text-[#909090] text-sm">
-            {t('login-text25')}
+            {t("login-text25")}
           </p>
         </div>
         <form onSubmit={handleSubmit}>
@@ -94,12 +94,12 @@ export default function NewPasswrod({ setLogin, loginCount }) {
               className="block text-[#828282] text-sm px-5 pb-2"
               htmlFor="password"
             >
-              {t('login-text4')}
+              {t("login-text4")}
             </label>
             <input
               type={passwordVisible ? "text" : "password"}
               id="password"
-              placeholder={t('login-text4')}
+              placeholder={t("login-text4")}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className={`w-[382px] px-4 py-2 border rounded-lg outline-none text-[#000000] ${
@@ -114,7 +114,9 @@ export default function NewPasswrod({ setLogin, loginCount }) {
               {passwordVisible ? <AiOutlineEye /> : <PiEyeClosedBold />}
             </button>
             {errors.password && (
-              <p className="text-red-500 text-sm mt-1 px-1">{t('login-text26')}</p>
+              <p className="text-red-500 text-sm mt-1 px-1">
+                {t("login-text26")}
+              </p>
             )}
           </div>
 
@@ -123,12 +125,12 @@ export default function NewPasswrod({ setLogin, loginCount }) {
               className="block text-[#828282] text-sm px-5 pb-2"
               htmlFor="confirmPassword"
             >
-              {t('login-text11')}
+              {t("login-text11")}
             </label>
             <input
               type={passwordVisible ? "text" : "password"}
               id="confirmPassword"
-              placeholder={t('login-text11')}
+              placeholder={t("login-text11")}
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               className={`w-[382px] px-4 py-2 border rounded-lg outline-none text-[#000000] ${
@@ -139,7 +141,7 @@ export default function NewPasswrod({ setLogin, loginCount }) {
             />
             {errors.confirmPassword && (
               <p className="text-red-500 text-sm mt-1 px-1">
-                {t('login-text27')}
+                {t("login-text27")}
               </p>
             )}
           </div>
@@ -148,7 +150,7 @@ export default function NewPasswrod({ setLogin, loginCount }) {
             type="submit"
             className="w-full bg-[#FFBA00] font-medium text-[#313131] py-2 px-4 rounded-lg mt-6 mb-6 border-2 border-[transparent] border-b-[#313131]"
           >
-            {t('login-text19')}
+            {t("login-text19")}
           </button>
         </form>
       </div>

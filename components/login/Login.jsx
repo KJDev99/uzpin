@@ -2,7 +2,7 @@
 
 import { X } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { PiEyeClosedBold } from "react-icons/pi";
 import { AiOutlineEye } from "react-icons/ai";
 import { RiTelegram2Fill } from "react-icons/ri";
@@ -85,10 +85,26 @@ export default function Login({ setLogin, loginCount }) {
     await signIn("apple", { callbackUrl: "/" });
   };
 
-  const handleTelegramLogin = () => {
-    alert("Telegram orqali kirish");
-  };
+  // useEffect(() => {
+  //   // Telegram vidjet skriptini qo'shish
+  //   const script = document.createElement("script");
+  //   script.src = "https://telegram.org/js/telegram-widget.js?22";
+  //   script.async = true;
+  //   script.setAttribute("data-telegram-login", "uzpindemo_bot");
+  //   script.setAttribute("data-size", "large");
+  //   script.setAttribute(
+  //     "data-auth-url",
+  //     "https://178fdf98ee6c49d57234ff75cec7cbda.serveo.net/telegram"
+  //   );
+  //   script.setAttribute("data-request-access", "write");
+  //   script.setAttribute("data-userpic", "false");
+  //   script.setAttribute("data-lang", "ru");
 
+  //   const container = document.getElementById("telegram-login-container");
+  //   if (container) {
+  //     container.appendChild(script);
+  //   }
+  // }, []);
   return (
     <div className="flex justify-center items-center">
       {error && <Toast status="false" text={t("login-text16")} />}
@@ -194,16 +210,25 @@ export default function Login({ setLogin, loginCount }) {
           </div>
 
           <div className="flex flex-col justify-between items-center my-4">
-            <Link href="/telegram-login.html" target="_blank">
+            <Link href="/telegram-login.html">
               <button
                 type="button"
-                // onClick={handleTelegramLogin}
                 className="flex text-[black] items-center justify-center font-semibold py-2 px-4 rounded-[5px] gap-5 w-full mb-[10px] border-2 border-[#313131]"
               >
                 <RiTelegram2Fill className="bg-[#2AABEE] text-[white] p-1 text-[28px] rounded-full" />
                 {t("login-text6")}
               </button>
             </Link>
+            {/* <div>
+              <div id="telegram-login-container"></div>
+              <button
+                type="button"
+                className="flex text-[black] items-center justify-center font-semibold py-2 px-4 rounded-[5px] gap-5 w-full mb-[10px] border-2 border-[#313131]"
+              >
+                <RiTelegram2Fill className="bg-[#2AABEE] text-[white] p-1 text-[28px] rounded-full" />
+                Telegram orqali kirish
+              </button>
+            </div> */}
 
             <button
               type="button"

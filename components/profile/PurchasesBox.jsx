@@ -62,6 +62,7 @@ export default function PurchasesBox() {
   useEffect(() => {
     if (token) {
       fetchPurchases(currentPage);
+      window.scrollTo(0, 0);
     }
   }, [currentPage, token]);
   if (loading) {
@@ -70,14 +71,14 @@ export default function PurchasesBox() {
 
   return (
     <div className="w-full max-w-[1200px] mx-auto p-4 mb-10 ">
-      <h1 className="text-2xl font-bold mb-4 max-md:hidden">{t('profile3')}</h1>
+      <h1 className="text-2xl font-bold mb-4 max-md:hidden">{t("profile3")}</h1>
 
       <Link
         href={"/profile/profile-mobile"}
         className="md:px-6 py-4 border-b flex items-center max-md:gap-5 md:hidden mb-5"
       >
         <IoIosArrowBack className="text-2xl md:hidden" />
-        <h2 className="text-xl font-bold md:mb-4">{t('profile3')}</h2>
+        <h2 className="text-xl font-bold md:mb-4">{t("profile3")}</h2>
       </Link>
 
       <div className="overflow-x-scroll">
@@ -88,19 +89,19 @@ export default function PurchasesBox() {
                 #
               </th>
               <th className="py-2 text-nowrap px-5 w-max border text-center font-medium">
-                {t('profile32')}
+                {t("profile32")}
               </th>
               <th className="py-2 text-nowrap px-5 w-max border text-center font-medium">
-                {t('profile33')}
+                {t("profile33")}
               </th>
               <th className="py-2 text-nowrap px-5 w-max border text-center font-medium">
-                {t('profile34')}
+                {t("profile34")}
               </th>
               <th className="py-2 text-nowrap px-5 w-max border text-center font-medium">
-                {t('profile35')}
+                {t("profile35")}
               </th>
               <th className="py-2 text-nowrap px-5 w-max border text-center font-medium">
-                {t('profile36')}
+                {t("profile36")}
               </th>
             </tr>
           </thead>
@@ -128,7 +129,7 @@ export default function PurchasesBox() {
                       onClick={() => openModal(item.id)}
                       className="text-green-600 hover:text-green-700 flex items-center gap-1"
                     >
-                      {t('profile36')}
+                      {t("profile36")}
                       <svg
                         className="w-4 h-4"
                         fill="none"
@@ -152,7 +153,7 @@ export default function PurchasesBox() {
                   colSpan={6}
                   className="py-3 border text-center text-sm text-gray-500"
                 >
-                  {t('profile37')}
+                  {t("profile37")}
                 </td>
               </tr>
             )}

@@ -47,7 +47,13 @@ export default function Page() {
           />
         );
       case 6:
-        return <NewPasswrod setLogin={setLogin} loginCount={loginCount} />;
+        return (
+          <NewPasswrod
+            setLogin={setLogin}
+            loginCount={loginCount}
+            mainEmail={mainEmail}
+          />
+        );
     }
   };
 
