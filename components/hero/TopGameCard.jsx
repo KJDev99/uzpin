@@ -43,7 +43,7 @@ export default function TopGameCards() {
 
   return (
     <div className="max-w-[1400px] mx-auto w-full px-0 py-6">
-      <h2 className="barriecito text-[32px] leading-[37px] font-medium mb-4 text-white ml-10 max-sm:ml-6 max-sm:text-[20px]">
+      <h2 className="text-[32px] leading-[37px] font-medium mb-4 text-white ml-10 max-sm:ml-6 max-sm:text-[20px]">
         {t("popular-games")}
       </h2>
       <div className="pb-6 max-sm:pl-[10px]">
@@ -55,13 +55,15 @@ export default function TopGameCards() {
           breakpoints={{
             0: { slidesPerView: 2.2, spaceBetween: 10 },
             640: { slidesPerView: 2.5, spaceBetween: 15 },
-            1024: { slidesPerView: 4.3, spaceBetween: 20 },
+            992: { slidesPerView: 3.3, spaceBetween: 20 },
+            1200: { slidesPerView: 3.9, spaceBetween: 10 },
+            1300: { slidesPerView: 4.3, spaceBetween: 20 },
           }}
-          className='swiper-container'
+          className="swiper-container"
         >
           {games.map((game, indx) => (
             <SwiperSlide key={indx}>
-              <div className="flex-shrink-0 w-[300px] main_card max-sm:w-[162px]">
+              <div className="flex-shrink-0 w-[300px] main_card max-sm:w-[162px] mx-4">
                 <div className="p-4 max-sm:p-[10px]">
                   <div className="relative aspect-square">
                     <Image
