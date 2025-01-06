@@ -42,11 +42,11 @@ export default function TopGameCards() {
   }
 
   return (
-    <div className="w-full px-0 py-6">
-      <h2 className="barriecito text-[32px] leading-[37px] font-medium mb-4 text-white ml-[140px] max-sm:ml-6 max-sm:text-[20px]">
+    <div className="max-w-[1400px] mx-auto w-full px-0 py-6">
+      <h2 className="barriecito text-[32px] leading-[37px] font-medium mb-4 text-white ml-10 max-sm:ml-6 max-sm:text-[20px]">
         {t("popular-games")}
       </h2>
-      <div className="pb-6 pl-20 max-sm:pl-[10px]">
+      <div className="pb-6 max-sm:pl-[10px]">
         <Swiper
           modules={[Autoplay]}
           spaceBetween={20}

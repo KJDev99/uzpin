@@ -37,42 +37,44 @@ export default function AllGames() {
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 max-sm:grid-cols-2 gap-10 p-5 rounded-lg game__content_bg md:px-[120px] pb-[100px] pt-[30px] max-sm:pt-6 max-sm:pb-4 max-sm:px-4 max-sm:gap-4">
-      {games.map((game) => (
-        <div
-          key={game.id}
-          className="overflow-hidden border hover:border-[#ffba00] hover:shadow-lg transition-shadow duration-200 bg-white rounded-lg max-sm:rounded-[10px] max-sm:max-w-[166px] max-md:mx-auto"
-        >
-          <Link href={`/all-games/${game.id}`} className="p-0">
-            <div className="flex items-start gap-4 p-4 h-max max-sm:flex-col max-sm:p-[10px] max-sm:gap-[10px]">
-              <div className="relative rounded-lg overflow-hidden flex-shrink-0">
-                <Image
-                  src={game.photo}
-                  alt={game.name}
-                  width={200}
-                  height={200}
-                  className="object-cover w-[200px] h-[200px] max-sm:w-[146px] max-sm:h-[126px]"
-                />
-              </div>
-              <div className="flex flex-col w-full h-[200px] max-sm:h-auto">
-                <h3 className="text-[28px] text-[#313131] font-bold max-sm:font-medium max-sm:text-sm grow">
-                  {game.name}
-                </h3>
-                <div>
-                  <button className="w-full px-4 py-3 text-[#acacac] hover:text-[#ffba00] transition-colors duration-200 flex items-center gap-4 justify-end group max-sm:hidden">
-                    <span>{t("see-more")}</span>
-                    <FaArrowRightLong className="w-[18px] h-[20px] transition-transform duration-200 group-hover:translate-x-1" />
-                  </button>
+    <div className="game__content_bg">
+      <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-2 max-sm:grid-cols-2 gap-10 p-5 rounded-lg pt-[30px] max-sm:pt-6 max-sm:pb-4 max-sm:px-4 max-sm:gap-4">
+        {games.map((game) => (
+          <div
+            key={game.id}
+            className="overflow-hidden border hover:border-[#ffba00] hover:shadow-lg transition-shadow duration-200 bg-white rounded-lg max-sm:rounded-[10px] max-sm:max-w-[166px] max-md:mx-auto"
+          >
+            <Link href={`/all-games/${game.id}`} className="p-0">
+              <div className="flex items-start gap-4 p-4 h-max max-sm:flex-col max-sm:p-[10px] max-sm:gap-[10px]">
+                <div className="relative rounded-lg overflow-hidden flex-shrink-0">
+                  <Image
+                    src={game.photo}
+                    alt={game.name}
+                    width={200}
+                    height={200}
+                    className="object-cover w-[200px] h-[200px] max-sm:w-[146px] max-sm:h-[126px]"
+                  />
+                </div>
+                <div className="flex flex-col w-full h-[200px] max-sm:h-auto">
+                  <h3 className="text-[28px] text-[#313131] font-bold max-sm:font-medium max-sm:text-sm grow">
+                    {game.name}
+                  </h3>
+                  <div>
+                    <button className="w-full px-4 py-3 text-[#acacac] hover:text-[#ffba00] transition-colors duration-200 flex items-center gap-4 justify-end group max-sm:hidden">
+                      <span>{t("see-more")}</span>
+                      <FaArrowRightLong className="w-[18px] h-[20px] transition-transform duration-200 group-hover:translate-x-1" />
+                    </button>
 
-                  <button className="max-w-[146px] w-full mt-[18px] rounded-[5px] py-2 bg-[#ffba00] font-medium text-[20px] leading-[23px] sm:hidden">
-                    <span>{t("see-more")}</span>
-                  </button>
+                    <button className="max-w-[146px] w-full mt-[18px] rounded-[5px] py-2 bg-[#ffba00] font-medium text-[20px] leading-[23px] sm:hidden">
+                      <span>{t("see-more")}</span>
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-          </Link>
-        </div>
-      ))}
+            </Link>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

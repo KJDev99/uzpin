@@ -116,7 +116,7 @@ export default function GameStore({ data }) {
               height={16}
               className="mt-1"
             />
-            {t('all-games-text4')}
+            {t("all-games-text4")}
           </p>
         </div>
         <div className="grid grid-cols-5 gap-[50px] mb-[40px]">
@@ -127,23 +127,25 @@ export default function GameStore({ data }) {
                 className="rounded-lg p-4 border hover:border-[#FFBA00] transition-all ease-linear bg-white max-sm:p-0 h-max"
               >
                 <div className="flex flex-col max-sm:px-[10px] max-sm:pb-[10px] max-sm:pt-5">
-                  {pkg.photo ? (
-                    <Image
-                      src={pkg.photo}
-                      alt={`${pkg.name} UC`}
-                      width={190}
-                      height={190}
-                      className="mb-4 w-full max-sm:w-[126px] h-[190px] max-sm:h-[126px] max-sm:mx-auto"
-                    />
-                  ) : (
-                    <Image
-                      src="/uccard.png"
-                      alt={`${pkg.name} UC`}
-                      width={190}
-                      height={190}
-                      className="mb-4 w-full max-sm:w-[126px] max-sm:h-[126px] max-sm:mx-auto"
-                    />
-                  )}
+                  <div className="rounded-[10px] bg-gradient-to-b from-[#FFE69B] to-[#FEFDF8] max-h-[190px]">
+                    {pkg.photo ? (
+                      <Image
+                        src={pkg.photo}
+                        alt={`${pkg.name} UC`}
+                        width={190}
+                        height={190}
+                        className="mb-4 w-full max-sm:w-[126px] h-[190px] max-sm:h-[126px] max-sm:mx-auto"
+                      />
+                    ) : (
+                      <Image
+                        src="/uccard.png"
+                        alt={`${pkg.name} UC`}
+                        width={190}
+                        height={190}
+                        className="mb-4 w-full max-sm:w-[126px] max-sm:h-[126px] max-sm:mx-auto"
+                      />
+                    )}
+                  </div>
                   <h3 className="text-xl font-bold mb-2 max-sm:font-medium max-sm:text-sm">
                     {pkg.name}
                   </h3>
@@ -152,7 +154,7 @@ export default function GameStore({ data }) {
                       {pkg.price.toLocaleString()} UZS
                     </p>
                     <p className="text-[#828282] text-xs mb-4 max-sm:text-[10px] max-sm:leading-[11px]">
-                    {t('all-games-text5')} {pkg.count}
+                      {t("all-games-text5")} {pkg.count}
                     </p>
                   </div>
                   <div className="flex justify-between items-center gap-2">
@@ -193,11 +195,11 @@ export default function GameStore({ data }) {
             }`}
           >
             <div className="flex items-center justify-between">
-              <h2 className="text-xl font-medium">{t('all-games-text6')}</h2>
+              <h2 className="text-xl font-medium">{t("all-games-text6")}</h2>
               <div className="flex cursor-pointer" onClick={() => ClearTash()}>
                 <p className="text-[#828282] flex gap-[10px] items-center max-sm:text-sm max-sm:leading-4">
                   <GoTrash />
-                  {t('all-games-text7')}
+                  {t("all-games-text7")}
                 </p>
               </div>
             </div>
@@ -225,9 +227,11 @@ export default function GameStore({ data }) {
                   ))}
                   <div className="border-t pt-4">
                     <div className="flex flex-col">
-                      <span className="max-sm:hidden">{t('all-games-text8')}</span>
+                      <span className="max-sm:hidden">
+                        {t("all-games-text8")}
+                      </span>
                       <div className="flex justify-between font-bold max-sm:font-medium max-sm:leading-[18px]">
-                        <div className="sm:hidden">{t('all-games-text9')}</div>
+                        <div className="sm:hidden">{t("all-games-text9")}</div>
                         <div>{totalPrice.toLocaleString()} UZS</div>
                       </div>
                     </div>
@@ -238,13 +242,13 @@ export default function GameStore({ data }) {
                     onClick={() => setShowPurchaseModal(1)}
                     className="w-full py-2 bg-[#FFBA00] rounded text-black font-medium mb-[10px] border-b-2 border-[black] max-sm:m-0"
                   >
-                    {t('all-games-text10')}
+                    {t("all-games-text10")}
                   </button>
                   <button
                     onClick={() => setShowPurchaseModal(2)}
                     className="w-full py-2 bg-[#FFBA00] rounded text-black font-medium border-b-2 border-[black]"
                   >
-                    {t('all-games-text11')}
+                    {t("all-games-text11")}
                   </button>
                 </div>
               </>

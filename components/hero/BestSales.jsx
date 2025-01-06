@@ -37,11 +37,11 @@ export default function BestSales() {
   }
 
   return (
-    <div className="w-full px-0 pt-14 pb-10 max-sm:pt-6 max-sm:pb-6">
-      <h2 className="text-[32px] leading-[37px] font-medium mb-5 text-white ml-[140px] max-sm:ml-6 max-sm:font-medium max-sm:text-xl">
+    <div className="max-w-[1400px] mx-auto w-full px-0 pt-14 pb-10 max-sm:pt-6 max-sm:pb-6">
+      <h2 className="text-[32px] leading-[37px] font-medium mb-5 text-white ml-10 max-sm:ml-6 max-sm:font-medium max-sm:text-xl">
         {t("best-selling")}
       </h2>
-      <div className="pb-6 px-20 max-sm:px-6 max-sm:pb-0">
+      <div className="pb-6 max-sm:px-6 max-sm:pb-0">
         <Swiper
           modules={[Autoplay]}
           spaceBetween={20}
