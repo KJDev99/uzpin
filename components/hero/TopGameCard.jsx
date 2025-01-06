@@ -6,6 +6,10 @@ import axiosInstance from "@/libs/axios";
 import Loader from "../Loader";
 import Link from "next/link";
 import { useTranslation } from "react-i18next";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/autoplay";
 
 export default function TopGameCards() {
   const { t } = useTranslation();
@@ -42,37 +46,47 @@ export default function TopGameCards() {
       <h2 className="text-[32px] leading-[37px] font-medium mb-4 text-white ml-[140px] max-sm:ml-6 max-sm:text-[20px]">
         {t("popular-games")}
       </h2>
-      <div className="overflow-x-auto scrollbar-hide pb-6 pl-20 max-sm:pl-[10px]">
-        <div className="flex space-x-4 min-w-full snap-mandatory">
+      <div className="pb-6 pl-20 max-sm:pl-[10px]">
+        <Swiper
+          modules={[Autoplay]}
+          spaceBetween={20}
+          autoplay={{ delay: 2500, disableOnInteraction: false }}
+          loop={true}
+          breakpoints={{
+            0: { slidesPerView: 2.2, spaceBetween: 10 },
+            640: { slidesPerView: 2.5, spaceBetween: 15 },
+            1024: { slidesPerView: 4.3, spaceBetween: 20 },
+          }}
+          className='swiper-container'
+        >
           {games.map((game, indx) => (
-            <div
-              key={indx}
-              className="flex-shrink-0 w-[300px] snap-center main_card max-sm:w-[162px]"
-            >
-              <div className="p-4 max-sm:p-[10px]">
-                <div className="relative aspect-square">
-                  <Image
-                    src={game.image}
-                    alt={game.title}
-                    className="object-cover w-[270px] h-[311px] rounded-lg max-sm:max-w-[142px] max-sm:max-h-[126px] max-sm:rounded-[5px]"
-                    width={270}
-                    height={311}
-                  />
-                </div>
-                <div className="pt-5 space-y-2 max-sm:p-0 max-sm:pt-[10px] max-sm:space-y-[18px]">
-                  <h3 className="font-medium text-[24px] leading-[28px] text-white max-sm:text-sm">
-                    {game.title}
-                  </h3>
-                  <Link href={`/all-games/${game.id}`}>
-                    <button className="w-full mt-5 bg-[#FFBA00] text-black py-3 font-medium rounded-[10px] text-xl leading-[23px] max-sm:text-[12px] max-sm:py-2">
-                      {t("see-more")}
-                    </button>
-                  </Link>
+            <SwiperSlide key={indx}>
+              <div className="flex-shrink-0 w-[300px] main_card max-sm:w-[162px]">
+                <div className="p-4 max-sm:p-[10px]">
+                  <div className="relative aspect-square">
+                    <Image
+                      src={game.image}
+                      alt={game.title}
+                      className="object-cover w-[270px] h-[311px] rounded-lg max-sm:max-w-[142px] max-sm:max-h-[126px] max-sm:rounded-[5px]"
+                      width={270}
+                      height={311}
+                    />
+                  </div>
+                  <div className="pt-5 space-y-2 max-sm:p-0 max-sm:pt-[10px] max-sm:space-y-[18px]">
+                    <h3 className="font-medium text-[24px] leading-[28px] text-white max-sm:text-sm">
+                      {game.title}
+                    </h3>
+                    <Link href={`/all-games/${game.id}`}>
+                      <button className="w-full mt-5 bg-[#FFBA00] text-black py-3 font-medium rounded-[10px] text-xl leading-[23px] max-sm:text-[12px] max-sm:py-2">
+                        {t("see-more")}
+                      </button>
+                    </Link>
+                  </div>
                 </div>
               </div>
-            </div>
+            </SwiperSlide>
           ))}
-        </div>
+        </Swiper>
       </div>
     </div>
   );
