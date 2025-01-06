@@ -63,11 +63,11 @@ export default function ForgetPassword({ setLogin, loginCount, setMainEmail }) {
             <Link href="/">
               <FaChevronLeft className="h-6 w-6 absolute top-[15%] -left-[15%] sm:hidden" />
             </Link>
-            <h2 className="text-[#141311] font-medium text-center text-[32px] leading-[40px]">
+            <h2 className="text-[#141311] font-medium redux_pro text-center text-[32px] leading-[40px]">
               {t("login-text5")}
             </h2>
           </div>
-          <p className="mb-3 text-center text-[#909090] font-light text-[14px] leading-[21px]">
+          <p className="mb-3 text-center text-[#909090] font-light redux_pro text-[14px] leading-[21px]">
             {t("login-text17")}
           </p>
         </div>

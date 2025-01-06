@@ -210,7 +210,7 @@ export default function Login({ setLogin, loginCount }) {
           </div>
 
           <div className="flex flex-col justify-between items-center my-5">
-            <Link href="/telegram-login.html">
+            <Link href="/telegram-login.html" className="w-full">
               <button
                 type="button"
                 className="flex items-center justify-center text-[black] font-medium text-[20px] leading-[23px] py-2 px-4 rounded-[5px] gap-5 w-full mb-[10px] border-2 border-[#313131]"
