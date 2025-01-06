@@ -10,15 +10,9 @@ const nextConfig = {
       },
       {
         protocol: "https",
-        hostname: "api.amaliymoliya.uz",
+        hostname: "api.uzpin.games",
         port: "",
         pathname: "/media/uploads/**",
-      },
-      {
-        protocol: "https",
-        hostname: "uzpin.uz",
-        port: "",
-        pathname: "/uploads/game/**",
       },
     ],
   },

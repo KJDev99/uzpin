@@ -197,7 +197,7 @@ export default function BalansCardModal({
                 {t("profile27")}
               </button>
             </div>
-            {photo.length && (
+            {photo.length ? (
               <div className="flex flex-col">
                 <div className="max-w-[482px] w-full mx-auto mt-5 py-5 px-8 border border-[#828282] rounded-[10px] flex items-center justify-between">
                   <div>
@@ -214,7 +214,7 @@ export default function BalansCardModal({
                   {t("profile28")}
                 </button>
               </div>
-            )}
+            ):''}
           </div>
           {selectedCard && (
             <div className="w-[310px] px-[24px] pt-8 pb-8 bg-[#f9f9f9] rounded-tr-[10px] rounded-br-[10px]">

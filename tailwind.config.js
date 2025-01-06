@@ -12,9 +12,21 @@ module.exports = {
         foreground: "var(--foreground)",
       },
       boxShadow: {
-        'custom': '0px 10px 20px 0px #0000001A',
+        custom: "0px 10px 20px 0px #0000001A",
       },
     },
   },
-  plugins: [],
+  plugins: [
+    function ({ addUtilities }) {
+      addUtilities({
+        ".scrollbar-hide": {
+          "-ms-overflow-style": "none",
+          "scrollbar-width": "none",
+        },
+        ".scrollbar-hide::-webkit-scrollbar": {
+          display: "none",
+        },
+      });
+    },
+  ],
 };

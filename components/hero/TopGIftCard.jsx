@@ -51,10 +51,10 @@ export default function TopGiftCard() {
 
   return (
     <div className="w-full px-0 pt-14 pb-10 max-sm:pt-4 max-sm:pb-6">
-      <h2 className="text-2xl font-bold mb-4 text-white ml-[140px] max-sm:ml-6 max-sm:mb-4 max-sm:text-xl max-sm:font-medium">
+      <h2 className="text-[32px] leading-[37px] font-medium mb-5 text-white ml-[140px] max-sm:ml-6 max-sm:mb-4 max-sm:text-xl max-sm:font-medium">
         Bestseller Gift Cards
       </h2>
-      <div className="overflow-x-auto pb-6 px-20 max-sm:px-[10px]">
+      <div className="overflow-x-auto scrollbar-hide pb-6 px-20 max-sm:px-[10px]">
         <div className="flex space-x-4 min-w-full  snap-mandatory">
           {games.map((game, indx) => (
             <div
@@ -72,7 +72,7 @@ export default function TopGiftCard() {
                   />
                 </div>
                 <div className="p-4 space-y-2 max-sm:pl-0 max-sm:pb-0 max-sm:pt-2.5">
-                  <h3 className="font-semibold text-xl text-white max-sm:font-medium max-sm:text-sm">
+                  <h3 className="font-medium text-2xl text-white max-sm:font-medium max-sm:text-sm">
                     {game.title}
                   </h3>
                 </div>

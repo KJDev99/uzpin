@@ -41,7 +41,7 @@ export default function HeaderSlider() {
 
   useEffect(() => {
     if (slides.length) {
-      const interval = setInterval(nextSlide, 5000);
+      const interval = setInterval(nextSlide, 7000);
       return () => clearInterval(interval);
     }
   }, [nextSlide, slides.length]);
@@ -81,19 +81,17 @@ export default function HeaderSlider() {
                 />
                 {offset === 0 && (
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent">
-                    <div className="absolute bottom-0 left-0 p-6">
-                      <h2 className="mb-2 text-3xl font-bold text-white">
-                        {slide.title}
-                      </h2>
-                      <p className="mb-4 text-lg text-gray-200">
-                        {slide.subtitle}
-                      </p>
-                      <Link href={`/all-games/${slide.id}`}>
-                        <button className="rounded-lg bg-yellow-500 px-6 py-2 font-semibold text-black transition-colors hover:bg-yellow-400">
-                          {slide.buttonText}
-                        </button>
-                      </Link>
-                    </div>
+                    <h2 className="mb-2 mt-[43px] ml-[72px] text-[64px] leading-[75px] font-semibold text-white">
+                      {slide.title}
+                    </h2>
+                    <p className="mb-4 ml-[72px] font-medium text-[32px] leading-[37px] text-gray-200">
+                      {slide.subtitle}
+                    </p>
+                    <Link href={`/all-games/${slide.id}`}>
+                      <button className="absolute bottom-[69px] ml-[72px] rounded-lg bg-yellow-500 px-12 py-3 font-semibold text-[20px] leading-[23px] text-black transition-colors hover:bg-yellow-400">
+                        {slide.buttonText}
+                      </button>
+                    </Link>
                   </div>
                 )}
               </div>
