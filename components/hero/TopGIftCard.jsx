@@ -54,11 +54,11 @@ export default function TopGiftCard() {
   ];
 
   return (
-    <div className="w-full px-0 pt-14 pb-10 max-sm:pt-4 max-sm:pb-6">
-      <h2 className="text-[32px] leading-[37px] font-medium mb-5 text-white ml-[140px] max-sm:ml-6 max-sm:mb-4 max-sm:text-xl max-sm:font-medium">
+    <div className="max-w-[1400px] mx-auto w-full px-0 pt-14 pb-10 max-sm:pt-4 max-sm:pb-6">
+      <h2 className="text-[32px] leading-[37px] font-medium mb-5 text-white ml-10 max-sm:ml-6 max-sm:mb-4 max-sm:text-xl max-sm:font-medium">
         {t("best-seller")}
       </h2>
-      <div className="pb-6 px-20 max-sm:px-[10px]">
+      <div className="pb-6 max-sm:px-[10px]">
         <Swiper
           modules={[Autoplay]}
           spaceBetween={10}
