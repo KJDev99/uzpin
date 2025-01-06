@@ -57,6 +57,16 @@ export default function PasswordCheck({ setLogin, mainEmail }) {
     }
   };
 
+  const TryPassWord = async () => {
+    try {
+      await axiosInstance.post("client/auth/reset", {
+        email: mainEmail,
+      });
+    } catch (error) {
+      console.error("Xatolik yuz berdi:", error);
+    }
+  };
+
   return (
     <div className="flex justify-center items-center">
       {error && (
@@ -114,9 +124,13 @@ export default function PasswordCheck({ setLogin, mainEmail }) {
           </button>
           <div className="text-center text-sm text-[black] mt-3 mb-5">
             {t("login-text21")}{" "}
-            <Link href="#" className="text-[#FFBA00]">
+            <button
+              onClick={() => TryPassWord()}
+              href="#"
+              className="text-[#FFBA00]"
+            >
               {t("login-text22")}
-            </Link>{" "}
+            </button>{" "}
             {t("login-text23")}
           </div>
         </form>

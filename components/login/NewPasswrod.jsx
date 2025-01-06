@@ -9,8 +9,9 @@ import { Toast } from "../Toast";
 import Image from "next/image";
 import { FaChevronLeft } from "react-icons/fa6";
 import { useTranslation } from "react-i18next";
+import axiosInstance from "@/libs/axios";
 
-export default function NewPasswrod({ setLogin, loginCount }) {
+export default function NewPasswrod({ setLogin, mainEmail }) {
   const { t } = useTranslation();
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [password, setPassword] = useState("");
@@ -46,6 +47,7 @@ export default function NewPasswrod({ setLogin, loginCount }) {
     if (formIsValid) {
       try {
         await axiosInstance.post("client/auth/reset/password", {
+          // email: mainEmail,
           new_password: password,
           confirm_password: confirmPassword,
         });
@@ -79,6 +81,7 @@ export default function NewPasswrod({ setLogin, loginCount }) {
           <Link href="/">
             <FaChevronLeft className="h-6 w-6 absolute top-[62%] left-[0%] sm:hidden" />
           </Link>
+
           <h2 className="text-[#141311] font-medium text-center text-[32px] leading-[40px] max-sm:mt-[60px]">
             {t("login-text24")}
           </h2>
