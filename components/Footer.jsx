@@ -101,7 +101,7 @@ export default function Footer() {
                   </span>
                 </Link>
                 <Link
-                  href="https://instagram.com/uzpin"
+                  href="https://t.me/uzpin"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-white transition-colors"
