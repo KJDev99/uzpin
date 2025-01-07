@@ -72,14 +72,16 @@ export default function BestSales() {
           breakpoints={{
             0: { slidesPerView: 2.2, spaceBetween: 10 },
             640: { slidesPerView: 2.5, spaceBetween: 15 },
-            1024: { slidesPerView: 4.5, spaceBetween: 20 },
+            992: { slidesPerView: 3.3, spaceBetween: 20 },
+            1200: { slidesPerView: 3.9, spaceBetween: 10 },
+            1300: { slidesPerView: 4.3, spaceBetween: 20 },
           }}
         >
           {data.map((promo, index) => (
             <SwiperSlide key={index}>
               <div className="flex-shrink-0 w-[270px] main_card rounded-[10px] max-sm:w-[140px]">
                 <div className="p-4 max-sm:p-2.5">
-                  <div className="relative aspect-square overflow-hidden">
+                  <div className="relative aspect-square overflow-hidden bg-gradient-to-b from-[#FFE69B] to-[#FEFDF8] max-h-[228px] w-full rounded-[5px]">
                     {promo.photo ? (
                       <Image
                         src={`${promo.photo}`}
@@ -98,7 +100,7 @@ export default function BestSales() {
                       />
                     )}
                   </div>
-                  <div className="space-y-3 max-sm:px-0 max-sm:pb-0">
+                  <div className="mt-5 space-y-3 max-sm:px-0 max-sm:pb-0">
                     <div>
                       <h3 className="font-bold text-[24px] leading-[28px] text-white max-sm:font-medium max-sm:text-sm">
                         {promo.name}
