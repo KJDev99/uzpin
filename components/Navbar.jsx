@@ -65,7 +65,7 @@ export default function Navbar() {
               alt="target icon"
               width={150}
               height={24}
-              className="ml-1 mr-20 max-sm:max-w-[108px] max-sm:max-h-[20px]"
+              className="ml-1 mr-20 max-sm:mr-5 max-sm:max-w-[108px] max-sm:max-h-[20px]"
             />
           </Link>
           <div className="hidden md:flex items-center space-x-10 font-medium text-[20px] leading-[23px]">
@@ -88,7 +88,7 @@ export default function Navbar() {
               {t("help")}
             </Link>
           </div>
-          <div className="flex-1 max-w-lg mx-5 max-sm:flex justify-end">
+          <div className="flex-1 max-w-lg mx-5 max-sm:mx-0 max-sm:flex justify-end">
             <SearchComponent />
           </div>
           <div className="flex w-[200px] max-md:w-max items-center space-x-10 max-sm:space-x-0">
@@ -134,7 +134,7 @@ export default function Navbar() {
               <div
                 className={`fixed z-[999] max-md:flex max-md:flex-col max-md:top-12 max-md:pt-3 w-max  flex gap-2 transition-all duration-300 translate-x-2 ${
                   isHovered
-                    ? "right-[276px] max-md:right-[6%]"
+                    ? "right-[276px] max-md:right-[30%]"
                     : "right-[-100px]"
                 }`}
               >
