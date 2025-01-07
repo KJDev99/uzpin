@@ -126,7 +126,7 @@ export default function GameStore({ data }) {
                 key={pkg.id}
                 className="rounded-lg p-4 border hover:border-[#FFBA00] transition-all ease-linear bg-white max-sm:p-0 h-max"
               >
-                <div className="flex flex-col max-sm:px-[10px] max-sm:pb-[10px] max-sm:pt-5">
+                <div className="flex flex-col max-sm:px-[0px] max-sm:pb-[10px]">
                   <div className="rounded-[10px] bg-gradient-to-b from-[#FFE69B] to-[#FEFDF8] max-h-[190px]">
                     {pkg.photo ? (
                       <Image
@@ -146,43 +146,48 @@ export default function GameStore({ data }) {
                       />
                     )}
                   </div>
-                  <h3 className="text-xl font-bold mb-2 max-sm:font-medium max-sm:text-sm">
-                    {pkg.name}
-                  </h3>
-                  <div className="flex justify-between items-center">
-                    <p className="font-medium text-[#313131] text-sm mb-4 max-sm:text-xs max-sm:leading-[14px]">
-                      {pkg.price.toLocaleString()} UZS
-                    </p>
-                    <p className="text-[#828282] text-xs mb-4 max-sm:text-[10px] max-sm:leading-[11px]">
-                      {t("all-games-text5")} {pkg.count}
-                    </p>
-                  </div>
-                  <div className="flex justify-between items-center gap-2">
-                    <button
-                      className={`px-2 py-1 text-[28px] max-sm:p-0 ${
-                        getQuantity(pkg.id) === 0
-                          ? "opacity-40 cursor-not-allowed"
-                          : ""
-                      }`}
-                      onClick={() => updateQuantity(pkg.id, false)}
-                      disabled={getQuantity(pkg.id) === 0}
-                    >
-                      -
-                    </button>
-                    <span className="px-[45px] py-2 border rounded-[10px] bg-[#F4F4F4] border-t-[#ACACAC] text-lg max-sm:py-[7px] max-sm:px-[35px]">
-                      {getQuantity(pkg.id)}
-                    </span>
-                    <button
-                      className={`px-2 py-1 text-[28px] max-sm:p-0 ${
-                        getQuantity(pkg.id) >= pkg.count
-                          ? "opacity-40 cursor-not-allowed"
-                          : ""
-                      }`}
-                      onClick={() => updateQuantity(pkg.id, true)}
-                      disabled={getQuantity(pkg.id) >= pkg.count}
-                    >
-                      +
-                    </button>
+                  <div className="max-sm:px-[10px]">
+                    <h3 className="text-xl font-bold mb-2 max-sm:font-medium max-sm:text-sm">
+                      {pkg.name}
+                    </h3>
+                    <div className="flex justify-between items-center">
+                      <p className="font-medium text-[#313131] text-sm mb-4 max-sm:text-xs max-sm:leading-[14px]">
+                        {pkg.price.toLocaleString()} UZS
+                      </p>
+                      <p className="text-[#828282] text-xs mb-4 max-sm:hidden">
+                        {t("all-games-text5")} {pkg.count}
+                      </p>
+                      <p className="text-[#828282] text-xs mb-4 sm:hidden">
+                        {t("all-games-text17")} {pkg.count}
+                      </p>
+                    </div>
+                    <div className="flex justify-between items-center gap-2">
+                      <button
+                        className={`px-2 py-1 text-[28px] max-sm:p-0 ${
+                          getQuantity(pkg.id) === 0
+                            ? "opacity-40 cursor-not-allowed"
+                            : ""
+                        }`}
+                        onClick={() => updateQuantity(pkg.id, false)}
+                        disabled={getQuantity(pkg.id) === 0}
+                      >
+                        -
+                      </button>
+                      <span className="px-[45px] py-2 border rounded-[10px] bg-[#F4F4F4] border-t-[#ACACAC] text-lg max-sm:py-[7px] max-sm:px-[35px]">
+                        {getQuantity(pkg.id)}
+                      </span>
+                      <button
+                        className={`px-2 py-1 text-[28px] max-sm:p-0 ${
+                          getQuantity(pkg.id) >= pkg.count
+                            ? "opacity-40 cursor-not-allowed"
+                            : ""
+                        }`}
+                        onClick={() => updateQuantity(pkg.id, true)}
+                        disabled={getQuantity(pkg.id) >= pkg.count}
+                      >
+                        +
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -206,6 +211,20 @@ export default function GameStore({ data }) {
             {cart.length > 0 ? (
               <>
                 <div className="mt-2 mb-8">
+                  <div className="border-t pt-4">
+                    <div className="flex flex-col">
+                      <span className="max-sm:hidden">
+                        {t("all-games-text8")}
+                      </span>
+                      <div className="flex justify-between font-bold max-sm:font-medium max-sm:leading-[18px]">
+                        <div className="sm:hidden">{t("all-games-text9")}</div>
+                        <div className="border border-black w-full flex justify-between items-center">
+                          <p>21000</p>
+                          <p>{totalPrice.toLocaleString()} UZS</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                   {cart.map((item) => (
                     <div
                       key={item.id}
@@ -225,17 +244,6 @@ export default function GameStore({ data }) {
                       </span>
                     </div>
                   ))}
-                  <div className="border-t pt-4">
-                    <div className="flex flex-col">
-                      <span className="max-sm:hidden">
-                        {t("all-games-text8")}
-                      </span>
-                      <div className="flex justify-between font-bold max-sm:font-medium max-sm:leading-[18px]">
-                        <div className="sm:hidden">{t("all-games-text9")}</div>
-                        <div>{totalPrice.toLocaleString()} UZS</div>
-                      </div>
-                    </div>
-                  </div>
                 </div>
                 <div className="mt-6 space-y-2 max-sm:flex max-sm:items-center max-sm:gap-5 max-sm:mt-[11px] max-sm:space-y-0">
                   <button

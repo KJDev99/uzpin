@@ -39,7 +39,7 @@ export default function BottomNavbar() {
   if (pathname === "/login") return false;
 
   return (
-    <div className="md:hidden max-w-[335px] flex justify-between gap-[22px] bg-white rounded-[10px] fixed bottom-5 left-0 right-0 mx-auto z-50 pt-[10px] pb-[26px] px-[20px]">
+    <div className="md:hidden max-w-[355px] flex justify-between gap-[22px] bg-white rounded-[10px] fixed bottom-5 left-0 right-0 mx-auto z-50 pt-[10px] pb-[26px] px-[20px]">
       <Link href="/">
         <div className="flex flex-col items-center">
           {active === "home" ? (
