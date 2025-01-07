@@ -2,7 +2,11 @@ import axios from "axios";
 
 const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
-const savedLanguage = localStorage.getItem("language");
+// const savedLanguage = localStorage.getItem("language");
+const savedLanguage =
+  typeof window !== "undefined"
+    ? localStorage.getItem("language") || "uz"
+    : "uz";
 const axiosInstance = axios.create({
   baseURL,
   headers: {
