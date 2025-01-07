@@ -16,31 +16,16 @@ export default function BestSales() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  // useEffect(() => {
-  //   setLoading(true);
-  //   const fetchStats = async () => {
-  //     try {
-  //       const currency = localStorage.getItem("currency") || "uzs";
-
-  //       const response = await axiosInstance.get(`/client/popular/promocodes`, {
-  //         headers: {
-  //           Currency: currency,
-  //         },
-  //       });
-  //       setData(response.data || []);
-  //     } catch (error) {
-  //       console.error("Ma'lumotlarni yuklashda xatolik:", error);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
-  //   fetchStats();
-  // }, []);
+  const currency = localStorage.getItem("currency") || "uzs";
   useEffect(() => {
     setLoading(true);
     const fetchStats = async () => {
       try {
-        const response = await axiosInstance.get(`/client/popular/promocodes`);
+        const response = await axiosInstance.get(`/client/popular/promocodes`, {
+          headers: {
+            Currency: currency,
+          },
+        });
         setData(response.data || []);
       } catch (error) {
         console.error("Ma'lumotlarni yuklashda xatolik:", error);
@@ -114,10 +99,10 @@ export default function BestSales() {
                         {promo.name}
                       </p>
                       <p className="font-normal text-[16px] leading-[18px] text-white max-sm:text-xs max-sm:font-medium">
-                        {promo.price} UZS
+                        {promo.price} {currency}
                       </p>
                     </div>
-                    <Link href={`/all-games/${promo.game}`}>
+                    <Link href={`/all-games/${promo.game.id}`}>
                       <button className="w-full mt-8 bg-[#FFBA00] text-black py-3 font-medium rounded-[10px] text-[20px] leading-[23px] max-sm:text-xs max-sm:py-2">
                         {t("purchase")}
                       </button>

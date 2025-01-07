@@ -17,55 +17,19 @@ export default function GameStore({ data }) {
   const [loading, setLoading] = useState(false);
   const [code, setCode] = useState([]);
 
-  const [currency, setCurrency] = useState("");
-
-  useEffect(() => {
-    const savedCurrency = localStorage.getItem("currency") || "uzs";
-    setCurrency(savedCurrency);
-
-    const handleStorageChange = (event) => {
-      if (event.key === "currency") {
-        setCurrency(event.newValue || "uzs");
-      }
-    };
-
-    window.addEventListener("storage", handleStorageChange);
-    return () => {
-      window.removeEventListener("storage", handleStorageChange);
-    };
-  }, []);
-
-  // const fetchStats = async () => {
-  //   setLoading(true);
-  //   if (data.id) {
-  //     try {
-  //       const response = await axiosInstance.get(
-  //         `/client/promocodes/${data.id}`,
-  //         {
-  //           headers: {
-  //             Currency: currency,
-  //           },
-  //         }
-  //       );
-  //       setCode(response.data || []);
-  //     } catch (error) {
-  //       console.error("Ma'lumotlarni yuklashda xatolik:", error);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   fetchStats();
-  // }, [data.id, currency]);
+  const savedCurrency = localStorage.getItem("currency") || "uzs";
 
   const fetchStats = async () => {
     setLoading(true);
     if (data.id) {
       try {
         const response = await axiosInstance.get(
-          `/client/promocodes/${data.id}`
+          `/client/promocodes/${data.id}`,
+          {
+            headers: {
+              Currency: savedCurrency,
+            },
+          }
         );
         setCode(response.data || []);
       } catch (error) {
@@ -75,9 +39,10 @@ export default function GameStore({ data }) {
       }
     }
   };
+
   useEffect(() => {
     fetchStats();
-  }, [data]);
+  }, [data.id]);
 
   const updateQuantity = (packageId, quantity) => {
     setCart((prevCart) => {
@@ -187,8 +152,8 @@ export default function GameStore({ data }) {
                     {pkg.name}
                   </h3>
                   <div className="flex justify-between items-center">
-                    <p className="font-medium text-[#313131] text-sm mb-4 max-sm:text-xs max-sm:leading-[14px]">
-                      {pkg.price.toLocaleString()} UZS
+                    <p className="font-medium text-[#313131] text-sm mb-4 max-sm:text-xs max-sm:leading-[14px] uppercase">
+                      {pkg.price.toLocaleString()} {savedCurrency}
                     </p>
                     <p className="text-[#828282] text-xs mb-4 max-sm:text-[10px] max-sm:leading-[11px]">
                       {t("all-games-text5")} {pkg.count}
