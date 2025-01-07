@@ -15,6 +15,7 @@ export function PurchaseModal({
   totalUC,
   totalPrice,
   clear,
+  savedCurrency,
 }) {
   const { t } = useTranslation();
   const [playerId, setPlayerId] = useState("");
@@ -151,7 +152,7 @@ export function PurchaseModal({
                     <span className="font-normal">{t("all-games-text8")}</span>
                     {totalUC.toLocaleString()} UC
                   </div>
-                  <div>{totalPrice.toLocaleString()} UZS</div>
+                  <div>{totalPrice.toLocaleString()} {savedCurrency}</div>
                 </div>
               </div>
             </div>
@@ -172,7 +173,7 @@ export function PurchaseModal({
                       <span>{item.amount} UC</span>
                     </div>
                     <span>
-                      {(item.price * item.quantity).toLocaleString()} UZS
+                      {(item.price * item.quantity).toLocaleString()} {savedCurrency}
                     </span>
                   </div>
                 ))}

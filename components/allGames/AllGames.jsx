@@ -65,7 +65,7 @@ export default function AllGames() {
                       <FaArrowRightLong className="w-[18px] h-[20px] transition-transform duration-200 group-hover:translate-x-1" />
                     </button>
 
-                    <button className="max-w-[146px] w-full mt-[18px] rounded-[5px] py-2 bg-[#ffba00] font-medium text-[20px] leading-[23px] sm:hidden">
+                    <button className="max-w-[146px] w-full mt-[18px] rounded-[5px] py-2 bg-[#ffba00] font-medium text-[12px] leading-[14px] sm:hidden">
                       <span>{t("see-more")}</span>
                     </button>
                   </div>

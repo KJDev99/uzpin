@@ -49,7 +49,7 @@ export default function SearchComponent() {
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           className="w-full bg-gray-800/50 border border-gray-700 rounded-md py-2 pl-4 pr-10 text-gray-300 placeholder-gray-500 focus:outline-none focus:border-[#FDB000]"
-          placeholder={t('search')}
+          placeholder={t("search")}
         />
         <button className="absolute right-3 top-1/2 -translate-y-1/2">
           <Search className="h-5 w-5 text-gray-400" />
@@ -77,7 +77,7 @@ export default function SearchComponent() {
       {isModalOpen && (
         <div
           onClick={() => setIsModalOpen(false)}
-          className="fixed top-[40px] max-w-[355px] mx-auto inset-0 bg-black bg-opacity-0 flex items-start justify-center z-50"
+          className="fixed top-[30px] max-w-[355px] mx-auto inset-0 bg-black bg-opacity-0 flex items-start justify-center z-50"
         >
           <div
             className="bg-white p-[6px] pr-5 rounded-lg w-96 shadow-lg"
@@ -89,7 +89,7 @@ export default function SearchComponent() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full h-[46px] py-[13px] px-5 border border-gray-300 rounded-lg outline-none"
-                placeholder={t('search')}
+                placeholder={t("search")}
               />
               <Search className="w-6 h-6" />
             </div>
