@@ -16,56 +16,21 @@ export default function GameStore({ data }) {
   // const [showModalMessage, setShowModalMessage] = useState(false);
   const [loading, setLoading] = useState(false);
   const [code, setCode] = useState([]);
+  const [amound, setAmound] = useState(0);
 
-  const [currency, setCurrency] = useState("");
-
-  useEffect(() => {
-    const savedCurrency = localStorage.getItem("currency") || "uzs";
-    setCurrency(savedCurrency);
-
-    const handleStorageChange = (event) => {
-      if (event.key === "currency") {
-        setCurrency(event.newValue || "uzs");
-      }
-    };
-
-    window.addEventListener("storage", handleStorageChange);
-    return () => {
-      window.removeEventListener("storage", handleStorageChange);
-    };
-  }, []);
-
-  // const fetchStats = async () => {
-  //   setLoading(true);
-  //   if (data.id) {
-  //     try {
-  //       const response = await axiosInstance.get(
-  //         `/client/promocodes/${data.id}`,
-  //         {
-  //           headers: {
-  //             Currency: currency,
-  //           },
-  //         }
-  //       );
-  //       setCode(response.data || []);
-  //     } catch (error) {
-  //       console.error("Ma'lumotlarni yuklashda xatolik:", error);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   fetchStats();
-  // }, [data.id, currency]);
+  const savedCurrency = localStorage.getItem("currency") || "uzs";
 
   const fetchStats = async () => {
     setLoading(true);
     if (data.id) {
       try {
         const response = await axiosInstance.get(
-          `/client/promocodes/${data.id}`
+          `/client/promocodes/${data.id}`,
+          {
+            headers: {
+              Currency: savedCurrency,
+            },
+          }
         );
         setCode(response.data || []);
       } catch (error) {
@@ -75,9 +40,10 @@ export default function GameStore({ data }) {
       }
     }
   };
+
   useEffect(() => {
     fetchStats();
-  }, [data]);
+  }, [data.id]);
 
   const updateQuantity = (packageId, quantity) => {
     setCart((prevCart) => {
@@ -164,14 +130,14 @@ export default function GameStore({ data }) {
                 className="rounded-lg p-4 border hover:border-[#FFBA00] transition-all ease-linear bg-white max-sm:p-0 h-max"
               >
                 <div className="flex flex-col max-sm:px-[0px] max-sm:pb-[10px]">
-                  <div className="rounded-[10px] bg-gradient-to-b from-[#FFE69B] to-[#FEFDF8] max-h-[190px]">
+                  <div className="flex items-center justify-center max-w-[190px] w-full h-[190px] rounded-[10px] bg-gradient-to-b from-[#FFE69B] to-[#FEFDF8]">
                     {pkg.photo ? (
                       <Image
                         src={pkg.photo}
                         alt={`${pkg.name} UC`}
-                        width={190}
-                        height={190}
-                        className="mb-4 w-full max-sm:w-[126px] h-[190px] max-sm:h-[126px] max-sm:mx-auto"
+                        width={100}
+                        height={100}
+                        className="w-[100px] max-sm:w-[126px] h-[100px] max-sm:h-[126px] max-sm:mx-auto"
                       />
                     ) : (
                       <Image
@@ -179,64 +145,70 @@ export default function GameStore({ data }) {
                         alt={`${pkg.name} UC`}
                         width={190}
                         height={190}
-                        className="mb-4 w-full max-sm:w-[126px] max-sm:h-[126px] max-sm:mx-auto"
+                        className="w-full max-sm:w-[126px] max-sm:h-[126px] max-sm:mx-auto"
                       />
                     )}
                   </div>
-                  <h3 className="text-xl font-bold mb-2 max-sm:font-medium max-sm:text-sm">
-                    {pkg.name}
-                  </h3>
-                  <div className="flex justify-between items-center">
-                    <p className="font-medium text-[#313131] text-sm mb-4 max-sm:text-xs max-sm:leading-[14px]">
-                      {pkg.price.toLocaleString()} UZS
-                    </p>
-                    <p className="text-[#828282] text-xs mb-4 max-sm:text-[10px] max-sm:leading-[11px]">
-                      {t("all-games-text5")} {pkg.count}
-                    </p>
-                  </div>
-                  <div className="flex justify-between items-center gap-2">
-                    <button
-                      className={`px-2 py-1 text-[28px] max-sm:p-0 ${
-                        getQuantity(pkg.id) === 0
-                          ? "opacity-40 cursor-not-allowed"
-                          : ""
-                      }`}
-                      onClick={() =>
-                        updateQuantity(pkg.id, getQuantity(pkg.id) - 1)
-                      }
-                      disabled={getQuantity(pkg.id) === 0}
-                    >
-                      -
-                    </button>
+                  <div className="max-sm:px-[10px]">
+                    <h3 className="text-xl font-bold mb-2 max-sm:font-medium max-sm:text-sm">
+                      {pkg.name}
+                    </h3>
+                    <div className="flex justify-between items-center">
+                      <p className="font-medium text-[#313131] text-sm mb-4 max-sm:text-xs max-sm:leading-[14px] uppercase">
+                        {pkg.price.toLocaleString()} {savedCurrency}
+                      </p>
+                      <p className="text-[#828282] text-xs mb-4 max-sm:hidden">
+                        {t("all-games-text5")} {pkg.count}
+                      </p>
+                      <p className="text-[#828282] text-xs mb-4 sm:hidden max-sm:text-[10px] max-sm:leading-[11px]">
+                        {t("all-games-text17")} {pkg.count}
+                      </p>
+                    </div>
+                    <div className="flex justify-between items-center gap-2">
+                      <button
+                        className={`px-2 py-1 text-[28px] max-sm:p-0 ${
+                          getQuantity(pkg.id) === 0
+                            ? "opacity-40 cursor-not-allowed"
+                            : ""
+                        }`}
+                        onClick={() =>
+                          updateQuantity(pkg.id, getQuantity(pkg.id) - 1)
+                        }
+                        disabled={getQuantity(pkg.id) === 0}
+                      >
+                        -
+                      </button>
 
-                    <input
-                      type="text"
-                      value={getQuantity(pkg.id)}
-                      className="text-center w-[100px] py-2 border rounded-[10px] bg-[#F4F4F4] border-t-[#ACACAC] outline-none text-lg max-sm:py-[7px] max-sm:px-[35px]"
-                      onInput={(e) => {
-                        const value = e.target.value.replace(/[^0-9]/g, "");
-                        const quantity = Math.min(
-                          Math.max(parseInt(value) || 0, 0),
-                          pkg.count
-                        );
-                        if (value !== e.target.value) e.target.value = quantity;
-                        updateQuantity(pkg.id, quantity);
-                      }}
-                    />
+                      <input
+                        type="text"
+                        value={getQuantity(pkg.id)}
+                        className="text-center w-[100px] py-2 border rounded-[10px] bg-[#F4F4F4] border-t-[#ACACAC] outline-none text-lg max-sm:py-[7px] max-sm:px-[35px]"
+                        onInput={(e) => {
+                          const value = e.target.value.replace(/[^0-9]/g, "");
+                          const quantity = Math.min(
+                            Math.max(parseInt(value) || 0, 0),
+                            pkg.count
+                          );
+                          if (value !== e.target.value)
+                            e.target.value = quantity;
+                          updateQuantity(pkg.id, quantity);
+                        }}
+                      />
 
-                    <button
-                      className={`px-2 py-1 text-[28px] max-sm:p-0 ${
-                        getQuantity(pkg.id) >= pkg.count
-                          ? "opacity-40 cursor-not-allowed"
-                          : ""
-                      }`}
-                      onClick={() =>
-                        updateQuantity(pkg.id, getQuantity(pkg.id) + 1)
-                      }
-                      disabled={getQuantity(pkg.id) >= pkg.count}
-                    >
-                      +
-                    </button>
+                      <button
+                        className={`px-2 py-1 text-[28px] max-sm:p-0 ${
+                          getQuantity(pkg.id) >= pkg.count
+                            ? "opacity-40 cursor-not-allowed"
+                            : ""
+                        }`}
+                        onClick={() =>
+                          updateQuantity(pkg.id, getQuantity(pkg.id) + 1)
+                        }
+                        disabled={getQuantity(pkg.id) >= pkg.count}
+                      >
+                        +
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -267,9 +239,11 @@ export default function GameStore({ data }) {
                       </span>
                       <div className="flex justify-between font-bold max-sm:font-medium max-sm:leading-[18px]">
                         <div className="sm:hidden">{t("all-games-text9")}</div>
-                        <div className="border border-black w-full flex justify-between items-center">
+                        <div className="w-full flex justify-between items-center">
                           <p>21000</p>
-                          <p>{totalPrice.toLocaleString()} UZS</p>
+                          <p>
+                            {totalPrice.toLocaleString()} {savedCurrency}
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -281,15 +255,18 @@ export default function GameStore({ data }) {
                     >
                       <div className="flex items-center gap-4">
                         <Image
-                          src="/uccard.png"
+                          src={item.photo}
+                          // src="/uccard.png"
                           alt={`${item.name} UC`}
-                          width={40}
-                          height={40}
+                          width={56}
+                          height={56}
+                          className="w-[56px] h-[56px]"
                         />
                         <span>{item.name}</span>
                       </div>
                       <span>
-                        {(item.price * item.quantity).toLocaleString()} UZS
+                        {(item.price * item.quantity).toLocaleString()}{" "}
+                        {savedCurrency}
                       </span>
                     </div>
                   ))}
@@ -329,6 +306,7 @@ export default function GameStore({ data }) {
             totalUC={totalUC}
             totalPrice={totalPrice}
             clear={() => ClearTash()}
+            savedCurrency={savedCurrency}
           />
         )}
       </div>

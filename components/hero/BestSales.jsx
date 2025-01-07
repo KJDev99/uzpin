@@ -16,31 +16,16 @@ export default function BestSales() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  // useEffect(() => {
-  //   setLoading(true);
-  //   const fetchStats = async () => {
-  //     try {
-  //       const currency = localStorage.getItem("currency") || "uzs";
-
-  //       const response = await axiosInstance.get(`/client/popular/promocodes`, {
-  //         headers: {
-  //           Currency: currency,
-  //         },
-  //       });
-  //       setData(response.data || []);
-  //     } catch (error) {
-  //       console.error("Ma'lumotlarni yuklashda xatolik:", error);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
-  //   fetchStats();
-  // }, []);
+  const currency = localStorage.getItem("currency") || "uzs";
   useEffect(() => {
     setLoading(true);
     const fetchStats = async () => {
       try {
-        const response = await axiosInstance.get(`/client/popular/promocodes`);
+        const response = await axiosInstance.get(`/client/popular/promocodes`, {
+          headers: {
+            Currency: currency,
+          },
+        });
         setData(response.data || []);
       } catch (error) {
         console.error("Ma'lumotlarni yuklashda xatolik:", error);
@@ -109,29 +94,16 @@ export default function BestSales() {
                         {t("global")}
                       </p>
                     </div>
-                    <div className="flex flex-col">
-                      <div className="flex justify-between items-center">
-                        <p className="font-normal text-[16px] leading-[18px] text-white max-sm:hidden">
-                          Promokod:
-                        </p>
-                        <p className="font-normal text-[16px] leading-[18px] text-white max-sm:text-xs max-sm:font-medium">
-                          {promo.name}
-                        </p>
-                      </div>
-                      <div className="flex items-center justify-between mt-2">
-                        <p className="font-normal text-[16px] leading-[18px] text-white max-sm:hidden">
-                          Narxi:
-                        </p>
-                        <p className="text-[10px] leading-[11px] text-[#FFBA00] font-normal sm:hidden">
-                          {t("global")}
-                        </p>
-                        <p className="font-normal text-[16px] leading-[18px] text-white max-sm:text-xs max-sm:font-medium">
-                          {promo.price} UZS
-                        </p>
-                      </div>
+                    <div className="flex justify-between items-center">
+                      <p className="font-medium text-[20px] leading-[23px] text-white max-sm:text-xs max-sm:font-medium">
+                        {promo.name}
+                      </p>
+                      <p className="font-normal text-[16px] leading-[18px] text-white max-sm:text-xs max-sm:font-medium">
+                        {promo.price} {currency}
+                      </p>
                     </div>
                     <Link href={`/all-games/${promo.game.id}`}>
-                      <button className="w-full mt-5 bg-[#FFBA00] text-black py-3 font-medium rounded-[10px] text-[20px] leading-[23px] max-sm:text-xs max-sm:py-2 max-sm:mt-2.5 max-sm:rounded-[5px]">
+                      <button className="w-full mt-8 bg-[#FFBA00] text-black py-3 font-medium rounded-[10px] text-[20px] leading-[23px] max-sm:text-xs max-sm:py-2">
                         {t("purchase")}
                       </button>
                     </Link>
