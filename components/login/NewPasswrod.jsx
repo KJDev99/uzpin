@@ -11,7 +11,7 @@ import { FaChevronLeft } from "react-icons/fa6";
 import { useTranslation } from "react-i18next";
 import axiosInstance from "@/libs/axios";
 
-export default function NewPasswrod({ setLogin, mainEmail }) {
+export default function NewPasswrod({ setLogin, access }) {
   const { t } = useTranslation();
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [password, setPassword] = useState("");
@@ -46,11 +46,18 @@ export default function NewPasswrod({ setLogin, mainEmail }) {
 
     if (formIsValid) {
       try {
-        await axiosInstance.post("client/auth/reset/password", {
-          // email: mainEmail,
-          new_password: password,
-          confirm_password: confirmPassword,
-        });
+        await axiosInstance.post(
+          "client/auth/reset/password",
+          {
+            password: password,
+            confirm_password: confirmPassword,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${access}`,
+            },
+          }
+        );
         setLogin(1);
       } catch (error) {
         setError(true);

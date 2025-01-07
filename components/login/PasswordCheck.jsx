@@ -9,7 +9,7 @@ import Image from "next/image";
 import { FaChevronLeft } from "react-icons/fa6";
 import { useTranslation } from "react-i18next";
 
-export default function PasswordCheck({ setLogin, mainEmail }) {
+export default function PasswordCheck({ setLogin, mainEmail, setAccess }) {
   const { t } = useTranslation();
   const [code, setCode] = useState(["", "", "", ""]);
   const [disabledBtn, setDisabledBtn] = useState(true);
@@ -45,11 +45,13 @@ export default function PasswordCheck({ setLogin, mainEmail }) {
     if (code.every((num) => num !== "")) {
       const enteredCode = code.join("");
       try {
-        await axiosInstance.post("client/auth/reset/verify", {
+        const response = await axiosInstance.post("client/auth/reset/verify", {
           email: mainEmail,
           code: enteredCode,
         });
         setLogin(6);
+        setAccess(response.data.access);
+        console.log(response.data.access, "access");
       } catch (error) {
         setError(true);
         setTimeout(() => setError(false), [3000]);

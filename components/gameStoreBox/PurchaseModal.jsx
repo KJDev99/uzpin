@@ -167,7 +167,7 @@ export function PurchaseModal({
                   >
                     <div className="flex items-center gap-4">
                       <Image
-                        src={"/uc.png"}
+                        src={item.photo}
                         alt={`${item.amount} UC`}
                         width={35}
                         height={35}
