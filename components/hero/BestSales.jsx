@@ -16,13 +16,32 @@ export default function BestSales() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  // useEffect(() => {
+  //   setLoading(true);
+  //   const fetchStats = async () => {
+  //     try {
+  //       const currency = localStorage.getItem("currency") || "uzs";
+
+  //       const response = await axiosInstance.get(`/client/popular/promocodes`, {
+  //         headers: {
+  //           Currency: currency,
+  //         },
+  //       });
+  //       setData(response.data || []);
+  //     } catch (error) {
+  //       console.error("Ma'lumotlarni yuklashda xatolik:", error);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+  //   fetchStats();
+  // }, []);
   useEffect(() => {
     setLoading(true);
     const fetchStats = async () => {
       try {
         const response = await axiosInstance.get(`/client/popular/promocodes`);
         setData(response.data || []);
-        console.log(response.data);
       } catch (error) {
         console.error("Ma'lumotlarni yuklashda xatolik:", error);
       } finally {
@@ -84,7 +103,7 @@ export default function BestSales() {
                   <div className="mt-5 space-y-3 max-sm:px-0 max-sm:pb-0 max-sm:mt-2.5 max-sm:space-y-[6px]">
                     <div>
                       <h3 className="font-bold text-[24px] leading-[28px] text-white max-sm:font-medium max-sm:text-[14px] max-sm:leading-[16px]">
-                        {promo.name}
+                        {promo.game.name}
                       </h3>
                       <p className="mt-[5px] text-[16px] leading-[18px] text-[#FFBA00] max-sm:text-[10px] font-normal max-sm:hidden">
                         {t("global")}
@@ -111,7 +130,7 @@ export default function BestSales() {
                         </p>
                       </div>
                     </div>
-                    <Link href={`/all-games/${promo.game}`}>
+                    <Link href={`/all-games/${promo.game.id}`}>
                       <button className="w-full mt-5 bg-[#FFBA00] text-black py-3 font-medium rounded-[10px] text-[20px] leading-[23px] max-sm:text-xs max-sm:py-2 max-sm:mt-2.5 max-sm:rounded-[5px]">
                         {t("purchase")}
                       </button>

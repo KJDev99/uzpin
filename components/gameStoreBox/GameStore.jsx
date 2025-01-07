@@ -17,6 +17,49 @@ export default function GameStore({ data }) {
   const [loading, setLoading] = useState(false);
   const [code, setCode] = useState([]);
 
+  const [currency, setCurrency] = useState("");
+
+  useEffect(() => {
+    const savedCurrency = localStorage.getItem("currency") || "uzs";
+    setCurrency(savedCurrency);
+
+    const handleStorageChange = (event) => {
+      if (event.key === "currency") {
+        setCurrency(event.newValue || "uzs");
+      }
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
+  }, []);
+
+  // const fetchStats = async () => {
+  //   setLoading(true);
+  //   if (data.id) {
+  //     try {
+  //       const response = await axiosInstance.get(
+  //         `/client/promocodes/${data.id}`,
+  //         {
+  //           headers: {
+  //             Currency: currency,
+  //           },
+  //         }
+  //       );
+  //       setCode(response.data || []);
+  //     } catch (error) {
+  //       console.error("Ma'lumotlarni yuklashda xatolik:", error);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   fetchStats();
+  // }, [data.id, currency]);
+
   const fetchStats = async () => {
     setLoading(true);
     if (data.id) {
@@ -36,34 +79,28 @@ export default function GameStore({ data }) {
     fetchStats();
   }, [data]);
 
-  const updateQuantity = (packageId, increment) => {
+  const updateQuantity = (packageId, quantity) => {
     setCart((prevCart) => {
       const existingItem = prevCart.find((item) => item.id === packageId);
       if (!existingItem) {
-        if (!increment) return prevCart;
+        if (quantity === 0) return prevCart;
         const newItem = {
           ...code.find((p) => p.id === packageId),
-          quantity: 1,
+          quantity: quantity,
         };
         return [...prevCart, newItem];
       }
 
-      if (increment) {
-        return prevCart.map((item) =>
-          item.id === packageId
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
-        );
-      } else {
-        if (existingItem.quantity === 1) {
-          return prevCart.filter((item) => item.id !== packageId);
-        }
-        return prevCart.map((item) =>
-          item.id === packageId
-            ? { ...item, quantity: item.quantity - 1 }
-            : item
-        );
+      if (quantity > existingItem.quantity) {
+        quantity = Math.min(quantity, existingItem.count);
       }
+      if (quantity === 0) {
+        return prevCart.filter((item) => item.id !== packageId);
+      }
+
+      return prevCart.map((item) =>
+        item.id === packageId ? { ...item, quantity: quantity } : item
+      );
     });
   };
 
@@ -146,48 +183,60 @@ export default function GameStore({ data }) {
                       />
                     )}
                   </div>
-                  <div className="max-sm:px-[10px]">
-                    <h3 className="text-xl font-bold mb-2 max-sm:font-medium max-sm:text-sm">
-                      {pkg.name}
-                    </h3>
-                    <div className="flex justify-between items-center">
-                      <p className="font-medium text-[#313131] text-sm mb-4 max-sm:text-xs max-sm:leading-[14px]">
-                        {pkg.price.toLocaleString()} UZS
-                      </p>
-                      <p className="text-[#828282] text-xs mb-4 max-sm:hidden">
-                        {t("all-games-text5")} {pkg.count}
-                      </p>
-                      <p className="text-[#828282] text-xs mb-4 sm:hidden">
-                        {t("all-games-text17")} {pkg.count}
-                      </p>
-                    </div>
-                    <div className="flex justify-between items-center gap-2">
-                      <button
-                        className={`px-2 py-1 text-[28px] max-sm:p-0 ${
-                          getQuantity(pkg.id) === 0
-                            ? "opacity-40 cursor-not-allowed"
-                            : ""
-                        }`}
-                        onClick={() => updateQuantity(pkg.id, false)}
-                        disabled={getQuantity(pkg.id) === 0}
-                      >
-                        -
-                      </button>
-                      <span className="px-[45px] py-2 border rounded-[10px] bg-[#F4F4F4] border-t-[#ACACAC] text-lg max-sm:py-[7px] max-sm:px-[35px]">
-                        {getQuantity(pkg.id)}
-                      </span>
-                      <button
-                        className={`px-2 py-1 text-[28px] max-sm:p-0 ${
-                          getQuantity(pkg.id) >= pkg.count
-                            ? "opacity-40 cursor-not-allowed"
-                            : ""
-                        }`}
-                        onClick={() => updateQuantity(pkg.id, true)}
-                        disabled={getQuantity(pkg.id) >= pkg.count}
-                      >
-                        +
-                      </button>
-                    </div>
+                  <h3 className="text-xl font-bold mb-2 max-sm:font-medium max-sm:text-sm">
+                    {pkg.name}
+                  </h3>
+                  <div className="flex justify-between items-center">
+                    <p className="font-medium text-[#313131] text-sm mb-4 max-sm:text-xs max-sm:leading-[14px]">
+                      {pkg.price.toLocaleString()} UZS
+                    </p>
+                    <p className="text-[#828282] text-xs mb-4 max-sm:text-[10px] max-sm:leading-[11px]">
+                      {t("all-games-text5")} {pkg.count}
+                    </p>
+                  </div>
+                  <div className="flex justify-between items-center gap-2">
+                    <button
+                      className={`px-2 py-1 text-[28px] max-sm:p-0 ${
+                        getQuantity(pkg.id) === 0
+                          ? "opacity-40 cursor-not-allowed"
+                          : ""
+                      }`}
+                      onClick={() =>
+                        updateQuantity(pkg.id, getQuantity(pkg.id) - 1)
+                      }
+                      disabled={getQuantity(pkg.id) === 0}
+                    >
+                      -
+                    </button>
+
+                    <input
+                      type="text"
+                      value={getQuantity(pkg.id)}
+                      className="text-center w-[100px] py-2 border rounded-[10px] bg-[#F4F4F4] border-t-[#ACACAC] outline-none text-lg max-sm:py-[7px] max-sm:px-[35px]"
+                      onInput={(e) => {
+                        const value = e.target.value.replace(/[^0-9]/g, "");
+                        const quantity = Math.min(
+                          Math.max(parseInt(value) || 0, 0),
+                          pkg.count
+                        );
+                        if (value !== e.target.value) e.target.value = quantity;
+                        updateQuantity(pkg.id, quantity);
+                      }}
+                    />
+
+                    <button
+                      className={`px-2 py-1 text-[28px] max-sm:p-0 ${
+                        getQuantity(pkg.id) >= pkg.count
+                          ? "opacity-40 cursor-not-allowed"
+                          : ""
+                      }`}
+                      onClick={() =>
+                        updateQuantity(pkg.id, getQuantity(pkg.id) + 1)
+                      }
+                      disabled={getQuantity(pkg.id) >= pkg.count}
+                    >
+                      +
+                    </button>
                   </div>
                 </div>
               </div>

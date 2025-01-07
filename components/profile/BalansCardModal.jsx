@@ -209,12 +209,19 @@ export default function BalansCardModal({
                 </div>
                 <button
                   onClick={fetchHandle}
-                  className="mx-auto mt-5 font-medium leading-[18px] bg-[#ffba00] py-[10px] px-[60px] rounded-[10px]"
+                  disabled={selectedCard ? false : true}
+                  className={`mx-auto mt-5 font-medium leading-[18px] py-[10px] px-[60px] rounded-[10px] ${
+                    selectedCard
+                      ? "bg-[#ffba00] cursor-pointer"
+                      : "bg-[#b7b7b7] cursor-not-allowed "
+                  } `}
                 >
                   {t("profile28")}
                 </button>
               </div>
-            ):''}
+            ) : (
+              ""
+            )}
           </div>
           {selectedCard && (
             <div className="w-[310px] px-[24px] pt-8 pb-8 bg-[#f9f9f9] rounded-tr-[10px] rounded-br-[10px]">

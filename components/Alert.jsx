@@ -1,7 +1,5 @@
 "use client";
 
-import { useState } from "react";
-import Image from "next/image";
 import { Check, X } from "lucide-react";
 
 export function Alert({ isOpen, onClose, status, title, message }) {
