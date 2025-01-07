@@ -207,17 +207,24 @@ export default function BalansCardModal({
                     <X className="h-6 w-6" />
                   </button>
                 </div>
-                <button
-                  onClick={fetchHandle}
-                  disabled={selectedCard ? false : true}
-                  className={`mx-auto mt-5 font-medium leading-[18px] py-[10px] px-[60px] rounded-[10px] ${
-                    selectedCard
-                      ? "bg-[#ffba00] cursor-pointer"
-                      : "bg-[#b7b7b7] cursor-not-allowed "
-                  } `}
-                >
-                  {t("profile28")}
-                </button>
+                <div className="relative mx-auto">
+                  <button
+                    onClick={fetchHandle}
+                    disabled={!selectedCard}
+                    className={`mx-auto mt-5 font-medium leading-[18px] py-[10px] px-[60px] rounded-[10px] ${
+                      selectedCard
+                        ? "bg-[#ffba00] cursor-pointer"
+                        : "bg-[#b7b7b7] cursor-not-allowed"
+                    } relative group`}
+                  >
+                    {t("profile28")}
+                    {!selectedCard && (
+                      <span className="absolute w-max bottom-[-30px] left-1/2 transform -translate-x-1/2 text-xs text-red-500 bg-white px-2 py-1 rounded shadow-md opacity-0 group-hover:opacity-100 transition-opacity">
+                        Iltimos, karta tanlang!
+                      </span>
+                    )}
+                  </button>
+                </div>
               </div>
             ) : (
               ""
