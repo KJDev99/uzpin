@@ -65,50 +65,21 @@ export function PurchaseModal({
           },
         }
       );
-      // setSuccess(true);
+      console.log(response, "test");
+
       setBuyCode(response.data[0].id);
-      console.log(response.data[0].id);
       setIsOpenBuy(true);
       setIsOpen(true);
     } catch (error) {
       setError(true);
     } finally {
       clear();
-      // onClose();
-      setError(false);
-      // setSuccess(false);
+      setTimeout(() => {
+        setError(false);
+        onClose();
+      }, 2000);
     }
   };
-  // const fetchBuyHandleId = async () => {
-  //   const formattedData = {
-  //     currency: "RUB",
-  //     items: cart.map((item) => ({
-  //       promocode: item.id,
-  //       count: item.quantity,
-  //     })),
-  //   };
-
-  //   try {
-  //     const response = await axiosInstance.post(
-  //       "/client/promocode/buy",
-  //       formattedData,
-  //       {
-  //         headers: {
-  //           Authorization: `Bearer ${token}`,
-  //         },
-  //       }
-  //     );
-  //     setSuccess(true);
-  //   } catch (error) {
-  //     setError(true);
-  //   } finally {
-  //     setTimeout(() => {
-  //       onClose();
-  //       setError(false);
-  //       setSuccess(false);
-  //     }, 3000);
-  //   }
-  // };
 
   return (
     <div
@@ -215,10 +186,7 @@ export function PurchaseModal({
                   {t("all-games-text14")}
                 </label>
               </div>
-              <button
-                // onClick={fetchBuyHandleId}
-                className="w-full py-2 bg-[#FFBA00] rounded text-black font-medium border-b-2 border-[black]"
-              >
+              <button className="w-full py-2 bg-[#FFBA00] rounded text-black font-medium border-b-2 border-[black]">
                 {t("all-games-text10")}
               </button>
             </>

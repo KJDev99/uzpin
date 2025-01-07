@@ -260,7 +260,6 @@ export default function GameStore({ data }) {
                       <div className="flex items-center gap-4">
                         <Image
                           src={item.photo}
-                          // src="/uccard.png"
                           alt={`${item.name} UC`}
                           width={56}
                           height={56}
