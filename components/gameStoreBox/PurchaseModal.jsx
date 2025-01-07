@@ -22,7 +22,7 @@ export function PurchaseModal({
 
   const [token, setToken] = useState(null);
 
-  const [error, setError] = useState(false);
+  const [error2, setError] = useState(false);
   const [success, setSuccess] = useState(false);
 
   const [isOpenBuy, setIsOpenBuy] = useState(false);
@@ -46,7 +46,9 @@ export function PurchaseModal({
 
   const fetchBuyHandle = async () => {
     const savedCurrency =
-      typeof window !== "undefined" ? localStorage.getItem("currency") : "uzs";
+      typeof window !== "undefined"
+        ? localStorage.getItem("currency") || "uzs"
+        : "uzs";
     const formattedData = {
       currency: savedCurrency,
       items: cart.map((item) => ({
@@ -65,19 +67,17 @@ export function PurchaseModal({
           },
         }
       );
-      console.log(response, "test");
 
       setBuyCode(response.data[0].id);
       setIsOpenBuy(true);
-      setIsOpen(true);
     } catch (error) {
       setError(true);
-    } finally {
-      clear();
       setTimeout(() => {
         setError(false);
         onClose();
       }, 2000);
+    } finally {
+      clear();
     }
   };
 
@@ -86,7 +86,7 @@ export function PurchaseModal({
       className="fixed inset-0 z-50 bg-background/80 backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0"
       open={isOpen}
     >
-      {error && (
+      {error2 && (
         <Alert
           status={false}
           title="Mablag’ yetarli emas!"

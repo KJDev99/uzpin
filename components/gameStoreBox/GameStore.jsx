@@ -19,7 +19,9 @@ export default function GameStore({ data }) {
   const [amound, setAmound] = useState(0);
 
   const savedCurrency =
-    typeof window !== "undefined" ? localStorage.getItem("currency") : "uzs";
+    typeof window !== "undefined"
+      ? localStorage.getItem("currency") || "uzs"
+      : "uzs";
 
   const fetchStats = async () => {
     setLoading(true);

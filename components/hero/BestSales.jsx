@@ -17,7 +17,9 @@ export default function BestSales() {
   const [loading, setLoading] = useState(false);
 
   const currency =
-    typeof window !== "undefined" ? localStorage.getItem("currency") : "uzs";
+    typeof window !== "undefined"
+      ? localStorage.getItem("currency") || "uzs"
+      : "uzs";
 
   useEffect(() => {
     setLoading(true);
