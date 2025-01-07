@@ -16,9 +16,12 @@ export default function BestSales() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const currency = localStorage.getItem("currency") || "uzs";
+  const currency =
+    typeof window !== "undefined" ? localStorage.getItem("currency") : "uzs";
+
   useEffect(() => {
     setLoading(true);
+
     const fetchStats = async () => {
       try {
         const response = await axiosInstance.get(`/client/popular/promocodes`, {
@@ -26,6 +29,7 @@ export default function BestSales() {
             Currency: currency,
           },
         });
+
         setData(response.data || []);
       } catch (error) {
         console.error("Ma'lumotlarni yuklashda xatolik:", error);
@@ -33,6 +37,7 @@ export default function BestSales() {
         setLoading(false);
       }
     };
+
     fetchStats();
   }, []);
 

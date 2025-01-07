@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 
 export default function CurrencySelector() {
-  const [currency, setCurrency] = useState("");
+  const [currency, setCurrency] = useState("uzs");
 
   useEffect(() => {
     const savedCurrency = localStorage.getItem("currency");
