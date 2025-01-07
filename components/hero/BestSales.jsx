@@ -16,13 +16,32 @@ export default function BestSales() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  // useEffect(() => {
+  //   setLoading(true);
+  //   const fetchStats = async () => {
+  //     try {
+  //       const currency = localStorage.getItem("currency") || "uzs";
+
+  //       const response = await axiosInstance.get(`/client/popular/promocodes`, {
+  //         headers: {
+  //           Currency: currency,
+  //         },
+  //       });
+  //       setData(response.data || []);
+  //     } catch (error) {
+  //       console.error("Ma'lumotlarni yuklashda xatolik:", error);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+  //   fetchStats();
+  // }, []);
   useEffect(() => {
     setLoading(true);
     const fetchStats = async () => {
       try {
         const response = await axiosInstance.get(`/client/popular/promocodes`);
         setData(response.data || []);
-        console.log(response.data);
       } catch (error) {
         console.error("Ma'lumotlarni yuklashda xatolik:", error);
       } finally {

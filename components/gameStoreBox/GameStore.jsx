@@ -17,6 +17,49 @@ export default function GameStore({ data }) {
   const [loading, setLoading] = useState(false);
   const [code, setCode] = useState([]);
 
+  const [currency, setCurrency] = useState("");
+
+  useEffect(() => {
+    const savedCurrency = localStorage.getItem("currency") || "uzs";
+    setCurrency(savedCurrency);
+
+    const handleStorageChange = (event) => {
+      if (event.key === "currency") {
+        setCurrency(event.newValue || "uzs");
+      }
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
+  }, []);
+
+  // const fetchStats = async () => {
+  //   setLoading(true);
+  //   if (data.id) {
+  //     try {
+  //       const response = await axiosInstance.get(
+  //         `/client/promocodes/${data.id}`,
+  //         {
+  //           headers: {
+  //             Currency: currency,
+  //           },
+  //         }
+  //       );
+  //       setCode(response.data || []);
+  //     } catch (error) {
+  //       console.error("Ma'lumotlarni yuklashda xatolik:", error);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   fetchStats();
+  // }, [data.id, currency]);
+
   const fetchStats = async () => {
     setLoading(true);
     if (data.id) {
@@ -36,34 +79,28 @@ export default function GameStore({ data }) {
     fetchStats();
   }, [data]);
 
-  const updateQuantity = (packageId, increment) => {
+  const updateQuantity = (packageId, quantity) => {
     setCart((prevCart) => {
       const existingItem = prevCart.find((item) => item.id === packageId);
       if (!existingItem) {
-        if (!increment) return prevCart;
+        if (quantity === 0) return prevCart;
         const newItem = {
           ...code.find((p) => p.id === packageId),
-          quantity: 1,
+          quantity: quantity,
         };
         return [...prevCart, newItem];
       }
 
-      if (increment) {
-        return prevCart.map((item) =>
-          item.id === packageId
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
-        );
-      } else {
-        if (existingItem.quantity === 1) {
-          return prevCart.filter((item) => item.id !== packageId);
-        }
-        return prevCart.map((item) =>
-          item.id === packageId
-            ? { ...item, quantity: item.quantity - 1 }
-            : item
-        );
+      if (quantity > existingItem.quantity) {
+        quantity = Math.min(quantity, existingItem.count);
       }
+      if (quantity === 0) {
+        return prevCart.filter((item) => item.id !== packageId);
+      }
+
+      return prevCart.map((item) =>
+        item.id === packageId ? { ...item, quantity: quantity } : item
+      );
     });
   };
 
@@ -164,21 +201,38 @@ export default function GameStore({ data }) {
                           ? "opacity-40 cursor-not-allowed"
                           : ""
                       }`}
-                      onClick={() => updateQuantity(pkg.id, false)}
+                      onClick={() =>
+                        updateQuantity(pkg.id, getQuantity(pkg.id) - 1)
+                      }
                       disabled={getQuantity(pkg.id) === 0}
                     >
                       -
                     </button>
-                    <span className="px-[45px] py-2 border rounded-[10px] bg-[#F4F4F4] border-t-[#ACACAC] text-lg max-sm:py-[7px] max-sm:px-[35px]">
-                      {getQuantity(pkg.id)}
-                    </span>
+
+                    <input
+                      type="text"
+                      value={getQuantity(pkg.id)}
+                      className="text-center w-[100px] py-2 border rounded-[10px] bg-[#F4F4F4] border-t-[#ACACAC] outline-none text-lg max-sm:py-[7px] max-sm:px-[35px]"
+                      onInput={(e) => {
+                        const value = e.target.value.replace(/[^0-9]/g, "");
+                        const quantity = Math.min(
+                          Math.max(parseInt(value) || 0, 0),
+                          pkg.count
+                        );
+                        if (value !== e.target.value) e.target.value = quantity;
+                        updateQuantity(pkg.id, quantity);
+                      }}
+                    />
+
                     <button
                       className={`px-2 py-1 text-[28px] max-sm:p-0 ${
                         getQuantity(pkg.id) >= pkg.count
                           ? "opacity-40 cursor-not-allowed"
                           : ""
                       }`}
-                      onClick={() => updateQuantity(pkg.id, true)}
+                      onClick={() =>
+                        updateQuantity(pkg.id, getQuantity(pkg.id) + 1)
+                      }
                       disabled={getQuantity(pkg.id) >= pkg.count}
                     >
                       +

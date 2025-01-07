@@ -44,13 +44,15 @@ export function PurchaseModal({
   }, []);
 
   const fetchBuyHandle = async () => {
+    const savedCurrency = localStorage.getItem("currency") || "uzs";
     const formattedData = {
-      currency: "RUB",
+      currency: savedCurrency,
       items: cart.map((item) => ({
         promocode: item.id,
         count: item.quantity,
       })),
     };
+    console.log(savedCurrency, "test");
 
     try {
       const response = await axiosInstance.post(

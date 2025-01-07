@@ -7,6 +7,7 @@ import { PiUser } from "react-icons/pi";
 import { useTranslation } from "react-i18next";
 import axiosInstance from "@/libs/axios";
 import SearchComponent from "./searchModal/SearchComponent";
+import CurrencySelector from "./CurrencySelector";
 
 export default function Navbar() {
   const { i18n } = useTranslation();
@@ -39,18 +40,19 @@ export default function Navbar() {
     i18n.changeLanguage(code);
     setIsHovered(false);
     localStorage.setItem("language", code);
-    axiosInstance
-      .get("/client/popular/games", {
-        headers: {
-          "Accept-Language": code,
-        },
-      })
-      .then((response) => {
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.error("API so'rovi xatosi:", error);
-      });
+    window.location.reload();
+    // axiosInstance
+    //   .get("/client/popular/games", {
+    //     headers: {
+    //       "Accept-Language": code,
+    //     },
+    //   })
+    //   .then((response) => {
+    //     console.log(response.data);
+    //   })
+    //   .catch((error) => {
+    //     console.error("API so'rovi xatosi:", error);
+    //   });
   };
 
   return (
@@ -66,7 +68,6 @@ export default function Navbar() {
               className="ml-1 mr-20 max-sm:max-w-[108px] max-sm:max-h-[20px]"
             />
           </Link>
-
           <div className="hidden md:flex items-center space-x-10 font-medium text-[20px] leading-[23px]">
             <Link
               href="/"
@@ -87,11 +88,9 @@ export default function Navbar() {
               {t("help")}
             </Link>
           </div>
-
           <div className="flex-1 max-w-lg mx-5 max-sm:flex justify-end">
             <SearchComponent />
           </div>
-
           <div className="flex w-[200px] max-md:w-max items-center space-x-10 max-sm:space-x-0">
             {profileData ? (
               <>
@@ -135,7 +134,7 @@ export default function Navbar() {
               <div
                 className={`fixed z-[999] max-md:flex max-md:flex-col max-md:top-12 max-md:pt-3 w-max  flex gap-2 transition-all duration-300 translate-x-2 ${
                   isHovered
-                    ? "right-[184px] max-md:right-[6%]"
+                    ? "right-[276px] max-md:right-[6%]"
                     : "right-[-100px]"
                 }`}
               >
@@ -155,6 +154,7 @@ export default function Navbar() {
               </div>
             </div>
           </div>
+          <CurrencySelector />
         </div>
       </div>
     </nav>

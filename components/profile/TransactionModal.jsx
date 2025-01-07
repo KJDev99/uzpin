@@ -18,7 +18,13 @@ export default function TransactionModal({ isOpen, onClose, checkUrl }) {
     >
       <div className="bg-white rounded-[10px] shadow-lg">
         <div className="flex relative justify-between min-w-10 min-h-10">
-          <Image src={checkUrl} width={400} height={800} alt="Image 1" />
+          <Image
+            src={checkUrl}
+            width={400}
+            height={800}
+            alt="Image 1"
+            className="h-[500px] object-contain w-[400px]"
+          />
         </div>
       </div>
     </div>
