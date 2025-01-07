@@ -75,7 +75,7 @@ export default function GameStore({ data }) {
   };
 
   const totalUC = cart.reduce(
-    (sum, item) => sum + item.price * item.quantity,
+    (sum, item) => sum + item.name.match(/\d+/)?.[0] * item.quantity,
     0
   );
   const totalPrice = cart.reduce(
@@ -240,7 +240,10 @@ export default function GameStore({ data }) {
                       <div className="flex justify-between font-bold max-sm:font-medium max-sm:leading-[18px]">
                         <div className="sm:hidden">{t("all-games-text9")}</div>
                         <div className="w-full flex justify-between items-center">
-                          <p>21000</p>
+                          <p>
+                            {totalUC.toLocaleString()}{" "}
+                            {code[0].name.match(/[a-zA-Z]+/)?.[0]}
+                          </p>
                           <p>
                             {totalPrice.toLocaleString()} {savedCurrency}
                           </p>
