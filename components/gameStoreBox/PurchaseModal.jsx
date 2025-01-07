@@ -150,7 +150,7 @@ export function PurchaseModal({
                 <div className="flex justify-between font-bold">
                   <div className="flex gap-[10px]">
                     <span className="font-normal">{t("all-games-text8")}</span>
-                    {totalUC.toLocaleString()} UC
+                    {totalUC.toLocaleString()}
                   </div>
                   <div>{totalPrice.toLocaleString()} {savedCurrency}</div>
                 </div>
@@ -170,7 +170,7 @@ export function PurchaseModal({
                         width={35}
                         height={35}
                       />
-                      <span>{item.amount} UC</span>
+                      <span>{item.name}</span>
                     </div>
                     <span>
                       {(item.price * item.quantity).toLocaleString()} {savedCurrency}
