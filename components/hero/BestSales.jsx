@@ -99,16 +99,29 @@ export default function BestSales() {
                         {t("global")}
                       </p>
                     </div>
-                    <div className="flex justify-between items-center">
-                      <p className="font-medium text-[20px] leading-[23px] text-white max-sm:text-xs max-sm:font-medium">
-                        {promo.name}
-                      </p>
-                      <p className="font-normal text-[16px] leading-[18px] text-white max-sm:text-xs max-sm:font-medium">
-                        {promo.price} {currency}
-                      </p>
+                    <div className="flex flex-col">
+                      <div className="flex justify-between items-center">
+                        <p className="font-normal text-[16px] leading-[18px] text-white max-sm:hidden">
+                          {t("promo")}
+                        </p>
+                        <p className="font-normal text-[16px] leading-[18px] text-white max-sm:text-xs max-sm:font-medium">
+                          {promo.name}
+                        </p>
+                      </div>
+                      <div className="flex justify-between items-center mt-2">
+                        <p className="font-normal text-[16px] leading-[18px] text-white max-sm:hidden">
+                          {t("sum")}
+                        </p>
+                        <p className="text-[10px] leading-[10px] text-[#FFBA00] font-normal sm:hidden">
+                          {t("global")}
+                        </p>
+                        <p className="font-normal text-[16px] leading-[18px] text-white max-sm:text-xs max-sm:font-medium">
+                          {promo.price} {currency}
+                        </p>
+                      </div>
                     </div>
                     <Link href={`/all-games/${promo.game.id}`}>
-                      <button className="w-full mt-8 bg-[#FFBA00] text-black py-3 font-medium rounded-[10px] text-[20px] leading-[23px] max-sm:text-xs max-sm:py-2">
+                      <button className="w-full mt-8 bg-[#FFBA00] text-black py-3 font-medium rounded-[10px] text-[20px] leading-[23px] max-sm:mt-2.5 max-sm:text-xs max-sm:py-2">
                         {t("purchase")}
                       </button>
                     </Link>
