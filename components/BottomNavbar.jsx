@@ -59,11 +59,11 @@ export default function BottomNavbar() {
           )}
 
           <p
-            className={`font-normal text-xs leading-[14px] mt-1 ${
+            className={`font-normal text-xs leading-[14px] text-nowrap mt-1 ${
               active === "home" ? "text-[#FFBA00]" : "text-[#828282]"
             }`}
           >
-            {t('home1')}
+            {t("home1")}
           </p>
         </div>
       </Link>
@@ -85,11 +85,11 @@ export default function BottomNavbar() {
             />
           )}
           <p
-            className={`font-normal text-xs leading-[14px] mt-1 ${
+            className={`font-normal text-xs leading-[14px] text-nowrap mt-1 ${
               active === "allgames" ? "text-[#FFBA00]" : "text-[#828282]"
             }`}
           >
-            {t('all_games')}
+            {t("all_games")}
           </p>
         </div>
       </Link>
@@ -101,11 +101,11 @@ export default function BottomNavbar() {
             }`}
           />
           <p
-            className={`font-normal text-xs leading-[14px] mt-1 ${
+            className={`font-normal text-xs leading-[14px] text-nowrap mt-1 ${
               active === "helpme" ? "text-[#FFBA00]" : "text-[#828282]"
             }`}
           >
-            {t('help')}
+            {t("help")}
           </p>
         </div>
       </Link>
@@ -128,11 +128,11 @@ export default function BottomNavbar() {
               />
             )}
             <p
-              className={`font-normal text-xs leading-[14px] mt-1 ${
+              className={`font-normal text-xs leading-[14px] text-nowrap mt-1 ${
                 active === "profile" ? "text-[#FFBA00]" : "text-[#828282]"
               }`}
             >
-              {profileData.fullname || "profile"}
+              {profileData.fullname.split(" ")[0] || "profile"}
             </p>
           </div>
         </Link>
@@ -159,7 +159,7 @@ export default function BottomNavbar() {
                 active === "login" ? "text-[#FFBA00]" : "text-[#828282]"
               }`}
             >
-              {t('login1')}
+              {t("login1")}
             </p>
           </div>
         </Link>

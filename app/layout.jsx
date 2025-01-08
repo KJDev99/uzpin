@@ -28,7 +28,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${robotoCondensed.variable} ${readexPro.variable}`}>
+      <body
+        className={`${robotoCondensed.variable} ${readexPro.variable} overflow-x-hidden`}
+      >
         <ClientProvider>
           <Navbar />
           {children}
