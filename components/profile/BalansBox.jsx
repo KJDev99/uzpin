@@ -368,9 +368,7 @@ export default function BalansBox() {
                   ) : (
                     <MdOutlineContentCopy size={24} />
                   )}
-                  {copied
-                    ? "Karta raqamidan nusxa olindi"
-                    : "Karta raqamidan nusxa olish"}
+                  {copied ? t("profile49") : t("profile50")}
                 </button>
               </div>
             )}

@@ -140,5 +140,13 @@
   "profile44": "Receipt",
   "profile45": "Do you want to log out of the profile?",
   "profile46": "No",
-  "profile47": "Yes"
+  "profile47": "Yes",
+  "profile48": "An error occurred! Please try again.",
+  "profile49": "The card number has been copied",
+  "profile50": "Copy the card number",
+  "profile51": "Please select a card",
+  "profile52": "Promos have been copied!",
+
+  "not1": "Page not found for this request",
+  "not2": "Return to the home page"
 }
