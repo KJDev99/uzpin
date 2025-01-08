@@ -138,9 +138,9 @@ export default function GameStore({ data }) {
                       <Image
                         src={pkg.photo}
                         alt={`${pkg.name} UC`}
-                        width={100}
-                        height={100}
-                        className="w-[100px] max-sm:w-[126px] h-[100px] max-sm:h-[126px] max-sm:mx-auto"
+                        width={130}
+                        height={130}
+                        className="w-[130px] max-sm:w-[126px] h-[130px] max-sm:h-[126px] max-sm:mx-auto"
                       />
                     ) : (
                       <Image
