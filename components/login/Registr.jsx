@@ -214,21 +214,23 @@ export default function Register({ setLogin, loginCount, setMainEmail }) {
             <div className="w-[130px] bg-[#828282] h-[1px]"></div>
           </div>
 
-          <div className="flex flex-col justify-between items-center my-4">
-            <button
-              type="button"
-              onClick={handleTelegramLogin}
-              className="flex items-center justify-center text-[black] font-medium text-[20px] leading-[23px] py-2 px-4 rounded-[5px] gap-5 w-full mb-[10px] border-2 border-[#313131]"
-            >
-              <RiTelegram2Fill className="bg-[#2AABEE] text-[white] p-1 text-[28px] rounded-full" />
-              {t("login-text6")}
-            </button>
+          <div className="flex flex-col justify-between items-center my-5">
+            <Link href="/telegram-login.html" className="w-full">
+              <button
+                type="button"
+                className="flex items-center justify-center text-[black] font-medium text-[20px] leading-[23px] py-2 px-4 rounded-[5px] gap-5 w-full mb-[10px] border-2 border-[#313131]"
+              >
+                <RiTelegram2Fill className="bg-[#2AABEE] text-[white] p-1 text-[28px] rounded-full" />
+                {t("login-text6")}
+              </button>
+            </Link>
+
             <button
               type="button"
               onClick={handleGoogleLogin}
               className="flex items-center justify-center text-[black] font-medium text-[20px] leading-[23px] py-2 px-4 rounded-[5px] gap-5 w-full mb-[10px] border-2 border-[#313131]"
             >
-              <FcGoogle className=" p-0 text-[28px] rounded-full" />
+              <FcGoogle className="p-0 text-[28px] rounded-full" />
               {t("login-text7")}
             </button>
             <button
