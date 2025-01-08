@@ -139,7 +139,7 @@ export default function GameStore({ data }) {
                       />
                     ) : (
                       <Image
-                        src="/uccard.png"
+                        src="/uccard_converted.webp"
                         alt={`${pkg.name} UC`}
                         width={190}
                         height={190}

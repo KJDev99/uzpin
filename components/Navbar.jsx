@@ -30,9 +30,9 @@ export default function Navbar() {
   const [isHovered, setIsHovered] = useState(false);
 
   const languages = [
-    { code: "uz", flag: "/flaguz.png", alt: "Uzbekistan flag" },
-    { code: "ru", flag: "/flagru.png", alt: "Russia flag" },
-    { code: "en", flag: "/flagen.png", alt: "English flag" },
+    { code: "uz", flag: "/flaguz_converted.webp", alt: "Uzbekistan flag" },
+    { code: "ru", flag: "/flagru_converted.webp", alt: "Russia flag" },
+    { code: "en", flag: "/flagen_converted.webp", alt: "English flag" },
   ];
 
   const handleLanguageChange = (code) => {

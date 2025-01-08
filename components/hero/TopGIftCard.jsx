@@ -13,42 +13,42 @@ export default function TopGiftCard() {
   const games = [
     {
       title: "Google Play",
-      image: "/play-market.png",
+      image: "/play-market_converted.webp",
       link: "#",
     },
     {
       title: "iTunes",
-      image: "/itunes.png",
+      image: "/itunes_converted.webp",
       link: "#",
     },
     {
       title: "STEAM",
-      image: "/steam.png",
+      image: "/steam_converted.webp",
       link: "#",
     },
     {
       title: "Play Station",
-      image: "/playstation.png",
+      image: "/playstation_converted.webp",
       link: "#",
     },
     {
       title: "Google Play",
-      image: "/play-market.png",
+      image: "/play-market_converted.webp",
       link: "#",
     },
     {
       title: "iTunes",
-      image: "/itunes.png",
+      image: "/itunes_converted.webp",
       link: "#",
     },
     {
       title: "STEAM",
-      image: "/steam.png",
+      image: "/steam_converted.webp",
       link: "#",
     },
     {
       title: "Play Station",
-      image: "/playstation.png",
+      image: "/playstation_converted.webp",
       link: "#",
     },
   ];
