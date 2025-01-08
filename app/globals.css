@@ -33,27 +33,27 @@ body {
 }
 
 .hero_bg {
-  background: url("/heromainbg.png") center/cover no-repeat;
+  background: url("/heromainbg.webp") center/cover no-repeat;
 }
 .hero_bgsec2 {
-  background: url("/herosec2.png") center/cover no-repeat;
+  background: url("/herosec2.webp") center/cover no-repeat;
 }
 .hero_bgsec3 {
-  background: url("/herosec3.png") center/cover no-repeat;
+  background: url("/herosec3.webp") center/cover no-repeat;
 }
 .footer {
-  background: url("/footerbg.png") center/cover no-repeat;
+  background: url("/footerbg.webp") center/cover no-repeat;
 }
 
 .pubg_bg {
-  background: url("/pubg_bg.png") center/cover no-repeat;
+  background: url("/pubg_bg.webp") center/cover no-repeat;
   height: 456px;
   @media (max-width: 640px) {
     height: 200px;
   }
 }
 .freefire_bg {
-  background: url("/free_fire_bg.png") center/cover no-repeat;
+  background: url("/free_fire_bg.webp") center/cover no-repeat;
   height: 456px;
   @media (max-width: 640px) {
     height: 200px;
@@ -66,22 +66,22 @@ body {
   }
 }
 .games_bg {
-  background: url("/allgamesbg.png") center/cover no-repeat;
+  background: url("/allgamesbg.webp") center/cover no-repeat;
   height: 500px;
   @media (max-width: 640px) {
     height: 200px;
   }
 }
 .main_card {
-  background: url("/cardbg.png") center/cover no-repeat;
+  background: url("/cardbg.webp") center/cover no-repeat;
 }
 
 .bg_linear_card {
   background: linear-gradient(180deg, rgba(239, 174, 0, 0) 0%, #efae00 100%);
 }
 .game__content_bg {
-  background: url("/gamecontentbg.svg") top left repeat;
+  background: url("/gamecontentbg.webp") top left repeat;
 }
 .login_bg {
-  background: url("/loginbg.png") center/cover no-repeat;
+  background: url("/loginbg.webp") center/cover no-repeat;
 }
