@@ -68,7 +68,8 @@ export default function TopGiftCard() {
           }}
           loop={true}
           breakpoints={{
-            0: { slidesPerView: 2.2, spaceBetween: 10 },
+            0: { slidesPerView: 2.1, spaceBetween: 10 },
+            400: { slidesPerView: 2.3, spaceBetween: 10 },
             640: { slidesPerView: 2.5, spaceBetween: 15 },
             992: { slidesPerView: 3.3, spaceBetween: 20 },
             1200: { slidesPerView: 3.9, spaceBetween: 10 },

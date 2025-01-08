@@ -74,14 +74,14 @@ export default function Register({ setLogin, loginCount, setMainEmail }) {
         setMainEmail(email);
       } catch (error) {
         console.error("Xatolik yuz berdi:", error);
-        alert("Xatolik yuz berdi! Qaytadan urinib ko'ring.");
+        alert(t('profile48'));
       }
     }
   };
 
   return (
     <div className="flex justify-center items-center">
-      <div className="bg-white shadow-md rounded-lg p-8 w-full max-w-md max-sm:p-4">
+      <div className="bg-white shadow-md rounded-lg p-8 w-full max-w-md max-sm:shadow-none max-sm:p-4">
         <div className="flex justify-end mb-[20px]">
           <Link href="/">
             <button className="text-[#313131]">

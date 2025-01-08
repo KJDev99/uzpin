@@ -220,7 +220,7 @@ export default function BalansCardModal({
                     {t("profile28")}
                     {!selectedCard && (
                       <span className="absolute w-max bottom-[-30px] left-1/2 transform -translate-x-1/2 text-xs text-red-500 bg-white px-2 py-1 rounded shadow-md opacity-0 group-hover:opacity-100 transition-opacity">
-                        Iltimos, karta tanlang!
+                        {t('profile51')}
                       </span>
                     )}
                   </button>
@@ -255,8 +255,8 @@ export default function BalansCardModal({
                   <MdOutlineContentCopy size={24} />
                 )}
                 {copied
-                  ? "Karta raqamidan nusxa olindi"
-                  : "Karta raqamidan nusxa olish"}
+                  ? t('profile49')
+                  : t('profile50')}
               </button>
               <p className="mt-[87px] text-[14px] leading-[18px]">
                 {t("profile30")}{" "}
