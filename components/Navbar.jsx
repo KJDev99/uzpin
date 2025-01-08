@@ -44,7 +44,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="bg-black border-b border-gray-800">
+    <nav className="bg-black border-b border-gray-800 overflow-x-clip">
       <div className="max-w-7xl mx-auto px-5 md:overflow-hidden">
         <div className="flex items-center justify-between h-[100px] max-md:h-20">
           <Link href="/" className="flex items-center">
