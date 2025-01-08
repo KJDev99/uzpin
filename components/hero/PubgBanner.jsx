@@ -10,7 +10,7 @@ export default function PubgBanner() {
     <div className="pubg_bg">
       <div className="max-w-7xl mx-auto pt-[48px] max-sm:mx-[30px] max-sm:pt-5">
         <Image
-          src="/icons/pubg_logo.svg"
+          src="/icons/pubg_logo.webp"
           width={330}
           height={104}
           className="max-w-[330px] max-h-[104px] max-sm:max-w-[126px] max-sm:max-h-[40px]"
