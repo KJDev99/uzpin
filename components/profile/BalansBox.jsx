@@ -173,9 +173,9 @@ export default function BalansBox() {
       {success && (
         <Alert status={true} title={t("profile16")} message={t("profile17")} />
       )}
-      <div className="px-6 py-4 max-md:border-b max-md:hidden">
+      {/* <div className="px-6 py-4 max-md:border-b max-md:hidden">
         <h2 className="text-xl font-bold md:mb-4">{t("profile2")}</h2>
-      </div>
+      </div> */}
       <Link
         href={"/profile/profile-mobile"}
         className="md:px-6 py-4 max-md:border-b flex items-center max-md:gap-5 md:hidden"
