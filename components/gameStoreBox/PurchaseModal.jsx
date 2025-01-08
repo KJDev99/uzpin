@@ -51,6 +51,7 @@ export function PurchaseModal({
         : "uzs";
     const formattedData = {
       currency: savedCurrency,
+      gamer_id: playerId == "" ? undefined : playerId,
       items: cart.map((item) => ({
         promocode: item.id,
         count: item.quantity,
@@ -68,8 +69,13 @@ export function PurchaseModal({
         }
       );
 
-      setBuyCode(response.data[0].id);
-      setIsOpenBuy(true);
+      if (isOpen == 1) {
+        setBuyCode(response.data[0].id);
+        setIsOpenBuy(true);
+      }
+      if (isOpen == 2) {
+        setSuccess(true);
+      }
     } catch (error) {
       setError(true);
       setTimeout(() => {
@@ -78,6 +84,12 @@ export function PurchaseModal({
       }, 2000);
     } finally {
       clear();
+      if (isOpen == 2) {
+        setTimeout(() => {
+          setSuccess(false);
+          onClose();
+        }, 2000);
+      }
     }
   };
 
@@ -171,22 +183,15 @@ export function PurchaseModal({
                   className="border border-[#E7E7E7] rounded-[5px] py-3 px-5 font-semibold outline-none max-sm:max-w-[163px]"
                 />
               </div>
-              <div className="flex items-center space-x-2">
-                <input id="verify" type="checkbox" className="peer hidden" />
-                <label
-                  htmlFor="verify"
-                  className="w-6 h-6 border border-gray-300 rounded flex items-center justify-center cursor-pointer bg-white peer-checked:bg-yellow-500"
-                >
-                  <Check className="w-4 h-4" />
-                </label>
-                <label
-                  htmlFor="verify"
-                  className="max-sm:text-[14px] max-sm:leading-4"
-                >
-                  {t("all-games-text14")}
-                </label>
-              </div>
-              <button className="w-full py-2 bg-[#FFBA00] rounded text-black font-medium border-b-2 border-[black]">
+              <button
+                onClick={fetchBuyHandle}
+                disabled={!playerId.trim()}
+                className={`w-full py-2 rounded text-black font-medium border-b-2 ${
+                  !playerId.trim()
+                    ? "bg-gray-400 border-gray-600 cursor-not-allowed"
+                    : "bg-[#FFBA00] border-black"
+                }`}
+              >
                 {t("all-games-text10")}
               </button>
             </>
@@ -202,11 +207,20 @@ export function PurchaseModal({
           )}
         </div>
       </div>
-      <PurchasesModal
-        isOpen={isOpenBuy}
-        onClose={closeModal}
-        selectedPurchase={buyCode}
-      />
+      {isOpen == 1 && (
+        <PurchasesModal
+          isOpen={isOpenBuy}
+          onClose={closeModal}
+          selectedPurchase={buyCode}
+        />
+      )}
+      {isOpen == 2 && (
+        <PurchasesModal
+          isOpen={isOpenBuy}
+          onClose={closeModal}
+          selectedPurchase={buyCode}
+        />
+      )}
     </div>
   );
 }

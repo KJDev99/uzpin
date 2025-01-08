@@ -4,9 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { GoTrash } from "react-icons/go";
 import { PurchaseModal } from "./PurchaseModal";
-import { Alert } from "../Alert";
 import axiosInstance from "@/libs/axios";
-import Loader from "../Loader";
 import { useTranslation } from "react-i18next";
 
 export default function GameStore({ data }) {
@@ -89,9 +87,6 @@ export default function GameStore({ data }) {
     setCart([]);
   };
 
-  if (loading) {
-    return <Loader />;
-  }
   return (
     <>
       <div

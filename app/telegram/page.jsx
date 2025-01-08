@@ -1,4 +1,5 @@
 "use client";
+import Loader from "@/components/Loader";
 import axiosInstance from "@/libs/axios";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -31,6 +32,9 @@ const TelegramPage = () => {
         });
         localStorage.setItem("profileData", JSON.stringify(response.data));
         rounter.push("/");
+        setTimeout(() => {
+          location.reload();
+        }, 300);
       } catch (error) {
         console.error("Error fetching slides:", error);
       }
@@ -41,7 +45,7 @@ const TelegramPage = () => {
 
   return (
     <div>
-      <h1>Banners</h1>
+      <Loader />
     </div>
   );
 };

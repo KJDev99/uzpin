@@ -41,23 +41,11 @@ export default function Navbar() {
     setIsHovered(false);
     localStorage.setItem("language", code);
     window.location.reload();
-    // axiosInstance
-    //   .get("/client/popular/games", {
-    //     headers: {
-    //       "Accept-Language": code,
-    //     },
-    //   })
-    //   .then((response) => {
-    //     console.log(response.data);
-    //   })
-    //   .catch((error) => {
-    //     console.error("API so'rovi xatosi:", error);
-    //   });
   };
 
   return (
     <nav className="bg-black border-b border-gray-800">
-      <div className="max-w-7xl mx-auto px-5 max-md:overflow-hidden">
+      <div className="max-w-7xl mx-auto px-5 md:overflow-hidden">
         <div className="flex items-center justify-between h-[100px] max-md:h-20">
           <Link href="/" className="flex items-center">
             <Image
@@ -98,7 +86,9 @@ export default function Navbar() {
                   <button className="max-md:hidden text-[black] font-medium transition-colors flex gap-2 border bg-[#FFBA00] border-[#FFBA00] rounded px-4 py-2">
                     <PiUser className="h-5 text-lg font-bold" />
                     {!isHovered && (
-                      <p className="font-bold">{profileData.fullname}</p>
+                      <p className="font-bold">
+                        {profileData.fullname.split(" ")[0]}
+                      </p>
                     )}
                   </button>
                 </Link>
@@ -113,7 +103,7 @@ export default function Navbar() {
             )}
 
             <div
-              className={`relative flex  justify-end md:overflow-hidden  transition-all ${
+              className={`relative flex  justify-end  transition-all ${
                 isHovered ? "w-[150px] max-md:w-max" : "w-max"
               }`}
               onMouseEnter={() => setIsHovered(true)}
@@ -132,10 +122,10 @@ export default function Navbar() {
               </button>
 
               <div
-                className={`fixed z-[999] max-md:flex max-md:flex-col max-md:top-12 max-md:pt-3 w-max  flex gap-2 transition-all duration-300 translate-x-2 ${
+                className={`absolute z-[999] max-md:flex max-md:flex-col max-md:top-4 max-md:pt-3 w-max  flex gap-2 transition-all duration-300 translate-x-2 ${
                   isHovered
-                    ? "right-[276px] max-md:right-[30%]"
-                    : "right-[-100px]"
+                    ? "right-[43px] max-md:right-[30%]"
+                    : "right-[-200px]"
                 }`}
               >
                 {languages
