@@ -25,18 +25,6 @@ export default function Register({ setLogin, loginCount, setMainEmail }) {
     setPasswordVisible(!passwordVisible);
   };
 
-  const handleGoogleLogin = async () => {
-    await signIn("google", { callbackUrl: "/" });
-  };
-
-  const handleAppleLogin = async () => {
-    await signIn("apple", { callbackUrl: "/" });
-  };
-
-  const handleTelegramLogin = () => {
-    alert("Telegram orqali kirish");
-  };
-
   const validateForm = () => {
     const newErrors = {};
     if (!name) newErrors.name = "Ism maydoni to'ldirilishi shart.";
@@ -74,9 +62,27 @@ export default function Register({ setLogin, loginCount, setMainEmail }) {
         setMainEmail(email);
       } catch (error) {
         console.error("Xatolik yuz berdi:", error);
-        alert(t('profile48'));
+        alert(t("profile48"));
       }
     }
+  };
+
+  const handleGoogleLogin = async () => {
+    try {
+      const response = await axiosInstance.get("/client/auth/google/login");
+      const { auth_url } = response.data;
+
+      if (auth_url) {
+        window.location.href = auth_url;
+      } else {
+        console.error("Auth URL not received from server");
+      }
+    } catch (error) {
+      console.error("Error during Google login:", error);
+    }
+  };
+  const handleAppleLogin = async () => {
+    await signIn("apple", { callbackUrl: "/" });
   };
 
   return (
