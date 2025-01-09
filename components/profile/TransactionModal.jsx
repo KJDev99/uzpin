@@ -23,7 +23,7 @@ export default function TransactionModal({ isOpen, onClose, checkUrl }) {
             width={400}
             height={800}
             alt="Image 1"
-            className="h-[500px] object-contain w-[400px]"
+            className="w-[90%] mx-auto max-h-[70vh]"
           />
         </div>
       </div>
