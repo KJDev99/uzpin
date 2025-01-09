@@ -201,7 +201,7 @@ export default function BalansCardModal({
               <div className="flex flex-col">
                 <div className="max-w-[482px] w-full mx-auto mt-5 py-5 px-8 border border-[#828282] rounded-[10px] flex items-center justify-between">
                   <div>
-                    <p>check</p>
+                    <p>{photo.split("/").pop()}</p>
                   </div>
                   <button onClick={clearFile} className="text-black underline">
                     <X className="h-6 w-6" />
@@ -220,7 +220,7 @@ export default function BalansCardModal({
                     {t("profile28")}
                     {!selectedCard && (
                       <span className="absolute w-max bottom-[-30px] left-1/2 transform -translate-x-1/2 text-xs text-red-500 bg-white px-2 py-1 rounded shadow-md opacity-0 group-hover:opacity-100 transition-opacity">
-                        {t('profile51')}
+                        {t("profile51")}
                       </span>
                     )}
                   </button>
@@ -254,9 +254,7 @@ export default function BalansCardModal({
                 ) : (
                   <MdOutlineContentCopy size={24} />
                 )}
-                {copied
-                  ? t('profile49')
-                  : t('profile50')}
+                {copied ? t("profile49") : t("profile50")}
               </button>
               <p className="mt-[87px] text-[14px] leading-[18px]">
                 {t("profile30")}{" "}

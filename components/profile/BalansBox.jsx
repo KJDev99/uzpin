@@ -299,13 +299,23 @@ export default function BalansBox() {
             </div>
             <button
               onClick={openModal}
-              className="w-full py-3 bg-[#FFC149] hover:bg-[#FFB529] text-black font-medium rounded-lg transition-colors max-sm:hidden"
+              disabled={!inputValue.trim()}
+              className={`w-full py-3 bg-[#FFC149] hover:bg-[#FFB529] text-black font-medium rounded-lg transition-colors max-sm:hidden ${
+                !inputValue.trim()
+                  ? "bg-[#b7b7b7] hover:bg-[#b7b7b7] cursor-not-allowed"
+                  : ""
+              }`}
             >
               {t("profile23")}
             </button>
             <button
               onClick={toggleCardVisibile}
-              className="w-full py-3 bg-[#FFC149] hover:bg-[#FFB529] text-black font-medium rounded-lg transition-colors sm:hidden"
+              disabled={!inputValue.trim()}
+              className={`w-full py-3 bg-[#FFC149] hover:bg-[#FFB529] text-black font-medium rounded-lg transition-colors sm:hidden ${
+                !inputValue.trim()
+                  ? "bg-[#b7b7b7] hover:bg-[#b7b7b7] cursor-not-allowed"
+                  : ""
+              }`}
             >
               {t("profile23")}
             </button>
@@ -409,7 +419,7 @@ export default function BalansBox() {
                 <div className="flex flex-col">
                   <div className="max-w-[482px] w-full mx-auto mt-5 py-5 px-8 border border-[#828282] rounded-[10px] flex items-center justify-between">
                     <div>
-                      <p>Check</p>
+                      <p>{photo.split("/").pop()}</p>
                     </div>
                     <button
                       onClick={clearFile}
