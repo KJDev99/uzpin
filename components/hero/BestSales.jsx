@@ -78,7 +78,7 @@ export default function BestSales() {
                       <Image
                         src={`${promo.photo}`}
                         alt={"img"}
-                        className="object-cover rounded h-[188px] w-[188px] max-sm:max-w-[120px] max-sm:max-h-[120px]"
+                        className="object-cover rounded h-[188px] w-[188px] max-sm:max-w-[90px] max-sm:max-h-[90px]"
                         width={188}
                         height={188}
                       />
@@ -86,9 +86,9 @@ export default function BestSales() {
                       <Image
                         src={`/img_converted.webp`}
                         alt={"img"}
-                        className="object-cover rounded h-[228px] w-full max-sm:max-w-[120px] max-sm:max-h-[120px]"
-                        width={228}
-                        height={228}
+                        className="object-cover rounded h-[188px] w-[188px] max-sm:max-w-[90px] max-sm:max-h-[90px]"
+                        width={188}
+                        height={188}
                       />
                     )}
                   </div>
