@@ -69,7 +69,9 @@ export default function Login({ setLogin, loginCount }) {
 
   const handleGoogleLogin = async () => {
     try {
-      const response = await axiosInstance.get("/client/auth/google/login");
+      const response = await axiosInstance.get(
+        "/client/auth/google/login?redirect_url=https://uzpin.games/google"
+      );
       const { auth_url } = response.data;
 
       if (auth_url) {
