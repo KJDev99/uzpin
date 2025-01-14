@@ -7,6 +7,7 @@ import axiosInstance from "@/libs/axios";
 import { Alert } from "../Alert";
 import { useTranslation } from "react-i18next";
 import PurchasesModal from "../profile/PurchasesModal";
+import { useRouter } from "next/navigation";
 
 export function PurchaseModal({
   isOpen,
@@ -23,10 +24,13 @@ export function PurchaseModal({
   const [token, setToken] = useState(null);
 
   const [error2, setError] = useState(false);
+  const [error401, setError401] = useState(false);
   const [success, setSuccess] = useState(false);
 
   const [isOpenBuy, setIsOpenBuy] = useState(false);
   const [buyCode, setBuyCode] = useState();
+
+  const router = useRouter();
 
   const closeModal = () => {
     setBuyCode(null);
@@ -77,11 +81,20 @@ export function PurchaseModal({
         setSuccess(true);
       }
     } catch (error) {
-      setError(true);
-      setTimeout(() => {
-        setError(false);
-        onClose();
-      }, 2000);
+      if (error.status == 401) {
+        setError401(true);
+        setTimeout(() => {
+          // setError401(false);
+          // onClose();
+          router.push("/login");
+        }, 2000);
+      } else {
+        setError(true);
+        setTimeout(() => {
+          setError(false);
+          onClose();
+        }, 2000);
+      }
     } finally {
       clear();
       if (isOpen == 2) {
@@ -99,18 +112,17 @@ export function PurchaseModal({
       open={isOpen}
     >
       {error2 && (
+        <Alert status={false} title={t("profile14")} message={t("profile15")} />
+      )}
+      {error401 && (
         <Alert
           status={false}
-          title={t('profile14')}
-          message={t('profile15')}
+          title={t("profile4011")}
+          message={t("profile4012")}
         />
       )}
       {success && (
-        <Alert
-          status={true}
-          title={t('profile16')}
-          message={t('profile17')}
-        />
+        <Alert status={true} title={t("profile16")} message={t("profile17")} />
       )}
       <div className="fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border bg-[white] p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] max-sm:w-[95%] max-h-[95%] overflow-auto max-sm:rounded-lg">
         <div>

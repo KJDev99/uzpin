@@ -96,6 +96,7 @@ export default function BalansCardModal({
   };
 
   const fetchHandle = async () => {
+    setLoading(true);
     const formattedData = {
       currency: selectedCurrency,
       amount: inputValue,
@@ -119,6 +120,7 @@ export default function BalansCardModal({
       setError(true);
       console.log(error);
     } finally {
+      setLoading(false);
       setTimeout(() => {
         setInputValue("");
         setPhoto("");
@@ -129,7 +131,9 @@ export default function BalansCardModal({
     }
   };
 
-  if (loading) <Loader />;
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0">

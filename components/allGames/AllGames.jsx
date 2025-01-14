@@ -56,9 +56,17 @@ export default function AllGames() {
                   />
                 </div>
                 <div className="flex flex-col w-full h-[200px] max-sm:h-auto">
-                  <h3 className="text-[28px] text-[#313131] font-bold max-sm:font-medium max-sm:text-sm grow">
+                  <h3 className="text-[28px] text-[#313131] font-bold max-sm:font-medium max-sm:text-sm ">
                     {game.name}
                   </h3>
+                  <div className="max-md:hidden flex mt-5 grow">
+                    <p className="mt-[5px] text-[20px] font-medium leading-[18px] text-[#313131] max-sm:text-[10px] max-sm:hidden">
+                      {game.promocodes[1].match(/\d+/g)?.join("") || 0} - 
+                    </p>
+                    <p className="mt-[5px] text-[20px] font-medium leading-[18px] text-[#313131] max-sm:text-[10px] max-sm:hidden">
+                      {game.promocodes[0]}
+                    </p>
+                  </div>
                   <div>
                     <button className="w-full px-4 py-3 text-[#acacac] hover:text-[#ffba00] transition-colors duration-200 flex items-center gap-4 justify-end group max-sm:hidden">
                       <span>{t("see-more")}</span>
