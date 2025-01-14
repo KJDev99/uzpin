@@ -2,6 +2,7 @@
 import React from "react";
 import Image from "next/image";
 import { useTranslation } from "react-i18next";
+import Link from "next/link";
 
 export default function FreeFireBanner() {
   const { t } = useTranslation();
@@ -21,9 +22,11 @@ export default function FreeFireBanner() {
         <p className="font-medium text-[32px] leading-[37px] text-[#000000] max-sm:text-base max-sm:leading-[18px]">
           {t("promocode")}
         </p>
-        <button className="bg-[#ffba00] py-3 px-12 mt-8 rounded-[10px] font-semibold text-[20px] leading-[23px] text-[#000000] max-sm:py-[5px] max-sm:px-[15px] max-sm:rounded-[5px] max-sm:text-xs max-sm:mt-3.5">
-          {t("purchase")}
-        </button>
+        <Link href={"/all-games/8e3cba6c-a5db-4711-a781-c3d35d5eba7d"}>
+          <button className="bg-[#ffba00] py-3 px-12 mt-8 rounded-[10px] font-semibold text-[20px] leading-[23px] text-[#000000] max-sm:py-[5px] max-sm:px-[15px] max-sm:rounded-[5px] max-sm:text-xs max-sm:mt-3.5">
+            {t("purchase")}
+          </button>
+        </Link>
       </div>
     </div>
   );
