@@ -9,6 +9,7 @@ import axiosInstance from "@/libs/axios";
 import { Alert } from "../Alert";
 import Loader from "../Loader";
 import { useTranslation } from "react-i18next";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 export default function BalansCardModal({
   isOpen,
@@ -25,6 +26,7 @@ export default function BalansCardModal({
   const [token, setToken] = useState(null);
   const [cart, setCart] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const [selectedCard, setSelectedCard] = useState(null);
 
@@ -104,7 +106,7 @@ export default function BalansCardModal({
       from_bot: true,
       card: selectedCard.id,
     };
-
+    setIsLoading(true);
     try {
       const response = await axiosInstance.post(
         "/client/transaction/create",
@@ -121,6 +123,7 @@ export default function BalansCardModal({
       console.log(error);
     } finally {
       setLoading(false);
+      setIsLoading(false)
       setTimeout(() => {
         setInputValue("");
         setPhoto("");
@@ -185,9 +188,6 @@ export default function BalansCardModal({
               <p className="mt-2.5 text-[14px] leading-4 text-[#828282]">
                 {t("profile26")}
               </p>
-              <p className="mt-2.5 text-[14px] leading-4 text-[#828282]">
-                {t("login-text12")}
-              </p>
               <div className="hidden">
                 <UploadComponent
                   triggerRef={modalRef}
@@ -221,7 +221,11 @@ export default function BalansCardModal({
                         : "bg-[#b7b7b7] cursor-not-allowed"
                     } relative group`}
                   >
-                    {t("profile28")}
+                    {isLoading ? (
+                      <AiOutlineLoading3Quarters className="animate-spin mr-2" />
+                    ) : (
+                      t("profile28")
+                    )}
                     {!selectedCard && (
                       <span className="absolute w-max bottom-[-30px] left-1/2 transform -translate-x-1/2 text-xs text-red-500 bg-white px-2 py-1 rounded shadow-md opacity-0 group-hover:opacity-100 transition-opacity">
                         {t("profile51")}
@@ -258,7 +262,7 @@ export default function BalansCardModal({
                 ) : (
                   <MdOutlineContentCopy size={24} />
                 )}
-                {copied ? t("profile49") : t("profile50")}
+                {selectedCard.card_number}
               </button>
               <p className="mt-[87px] text-[14px] leading-[18px]">
                 {t("profile30")}{" "}

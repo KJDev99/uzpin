@@ -4,7 +4,7 @@ import { X } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { PiEyeClosedBold } from "react-icons/pi";
-import { AiOutlineEye } from "react-icons/ai";
+import { AiOutlineEye, AiOutlineLoading3Quarters } from "react-icons/ai";
 import { RiTelegram2Fill } from "react-icons/ri";
 import { FcGoogle } from "react-icons/fc";
 import { IoLogoApple } from "react-icons/io5";
@@ -23,7 +23,9 @@ export default function Login({ setLogin, loginCount }) {
     emailOrPhone: false,
     password: false,
   });
+  const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
@@ -49,6 +51,7 @@ export default function Login({ setLogin, loginCount }) {
     }
 
     if (!hasError) {
+      setIsLoading(true);
       try {
         const response = await axiosInstance.post("client/auth/login", {
           email: emailOrPhone,
@@ -56,6 +59,7 @@ export default function Login({ setLogin, loginCount }) {
         });
         localStorage.setItem("profileData", JSON.stringify(response.data));
         rounter.push("/");
+        setSuccess(true);
         setTimeout(() => {
           location.reload();
         }, 300);
@@ -63,6 +67,8 @@ export default function Login({ setLogin, loginCount }) {
         console.error("Xatolik yuz berdi:", error);
         setError(true);
         setTimeout(() => setError(false), [3000]);
+      } finally {
+        setIsLoading(false);
       }
     }
   };
@@ -89,6 +95,7 @@ export default function Login({ setLogin, loginCount }) {
 
   return (
     <div className="flex justify-center items-center">
+      {success && <Toast type="success" text={t("profile16")} />}
       {error && <Toast status="false" text={t("login-text16")} />}
       <div className="bg-white shadow-md rounded-lg p-8 w-full max-w-md max-sm:p-4">
         <div className="flex justify-end mb-[20px]">
@@ -221,10 +228,13 @@ export default function Login({ setLogin, loginCount }) {
           </div>
 
           <button
+            disabled={isLoading}
             type="submit"
-            className="w-full bg-[#FFBA00] text-[#000000] text-[20xp] leading-[23px] py-2 px-4 font-medium  rounded-lg mt-2 mb-6 border-2 border-[transparent] border-b-[#313131]"
+            className="w-full flex justify-center items-center bg-[#FFBA00] text-[#000000] text-[20xp] leading-[23px] py-2 px-4 font-medium  rounded-lg mt-2 mb-6 border-2 border-[transparent] border-b-[#313131]"
           >
-            {t("login")}
+            {isLoading ? (
+              <AiOutlineLoading3Quarters className="animate-spin mr-2" />
+            ) : t("login")}
           </button>
         </form>
       </div>

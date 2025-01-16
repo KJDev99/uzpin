@@ -6,6 +6,7 @@ import { IoIosArrowBack } from "react-icons/io";
 import Link from "next/link";
 import Loader from "../Loader";
 import { useTranslation } from "react-i18next";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 export default function ProfilInfo() {
   const { t } = useTranslation();
@@ -24,6 +25,7 @@ export default function ProfilInfo() {
 
   const [token, setToken] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -85,7 +87,7 @@ export default function ProfilInfo() {
       formData.confirm_password = profileData.confirm_password;
 
     console.log(profileData, formData);
-
+    setIsLoading(true);
     try {
       const response = await axiosInstance.put("/client/profile", formData, {
         headers: {
@@ -104,6 +106,7 @@ export default function ProfilInfo() {
         setSuccess(false);
         setError(false);
       }, 3000);
+      setIsLoading(false);
     }
   };
 
@@ -113,24 +116,17 @@ export default function ProfilInfo() {
 
   return (
     <div className="w-full overflow-hidden ">
-      {success && (
-        <Toast type="success" text={t('profile6')} />
-      )}
-      {error && (
-        <Toast
-          type="false"
-          text={t('profile7')}
-        />
-      )}
+      {success && <Toast type="success" text={t("profile6")} />}
+      {error && <Toast type="false" text={t("profile7")} />}
       <div className="px-6 py-4 max-md:border-b max-md:hidden">
-        <h2 className="text-xl font-bold md:mb-4">{t('profile1')}</h2>
+        <h2 className="text-xl font-bold md:mb-4">{t("profile1")}</h2>
       </div>
       <Link
         href={"/profile/profile-mobile"}
         className="md:px-6 py-4 max-md:border-b flex items-center max-md:gap-5 md:hidden"
       >
         <IoIosArrowBack className="text-2xl md:hidden" />
-        <h2 className="text-xl font-bold md:mb-4">{t('profile1')}</h2>
+        <h2 className="text-xl font-bold md:mb-4">{t("profile1")}</h2>
       </Link>
       <form
         className="px-6 py-4  md:border w-full grid grid-cols-2 max-md:grid-cols-1 gap-5 max-md:mb-10"
@@ -141,7 +137,7 @@ export default function ProfilInfo() {
             htmlFor="fullname"
             className="block text-sm font-medium text-gray-700"
           >
-            {t('login-text9')}
+            {t("login-text9")}
           </label>
           <input
             id="fullname"
@@ -157,7 +153,7 @@ export default function ProfilInfo() {
             htmlFor="email"
             className="block text-sm font-medium text-gray-700"
           >
-            {t('profile8')}
+            {t("profile8")}
           </label>
           <input
             id="email"
@@ -173,7 +169,7 @@ export default function ProfilInfo() {
             htmlFor="phone"
             className="block text-sm font-medium text-gray-700"
           >
-            {t('profile9')}
+            {t("profile9")}
           </label>
           <input
             id="phone"
@@ -189,7 +185,7 @@ export default function ProfilInfo() {
             htmlFor="old_password"
             className="block text-sm font-medium text-gray-700"
           >
-            {t('profile10')}
+            {t("profile10")}
           </label>
           <input
             id="old_password"
@@ -206,7 +202,7 @@ export default function ProfilInfo() {
             htmlFor="new_password"
             className="block text-sm font-medium text-gray-700"
           >
-            {t('profile11')}
+            {t("profile11")}
           </label>
           <input
             id="new_password"
@@ -223,7 +219,7 @@ export default function ProfilInfo() {
             htmlFor="confirm_password"
             className="block text-sm font-medium text-gray-700"
           >
-            {t('profile12')}
+            {t("profile12")}
           </label>
           <input
             id="confirm_password"
@@ -237,9 +233,11 @@ export default function ProfilInfo() {
 
         <button
           type="submit"
-          className="w-full mt-4 px-4 py-2 bg-[#ffba00] hover:bg-[#ffba00] border-b-2 border-[#313131] text-black font-medium rounded-md shadow-sm outline-none"
+          className="w-full flex justify-center mt-4 px-4 py-2 bg-[#ffba00] hover:bg-[#ffba00] border-b-2 border-[#313131] text-black font-medium rounded-md shadow-sm outline-none"
         >
-          {t('profile13')}
+          {isLoading ? (
+              <AiOutlineLoading3Quarters className="animate-spin mr-2" />
+            ) : t("profile13")}
         </button>
       </form>
     </div>

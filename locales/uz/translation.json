@@ -93,6 +93,11 @@
   "login-text25": "Kirish uchun yangi parol o‘rnating",
   "login-text26": "Parolni kiriting",
   "login-text27": "Parollar mos kelmayapti yoki bo'sh",
+  "login2": "Ism maydoni to'ldirilishi shart.",
+  "login3": "Elektron pochta yoki telefon raqami kiritilishi shart.",
+  "login4": "Parol kiritilishi shart.",
+  "login5": "Parolni tasdiqlash maydoni to'ldirilishi shart.",
+  "login6": "Parollar mos kelmadi.",
 
   "profile1": "Profil ma'lumotlari",
   "profile2": "Balans",
@@ -119,7 +124,7 @@
   "profile23": "To'ldirish",
   "profile24": "Kartani tanlang",
   "profile25": "To’lovni amalga oshirish uchun quyidagi kartalardan birini tanlang.",
-  "profile26": "Nusxa olingan chekni qo'ying",
+  "profile26": "png, jpeg fayllarni yuklay olishingiz mumkin",
   "profile27": "Faylni tanlang",
   "profile28": "Yuborish",
   "profile29": "Pul o'tkazmasi chekini yuklang",
@@ -146,6 +151,7 @@
   "profile50": "Karta raqamidan nusxa olish",
   "profile51": "Iltimos, karta tanlang!",
   "profile52": "Promodlar Nusxalandi!",
+  "profile53": "Bu email oldin ro'yxatdan o'tgan",
   "profile4011": "Siz ro'yxatdan o'tmagansiz!",
   "profile4012": "Iltimos ro'yxatdan o'ting",
 
