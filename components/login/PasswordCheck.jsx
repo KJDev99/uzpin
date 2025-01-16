@@ -8,6 +8,7 @@ import { Toast } from "../Toast";
 import Image from "next/image";
 import { FaChevronLeft } from "react-icons/fa6";
 import { useTranslation } from "react-i18next";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 export default function PasswordCheck({ setLogin, mainEmail, setAccess }) {
   const { t } = useTranslation();
@@ -15,6 +16,7 @@ export default function PasswordCheck({ setLogin, mainEmail, setAccess }) {
   const [disabledBtn, setDisabledBtn] = useState(true);
   const [error, setError] = useState();
   const inputsRef = useRef([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (value, index) => {
     if (!/^\d?$/.test(value)) return;
@@ -44,6 +46,7 @@ export default function PasswordCheck({ setLogin, mainEmail, setAccess }) {
     e.preventDefault();
     if (code.every((num) => num !== "")) {
       const enteredCode = code.join("");
+      setIsLoading(true);
       try {
         const response = await axiosInstance.post("client/auth/reset/verify", {
           email: mainEmail,
@@ -55,6 +58,8 @@ export default function PasswordCheck({ setLogin, mainEmail, setAccess }) {
       } catch (error) {
         setError(true);
         setTimeout(() => setError(false), [3000]);
+      }finally{
+        setIsLoading(false);
       }
     }
   };

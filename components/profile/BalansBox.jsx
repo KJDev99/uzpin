@@ -12,6 +12,7 @@ import { MdCheck, MdOutlineContentCopy } from "react-icons/md";
 import UploadComponent from "../UploadComponent";
 import { Alert } from "../Alert";
 import { useTranslation } from "react-i18next";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 export default function BalansBox() {
   const { t } = useTranslation();
@@ -34,6 +35,7 @@ export default function BalansBox() {
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
   const [inputValue, setInputValue] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleCardSelect = (card) => {
     setSelectedCard(card);
@@ -135,7 +137,7 @@ export default function BalansBox() {
       from_bot: true,
       card: selectedCard.id,
     };
-
+    setIsLoading(true);
     try {
       const response = await axiosInstance.post(
         "/client/transaction/create",
@@ -157,6 +159,7 @@ export default function BalansBox() {
         // onClose();
         setError(false);
         setSuccess(false);
+        setIsLoading(false);
       }, 3000);
     }
   };
@@ -378,7 +381,7 @@ export default function BalansBox() {
                   ) : (
                     <MdOutlineContentCopy size={24} />
                   )}
-                  {copied ? t("profile49") : t("profile50")}
+                  {selectedCard.card_number}
                 </button>
               </div>
             )}
@@ -430,9 +433,13 @@ export default function BalansBox() {
                   </div>
                   <button
                     onClick={fetchHandle}
-                    className="mx-auto mt-5 font-medium leading-[18px] bg-[#ffba00] py-[10px] px-[60px] rounded-[10px]"
+                    className="flex justify-center mx-auto mt-5 font-medium leading-[18px] bg-[#ffba00] py-[10px] px-[60px] rounded-[10px]"
                   >
-                    {t("profile28")}
+                    {isLoading ? (
+                      <AiOutlineLoading3Quarters className="animate-spin mr-2" />
+                    ) : (
+                      t("profile28")
+                    )}
                   </button>
                 </div>
               ) : null}

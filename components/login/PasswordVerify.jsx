@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useRef, useState } from "react";
 import { Toast } from "../Toast";
 import {useTranslation} from 'react-i18next'
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 export default function PasswordVerify({ setLogin, mainEmail }) {
   const {t} = useTranslation()

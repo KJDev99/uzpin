@@ -6,6 +6,7 @@ import { IoIosArrowBack } from "react-icons/io";
 import Link from "next/link";
 import Loader from "../Loader";
 import { useTranslation } from "react-i18next";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 export default function ProfilInfo() {
   const { t } = useTranslation();
@@ -24,6 +25,7 @@ export default function ProfilInfo() {
 
   const [token, setToken] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -85,7 +87,7 @@ export default function ProfilInfo() {
       formData.confirm_password = profileData.confirm_password;
 
     console.log(profileData, formData);
-
+    setIsLoading(true);
     try {
       const response = await axiosInstance.put("/client/profile", formData, {
         headers: {
@@ -105,6 +107,7 @@ export default function ProfilInfo() {
         setSuccess(false);
         setError(false);
       }, 3000);
+      setIsLoading(false);
     }
   };
 
@@ -231,7 +234,7 @@ export default function ProfilInfo() {
 
         <button
           type="submit"
-          className="w-full mt-4 px-4 py-2 bg-[#ffba00] hover:bg-[#ffba00] border-b-2 border-[#313131] text-black font-medium rounded-md shadow-sm outline-none"
+          className="w-full flex justify-center mt-4 px-4 py-2 bg-[#ffba00] hover:bg-[#ffba00] border-b-2 border-[#313131] text-black font-medium rounded-md shadow-sm outline-none"
         >
           {t("profile13")}
         </button>

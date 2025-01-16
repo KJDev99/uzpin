@@ -4,13 +4,14 @@ import { X } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import { PiEyeClosedBold } from "react-icons/pi";
-import { AiOutlineEye } from "react-icons/ai";
+import { AiOutlineEye, AiOutlineLoading3Quarters } from "react-icons/ai";
 import { RiTelegram2Fill } from "react-icons/ri";
 import { FcGoogle } from "react-icons/fc";
 import { IoLogoApple } from "react-icons/io5";
 import { signIn } from "next-auth/react";
 import axiosInstance from "@/libs/axios";
 import { useTranslation } from "react-i18next";
+import { Toast } from "../Toast";
 
 export default function Register({ setLogin, loginCount, setMainEmail }) {
   const { t } = useTranslation();
@@ -20,6 +21,9 @@ export default function Register({ setLogin, loginCount, setMainEmail }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [errors, setErrors] = useState({});
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
@@ -27,22 +31,19 @@ export default function Register({ setLogin, loginCount, setMainEmail }) {
 
   const validateForm = () => {
     const newErrors = {};
-    if (!name) newErrors.name = "Ism maydoni to'ldirilishi shart.";
-    if (!email)
-      newErrors.email =
-        "Elektron pochta yoki telefon raqami kiritilishi shart.";
-    if (!password) newErrors.password = "Parol kiritilishi shart.";
-    if (!confirmPassword)
-      newErrors.confirmPassword =
-        "Parolni tasdiqlash maydoni to'ldirilishi shart.";
+    if (!name) newErrors.name = t("login2");
+    if (!email) newErrors.email = t("login3");
+    if (!password) newErrors.password = t("login4");
+    if (!confirmPassword) newErrors.confirmPassword = t("login5");
     if (password && confirmPassword && password !== confirmPassword) {
-      newErrors.confirmPassword = "Parollar mos kelmadi.";
+      newErrors.confirmPassword = t("login6");
     }
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = async (e) => {
+    setIsLoading(true);
     e.preventDefault();
     if (validateForm()) {
       const requestData = {
@@ -58,16 +59,21 @@ export default function Register({ setLogin, loginCount, setMainEmail }) {
           requestData
         );
         console.log("Server javobi:", response.data);
+        setSuccess(true)
         setLogin(5);
         setMainEmail(email);
       } catch (error) {
+        setError(true);
         console.error("Xatolik yuz berdi:", error);
-        alert(t("profile48"));
+        // alert(t("profile48"));
+      } finally {
+        setIsLoading(false);
       }
     }
   };
 
   const handleGoogleLogin = async () => {
+    setIsLoading(true);
     try {
       const response = await axiosInstance.get(
         "/client/auth/google/login?redirect_url=https://uzpin.games/google"
@@ -81,6 +87,8 @@ export default function Register({ setLogin, loginCount, setMainEmail }) {
       }
     } catch (error) {
       console.error("Error during Google login:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
   const handleAppleLogin = async () => {
@@ -89,6 +97,8 @@ export default function Register({ setLogin, loginCount, setMainEmail }) {
 
   return (
     <div className="flex justify-center items-center">
+      {success && <Toast type='success' text={t('profile16')}/>}
+      {error && <Toast status={false} text={t("profile53")} />}
       <div className="bg-white shadow-md rounded-lg p-8 w-full max-w-md max-sm:shadow-none max-sm:p-4">
         <div className="flex justify-end mb-[20px]">
           <Link href="/">
@@ -253,10 +263,15 @@ export default function Register({ setLogin, loginCount, setMainEmail }) {
           </div>
 
           <button
+            disabled={isLoading}
             type="submit"
-            className="w-full bg-[#FFBA00] text-[#000000] text-[20xp] leading-[23px] py-2 px-4 font-medium  rounded-lg mt-10 mb-6 border-2 border-[transparent] border-b-[#313131]"
+            className="w-full flex justify-center items-center bg-[#FFBA00] text-[#000000] text-[20xp] leading-[23px] py-2 px-4 font-medium  rounded-lg mt-10 mb-6 border-2 border-[transparent] border-b-[#313131]"
           >
-            {t("login-text1")}
+            {isLoading ? (
+              <AiOutlineLoading3Quarters className="animate-spin mr-2" />
+            ) : (
+              t("login-text1")
+            )}
           </button>
         </form>
       </div>
