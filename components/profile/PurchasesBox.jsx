@@ -81,7 +81,7 @@ export default function PurchasesBox() {
         <h2 className="text-xl font-bold md:mb-4">{t("profile3")}</h2>
       </Link>
 
-      <div className="overflow-x-scroll">
+      <div className="max-sm:overflow-x-auto">
         <table className="w-full border-collapse bg-white border">
           <thead>
             <tr className="text-left border">

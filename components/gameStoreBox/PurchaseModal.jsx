@@ -2,12 +2,13 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { Check, X } from "lucide-react";
+import { X } from "lucide-react";
 import axiosInstance from "@/libs/axios";
 import { Alert } from "../Alert";
 import { useTranslation } from "react-i18next";
 import PurchasesModal from "../profile/PurchasesModal";
 import { useRouter } from "next/navigation";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 export function PurchaseModal({
   isOpen,
@@ -29,6 +30,7 @@ export function PurchaseModal({
 
   const [isOpenBuy, setIsOpenBuy] = useState(false);
   const [buyCode, setBuyCode] = useState();
+  const [loading, setLoading] = useState(false);
 
   const router = useRouter();
 
@@ -61,7 +63,7 @@ export function PurchaseModal({
         count: item.quantity,
       })),
     };
-
+    setLoading(true);
     try {
       const response = await axiosInstance.post(
         "/client/promocode/buy",
@@ -103,6 +105,7 @@ export function PurchaseModal({
           onClose();
         }, 2000);
       }
+      setLoading(false);
     }
   };
 
@@ -204,7 +207,11 @@ export function PurchaseModal({
                     : "bg-[#FFBA00] border-black"
                 }`}
               >
-                {t("all-games-text10")}
+                {loading ? (
+                  <AiOutlineLoading3Quarters className="animate-spin" />
+                ) : (
+                  t("all-games-text10")
+                )}
               </button>
             </>
           )}
@@ -212,9 +219,13 @@ export function PurchaseModal({
           {isOpen == 1 && (
             <button
               onClick={fetchBuyHandle}
-              className="w-full py-2 bg-[#FFBA00] rounded text-black font-medium border-b-2 border-[black]"
+              className="w-full flex justify-center py-2 bg-[#FFBA00] rounded text-black font-medium border-b-2 border-[black]"
             >
-              {t("all-games-text10")}
+              {loading ? (
+                <AiOutlineLoading3Quarters className="animate-spin" />
+              ) : (
+                t("all-games-text10")
+              )}
             </button>
           )}
         </div>

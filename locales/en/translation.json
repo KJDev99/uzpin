@@ -93,6 +93,11 @@
   "login-text25": "Set a new password for login",
   "login-text26": "Enter password",
   "login-text27": "Passwords do not match or field is empty",
+  "login2": "The name field is required.",
+  "login3": "Email or phone number is required.",
+  "login4": "Password is required.",
+  "login5": "Password confirmation field is required.",
+  "login6": "Passwords do not match.",
 
   "profile1": "Profile information",
   "profile2": "Balance",
@@ -119,7 +124,7 @@
   "profile23": "Top up",
   "profile24": "Select card",
   "profile25": "Select one of the cards below to make a payment.",
-  "profile26": "Attach a copied receipt",
+  "profile26": "You can upload files in png and jpeg format",
   "profile27": "Select file",
   "profile28": "Send",
   "profile29": "Upload transfer receipt",
@@ -146,6 +151,7 @@
   "profile50": "Copy the card number",
   "profile51": "Please select a card",
   "profile52": "Promos have been copied!",
+  "profile53": "This email has already been registered",
 
   "not1": "Page not found for this request",
   "not2": "Return to the home page"
