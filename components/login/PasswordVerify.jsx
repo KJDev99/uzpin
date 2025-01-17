@@ -1,19 +1,20 @@
-'use client'
+"use client";
 
 import axiosInstance from "@/libs/axios";
 import { X } from "lucide-react";
 import Link from "next/link";
 import { useRef, useState } from "react";
 import { Toast } from "../Toast";
-import {useTranslation} from 'react-i18next'
+import { useTranslation } from "react-i18next";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 export default function PasswordVerify({ setLogin, mainEmail }) {
-  const {t} = useTranslation()
+  const { t } = useTranslation();
   const [code, setCode] = useState(["", "", "", ""]);
   const [disabledBtn, setDisabledBtn] = useState(true);
   const [error, setError] = useState();
   const inputsRef = useRef([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (value, index) => {
     if (!/^\d?$/.test(value)) return;
@@ -43,6 +44,7 @@ export default function PasswordVerify({ setLogin, mainEmail }) {
     e.preventDefault();
     if (code.every((num) => num !== "")) {
       const enteredCode = code.join("");
+      setIsLoading(true);
       try {
         await axiosInstance.post("client/auth/verify", {
           code: enteredCode,
@@ -52,6 +54,8 @@ export default function PasswordVerify({ setLogin, mainEmail }) {
       } catch (error) {
         setError(true);
         setTimeout(() => setError(false), [3000]);
+      } finally {
+        setIsLoading(false);
       }
     }
   };
@@ -71,10 +75,10 @@ export default function PasswordVerify({ setLogin, mainEmail }) {
         </div>
         <div className="flex flex-col gap-4">
           <h2 className="text-[#141311] font-medium text-center text-3xl">
-            {t('login-text19')}
+            {t("login-text19")}
           </h2>
           <p className="mb-3 text-center text-[#909090] text-sm">
-            {t('login-text20')}
+            {t("login-text20")}
           </p>
         </div>
         <form onSubmit={handleSubmit}>
@@ -97,16 +101,20 @@ export default function PasswordVerify({ setLogin, mainEmail }) {
             id="submit-button"
             onClick={() => setLogin(5)}
             disabled={disabledBtn}
-            className="w-full bg-[#FFBA00] text-[#313131] py-2 px-4 rounded-lg mt-2 font-medium border-2 border-[transparent] border-b-[#313131] disabled:bg-gray-300 disabled:border-none disabled:cursor-not-allowed"
+            className="w-full flex justify-center bg-[#FFBA00] text-[#313131] py-2 px-4 rounded-lg mt-2 font-medium border-2 border-[transparent] border-b-[#313131] disabled:bg-gray-300 disabled:border-none disabled:cursor-not-allowed"
           >
-            {t('login-text19')}
+            {isLoading ? (
+              <AiOutlineLoading3Quarters className="animate-spin" />
+            ) : (
+              t("login-text19")
+            )}
           </button>
           <div className="text-center text-sm text-[black] mt-3 mb-5">
-            {t('login-text21')}{" "}
+            {t("login-text21")}{" "}
             <Link href="#" className="text-[#FFBA00]">
-              {t('login-text22')}
+              {t("login-text22")}
             </Link>{" "}
-            {t('login-text23')}
+            {t("login-text23")}
           </div>
         </form>
       </div>

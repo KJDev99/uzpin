@@ -125,9 +125,13 @@ export default function PasswordCheck({ setLogin, mainEmail, setAccess }) {
             id="submit-button"
             onClick={() => setLogin(4)}
             disabled={disabledBtn}
-            className="w-full bg-[#FFBA00] text-[#313131] py-2 px-4 rounded-lg mt-2 font-medium text-[20px] leading-[23px] border-2 border-[transparent] border-b-[#313131] disabled:bg-gray-300 disabled:border-none disabled:cursor-not-allowed"
+            className="w-full flex justify-center bg-[#FFBA00] text-[#313131] py-2 px-4 rounded-lg mt-2 font-medium text-[20px] leading-[23px] border-2 border-[transparent] border-b-[#313131] disabled:bg-gray-300 disabled:border-none disabled:cursor-not-allowed"
           >
-            {t("login-text19")}
+            {isLoading ? (
+              <AiOutlineLoading3Quarters className="animate-spin" />
+            ) : (
+              t("login-text19")
+            )}
           </button>
           <div className="text-center font-light text-sm text-[#909090] mt-3 mb-5">
             {t("login-text21")}{" "}
