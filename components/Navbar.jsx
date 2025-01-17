@@ -79,15 +79,17 @@ export default function Navbar() {
           <div className="flex-1 max-w-lg mx-5 max-sm:mx-0 max-sm:flex justify-end">
             <SearchComponent />
           </div>
-          <div className="flex w-[200px] max-md:w-max items-center space-x-10 max-sm:space-x-0">
+          <div className="flex w-[210px] max-md:w-max items-center space-x-8 max-sm:space-x-0 justify-between">
             {profileData ? (
               <>
                 <Link href={"/profile"}>
-                  <button className="max-md:hidden text-[black] font-medium transition-colors flex gap-2 border bg-[#FFBA00] border-[#FFBA00] rounded px-4 py-2">
-                    <PiUser className="h-5 text-lg font-bold" />
+                  <button className="max-md:hidden text-[black] font-medium grow transition-colors flex gap-2 border bg-[#FFBA00] border-[#FFBA00] rounded px-4 py-2">
+                    <PiUser className="h-5 text-[16px] font-bold" />
                     {!isHovered && (
                       <p className="font-bold">
-                        {profileData.fullname.split(" ")[0]}
+                        {profileData.fullname.split(" ")[0].length > 10
+                          ? profileData.fullname.split(" ")[0].slice(0, 10)
+                          : profileData.fullname.split(" ")[0]}
                       </p>
                     )}
                   </button>
@@ -106,8 +108,7 @@ export default function Navbar() {
               className={`relative flex  justify-end  transition-all ${
                 isHovered ? "w-[150px] max-md:w-max" : "w-max"
               }`}
-              onMouseEnter={() => setIsHovered(true)}
-              onMouseLeave={() => setIsHovered(false)}
+              onClick={() => setIsHovered((prev) => !prev)}
             >
               <button className="flex grow-1 w-7 items-center justify-end">
                 <Image
@@ -125,7 +126,7 @@ export default function Navbar() {
                 className={`absolute z-[999] max-md:flex max-md:flex-col max-md:top-4 max-md:pt-3 w-max  flex gap-2 transition-all duration-300 translate-x-2 ${
                   isHovered
                     ? "right-[43px] max-md:right-[30%]"
-                    : "right-[-200px]"
+                    : "right-[-240px]"
                 }`}
               >
                 {languages

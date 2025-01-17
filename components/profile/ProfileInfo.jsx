@@ -98,6 +98,7 @@ export default function ProfilInfo() {
 
       setSuccess(true);
       setProfileData(response.data);
+      localStorage.setItem("profileData", JSON.stringify(profileData));
     } catch (error) {
       console.error("Failed to update profile data", error);
       setError(true);
@@ -235,9 +236,7 @@ export default function ProfilInfo() {
           type="submit"
           className="w-full flex justify-center mt-4 px-4 py-2 bg-[#ffba00] hover:bg-[#ffba00] border-b-2 border-[#313131] text-black font-medium rounded-md shadow-sm outline-none"
         >
-          {isLoading ? (
-              <AiOutlineLoading3Quarters className="animate-spin mr-2" />
-            ) : t("profile13")}
+          {t("profile13")}
         </button>
       </form>
     </div>
