@@ -115,10 +115,19 @@ export default function ProfilInfo() {
     return <Loader />;
   }
 
+  const handleClose = () => {
+    setSuccess(false);
+    setError(false);
+  };
+
   return (
     <div className="w-full overflow-hidden ">
-      {success && <Toast type="success" text={t("profile6")} />}
-      {error && <Toast type="false" text={t("profile7")} />}
+      {success && (
+        <Toast type="success" text={t("profile6")} onClose={handleClose} />
+      )}
+      {error && (
+        <Toast type="false" text={t("profile7")} onClose={handleClose} />
+      )}
       <div className="px-6 py-4 max-md:border-b max-md:hidden">
         <h2 className="text-xl font-bold md:mb-4">{t("profile1")}</h2>
       </div>

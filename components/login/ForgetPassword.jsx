@@ -44,10 +44,14 @@ export default function ForgetPassword({ setLogin, loginCount, setMainEmail }) {
       }
     }
   };
-
+  const handleClose = () => {
+    setError(false);
+  };
   return (
     <div className="flex justify-center items-center  ">
-      {error && <Toast status="false" text={t("login-text16")} />}
+      {error && (
+        <Toast status="false" text={t("login-text16")} onClose={handleClose} />
+      )}
       <div className="bg-white shadow-md rounded-lg p-8 w-full max-w-md max-sm:p-4 max-sm:shadow-none">
         <div className="flex justify-end mb-[20px] max-sm:hidden">
           <Link href="/">
@@ -107,7 +111,9 @@ export default function ForgetPassword({ setLogin, loginCount, setMainEmail }) {
           >
             {isLoading ? (
               <AiOutlineLoading3Quarters className="animate-spin mr-2" />
-            ) : t("login-text18")}
+            ) : (
+              t("login-text18")
+            )}
           </button>
         </form>
       </div>

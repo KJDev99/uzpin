@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import { Check, X } from "lucide-react";
 
-export function Toast({ text, type }) {
+export function Toast({ text, type, onClose }) {
   useEffect(() => {
     const timer = setTimeout(() => {}, 3000);
     return () => clearTimeout(timer);
@@ -20,6 +20,7 @@ export function Toast({ text, type }) {
       transition-transform duration-300 ease-in-out transform`}
     >
       <div
+        onClick={onClose}
         className={`flex items-center justify-center w-8 h-8 rounded-full ${
           type === "success" ? "bg-green-200" : "bg-red-200"
         }`}

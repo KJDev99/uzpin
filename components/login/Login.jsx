@@ -92,11 +92,19 @@ export default function Login({ setLogin, loginCount }) {
   const handleAppleLogin = async () => {
     await signIn("apple", { callbackUrl: "/" });
   };
+  const handleClose = () => {
+    setSuccess(false);
+    setError(false);
+  };
 
   return (
     <div className="flex justify-center items-center">
-      {success && <Toast type="success" text={t("profile16")} />}
-      {error && <Toast status="false" text={t("login-text16")} />}
+      {success && (
+        <Toast type="success" text={t("profile16")} onClose={handleClose} />
+      )}
+      {error && (
+        <Toast status="false" text={t("login-text16")} onClose={handleClose} />
+      )}
       <div className="bg-white shadow-md rounded-lg p-8 w-full max-w-md max-sm:p-4">
         <div className="flex justify-end mb-[20px]">
           <Link href="/">
@@ -234,7 +242,9 @@ export default function Login({ setLogin, loginCount }) {
           >
             {isLoading ? (
               <AiOutlineLoading3Quarters className="animate-spin mr-2" />
-            ) : t("login")}
+            ) : (
+              t("login")
+            )}
           </button>
         </form>
       </div>

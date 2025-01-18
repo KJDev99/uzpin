@@ -59,7 +59,7 @@ export default function Register({ setLogin, loginCount, setMainEmail }) {
           requestData
         );
         console.log("Server javobi:", response.data);
-        setSuccess(true)
+        setSuccess(true);
         setLogin(5);
         setMainEmail(email);
       } catch (error) {
@@ -94,11 +94,18 @@ export default function Register({ setLogin, loginCount, setMainEmail }) {
   const handleAppleLogin = async () => {
     await signIn("apple", { callbackUrl: "/" });
   };
-
+  const handleClose = () => {
+    setSuccess(false);
+    setError(false);
+  };
   return (
     <div className="flex justify-center items-center">
-      {success && <Toast type='success' text={t('profile16')}/>}
-      {error && <Toast status={false} text={t("profile53")} />}
+      {success && (
+        <Toast type="success" text={t("profile16")} onClose={handleClose} />
+      )}
+      {error && (
+        <Toast status={false} text={t("profile53")} onClose={handleClose} />
+      )}
       <div className="bg-white shadow-md rounded-lg p-8 w-full max-w-md max-sm:shadow-none max-sm:p-4">
         <div className="flex justify-end mb-[20px]">
           <Link href="/">

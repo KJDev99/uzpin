@@ -94,10 +94,16 @@ export default function PurchasesModal({ selectedPurchase, isOpen, onClose }) {
   if (loading) {
     return <Loader />;
   }
+  const handleClose = () => {
+    setSuccess(false);
+    setError(false);
+  };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 max-sm:px-2">
-      {allStates && <Toast type="success" text={t('profile52')} />}
+      {allStates && (
+        <Toast type="success" text={t("profile52")} onClose={handleClose} />
+      )}
       <div className="max-w-[547px] w-full bg-white rounded-[10px] shadow-lg">
         <div className="flex flex-col relative justify-between min-w-10 min-h-10">
           <div className="flex justify-between px-10 pt-[60px] max-sm:pt-5">
