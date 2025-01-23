@@ -155,10 +155,10 @@ export default function BalansBox() {
         "Sizda hali kutilayotgan taranzaksiya mavjud!"
       ) {
         setError1(true);
+        console.log(error.response.data.detail);
       } else {
         setError(true);
       }
-      console.log(error.response.data.detail);
     } finally {
       setTimeout(() => {
         setInputValue("");
