@@ -21,6 +21,7 @@ export default function BalansCardModal({
   const { t } = useTranslation();
   const modalRef = useRef(null);
   const [error, setError] = useState(false);
+  const [error1, setError1] = useState(false);
   const [success, setSuccess] = useState(false);
   const [photo, setPhoto] = useState("");
   const [token, setToken] = useState(null);
@@ -119,8 +120,15 @@ export default function BalansCardModal({
       );
       setSuccess(true);
     } catch (error) {
-      setError(true);
-      console.log(error);
+      if (
+        error.response.data.detail ===
+        "Sizda hali kutilayotgan taranzaksiya mavjud!"
+      ) {
+        setError1(true);
+      } else {
+        setError(true);
+      }
+      console.log(error.response.data.detail);
     } finally {
       setLoading(false);
       setIsLoading(false);
@@ -143,6 +151,7 @@ export default function BalansCardModal({
       {error && (
         <Alert status={false} title={t("profile14")} message={t("profile15")} />
       )}
+      {error1 && <Alert status={false} title={t("profile54")} />}
       {success && (
         <Alert status={true} title={t("profile16")} message={t("profile17")} />
       )}
