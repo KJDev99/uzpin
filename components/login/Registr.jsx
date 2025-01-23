@@ -61,11 +61,10 @@ export default function Register({ setLogin, loginCount, setMainEmail }) {
         console.log("Server javobi:", response.data);
         setSuccess(true);
         setLogin(5);
-        setMainEmail(email);
+        setMainEmail(email);  
       } catch (error) {
         setError(true);
         console.error("Xatolik yuz berdi:", error);
-        // alert(t("profile48"));
       } finally {
         setIsLoading(false);
       }

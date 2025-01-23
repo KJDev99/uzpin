@@ -123,7 +123,7 @@ export default function BalansCardModal({
       console.log(error);
     } finally {
       setLoading(false);
-      setIsLoading(false)
+      setIsLoading(false);
       setTimeout(() => {
         setInputValue("");
         setPhoto("");
@@ -239,7 +239,7 @@ export default function BalansCardModal({
             )}
           </div>
           {selectedCard && (
-            <div className="w-[310px] px-[24px] pt-8 pb-8 bg-[#f9f9f9] rounded-tr-[10px] rounded-br-[10px]">
+            <div className="w-[360px] px-[24px] pt-8 pb-8 bg-[#f9f9f9] rounded-tr-[10px] rounded-br-[10px]">
               <p className="font-semibold text-[24px] leading-[28px]">
                 {selectedCard.card_name}
               </p>
@@ -254,7 +254,9 @@ export default function BalansCardModal({
                 alt="img"
               />
               <button
-                className="flex items-center gap-[5px] mt-10 py-[10px] px-[15px] font-medium text-[16px] leading-[18px] bg-[#ffba00] rounded-[10px]"
+                className={`flex items-center gap-[5px] mt-10 py-[10px] px-[15px] font-medium ${
+                  selectedCard.card_number.length > 19 ? "text-[9px]" : ""
+                } text-[16px] leading-[18px] bg-[#ffba00] rounded-[10px]`}
                 onClick={copyCardNumber}
               >
                 {copied ? (
@@ -262,6 +264,7 @@ export default function BalansCardModal({
                 ) : (
                   <MdOutlineContentCopy size={24} />
                 )}
+                {console.log(selectedCard.card_number.length)}
                 {selectedCard.card_number}
               </button>
               <p className="mt-[87px] text-[14px] leading-[18px]">
