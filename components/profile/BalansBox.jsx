@@ -33,6 +33,7 @@ export default function BalansBox() {
   const [selectedCard, setSelectedCard] = useState(null);
   const [copied, setCopied] = useState(false);
   const [error, setError] = useState(false);
+  const [error1, setError1] = useState(false);
   const [success, setSuccess] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -149,8 +150,15 @@ export default function BalansBox() {
       );
       setSuccess(true);
     } catch (error) {
-      setError(true);
-      console.log(error);
+      if (
+        error.response.data.detail ===
+        "Sizda hali kutilayotgan taranzaksiya mavjud!"
+      ) {
+        setError1(true);
+      } else {
+        setError(true);
+      }
+      console.log(error.response.data.detail);
     } finally {
       setTimeout(() => {
         setInputValue("");
@@ -172,12 +180,12 @@ export default function BalansBox() {
       {error && (
         <Alert status={false} title={t("profile14")} message={t("profile15")} />
       )}
+      {error1 && (
+        <Alert status={false} title={t("profile54")} />
+      )}
       {success && (
         <Alert status={true} title={t("profile16")} message={t("profile17")} />
       )}
-      {/* <div className="px-6 py-4 max-md:border-b max-md:hidden">
-        <h2 className="text-xl font-bold md:mb-4">{t("profile2")}</h2>
-      </div> */}
       <Link
         href={"/profile/profile-mobile"}
         className="md:px-6 py-4 max-md:border-b flex items-center max-md:gap-5 md:hidden"
@@ -378,20 +386,20 @@ export default function BalansBox() {
                   alt="card"
                 />
                 <button
-                    className={`flex items-center gap-[5px] mt-5 mx-auto font-medium ${
-                      selectedCard.card_number.length > 19
-                        ? "text-[10px] flex-col p-1"
-                        : "p-3"
-                    } text-[14px] bg-[#ffba00] rounded-[5px]`}
-                    onClick={copyCardNumber}
-                  >
-                    {copied ? (
-                      <MdCheck size={16} />
-                    ) : (
-                      <MdOutlineContentCopy size={16} />
-                    )}
-                    {selectedCard.card_number}
-                  </button>
+                  className={`flex items-center gap-[5px] mt-5 mx-auto font-medium ${
+                    selectedCard.card_number.length > 19
+                      ? "text-[10px] flex-col p-1"
+                      : "p-3"
+                  } text-[14px] bg-[#ffba00] rounded-[5px]`}
+                  onClick={copyCardNumber}
+                >
+                  {copied ? (
+                    <MdCheck size={16} />
+                  ) : (
+                    <MdOutlineContentCopy size={16} />
+                  )}
+                  {selectedCard.card_number}
+                </button>
               </div>
             )}
 
