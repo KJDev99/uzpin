@@ -101,7 +101,7 @@ export default function BalansCardModal({
     setLoading(true);
     const formattedData = {
       currency: selectedCurrency,
-      amount: inputValue,
+      amount: +inputValue,
       chek: photo,
       from_bot: true,
       card: selectedCard.id,

@@ -295,7 +295,13 @@ export default function BalansBox() {
               <input
                 type="text"
                 value={inputValue}
-                onChange={(e) => setInputValue(e.target.value)}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  // Faqat raqamlar va '.' ni qabul qilish uchun tekshirish
+                  if (/^[0-9.]*$/.test(value)) {
+                    setInputValue(value);
+                  }
+                }}
                 placeholder={t("profile22")}
                 className="w-full p-3 border rounded-lg border-[#E7E7E7] bg-[#F9F9F9] focus:ring-yellow-400"
               />
