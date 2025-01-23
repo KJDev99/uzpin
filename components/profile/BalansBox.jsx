@@ -378,18 +378,20 @@ export default function BalansBox() {
                   alt="card"
                 />
                 <button
-                  className={`flex items-center gap-[5px] mt-5 mx-auto p-3 font-medium ${
-                    selectedCard.card_number.length > 19 ? "text-[8px]" : ""
-                  } text-[14px] bg-[#ffba00] rounded-[5px]`}
-                  onClick={copyCardNumber}
-                >
-                  {copied ? (
-                    <MdCheck size={24} />
-                  ) : (
-                    <MdOutlineContentCopy size={24} />
-                  )}
-                  {selectedCard.card_number}
-                </button>
+                    className={`flex items-center gap-[5px] mt-5 mx-auto font-medium ${
+                      selectedCard.card_number.length > 19
+                        ? "text-[10px] flex-col p-1"
+                        : "p-3"
+                    } text-[14px] bg-[#ffba00] rounded-[5px]`}
+                    onClick={copyCardNumber}
+                  >
+                    {copied ? (
+                      <MdCheck size={16} />
+                    ) : (
+                      <MdOutlineContentCopy size={16} />
+                    )}
+                    {selectedCard.card_number}
+                  </button>
               </div>
             )}
 
