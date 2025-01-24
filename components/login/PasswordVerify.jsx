@@ -7,14 +7,17 @@ import { useRef, useState } from "react";
 import { Toast } from "../Toast";
 import { useTranslation } from "react-i18next";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { useRouter } from "next/navigation";
 
 export default function PasswordVerify({ setLogin, mainEmail }) {
   const { t } = useTranslation();
   const [code, setCode] = useState(["", "", "", ""]);
   const [disabledBtn, setDisabledBtn] = useState(true);
-  const [error, setError] = useState();
   const inputsRef = useRef([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState(false);
+  const rounter = useRouter();
 
   const handleChange = (value, index) => {
     if (!/^\d?$/.test(value)) return;
@@ -46,12 +49,18 @@ export default function PasswordVerify({ setLogin, mainEmail }) {
       const enteredCode = code.join("");
       setIsLoading(true);
       try {
-        await axiosInstance.post("client/auth/verify", {
+        const response = await axiosInstance.post("client/auth/verify", {
           code: enteredCode,
           email: mainEmail,
         });
-        setLogin(1);
+        localStorage.setItem("profileData", JSON.stringify(response.data));
+        rounter.push("/");
+        setSuccess(true);
+        setTimeout(() => {
+          location.reload();
+        }, 300);
       } catch (error) {
+        console.error("Xatolik yuz berdi:", error);
         setError(true);
         setTimeout(() => setError(false), [3000]);
       } finally {
@@ -59,11 +68,18 @@ export default function PasswordVerify({ setLogin, mainEmail }) {
       }
     }
   };
+  const handleClose = () => {
+    setSuccess(false);
+    setError(false);
+  };
 
   return (
     <div className="flex justify-center items-center">
+      {success && (
+        <Toast type="success" text={t("profile16")} onClose={handleClose} />
+      )}
       {error && (
-        <Toast status="false" text="Kirish Jarayonida nimadir xato bo'ldi" />
+        <Toast status="false" text={t("login-text16")} onClose={handleClose} />
       )}
       <div className="bg-white shadow-md rounded-lg p-8 w-full max-w-md">
         <div className="flex justify-end mb-[20px]">
