@@ -34,7 +34,7 @@ export default function GameDetails() {
   return (
     <div>
       <div className="game__content_bg">
-        <GameStore data={data} />
+        <GameStore data={data} gameId={pathname.game} />
         <GameInfo data={data} />
       </div>
     </div>

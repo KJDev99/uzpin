@@ -6,8 +6,9 @@ import { GoTrash } from "react-icons/go";
 import { PurchaseModal } from "./PurchaseModal";
 import axiosInstance from "@/libs/axios";
 import { useTranslation } from "react-i18next";
+import MobileGameStore from "./MobileGameStore";
 
-export default function GameStore({ data }) {
+export default function GameStore({ data, gameId }) {
   const { t } = useTranslation();
   const [cart, setCart] = useState([]);
   const [showPurchaseModal, setShowPurchaseModal] = useState(false);
@@ -33,7 +34,18 @@ export default function GameStore({ data }) {
             },
           }
         );
-        setCode(response.data || []);
+        if (gameId == "00984e54-78f0-44f8-ad48-dac23d838bdc") {
+          const updatedData = response.data.map((item) => {
+            return {
+              ...item,
+              count: 1000,
+            };
+          });
+          setCode(updatedData);
+        } else {
+          setCode(response.data || []);
+        }
+        console.log(response.data);
       } catch (error) {
         console.error("Ma'lumotlarni yuklashda xatolik:", error);
       } finally {
@@ -148,19 +160,23 @@ export default function GameStore({ data }) {
                     )}
                   </div>
                   <div className="max-sm:px-[10px]">
-                    <h3 className="text-xl font-bold mb-2 max-sm:font-medium max-sm:text-sm">
+                    <h3 className="text-xl font-bold mb-2 max-sm:font-medium max-sm:text-sm line-clamp-1">
                       {pkg.name}
                     </h3>
                     <div className="flex justify-between items-center">
                       <p className="font-medium text-[#313131] text-sm mb-4 max-sm:text-xs max-sm:leading-[14px] uppercase">
                         {pkg.price.toLocaleString()} {savedCurrency}
                       </p>
-                      <p className="text-[#828282] text-xs mb-4 max-sm:hidden">
-                        {t("all-games-text5")} {pkg.count}
-                      </p>
-                      <p className="text-[#828282] text-xs mb-4 sm:hidden max-sm:text-[10px] max-sm:leading-[11px]">
-                        {t("all-games-text17")} {pkg.count}
-                      </p>
+                      {gameId != "00984e54-78f0-44f8-ad48-dac23d838bdc" && (
+                        <>
+                          <p className="text-[#828282] text-xs mb-4 max-sm:hidden">
+                            {t("all-games-text5")} {pkg.count}
+                          </p>
+                          <p className="text-[#828282] text-xs mb-4 sm:hidden max-sm:text-[10px] max-sm:leading-[11px]">
+                            {t("all-games-text17")} {pkg.count}
+                          </p>
+                        </>
+                      )}
                     </div>
                     <div className="flex justify-between items-center gap-2">
                       <button
@@ -271,19 +287,28 @@ export default function GameStore({ data }) {
                     </div>
                   ))}
                 </div>
+                {gameId == "00984e54-78f0-44f8-ad48-dac23d838bdc" && (
+                  <>
+                    <MobileGameStore cart={cart} />
+                  </>
+                )}
                 <div className="mt-6 space-y-2 max-sm:flex max-sm:items-center max-sm:gap-5 max-sm:mt-[11px] max-sm:space-y-0">
-                  <button
-                    onClick={() => setShowPurchaseModal(1)}
-                    className="w-full py-2 bg-[#FFBA00] rounded text-black font-medium mb-[10px] border-b-2 border-[black] max-sm:m-0"
-                  >
-                    {t("all-games-text10")}
-                  </button>
-                  <button
-                    onClick={() => setShowPurchaseModal(2)}
-                    className="w-full py-2 bg-[#FFBA00] rounded text-black font-medium border-b-2 border-[black]"
-                  >
-                    {t("all-games-text11")}
-                  </button>
+                  {gameId != "00984e54-78f0-44f8-ad48-dac23d838bdc" && (
+                    <>
+                      <button
+                        onClick={() => setShowPurchaseModal(1)}
+                        className="w-full py-2 bg-[#FFBA00] rounded text-black font-medium mb-[10px] border-b-2 border-[black] max-sm:m-0"
+                      >
+                        {t("all-games-text10")}
+                      </button>
+                      <button
+                        onClick={() => setShowPurchaseModal(2)}
+                        className="w-full py-2 bg-[#FFBA00] rounded text-black font-medium border-b-2 border-[black]"
+                      >
+                        {t("all-games-text11")}
+                      </button>
+                    </>
+                  )}
                 </div>
               </>
             ) : (
@@ -307,6 +332,7 @@ export default function GameStore({ data }) {
             totalPrice={totalPrice}
             clear={() => ClearTash()}
             savedCurrency={savedCurrency}
+            gameId={gameId}
           />
         )}
       </div>

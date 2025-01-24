@@ -198,6 +198,7 @@ export function PurchaseModal({
                   className="border border-[#E7E7E7] rounded-[5px] py-3 px-5 font-semibold outline-none max-sm:max-w-[163px]"
                 />
               </div>
+
               <button
                 onClick={fetchBuyHandle}
                 disabled={!playerId.trim()}

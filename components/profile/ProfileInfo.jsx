@@ -7,6 +7,7 @@ import Link from "next/link";
 import Loader from "../Loader";
 import { useTranslation } from "react-i18next";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { Alert } from "../Alert";
 
 export default function ProfilInfo() {
   const { t } = useTranslation();
@@ -26,6 +27,8 @@ export default function ProfilInfo() {
   const [token, setToken] = useState(null);
   const [loading, setLoading] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
+  const [error401, setError401] = useState(false);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -56,7 +59,13 @@ export default function ProfilInfo() {
             confirm_password: "",
           });
         } catch (error) {
-          console.error("Failed to fetch profile data", error);
+          console.error("Failed to fetch profile dataaaa", error.status);
+          if (error.status == 401) {
+            setError401(true);
+            setTimeout(() => {
+              router.push("/login");
+            }, 2000);
+          }
         } finally {
           setLoading(false);
         }
@@ -127,6 +136,13 @@ export default function ProfilInfo() {
       )}
       {error && (
         <Toast type="false" text={t("profile7")} onClose={handleClose} />
+      )}
+      {error401 && (
+        <Alert
+          status={400}
+          title={t("profile4011")}
+          message={t("profile4012")}
+        />
       )}
       <div className="px-6 py-4 max-md:border-b max-md:hidden">
         <h2 className="text-xl font-bold md:mb-4">{t("profile1")}</h2>
