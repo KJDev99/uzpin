@@ -151,11 +151,15 @@ export default function GameStore({ data, gameId }) {
                       />
                     ) : (
                       <Image
-                        src="/uccard_converted.webp"
+                        src={
+                          gameId === "00984e54-78f0-44f8-ad48-dac23d838bdc"
+                            ? "/mobile.webp"
+                            : "/uccard_converted.webp"
+                        }
                         alt={`${pkg.name} UC`}
-                        width={190}
-                        height={190}
-                        className="w-full max-sm:w-[126px] max-sm:h-[126px] max-sm:mx-auto"
+                        width={130}
+                        height={130}
+                        className="w-[130px] max-sm:w-[126px] max-sm:h-[126px] max-sm:mx-auto"
                       />
                     )}
                   </div>
@@ -272,7 +276,11 @@ export default function GameStore({ data, gameId }) {
                     >
                       <div className="flex items-center gap-4">
                         <Image
-                          src={item.photo}
+                          src={
+                            gameId === "00984e54-78f0-44f8-ad48-dac23d838bdc"
+                              ? "/mobile.webp"
+                              : item.photo
+                          }
                           alt={`${item.name} UC`}
                           width={56}
                           height={56}
