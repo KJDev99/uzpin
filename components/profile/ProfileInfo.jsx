@@ -8,6 +8,7 @@ import Loader from "../Loader";
 import { useTranslation } from "react-i18next";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { Alert } from "../Alert";
+import { useRouter } from "next/navigation";
 
 export default function ProfilInfo() {
   const { t } = useTranslation();
@@ -29,6 +30,7 @@ export default function ProfilInfo() {
   const [isLoading, setIsLoading] = useState(false);
 
   const [error401, setError401] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -62,8 +64,9 @@ export default function ProfilInfo() {
           console.error("Failed to fetch profile dataaaa", error.status);
           if (error.status == 401) {
             setError401(true);
+            localStorage.removeItem("profileData");
             setTimeout(() => {
-              router.push("/login");
+              window.location.href = "/";
             }, 2000);
           }
         } finally {
