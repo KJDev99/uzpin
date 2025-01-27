@@ -16,22 +16,39 @@ export default function GameStore({ data, gameId }) {
   const [loading, setLoading] = useState(false);
   const [code, setCode] = useState([]);
   const [amound, setAmound] = useState(0);
+  const [token, setToken] = useState(null);
 
   const savedCurrency =
     typeof window !== "undefined"
       ? localStorage.getItem("currency") || "uzs"
       : "uzs";
 
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const storedProfileData = localStorage.getItem("profileData");
+      if (storedProfileData) {
+        const parsedProfileData = JSON.parse(storedProfileData);
+        setToken(parsedProfileData?.access || null);
+      }
+    }
+  }, []);
+
   const fetchStats = async () => {
     setLoading(true);
+    let sendData = { Currency: savedCurrency };
+    if (token) {
+      sendData = {
+        Authorization: `Bearer ${token}`,
+        Currency: savedCurrency,
+      };
+      console.log(token, "tpkec");
+    }
     if (data.id) {
       try {
         const response = await axiosInstance.get(
           `/client/promocodes/${data.id}`,
           {
-            headers: {
-              Currency: savedCurrency,
-            },
+            headers: sendData,
           }
         );
         if (gameId == "00984e54-78f0-44f8-ad48-dac23d838bdc") {
@@ -55,7 +72,7 @@ export default function GameStore({ data, gameId }) {
 
   useEffect(() => {
     fetchStats();
-  }, [data.id]);
+  }, [data.id, token]);
 
   const updateQuantity = (packageId, quantity) => {
     setCart((prevCart) => {
