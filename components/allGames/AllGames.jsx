@@ -7,7 +7,7 @@ import Loader from "../Loader";
 import axiosInstance from "@/libs/axios";
 import { useTranslation } from "react-i18next";
 
-export default function AllGames() {
+export default function  AllGames() {
   const { t } = useTranslation();
   const [games, setGames] = useState([]);
   const [loading, setLoading] = useState(false);
