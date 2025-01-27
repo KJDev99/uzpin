@@ -46,6 +46,7 @@ const MobileGameStore = ({ cart }) => {
       if (response.data) {
         setUserName(response.data.username); // `name` qiymatini saqlash
         setButtonLabel("Sotib olish"); // Tugma matnini o'zgartirish
+        setError1(false);
       }
     } catch (error) {
       setError1(true);
