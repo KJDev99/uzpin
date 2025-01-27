@@ -45,7 +45,6 @@ export default function GameStore({ data, gameId }) {
         } else {
           setCode(response.data || []);
         }
-        console.log(response.data);
       } catch (error) {
         console.error("Ma'lumotlarni yuklashda xatolik:", error);
       } finally {

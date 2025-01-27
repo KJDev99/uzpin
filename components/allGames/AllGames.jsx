@@ -60,12 +60,27 @@ export default function AllGames() {
                     {game.name}
                   </h3>
                   <div className="max-md:hidden flex mt-5 grow">
-                    <p className="mt-[5px] text-[20px] font-medium leading-[18px] text-[#313131] max-sm:text-[10px] max-sm:hidden">
-                      {game.promocodes[1].match(/\d+/g)?.join("") || 0} - 
-                    </p>
-                    <p className="mt-[5px] text-[20px] font-medium leading-[18px] text-[#313131] max-sm:text-[10px] max-sm:hidden">
-                      {game.promocodes[0]}
-                    </p>
+                    {game.id === "00984e54-78f0-44f8-ad48-dac23d838bdc" ? (
+                      <div className="flex gap-1">
+                        <p className="mt-[5px] text-[20px] font-medium leading-[18px] text-[#313131] max-sm:text-[10px] max-sm:hidden">
+                          8 -
+                          {/* {game.promocodes[1].match(/\d+/g)?.join("") || 0} -  */}
+                        </p>
+                        <p className="mt-[5px] text-[20px] font-medium leading-[18px] text-[#313131] max-sm:text-[10px] max-sm:hidden">
+                          6163 diamonds
+                          {/* {game.promocodes[0]} */}
+                        </p>
+                      </div>
+                    ) : (
+                      <>
+                        <p className="mt-[5px] text-[20px] font-medium leading-[18px] text-[#313131] max-sm:text-[10px] max-sm:hidden">
+                          {game.promocodes[1].match(/\d+/g)?.join("") || 0} - 
+                        </p>
+                        <p className="mt-[5px] text-[20px] font-medium leading-[18px] text-[#313131] max-sm:text-[10px] max-sm:hidden">
+                          {game.promocodes[0]}
+                        </p>
+                      </>
+                    )}
                   </div>
                   <div>
                     <button className="w-full px-4 py-3 text-[#acacac] hover:text-[#ffba00] transition-colors duration-200 flex items-center gap-4 justify-end group max-sm:hidden">

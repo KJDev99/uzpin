@@ -170,6 +170,9 @@ export default function BalansBox() {
       }, 3000);
     }
   };
+  const formatNumber = (num) => {
+    return num % 1 === 0 ? num?.toFixed(0) : num?.toFixed(2);
+  };
 
   if (loading) {
     return <Loader />;
@@ -180,9 +183,7 @@ export default function BalansBox() {
       {error && (
         <Alert status={400} title={t("profile14")} message={t("profile15")} />
       )}
-      {error1 && (
-        <Alert status={300} title={t("profile54")} />
-      )}
+      {error1 && <Alert status={300} title={t("profile54")} />}
       {success && (
         <Alert status={200} title={t("profile16")} message={t("profile17")} />
       )}
@@ -243,9 +244,16 @@ export default function BalansBox() {
                 {t("profile19")}
               </p>
               <span className="text-4xl font-bold flex max-sm:font-semibold max-sm:text-[20px] max-sm:ml-[30px]">
-                {selectedCurrency == "UZS" && balance?.account_uzs}
-                {selectedCurrency == "USD" && balance?.account_usd}
-                {selectedCurrency == "RUB" && balance?.account_rub}
+                {selectedCurrency == "UZS" && balance?.account_uzs
+                  ? formatNumber(balance?.account_uzs)
+                  : ""}
+                {console.log(formatNumber(balance?.account_uzs))}
+                {selectedCurrency == "USD" && balance?.account_usd
+                  ? formatNumber(balance?.account_usd)
+                  : ""}
+                {selectedCurrency == "RUB" && balance?.account_rub
+                  ? formatNumber(balance?.account_rub)
+                  : ""}
               </span>
               <span className="text-gray-600 max-sm:font-medium max-sm:text-sm max-sm:text-[#000000]">
                 {selectedCurrency}

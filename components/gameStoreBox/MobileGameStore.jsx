@@ -12,6 +12,7 @@ const MobileGameStore = ({ cart }) => {
   const [buttonLabel, setButtonLabel] = useState("Tekshirish"); // Tugma uchun matn
   const [token, setToken] = useState(null);
   const [error2, setError] = useState(false);
+  const [error1, setError1] = useState(false);
   const [error401, setError401] = useState(false);
   const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -47,6 +48,7 @@ const MobileGameStore = ({ cart }) => {
         setButtonLabel("Sotib olish"); // Tugma matnini o'zgartirish
       }
     } catch (error) {
+      setError1(true);
       console.error("Xatolik yuz berdi:", error);
     }
   };
@@ -110,7 +112,12 @@ const MobileGameStore = ({ cart }) => {
   return (
     <div className="space-y-4">
       {error2 && (
-        <Alert status={400} title={t("profile14")} message={t("profile15")} />
+        <Alert
+          status={400}
+          title={t("profile14")}
+          message={t("profile15")}
+          onClose={handleClose}
+        />
       )}
       {error401 && (
         <Alert
@@ -163,14 +170,16 @@ const MobileGameStore = ({ cart }) => {
       <div className="flex flex-col items-center space-y-4">
         {userName && (
           <p className="text-green-600 font-medium">
-            Foydalanuvchi: {userName}
+            {t("mobile1")} {userName}
           </p>
         )}
+        {error1 && <p className="text-red-600 font-medium">{t("mobile2")}</p>}
         <button
+          disabled={userId.length === 0 || serverId.length === 0}
           onClick={
             buttonLabel === "Tekshirish" ? handleCheckUser : fetchBuyHandle
           }
-          className={`w-full py-2 rounded text-black font-medium border-b-2 ${
+          className={`w-full py-2 rounded text-black font-medium border-b-2 disabled:cursor-not-allowed ${
             buttonLabel === "Tekshirish"
               ? "bg-[#FFBA00] border-[black]"
               : "bg-[#FFBA00] border-[black]"
