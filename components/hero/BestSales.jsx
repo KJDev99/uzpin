@@ -43,6 +43,10 @@ export default function BestSales() {
     fetchStats();
   }, []);
 
+  const formatNumber = (num) => {
+    return num % 1 === 0 ? num?.toFixed(0) : num?.toFixed(2);
+  };
+
   if (loading) {
     return <Loader />;
   }
@@ -102,11 +106,11 @@ export default function BestSales() {
                       </p>
                     </div>
                     <div className="flex flex-col">
-                      <div className="flex justify-between items-center">
+                      <div className="flex justify-between gap-2 items-center">
                         <p className="font-normal text-[16px] leading-[18px] text-white max-sm:hidden">
                           {t("promo")}
                         </p>
-                        <p className="font-normal text-[16px] leading-[18px] text-white max-sm:text-xs max-sm:font-medium">
+                        <p className="font-normal text-[16px] line-clamp-1 leading-[18px] text-white max-sm:text-xs max-sm:font-medium">
                           {promo.name}
                         </p>
                       </div>
@@ -118,7 +122,8 @@ export default function BestSales() {
                           {t("global")}
                         </p>
                         <p className="font-normal text-[16px] leading-[18px] text-white max-sm:text-xs max-sm:font-medium">
-                          {promo.price} {currency}
+                          {promo.price ? formatNumber(promo.price) : ""}{" "}
+                          {currency}
                         </p>
                       </div>
                     </div>
