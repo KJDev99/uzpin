@@ -88,7 +88,7 @@ export default function BestSales() {
                       />
                     ) : (
                       <Image
-                        src={`/img_converted.webp`}
+                        src={`/mobile.webp`}
                         alt={"img"}
                         className="object-cover rounded h-[188px] w-[188px] max-sm:max-w-[90px] max-sm:max-h-[90px]"
                         width={188}
