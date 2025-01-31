@@ -202,7 +202,7 @@ export function PurchaseModal({
               <button
                 onClick={fetchBuyHandle}
                 disabled={!playerId.trim()}
-                className={`w-full py-2 rounded text-black font-medium border-b-2 ${
+                className={`w-full flex justify-center py-2 rounded text-black font-medium border-b-2 ${
                   !playerId.trim()
                     ? "bg-gray-400 border-gray-600 cursor-not-allowed"
                     : "bg-[#FFBA00] border-black"
