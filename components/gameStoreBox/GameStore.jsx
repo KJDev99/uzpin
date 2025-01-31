@@ -72,7 +72,7 @@ export default function GameStore({ data, gameId }) {
 
   useEffect(() => {
     fetchStats();
-  }, [data.id, token]);
+  }, [data.id, token, showPurchaseModal]);
 
   const updateQuantity = (packageId, quantity) => {
     setCart((prevCart) => {
