@@ -104,7 +104,7 @@ export default function PurchasesModal({ selectedPurchase, isOpen, onClose }) {
       {allStates && (
         <Toast type="success" text={t("profile52")} onClose={handleClose} />
       )}
-      <div className="max-w-[547px] w-full bg-white rounded-[10px] shadow-lg">
+      <div className="max-w-[547px] h-[calc(100vh-80px)] w-full bg-white rounded-[10px] shadow-lg max-sm:h-[calc(100vh-250px)]">
         <div className="flex flex-col relative justify-between min-w-10 min-h-10">
           <div className="flex justify-between px-10 pt-[60px] max-sm:pt-5">
             <p className="font-semibold text-[24px] leading-[28px] max-sm:mx-auto">
@@ -126,7 +126,7 @@ export default function PurchasesModal({ selectedPurchase, isOpen, onClose }) {
               </button>
             </div>
           </div>
-          <ul className="px-10 py-[35px]">
+          <ul className="px-10 h-[calc(100vh-190px)] py-[35px] overflow-y-scroll max-sm:h-[calc(100vh-330px)]">
             {data &&
               data.values.map((item, index) => (
                 <li
