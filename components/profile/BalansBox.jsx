@@ -258,7 +258,7 @@ export default function BalansBox() {
                 balance?.account_usd ||
                 balance?.account_rub
                   ? 0
-                  : ""}
+                  : 0}
               </span>
               <span className="text-gray-600 max-sm:font-medium max-sm:text-sm max-sm:text-[#000000]">
                 {selectedCurrency}
