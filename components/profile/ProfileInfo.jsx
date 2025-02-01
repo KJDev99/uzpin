@@ -42,6 +42,7 @@ export default function ProfilInfo() {
     }
   }, []);
 
+
   useEffect(() => {
     setLoading(true);
     const fetchProfile = async () => {
@@ -53,6 +54,7 @@ export default function ProfilInfo() {
             },
           });
           setProfileData({
+            access: token,
             fullname: response.data.fullname,
             email: response.data.email,
             phone: response.data.phone || "",

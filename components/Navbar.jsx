@@ -8,8 +8,10 @@ import { useTranslation } from "react-i18next";
 import axiosInstance from "@/libs/axios";
 import SearchComponent from "./searchModal/SearchComponent";
 import CurrencySelector from "./CurrencySelector";
+import { usePathname } from "next/navigation";
 
 export default function Navbar() {
+  const pathname = usePathname();
   const { i18n } = useTranslation();
   const [profileData, setProfileData] = useState();
   const { t } = useTranslation();
@@ -23,9 +25,9 @@ export default function Navbar() {
       setSelectedLang("uz");
       i18n.changeLanguage("uz");
     }
-
     setProfileData(JSON.parse(localStorage.getItem("profileData")));
-  }, [i18n]);
+  }, [i18n, pathname]);
+
   const [selectedLang, setSelectedLang] = useState("uz");
   const [isHovered, setIsHovered] = useState(false);
 
