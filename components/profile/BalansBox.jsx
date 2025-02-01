@@ -151,7 +151,7 @@ export default function BalansBox() {
       setSuccess(true);
     } catch (error) {
       if (
-        error.response.data.detail ===
+        error.response.data[0] ===
         "Sizda hali kutilayotgan taranzaksiya mavjud!"
       ) {
         setError1(true);
@@ -247,7 +247,6 @@ export default function BalansBox() {
                 {selectedCurrency == "UZS" && balance?.account_uzs
                   ? formatNumber(balance?.account_uzs)
                   : ""}
-                {console.log(formatNumber(balance?.account_uzs))}
                 {selectedCurrency == "USD" && balance?.account_usd
                   ? formatNumber(balance?.account_usd)
                   : ""}

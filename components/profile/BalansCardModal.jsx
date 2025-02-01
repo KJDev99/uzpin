@@ -121,7 +121,7 @@ export default function BalansCardModal({
       setSuccess(true);
     } catch (error) {
       if (
-        error.response.data.detail ===
+        error.response.data[0] ===
         "Sizda hali kutilayotgan taranzaksiya mavjud!"
       ) {
         setError1(true);
