@@ -398,17 +398,27 @@ export default function BalansBox() {
                   alt="card"
                 />
                 <button
-                  className={`flex items-center gap-[5px] mt-5 mx-auto font-medium ${
-                    selectedCard.card_number.length > 19
-                      ? "text-[10px] flex-col p-1"
-                      : "p-3"
-                  } text-[14px] bg-[#ffba00] rounded-[5px]`}
+                  className={`flex items-center gap-[5px] mt-10 py-[10px] px-[15px] font-medium ${
+                    selectedCard.card_number.length > 19 ? "text-[10px]" : ""
+                  } text-[16px] leading-[18px] bg-[#ffba00] rounded-[10px]`}
+                  style={{
+                    wordBreak:
+                      selectedCard.card_number.length > 33
+                        ? "break-word"
+                        : "normal", // Agar 33 ta belgidan ortiq bo'lsa, matnni bo'lish
+                    whiteSpace:
+                      selectedCard.card_number.length > 33
+                        ? "pre-line"
+                        : "nowrap", // 33 ta belgidan oshsa, yangi qatorni ajratish
+                    fontSize:
+                      selectedCard.card_number.length > 33 ? "10px" : "",
+                  }}
                   onClick={copyCardNumber}
                 >
                   {copied ? (
-                    <MdCheck size={16} />
+                    <MdCheck size={24} />
                   ) : (
-                    <MdOutlineContentCopy size={16} />
+                    <MdOutlineContentCopy size={24} />
                   )}
                   {selectedCard.card_number}
                 </button>
