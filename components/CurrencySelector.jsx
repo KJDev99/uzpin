@@ -62,27 +62,31 @@ export default function CurrencySelector() {
         id="currency"
         value={currency}
         onChange={handleChange}
-        className="px-2 py-1 text-[12px] border rounded-md bg-transparent text-[#ffba00] border-none outline-none"
+        className="px-2 py-1 text-[14px] border rounded-md bg-transparent text-[#ffba00] border-none outline-none"
       >
         <option value="uzs">UZS</option>
         <option value="usd">USD</option>
         <option value="rub">RUB</option>
       </select>
-      <div className="mr-2 text-[12px] text-end text-[#ffba00]">
-        {currency === "uzs" ? (
-          `${balance?.account_uzs ? formatNumber(balance?.account_uzs) : 0} S`
-        ) : currency === "usd" ? (
-          <div className="flex items-center gap-1">
-            {balance?.account_usd ? formatNumber(balance?.account_usd) : 0}{" "}
-            <IoLogoUsd />
-          </div>
-        ) : (
-          <div className="flex items-center gap-1">
-            {balance?.account_rub ? formatNumber(balance?.account_rub) : 0}{" "}
-            <BiRuble />
-          </div>
-        )}
-      </div>
+      {balance?.account_uzs || balance?.account_rub || balance?.account_usd ? (
+        <div className="mr-2 text-[12px] text-end text-[#ffba00]">
+          {currency === "uzs" ? (
+            `${balance?.account_uzs ? formatNumber(balance?.account_uzs) : 0} S`
+          ) : currency === "usd" ? (
+            <div className="flex items-center gap-1">
+              {balance?.account_usd ? formatNumber(balance?.account_usd) : 0}{" "}
+              <IoLogoUsd />
+            </div>
+          ) : (
+            <div className="flex items-center gap-1">
+              {balance?.account_rub ? formatNumber(balance?.account_rub) : 0}{" "}
+              <BiRuble />
+            </div>
+          )}
+        </div>
+      ) : (
+        ""
+      )}
     </div>
   );
 }
