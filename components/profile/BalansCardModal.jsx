@@ -248,7 +248,7 @@ export default function BalansCardModal({
             )}
           </div>
           {selectedCard && (
-            <div className="w-[360px] px-[24px] pt-8 pb-8 bg-[#f9f9f9] rounded-tr-[10px] rounded-br-[10px]">
+            <div className="max-w-[430px] w-full px-[24px] pt-8 pb-8 bg-[#f9f9f9] rounded-tr-[10px] rounded-br-[10px]">
               <p className="font-semibold text-[24px] leading-[28px]">
                 {selectedCard.card_name}
               </p>
