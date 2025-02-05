@@ -33,9 +33,6 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   const languages = [
-    // { code: "uz", flag: "/flaguz_converted.webp", alt: "Uzbekistan flag" },
-    // { code: "ru", flag: "/flagru_converted.webp", alt: "Russia flag" },
-    // { code: "en", flag: "/flagen_converted.webp", alt: "English flag" },
     { code: "uz", flag: "/flaguz.svg", alt: "Uzbekistan flag" },
     { code: "ru", flag: "/flagru.svg", alt: "Russia flag" },
     { code: "en", flag: "/flagen.svg", alt: "English flag" },
