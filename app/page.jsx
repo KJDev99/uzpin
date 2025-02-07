@@ -41,10 +41,10 @@ export default function Home() {
         <TopGameCards />
       </div>
       <PubgBanner />
-      <div className="hero_bgsec2">
+      {/* <div className="hero_bgsec2">
         <TopGiftCard />
-      </div>
-      <FreeFireBanner />
+      </div> */}
+      {/* <FreeFireBanner /> */}
       <div className="hero_bgsec3">
         <BestSales />
       </div>

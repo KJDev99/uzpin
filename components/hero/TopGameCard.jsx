@@ -57,7 +57,7 @@ export default function TopGameCards() {
             640: { slidesPerView: 2.5, spaceBetween: 15 },
             992: { slidesPerView: 3.3, spaceBetween: 20 },
             1200: { slidesPerView: 3.9, spaceBetween: 10 },
-            1300: { slidesPerView: 3.9, spaceBetween: 10 },
+            1300: { slidesPerView: 4, spaceBetween: 10 },
           }}
           className="swiper-container"
         >
