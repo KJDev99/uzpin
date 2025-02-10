@@ -119,7 +119,13 @@ export default function PurchasesBox() {
                     {item.count}
                   </td>
                   <td className="py-2 text-nowrap px-5 w-max border text-center text-sm">
-                    {`${item.amount.toLocaleString()} ${item.currency}`}
+                    {`${item.amount
+                      ?.toLocaleString("fr-FR", {
+                        useGrouping: true,
+                        minimumFractionDigits: 0,
+                        maximumFractionDigits: 2,
+                      })
+                      .replace(",", ".")} ${item.currency}`}
                   </td>
                   <td className="py-2 text-nowrap px-5 w-max border text-center text-sm">
                     {new Date(item.created).toLocaleString("uz-UZ")}

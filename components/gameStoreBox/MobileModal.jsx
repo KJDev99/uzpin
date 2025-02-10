@@ -231,7 +231,13 @@ export function MobileModal({
                       <span>{item.name}</span>
                     </div>
                     <span>
-                      {(item.price * item.quantity).toLocaleString()}{" "}
+                      {item.price
+                        .toLocaleString("fr-FR", {
+                          useGrouping: true,
+                          minimumFractionDigits: 0,
+                          maximumFractionDigits: 2,
+                        })
+                        .replace(",", ".")}{" "}
                       {savedCurrency}
                     </span>
                   </div>
