@@ -192,7 +192,14 @@ export default function GameStore({ data, gameId }) {
                     </h3>
                     <div className="flex justify-between items-center">
                       <p className="font-medium text-[#313131] text-sm mb-4 max-sm:text-xs max-sm:leading-[14px] uppercase">
-                        {pkg.price.toLocaleString()} {savedCurrency}
+                        {pkg.price
+                          .toLocaleString("fr-FR", {
+                            useGrouping: true,
+                            minimumFractionDigits: 0,
+                            maximumFractionDigits: 2,
+                          })
+                          .replace(",", ".")}{" "}
+                        {savedCurrency}
                       </p>
                       {gameId != "00984e54-78f0-44f8-ad48-dac23d838bdc" && (
                         <>
@@ -272,7 +279,11 @@ export default function GameStore({ data, gameId }) {
           </div>
 
           <div
-            className={`${gameId === "00984e54-78f0-44f8-ad48-dac23d838bdc" ? "hidden" : "block"} sticky top-10 col-span-2 bg-[#F9F9F9] rounded-lg shadow-lg p-6 h-max max-sm:fixed max-sm:top-auto max-sm:bottom-[110px] left-0 right-0 w-[90%] mx-auto max-sm:col-span-5 max-sm:${
+            className={`${
+              gameId === "00984e54-78f0-44f8-ad48-dac23d838bdc"
+                ? "hidden"
+                : "block"
+            } sticky top-10 col-span-2 bg-[#F9F9F9] rounded-lg shadow-lg p-6 h-max max-sm:fixed max-sm:top-auto max-sm:bottom-[110px] left-0 right-0 w-[90%] mx-auto max-sm:col-span-5 max-sm:${
               cart.length > 0 ? "block" : "hidden"
             }`}
           >
@@ -297,13 +308,26 @@ export default function GameStore({ data, gameId }) {
                         <div className="sm:hidden">{t("all-games-text9")}</div>
                         <div className="w-full flex justify-between items-center">
                           <p>
-                            {totalUC.toLocaleString()}{" "}
+                            {totalUC
+                              .toLocaleString("fr-FR", {
+                                useGrouping: true,
+                                minimumFractionDigits: 0,
+                                maximumFractionDigits: 2,
+                              })
+                              .replace(",", ".")}{" "}
                             {gameId !== "00984e54-78f0-44f8-ad48-dac23d838bdc"
                               ? code[0].name.match(/[a-zA-Z]+/)?.[0]
                               : "diamonds"}
                           </p>
                           <p>
-                            {totalPrice.toLocaleString()} {savedCurrency}
+                            {totalPrice
+                              .toLocaleString("fr-FR", {
+                                useGrouping: true,
+                                minimumFractionDigits: 0,
+                                maximumFractionDigits: 2,
+                              })
+                              .replace(",", ".")}{" "}
+                            {savedCurrency}
                           </p>
                         </div>
                       </div>
@@ -329,7 +353,13 @@ export default function GameStore({ data, gameId }) {
                         <span>{item.name}</span>
                       </div>
                       <span>
-                        {(item.price * item.quantity).toLocaleString()}{" "}
+                        {(item.price * item.quantity)
+                          .toLocaleString("fr-FR", {
+                            useGrouping: true,
+                            minimumFractionDigits: 0,
+                            maximumFractionDigits: 2,
+                          })
+                          .replace(",", ".")}{" "}
                         {savedCurrency}
                       </span>
                     </div>
