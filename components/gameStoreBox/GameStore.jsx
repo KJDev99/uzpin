@@ -196,7 +196,7 @@ export default function GameStore({ data, gameId }) {
                           .toLocaleString("fr-FR", {
                             useGrouping: true,
                             minimumFractionDigits: 0,
-                            maximumFractionDigits: 2,
+                            maximumFractionDigits: 3,
                           })
                           .replace(",", ".")}{" "}
                         {savedCurrency}
@@ -312,7 +312,7 @@ export default function GameStore({ data, gameId }) {
                               .toLocaleString("fr-FR", {
                                 useGrouping: true,
                                 minimumFractionDigits: 0,
-                                maximumFractionDigits: 2,
+                                maximumFractionDigits: 3,
                               })
                               .replace(",", ".")}{" "}
                             {gameId !== "00984e54-78f0-44f8-ad48-dac23d838bdc"
@@ -324,7 +324,7 @@ export default function GameStore({ data, gameId }) {
                               .toLocaleString("fr-FR", {
                                 useGrouping: true,
                                 minimumFractionDigits: 0,
-                                maximumFractionDigits: 2,
+                                maximumFractionDigits: 3,
                               })
                               .replace(",", ".")}{" "}
                             {savedCurrency}
@@ -357,7 +357,7 @@ export default function GameStore({ data, gameId }) {
                           .toLocaleString("fr-FR", {
                             useGrouping: true,
                             minimumFractionDigits: 0,
-                            maximumFractionDigits: 2,
+                            maximumFractionDigits: 3,
                           })
                           .replace(",", ".")}{" "}
                         {savedCurrency}

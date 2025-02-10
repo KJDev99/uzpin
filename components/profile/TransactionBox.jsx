@@ -134,7 +134,7 @@ export default function TransactionBox() {
                     ?.toLocaleString("fr-FR", {
                       useGrouping: true,
                       minimumFractionDigits: 0,
-                      maximumFractionDigits: 2,
+                      maximumFractionDigits: 3,
                     })
                     .replace(",", ".")}
                 </td>

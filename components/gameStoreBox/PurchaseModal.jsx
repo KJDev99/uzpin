@@ -157,7 +157,7 @@ export function PurchaseModal({
                       .toLocaleString("fr-FR", {
                         useGrouping: true,
                         minimumFractionDigits: 0,
-                        maximumFractionDigits: 2,
+                        maximumFractionDigits: 3,
                       })
                       .replace(",", ".")}
                   </div>
@@ -166,7 +166,7 @@ export function PurchaseModal({
                       .toLocaleString("fr-FR", {
                         useGrouping: true,
                         minimumFractionDigits: 0,
-                        maximumFractionDigits: 2,
+                        maximumFractionDigits: 3,
                       })
                       .replace(",", ".")}{" "}
                     {savedCurrency}
@@ -208,7 +208,7 @@ export function PurchaseModal({
                         .toLocaleString("fr-FR", {
                           useGrouping: true,
                           minimumFractionDigits: 0,
-                          maximumFractionDigits: 2,
+                          maximumFractionDigits: 3,
                         })
                         .replace(",", ".")}{" "}
                       {savedCurrency}
