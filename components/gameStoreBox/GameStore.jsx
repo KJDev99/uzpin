@@ -187,7 +187,7 @@ export default function GameStore({ data, gameId }) {
                     )}
                   </div>
                   <div className="max-sm:px-[10px]">
-                    <h3 className="text-xl font-bold mb-2 max-sm:font-medium max-sm:text-sm line-clamp-1">
+                    <h3 className="text-[15px] font-bold mb-2 max-sm:font-medium max-sm:text-sm line-clamp-1">
                       {pkg.name}
                     </h3>
                     <div className="flex justify-between items-center">
