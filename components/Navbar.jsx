@@ -80,7 +80,7 @@ export default function Navbar() {
               {t("help")}
             </Link>
           </div>
-          <div className="flex-1 max-w-lg mx-5 max-sm:mx-0 max-sm:flex justify-end">
+          <div className="flex-0 max-w-lg mx-5 max-sm:mx-0 max-sm:flex justify-center">
             <SearchComponent />
           </div>
           <div className="flex max-md:w-max items-center space-x-8 max-sm:space-x-0 justify-between">
@@ -111,7 +111,7 @@ export default function Navbar() {
               <div className="text-left">
                 <button
                   onClick={() => setIsOpen(!isOpen)}
-                  className="flex items-center gap-2 px-4 py-2 text-[#ffba00] font-medium uppercase rounded-md shadow-md"
+                  className="flex items-center gap-2 pl-4 py-2 text-[#ffba00] font-medium uppercase rounded-md shadow-md"
                 >
                   <Image
                     src={
@@ -149,65 +149,6 @@ export default function Navbar() {
                 )}
               </div>
             </div>
-
-            {/* <select
-              className="md:block font-medium transition-colors flex gap-2 rounded px-2 py-2 uppercase outline-none bg-[#ffba00] text-black"
-              value={selectedLang}
-              onChange={(e) => handleLanguageChange(e.target.value)}
-            >
-              {languages.map((lang) => (
-                <option key={lang.code} value={lang.code}>
-                  <Image
-                    src={lang.flag}
-                    alt={lang.alt}
-                    width={24}
-                    height={24}
-                  />
-                  {lang.code}
-                </option>
-              ))}
-            </select> */}
-
-            {/* <div
-              className={`relative flex  justify-end  transition-all ${
-                isHovered ? "w-[150px] max-md:w-max" : "w-max"
-              }`}
-              onClick={() => setIsHovered((prev) => !prev)}
-            >
-              <button className="flex grow-1 w-7 items-center justify-end">
-                <Image
-                  src={
-                    languages.find((lang) => lang.code === selectedLang).flag
-                  }
-                  alt={languages.find((lang) => lang.code === selectedLang).alt}
-                  width={28}
-                  height={20}
-                  className="cursor-pointer w-7"
-                />
-              </button>
-
-              <div
-                className={`absolute z-[999] max-md:flex max-md:flex-col max-md:top-4 max-md:pt-3 w-max  flex gap-2 transition-all duration-300 translate-x-2 ${
-                  isHovered
-                    ? "right-[43px] max-md:right-[30%]"
-                    : "right-[-240px]"
-                }`}
-              >
-                {languages
-                  .filter((lang) => lang.code !== selectedLang)
-                  .map((lang) => (
-                    <Image
-                      key={lang.code}
-                      src={lang.flag}
-                      alt={lang.alt}
-                      width={24}
-                      height={24}
-                      className="cursor-pointer transition-transform  h-5 w-7 "
-                      onClick={() => handleLanguageChange(lang.code)}
-                    />
-                  ))}
-              </div>
-            </div> */}
           </div>
           <CurrencySelector />
         </div>

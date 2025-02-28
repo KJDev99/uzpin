@@ -42,7 +42,7 @@ export default function SearchComponent() {
   };
 
   return (
-    <div className="flex-1 max-w-lg mx-5 max-sm:flex justify-end">
+    <div className="flex-1 max-w-lg max-sm:flex justify-end">
       <div className="relative max-sm:hidden">
         <input
           type="text"
@@ -70,7 +70,7 @@ export default function SearchComponent() {
       </div>
       <button
         onClick={() => setIsModalOpen(true)}
-        className="text-white px-4 py-2 sm:hidden"
+        className="text-white py-2 sm:hidden"
       >
         <Search className="h-6 w-6" />
       </button>
