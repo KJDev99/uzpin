@@ -37,6 +37,7 @@ export default function BalansBox() {
   const [success, setSuccess] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [text, setText] = useState(false);
 
   const handleCardSelect = (card) => {
     setSelectedCard(card);
@@ -130,44 +131,50 @@ export default function BalansBox() {
   };
 
   const fetchHandle = async () => {
-    const formattedData = {
-      currency: selectedCurrency,
-      amount: inputValue,
-      chek: photo,
-      from_bot: true,
-      card: selectedCard.id,
-    };
-    setIsLoading(true);
-    try {
-      const response = await axiosInstance.post(
-        "/client/transaction/create",
-        formattedData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+    if (!selectedCard) {
+      setText(true);
+    } else if (selectedCard) {
+      setText(false);
+    } else {
+      const formattedData = {
+        currency: selectedCurrency,
+        amount: inputValue,
+        chek: photo,
+        from_bot: true,
+        card: selectedCard.id,
+      };
+      setIsLoading(true);
+      try {
+        const response = await axiosInstance.post(
+          "/client/transaction/create",
+          formattedData,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        setSuccess(true);
+      } catch (error) {
+        if (
+          error.response.data[0] ===
+          "Sizda hali kutilayotgan taranzaksiya mavjud!"
+        ) {
+          setError1(true);
+          console.log(error.response.data.detail);
+        } else {
+          setError(true);
         }
-      );
-      setSuccess(true);
-    } catch (error) {
-      if (
-        error.response.data[0] ===
-        "Sizda hali kutilayotgan taranzaksiya mavjud!"
-      ) {
-        setError1(true);
-        console.log(error.response.data.detail);
-      } else {
-        setError(true);
+      } finally {
+        setTimeout(() => {
+          setInputValue("");
+          setPhoto("");
+          // onClose();
+          setError(false);
+          setSuccess(false);
+          setIsLoading(false);
+        }, 3000);
       }
-    } finally {
-      setTimeout(() => {
-        setInputValue("");
-        setPhoto("");
-        // onClose();
-        setError(false);
-        setSuccess(false);
-        setIsLoading(false);
-      }, 3000);
     }
   };
   const formatNumber = (num) => {
@@ -189,6 +196,13 @@ export default function BalansBox() {
         <Alert status={400} title={t("profile14")} message={t("profile15")} />
       )}
       {error1 && <Alert status={300} title={t("profile54")} />}
+      {text && (
+        <Alert
+          onClose={() => setText(false)}
+          status={300}
+          title={t("profile51")}
+        />
+      )}
       {success && (
         <Alert status={200} title={t("profile16")} message={t("profile17")} />
       )}
@@ -477,7 +491,7 @@ export default function BalansBox() {
                   </div>
                   <button
                     onClick={fetchHandle}
-                    className="flex justify-center mx-auto mt-5 font-medium leading-[18px] bg-[#ffba00] py-[10px] px-[60px] rounded-[10px]"
+                    className={`flex justify-center mx-auto mt-5 font-medium leading-[18px] bg-[#ffba00] py-[10px] px-[60px] rounded-[10px]`}
                   >
                     {isLoading ? (
                       <AiOutlineLoading3Quarters className="animate-spin mr-2" />
