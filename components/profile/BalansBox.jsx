@@ -133,48 +133,47 @@ export default function BalansBox() {
   const fetchHandle = async () => {
     if (!selectedCard) {
       setText(true);
-    } else if (selectedCard) {
-      setText(false);
-    } else {
-      const formattedData = {
-        currency: selectedCurrency,
-        amount: inputValue,
-        chek: photo,
-        from_bot: true,
-        card: selectedCard.id,
-      };
-      setIsLoading(true);
-      try {
-        const response = await axiosInstance.post(
-          "/client/transaction/create",
-          formattedData,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        setSuccess(true);
-      } catch (error) {
-        if (
-          error.response.data[0] ===
-          "Sizda hali kutilayotgan taranzaksiya mavjud!"
-        ) {
-          setError1(true);
-          console.log(error.response.data.detail);
-        } else {
-          setError(true);
+      return;
+    }
+
+    const formattedData = {
+      currency: selectedCurrency,
+      amount: inputValue,
+      chek: photo,
+      from_bot: true,
+      card: selectedCard.id,
+    };
+
+    setIsLoading(true);
+    try {
+      const response = await axiosInstance.post(
+        "/client/transaction/create",
+        formattedData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
-      } finally {
-        setTimeout(() => {
-          setInputValue("");
-          setPhoto("");
-          // onClose();
-          setError(false);
-          setSuccess(false);
-          setIsLoading(false);
-        }, 3000);
+      );
+      setSuccess(true);
+    } catch (error) {
+      if (
+        error.response.data[0] ===
+        "Sizda hali kutilayotgan taranzaksiya mavjud!"
+      ) {
+        setError1(true);
+        console.log(error.response.data.detail);
+      } else {
+        setError(true);
       }
+    } finally {
+      setTimeout(() => {
+        setInputValue("");
+        setPhoto("");
+        setError(false);
+        setSuccess(false);
+        setIsLoading(false);
+      }, 3000);
     }
   };
   const formatNumber = (num) => {
