@@ -194,7 +194,7 @@ export default function BalansBox() {
       {error && (
         <Alert
           onClose={() => {
-            setError(false)
+            setError(false);
             window.location.reload();
           }}
           status={400}
@@ -205,8 +205,8 @@ export default function BalansBox() {
       {error1 && (
         <Alert
           onClose={() => {
-            setError1(false)
-            window.location.reload();
+            setError1(false);
+            window.location.href = "/";
           }}
           status={300}
           title={t("profile54")}
@@ -214,9 +214,8 @@ export default function BalansBox() {
       )}
       {text && (
         <Alert
-          onClose={() =>{
+          onClose={() => {
             setText(false);
-            window.location.reload();
           }}
           status={300}
           title={t("profile51")}
@@ -224,7 +223,10 @@ export default function BalansBox() {
       )}
       {success && (
         <Alert
-          onClose={() => setSuccess(false)}
+          onClose={() => {
+            setSuccess(false);
+            window.location.href = "/";
+          }}
           status={200}
           title={t("profile16")}
           message={t("profile17")}
@@ -404,7 +406,7 @@ export default function BalansBox() {
                   <div
                     key={card.id}
                     onClick={() => handleCardSelect(card)}
-                    className={`rounded-[5px] p-1 border ${
+                    className={`rounded-[5px] shadow-lg p-1 border ${
                       selectedCard?.id === card.id
                         ? "border-[#ffba00]"
                         : "border-[#fff]"

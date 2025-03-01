@@ -164,14 +164,18 @@ export default function BalansCardModal({
             <div className="flex gap-[30px] mt-[18px]">
               {cart.length > 0 &&
                 cart.map((card) => (
-                  <div key={card.id} onClick={() => handleCardSelect(card)}>
+                  <div
+                    key={card.id}
+                    className={`cursor-pointer shadow-lg w-[130px] h-[84px] rounded-lg border-2 ${
+                      selectedCard?.id === card.id
+                        ? " border-[#ffbb00]"
+                        : " border-[#fff]"
+                    }`}
+                    onClick={() => handleCardSelect(card)}
+                  >
                     <Image
                       src={card.photo}
-                      className={`rounded-[5px] w-[127px] h-[81px] p-1  cursor-pointer border-2 ${
-                        selectedCard?.id === card.id
-                          ? " border-[#ffbb00]"
-                          : " border-[#fff]"
-                      }`}
+                      className={`rounded-[5px] w-[127px] h-[81px] p-1  cursor-pointer`}
                       width={123}
                       height={77}
                       alt={card.card_name}
