@@ -192,18 +192,43 @@ export default function BalansBox() {
   return (
     <div className="p-6 max-w-4xl mx-auto max-sm:p-0 max-sm:pb-4">
       {error && (
-        <Alert status={400} title={t("profile14")} message={t("profile15")} />
+        <Alert
+          onClose={() => {
+            setError(false)
+            window.location.reload();
+          }}
+          status={400}
+          title={t("profile14")}
+          message={t("profile15")}
+        />
       )}
-      {error1 && <Alert status={300} title={t("profile54")} />}
+      {error1 && (
+        <Alert
+          onClose={() => {
+            setError1(false)
+            window.location.reload();
+          }}
+          status={300}
+          title={t("profile54")}
+        />
+      )}
       {text && (
         <Alert
-          onClose={() => setText(false)}
+          onClose={() =>{
+            setText(false);
+            window.location.reload();
+          }}
           status={300}
           title={t("profile51")}
         />
       )}
       {success && (
-        <Alert status={200} title={t("profile16")} message={t("profile17")} />
+        <Alert
+          onClose={() => setSuccess(false)}
+          status={200}
+          title={t("profile16")}
+          message={t("profile17")}
+        />
       )}
       <Link
         href={"/profile/profile-mobile"}
