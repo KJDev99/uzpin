@@ -30,6 +30,7 @@ export default function BalansBox() {
   const [photo, setPhoto] = useState("");
   const [cart, setCart] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [loading1, setLoading1] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
   const [copied, setCopied] = useState(false);
   const [error, setError] = useState(false);
@@ -491,6 +492,7 @@ export default function BalansBox() {
                 </p>
                 <div className="hidden">
                   <UploadComponent
+                    onUploadingChange={setLoading1}
                     triggerRef={modalRef}
                     onUploadSuccess={(url) => handleUploadSuccess("cover", url)}
                   />
@@ -499,7 +501,11 @@ export default function BalansBox() {
                   onClick={() => modalRef.current.click()}
                   className="mt-2.5 font-medium text-[14px] bg-[#ffba00] py-3 px-10 rounded-[5px]"
                 >
-                  {t("profile27")}
+                  {loading1 ? (
+                    <AiOutlineLoading3Quarters className="animate-spin mr-2" />
+                  ) : (
+                    t("profile27")
+                  )}
                 </button>
               </div>
               {photo.length ? (
