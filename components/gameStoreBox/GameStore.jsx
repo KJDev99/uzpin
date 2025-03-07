@@ -93,7 +93,7 @@ export default function GameStore({ data, gameId }) {
         }
       } else {
         if (quantity > existingItem.quantity) {
-          quantity = Math.min(quantity, 10);
+          quantity = Math.min(quantity, 1000);
         }
       }
       if (quantity === 0) {
@@ -261,7 +261,7 @@ export default function GameStore({ data, gameId }) {
                                 );
                                 const quantity = Math.min(
                                   Math.max(parseInt(value) || 0, 0),
-                                  pkg.count
+                                  data.no_promocode == false ? pkg.count : 1000
                                 );
                                 if (value !== e.target.value)
                                   e.target.value = quantity;
