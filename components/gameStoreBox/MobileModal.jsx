@@ -7,6 +7,7 @@ import axiosInstance from "@/libs/axios";
 import { Alert } from "../Alert";
 import { X } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 export function MobileModal({
   //   data,
@@ -32,6 +33,7 @@ export function MobileModal({
   const [serverId, setServerId] = useState("");
   const [userName, setUserName] = useState(null);
   const [buttonLabel, setButtonLabel] = useState("Tekshirish");
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     if (typeof window !== "undefined") {
       const storedProfileData = localStorage.getItem("profileData");
@@ -46,6 +48,7 @@ export function MobileModal({
       user_id: userId,
       server_id: serverId,
     };
+    setLoading(true);
     try {
       const response = await axiosInstance.post(
         "/client/mobile-legands/check/user",
@@ -71,6 +74,8 @@ export function MobileModal({
       }
       setError1(true);
       console.error("Xatolik yuz berdi:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -103,7 +108,7 @@ export function MobileModal({
         count: item.quantity,
       })),
     };
-    //  setLoading(true);
+    setLoading(true);
     try {
       const response = await axiosInstance.post(
         "/client/mobile-legands/buy/promocode",
@@ -149,7 +154,7 @@ export function MobileModal({
           onClose();
         }, 2000);
       }
-      // setLoading(false);
+      setLoading(false);
     }
   };
   const handleClose = () => {
@@ -299,19 +304,29 @@ export function MobileModal({
                     <p className="text-red-600 font-medium">{t("mobile2")}</p>
                   )}
                   <button
-                    disabled={userId.length === 0 || serverId.length === 0}
+                    disabled={
+                      userId.length === 0 || serverId.length === 0 || loading
+                    }
                     onClick={
                       buttonLabel === "Tekshirish"
                         ? handleCheckUser
                         : fetchBuyHandle
                     }
-                    className={`w-full py-2 rounded text-black font-medium border-b-2 disabled:cursor-not-allowed ${
+                    className={`w-full flex justify-center py-2 rounded text-black font-medium border-b-2 disabled:cursor-not-allowed ${
                       buttonLabel === "Tekshirish"
                         ? "bg-[#FFBA00] border-[black]"
                         : "bg-[#FFBA00] border-[black]"
-                    }`}
+                    } ${
+                      loading
+                        ? "bg-gray-400 border-gray-600 cursor-not-allowed"
+                        : "bg-[#FFBA00] border-black"
+                    } `}
                   >
-                    {buttonLabel}
+                    {loading ? (
+                      <AiOutlineLoading3Quarters className="animate-spin" />
+                    ) : (
+                      buttonLabel
+                    )}
                   </button>
                 </div>
               </div>

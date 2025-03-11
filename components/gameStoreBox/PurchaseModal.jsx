@@ -238,9 +238,9 @@ export function PurchaseModal({
 
               <button
                 onClick={fetchBuyHandle}
-                disabled={!playerId.trim()}
+                disabled={!playerId.trim() || loading}
                 className={`w-full flex justify-center py-2 rounded text-black font-medium border-b-2 ${
-                  !playerId.trim()
+                  !playerId.trim() || loading
                     ? "bg-gray-400 border-gray-600 cursor-not-allowed"
                     : "bg-[#FFBA00] border-black"
                 }`}
@@ -257,7 +257,12 @@ export function PurchaseModal({
           {isOpen == 1 && (
             <button
               onClick={fetchBuyHandle}
-              className="w-full flex justify-center py-2 bg-[#FFBA00] rounded text-black font-medium border-b-2 border-[black]"
+              disabled={loading}
+              className={`w-full flex justify-center py-2 rounded text-black font-medium border-b-2 ${
+                loading
+                  ? "bg-gray-400 border-gray-600 cursor-not-allowed"
+                  : "bg-[#FFBA00] border-black"
+              }`}
             >
               {loading ? (
                 <AiOutlineLoading3Quarters className="animate-spin" />
