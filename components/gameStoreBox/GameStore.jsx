@@ -122,8 +122,6 @@ export default function GameStore({ data, gameId }) {
     setCart([]);
   };
 
-  console.log(data);
-
   return (
     <>
       <div
@@ -154,7 +152,7 @@ export default function GameStore({ data, gameId }) {
               height={16}
               className="mt-1"
             />
-            {t("all-games-text4")}
+            {data.note ? "" : t("all-games-text4")}
           </p>
         </div>
         <div className="grid grid-cols-5 gap-[50px] mb-[40px]">

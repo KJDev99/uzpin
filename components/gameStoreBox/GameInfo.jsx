@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 export default function GameInfo({ data }) {
   const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState("description");
+  console.log(data?.video?.slice(0, 23));
 
   return (
     <div className="max-w-[1200px] mx-auto mt-10 pb-[100px] max-sm:px-4">
@@ -52,16 +53,33 @@ export default function GameInfo({ data }) {
             activeTab === "promo" ? "block" : "hidden"
           } lg:block`}
         >
-          {data.video && (
+          {data?.video?.slice(0, 23) === "https://api.uzpin.games" ? (
             <>
               <h2 className="text-xl font-bold mb-4 max-sm:hidden">
                 {data.name} {t("all-games-text16")}
               </h2>
 
               <div className="mt-4 aspect-video w-full">
-                <video src={data.video} controls autoPlay muted loop width="100%" height="335px"></video>
+                <video
+                  src={data.video}
+                  controls
+                  autoPlay
+                  muted
+                  loop
+                  width="100%"
+                  height="335px"
+                ></video>
               </div>
             </>
+          ) : (
+            <iframe
+              src={data.video}
+              width="100%"
+              height="335px"
+              allow="autoplay; fullscreen"
+              allowFullScreen
+            >
+            </iframe>
           )}
         </div>
       </div>
