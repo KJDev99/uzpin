@@ -2,7 +2,7 @@
 
 import { X } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { PiEyeClosedBold } from "react-icons/pi";
 import { AiOutlineEye, AiOutlineLoading3Quarters } from "react-icons/ai";
 import { RiTelegram2Fill } from "react-icons/ri";
@@ -12,8 +12,14 @@ import { signIn } from "next-auth/react";
 import axiosInstance from "@/libs/axios";
 import { useTranslation } from "react-i18next";
 import { Toast } from "../Toast";
+import { useSearchParams } from "next/navigation";
 
 export default function Register({ setLogin, loginCount, setMainEmail }) {
+  const searchParams = useSearchParams();
+  const [referral, setReferral] = useState(null);
+  useEffect(() => {
+    setReferral(searchParams.get("refferral"));
+  }, [searchParams]);
   const { t } = useTranslation();
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [password, setPassword] = useState("");
@@ -51,17 +57,18 @@ export default function Register({ setLogin, loginCount, setMainEmail }) {
         email: email,
         password: password,
         confirm_password: confirmPassword,
+        referral: referral,
       };
 
       try {
         const response = await axiosInstance.post(
-          "client/auth/register",
+          `client/auth/register?${referral ? `refferral=${referral}` : ""}`,
           requestData
         );
         console.log("Server javobi:", response.data);
         setSuccess(true);
         setLogin(5);
-        setMainEmail(email);  
+        setMainEmail(email);
       } catch (error) {
         setError(true);
         console.error("Xatolik yuz berdi:", error);
@@ -75,7 +82,9 @@ export default function Register({ setLogin, loginCount, setMainEmail }) {
     setIsLoading(true);
     try {
       const response = await axiosInstance.get(
-        "/client/auth/google/login?redirect_url=https://uzpin.games/google"
+        `/client/auth/google/login?redirect_url=https://uzpin.games/google?${
+          referral ? `refferral=${referral}` : ""
+        }`
       );
       const { auth_url } = response.data;
 
