@@ -167,5 +167,7 @@
   "not2": "Return to the home page",
 
   "mobile1": "User:",
-  "mobile2": "Invalid user id or server id"
+  "mobile2": "Invalid user id or server id",
+
+  "error3": "Such a promo code was not found."
 }

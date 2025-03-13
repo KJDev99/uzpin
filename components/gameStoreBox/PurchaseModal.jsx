@@ -22,10 +22,12 @@ export function PurchaseModal({
 }) {
   const { t } = useTranslation();
   const [playerId, setPlayerId] = useState("");
+  const [promo_code, setPromo_Code] = useState("");
 
   const [token, setToken] = useState(null);
 
   const [error2, setError] = useState(false);
+  const [error3, setError3] = useState(false);
   const [error401, setError401] = useState(false);
   const [success, setSuccess] = useState(false);
 
@@ -59,6 +61,7 @@ export function PurchaseModal({
     const formattedData = {
       currency: savedCurrency,
       gamer_id: playerId == "" ? undefined : playerId,
+      promo_code: promo_code == "" ? undefined : promo_code,
       items: cart.map((item) => ({
         promocode: item.id,
         count: item.quantity,
@@ -84,12 +87,18 @@ export function PurchaseModal({
         setSuccess(true);
       }
     } catch (error) {
+      // console.log(error.response.data.error_en);
+      // Such a promo code was not found.
       if (error.status == 401) {
         setError401(true);
         setTimeout(() => {
-          // setError401(false);
-          // onClose();
           router.push("/login");
+        }, 2000);
+      } else if (error.response.data.error_en == "Such a promo code was not found.") {
+        setError3(true);
+        setTimeout(() => {
+          setError3(false);
+          onClose();
         }, 2000);
       } else {
         setError(true);
@@ -117,6 +126,9 @@ export function PurchaseModal({
     >
       {error2 && (
         <Alert status={400} title={t("profile14")} message={t("profile15")} />
+      )}
+      {error3 && (
+        <Alert status={400} title={t("error3")} />
       )}
       {error401 && (
         <Alert
@@ -232,6 +244,21 @@ export function PurchaseModal({
                   value={playerId}
                   onChange={(e) => setPlayerId(e.target.value)}
                   placeholder={t("all-games-text13")}
+                  className="border border-[#E7E7E7] rounded-[5px] py-3 px-5 font-semibold outline-none max-sm:max-w-[163px]"
+                />
+              </div>
+              <div className="space-y-2 flex justify-between items-center">
+                <label
+                  htmlFor="playerId"
+                  className="text-lg font-semibold max-sm:font-normal max-sm:text-base"
+                >
+                  Promokod Kiriting
+                </label>
+                <input
+                  id="promo_code"
+                  value={promo_code}
+                  onChange={(e) => setPromo_Code(e.target.value)}
+                  placeholder='Promokod Kiriting'
                   className="border border-[#E7E7E7] rounded-[5px] py-3 px-5 font-semibold outline-none max-sm:max-w-[163px]"
                 />
               </div>
