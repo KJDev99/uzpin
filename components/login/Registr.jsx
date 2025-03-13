@@ -18,8 +18,9 @@ export default function Register({ setLogin, loginCount, setMainEmail }) {
   const searchParams = useSearchParams();
   const [referral, setReferral] = useState(null);
   useEffect(() => {
-    setReferral(searchParams.get("refferral"));
+    setReferral(searchParams.get("referral"));
   }, [searchParams]);
+  console.log(referral);
   const { t } = useTranslation();
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [password, setPassword] = useState("");
