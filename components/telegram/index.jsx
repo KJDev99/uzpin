@@ -29,6 +29,8 @@ const TelegramPage1 = () => {
       return;
     }
 
+    console.log(referral);
+
     const fetchBanners = async () => {
       try {
         // Parametrlarni qo'shish
@@ -45,6 +47,8 @@ const TelegramPage1 = () => {
         // Referral parametri mavjud bo‘lsa, qo‘shamiz
         if (referral) {
           params.append("referral", referral);
+        }else{
+          params.append("referral", "12");
         }
 
         const url = `client/auth/telegram/login?${params.toString()}`;
