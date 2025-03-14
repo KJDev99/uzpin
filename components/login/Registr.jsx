@@ -62,7 +62,7 @@ export default function Register({ setLogin, loginCount, setMainEmail }) {
 
       try {
         const response = await axiosInstance.post(
-          `client/auth/register?${referral ? `refferral=${referral}` : ""}`,
+          `client/auth/register?${referral ? `referral=${referral}` : ""}`,
           requestData
         );
         console.log("Server javobi:", response.data);
@@ -94,7 +94,7 @@ export default function Register({ setLogin, loginCount, setMainEmail }) {
 
       const url = `/client/auth/google/login?redirect_url=${encodeURIComponent(
         "https://uzpin.games/google"
-      )}${referral ? `&refferral=${encodeURIComponent(referral)}` : ""}`;
+      )}${referral ? `&referral=${encodeURIComponent(referral)}` : ""}`;
       
       const response = await axiosInstance.get(url);
 
