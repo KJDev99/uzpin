@@ -1,10 +1,15 @@
 "use client";
 import Loader from "@/components/Loader";
 import axiosInstance from "@/libs/axios";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const TelegramPage = () => {
+  const searchParams = useSearchParams();
+  const [referral, setReferral] = useState(null);
+  useEffect(() => {
+    setReferral(searchParams.get("referral"));
+  }, [searchParams]);
   const rounter = useRouter();
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -18,27 +23,60 @@ const TelegramPage = () => {
     const hash = urlParams.get("hash");
 
     const fetchBanners = async () => {
-      try {
-        const response = await axiosInstance.get("client/auth/telegram/login", {
-          params: {
-            id,
-            first_name: firstName,
-            last_name: lastName,
-            username,
-            photo_url,
-            auth_date,
-            hash,
-          },
-        });
-        localStorage.setItem("profileData", JSON.stringify(response.data));
-        rounter.push("/");
-        setTimeout(() => {
-          location.reload();
-        }, 300);
-      } catch (error) {
-        console.error("Error fetching slides:", error);
-      }
-    };
+    //   try {
+    //     const response = await axiosInstance.get("client/auth/telegram/login", {
+    //       params: {
+    //         id,
+    //         first_name: firstName,
+    //         last_name: lastName,
+    //         username,
+    //         photo_url,
+    //         auth_date,
+    //         hash,
+    //         ...(referral ? { referral } : {}),
+    //       },
+    //     });
+    //     localStorage.setItem("profileData", JSON.stringify(response.data));
+    //     rounter.push("/");
+    //     setTimeout(() => {
+    //       location.reload();
+    //     }, 300);
+    //   } catch (error) {
+    //     console.error("Error fetching slides:", error);
+    //   }
+    // };
+
+    try {
+      const params = {
+        id,
+        first_name: firstName,
+        last_name: lastName,
+        username,
+        photo_url,
+        auth_date,
+        hash,
+        ...(referral ? { referral } : {}),
+      };
+    
+      // URL ni yaratish
+      const url = `client/auth/telegram/login?${new URLSearchParams(params).toString()}`;
+    
+      // URL'ni localStorage ga saqlash
+      localStorage.setItem("lastRequestURL", url);
+      console.log("Saved Request URL:", url);
+    
+      // So‘rov yuborish
+      const response = await axiosInstance.get("client/auth/telegram/login", { params });
+    
+      localStorage.setItem("profileData", JSON.stringify(response.data));
+      router.push("/");
+      setTimeout(() => {
+        location.reload();
+      }, 300);
+    } catch (error) {
+      console.error("Error during Telegram login:", error);
+    }
+    
 
     fetchBanners();
   }, []);
