@@ -31,6 +31,7 @@ const TelegramPage1 = () => {
 
     const fetchBanners = async () => {
       try {
+        // Parametrlarni qo'shish
         const params = new URLSearchParams({
           id,
           first_name: firstName || "",
@@ -39,8 +40,12 @@ const TelegramPage1 = () => {
           photo_url: photo_url || "",
           auth_date,
           hash,
-          ...(referral ? { referral } : {}),
         });
+
+        // Referral parametri mavjud bo‘lsa, qo‘shamiz
+        if (referral) {
+          params.append("referral", referral);
+        }
 
         const url = `client/auth/telegram/login?${params.toString()}`;
 
