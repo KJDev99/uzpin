@@ -2,20 +2,17 @@
 import Loader from "@/components/Loader";
 import axiosInstance from "@/libs/axios";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 const TelegramPage1 = () => {
   const searchParams = useSearchParams();
-  const [referral, setReferral] = useState(null);
   const router = useRouter();
-
-  useEffect(() => {
-    setReferral(searchParams.get("referral"));
-  }, [searchParams]);
+  const referral = searchParams.has("referral")
+    ? searchParams.get("referral")
+    : null; // referral mavjudligini tekshiramiz
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
-
     const id = urlParams.get("id");
     const firstName = urlParams.get("first_name");
     const lastName = urlParams.get("last_name");
@@ -29,11 +26,8 @@ const TelegramPage1 = () => {
       return;
     }
 
-    console.log(referral);
-
     const fetchBanners = async () => {
       try {
-        // Parametrlarni qo'shish
         const params = new URLSearchParams({
           id,
           first_name: firstName || "",
@@ -44,23 +38,24 @@ const TelegramPage1 = () => {
           hash,
         });
 
-        // Referral parametri mavjud bo‘lsa, qo‘shamiz
+        // referral mavjud bo‘lsa qo‘shamiz, aks holda qo‘shmaymiz
         if (referral) {
           params.append("referral", referral);
-        }else{
-          params.append("referral", "12");
         }
+
+        useEffect(() => {
+         localStorage.setItem("referral", referral);
+         //  console.log("Referral qiymati:", referral);
+        }, [referral]);
 
         const url = `client/auth/telegram/login?${params.toString()}`;
 
-        // URL'ni localStorage'ga saqlash
         localStorage.setItem("lastRequestURL", url);
         console.log("Saved Request URL:", url);
 
-        // So‘rovni to‘g‘ridan-to‘g‘ri URL bilan yuborish
         const response = await axiosInstance.get(url);
-
         localStorage.setItem("profileData", JSON.stringify(response.data));
+
         router.push("/");
         setTimeout(() => {
           location.reload();
@@ -71,7 +66,7 @@ const TelegramPage1 = () => {
     };
 
     fetchBanners();
-  }, [referral]);
+  }, [searchParams]); // `searchParams` o‘zgarishini kuzatamiz
 
   return (
     <div>
