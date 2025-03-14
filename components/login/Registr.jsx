@@ -87,14 +87,22 @@ export default function Register({ setLogin, loginCount, setMainEmail }) {
       //     referral ? `refferral=${referral}` : ""
       //   }`
       // );
-      const response = await axiosInstance.get(
-        `/client/auth/google/login?redirect_url=https://uzpin.games/google`
-      );
+      // const response = await axiosInstance.get(
+      //   `/client/auth/google/login?redirect_url=${encodeURIComponent(
+      //     "https://uzpin.games/google"
+      //   )}${referral ? `&refferral=${encodeURIComponent(referral)}` : ""}`
+      // );
+
+      const url = `/client/auth/google/login?redirect_url=${encodeURIComponent(
+        "https://uzpin.games/google"
+      )}${referral ? `&refferral=${encodeURIComponent(referral)}` : ""}`;
+      
+      const response = await axiosInstance.get(url);
+
       const { auth_url } = response.data;
 
       if (auth_url) {
-        window.location.href =
-          auth_url + `?${referral ? `refferral=${referral}` : ""}`;
+        window.location.href = auth_url;
       } else {
         console.error("Auth URL not received from server");
       }
