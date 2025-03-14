@@ -11,6 +11,14 @@ const TelegramPage1 = () => {
     ? searchParams.get("referral")
     : null; // referral mavjudligini tekshiramiz
 
+  // Referral ni localStorage ga saqlash
+  useEffect(() => {
+    if (referral) {
+      localStorage.setItem("referral", referral);
+      console.log("Referral qiymati saqlandi:", referral);
+    }
+  }, [referral]);
+
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const id = urlParams.get("id");
@@ -43,11 +51,6 @@ const TelegramPage1 = () => {
           params.append("referral", referral);
         }
 
-        useEffect(() => {
-         localStorage.setItem("referral", referral);
-         //  console.log("Referral qiymati:", referral);
-        }, [referral]);
-
         const url = `client/auth/telegram/login?${params.toString()}`;
 
         localStorage.setItem("lastRequestURL", url);
@@ -66,7 +69,7 @@ const TelegramPage1 = () => {
     };
 
     fetchBanners();
-  }, [searchParams]); // `searchParams` o‘zgarishini kuzatamiz
+  }, [searchParams, referral]); // referral ni qo‘shdik, toki o‘zgarishini kuzataylik
 
   return (
     <div>
