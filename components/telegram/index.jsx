@@ -7,11 +7,12 @@ import { useEffect, useState } from "react";
 const TelegramPage1 = () => {
   const searchParams = useSearchParams();
   const [referral, setReferral] = useState(null);
-  useEffect(() => {
-    const ref = searchParams.get("referral");
-    setReferral(ref);
-  }, [searchParams]);
   const router = useRouter();
+
+  useEffect(() => {
+    setReferral(searchParams.get("referral"));
+  }, [searchParams]);
+
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
 
@@ -23,54 +24,32 @@ const TelegramPage1 = () => {
     const auth_date = urlParams.get("auth_date");
     const hash = urlParams.get("hash");
 
-    const fetchBanners = async () => {
-      //   try {
-      //     const response = await axiosInstance.get("client/auth/telegram/login", {
-      //       params: {
-      //         id,
-      //         first_name: firstName,
-      //         last_name: lastName,
-      //         username,
-      //         photo_url,
-      //         auth_date,
-      //         hash,
-      //         ...(referral ? { referral } : {}),
-      //       },
-      //     });
-      //     localStorage.setItem("profileData", JSON.stringify(response.data));
-      //     router.push("/");
-      //     setTimeout(() => {
-      //       location.reload();
-      //     }, 300);
-      //   } catch (error) {
-      //     console.error("Error fetching slides:", error);
-      //   }
+    if (!id || !auth_date || !hash) {
+      console.error("Required query parameters are missing!");
+      return;
+    }
 
+    const fetchBanners = async () => {
       try {
-        const params = {
+        const params = new URLSearchParams({
           id,
-          first_name: firstName,
-          last_name: lastName,
-          username,
-          photo_url,
+          first_name: firstName || "",
+          last_name: lastName || "",
+          username: username || "",
+          photo_url: photo_url || "",
           auth_date,
           hash,
           ...(referral ? { referral } : {}),
-        };
+        });
 
-        // URL ni yaratish
-        const url = `client/auth/telegram/login?${new URLSearchParams(
-          params
-        ).toString()}`;
+        const url = `client/auth/telegram/login?${params.toString()}`;
 
-        // URL'ni localStorage ga saqlash
+        // URL'ni localStorage'ga saqlash
         localStorage.setItem("lastRequestURL", url);
         console.log("Saved Request URL:", url);
 
-        // So‘rov yuborish
-        const response = await axiosInstance.get("client/auth/telegram/login", {
-          params,
-        });
+        // So‘rovni to‘g‘ridan-to‘g‘ri URL bilan yuborish
+        const response = await axiosInstance.get(url);
 
         localStorage.setItem("profileData", JSON.stringify(response.data));
         router.push("/");
