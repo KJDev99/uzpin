@@ -43,7 +43,7 @@ const TelegramPage1 = () => {
           photo_url: photo_url || "",
           auth_date,
           hash,
-          referral: referral || "", // Referral parametri mavjud bo‘lsa, qo‘shamiz
+          // referral: referral || "", // Referral parametri mavjud bo‘lsa, qo‘shamiz
         });
 
         // Referral parametri mavjud bo‘lsa, qo‘shamiz
@@ -53,6 +53,12 @@ const TelegramPage1 = () => {
         // }
 
         const url = `client/auth/telegram/login?${params.toString()}`;
+
+        if (referral) {
+          url += "&referral=" + referral;
+        } else {
+          localStorage.setItem("nimabolyapti", referral);
+        }
 
         // URL'ni localStorage'ga saqlash
         // localStorage.setItem("lastRequestURL", url);
