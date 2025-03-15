@@ -27,6 +27,7 @@ const TelegramPage1 = () => {
       try {
         // Parametrlarni qo'shish
         const params = new URLSearchParams({
+          referral: referral || "",
           id,
           first_name: firstName || "",
           last_name: lastName || "",
