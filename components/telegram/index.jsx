@@ -1,17 +1,11 @@
 "use client";
 import Loader from "@/components/Loader";
 import axiosInstance from "@/libs/axios";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 const TelegramPage1 = () => {
-  const searchParams = useSearchParams();
-  // const [referral, setReferral] = useState(null);
   const router = useRouter();
-
-  // useEffect(() => {
-  //   setReferral(searchParams.get("referral"));
-  // }, [searchParams]);
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -23,14 +17,11 @@ const TelegramPage1 = () => {
     const photo_url = urlParams.get("photo_url");
     const auth_date = urlParams.get("auth_date");
     const hash = urlParams.get("hash");
-    // let referral = localStorage.getItem("referral");
 
     if (!id || !auth_date || !hash) {
       console.error("Required query parameters are missing!");
       return;
     }
-
-    console.log(referral);
 
     const fetchBanners = async () => {
       try {
@@ -43,20 +34,13 @@ const TelegramPage1 = () => {
           photo_url: photo_url || "",
           auth_date,
           hash,
-          // referral: referral || "", // Referral parametri mavjud bo‘lsa, qo‘shamiz
         });
-
-        // Referral parametri mavjud bo‘lsa, qo‘shamiz
-
-        // if (referral) {
-        //   params.append("referral", referral);
-        // }
 
         const url = `client/auth/telegram/login?${params.toString()}`;
 
         // URL'ni localStorage'ga saqlash
-        // localStorage.setItem("lastRequestURL", url);
-        // console.log("Saved Request URL:", url);
+        localStorage.setItem("lastRequestURL", url);
+        console.log("Saved Request URL:", url);
 
         // So‘rovni to‘g‘ridan-to‘g‘ri URL bilan yuborish
         const response = await axiosInstance.get(url);
@@ -72,7 +56,7 @@ const TelegramPage1 = () => {
     };
 
     fetchBanners();
-  }, [referral]);
+  }, []);
 
   return (
     <div>
