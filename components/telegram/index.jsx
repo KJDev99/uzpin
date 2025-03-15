@@ -17,7 +17,7 @@ const TelegramPage1 = () => {
     const photo_url = urlParams.get("photo_url");
     const auth_date = urlParams.get("auth_date");
     const hash = urlParams.get("hash");
-    const referral = urlParams.get("referral");
+    // const referral = urlParams.get("referral");
 
     if (!id || !auth_date || !hash) {
       console.error("Required query parameters are missing!");
@@ -28,7 +28,7 @@ const TelegramPage1 = () => {
       try {
         // Parametrlarni qo'shish
         const params = new URLSearchParams({
-          referral: referral || "",
+          // referral: referral || "",
           id,
           first_name: firstName || "",
           last_name: lastName || "",
@@ -38,7 +38,7 @@ const TelegramPage1 = () => {
           hash,
         });
 
-        const url = `client/auth/telegram/login?${params.toString()}`;
+        const url = `client/auth/telegram/login?referral=122d7b85-7b62-4c68-abd9-ad458aa1c70f&${params.toString()}`;
 
         // URL'ni localStorage'ga saqlash
         localStorage.setItem("lastRequestURL", url);
