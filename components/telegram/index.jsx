@@ -55,8 +55,8 @@ const TelegramPage1 = () => {
         const url = `client/auth/telegram/login?${params.toString()}`;
 
         // URL'ni localStorage'ga saqlash
-        localStorage.setItem("lastRequestURL", url);
-        console.log("Saved Request URL:", url);
+        // localStorage.setItem("lastRequestURL", url);
+        // console.log("Saved Request URL:", url);
 
         // So‘rovni to‘g‘ridan-to‘g‘ri URL bilan yuborish
         const response = await axiosInstance.get(url);
