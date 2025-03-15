@@ -25,6 +25,7 @@ const TelegramPage1 = () => {
     }
 
     const fetchBanners = async () => {
+      let referral = localStorage.getItem("referral");
       try {
         // Parametrlarni qo'shish
         const params = new URLSearchParams({
@@ -38,7 +39,10 @@ const TelegramPage1 = () => {
           hash,
         });
 
-        const url = `client/auth/telegram/login?referral=122d7b85-7b62-4c68-abd9-ad458aa1c70f&${params.toString()}`;
+        let url = `client/auth/telegram/login?${params.toString()}`;
+        if (referral) {
+          url = `client/auth/telegram/login?referral=${referral}&${params.toString()}`;
+        }
 
         // URL'ni localStorage'ga saqlash
         localStorage.setItem("lastRequestURL", url);
