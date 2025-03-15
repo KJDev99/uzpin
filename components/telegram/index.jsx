@@ -38,7 +38,7 @@ const TelegramPage1 = () => {
           hash,
         });
 
-        const url = `client/auth/telegram/login?referral=122d7b85-7b62-4c68-abd9-ad458aa1c70f&${params.toString()}`;
+        const url = `client/auth/telegram/login?${params.toString()}`;
 
         // URL'ni localStorage'ga saqlash
         localStorage.setItem("lastRequestURL", url);
