@@ -6,12 +6,12 @@ import { useEffect, useState } from "react";
 
 const TelegramPage1 = () => {
   const searchParams = useSearchParams();
-  const [referral, setReferral] = useState(null);
+  // const [referral, setReferral] = useState(null);
   const router = useRouter();
 
-  useEffect(() => {
-    setReferral(searchParams.get("referral"));
-  }, [searchParams]);
+  // useEffect(() => {
+  //   setReferral(searchParams.get("referral"));
+  // }, [searchParams]);
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -45,10 +45,10 @@ const TelegramPage1 = () => {
         });
 
         // Referral parametri mavjud bo‘lsa, qo‘shamiz
+        let referral = localStorage.getItem("referral");
+
         if (referral) {
           params.append("referral", referral);
-        }else{
-          params.append("referral", "referral=122d7b85-7b62-4c68-abd9-ad458aa1c70f");
         }
 
         const url = `client/auth/telegram/login?${params.toString()}`;

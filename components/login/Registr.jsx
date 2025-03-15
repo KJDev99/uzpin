@@ -12,10 +12,11 @@ import { signIn } from "next-auth/react";
 import axiosInstance from "@/libs/axios";
 import { useTranslation } from "react-i18next";
 import { Toast } from "../Toast";
-import { useSearchParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
 
 export default function Register({ setLogin, loginCount, setMainEmail }) {
   const searchParams = useSearchParams();
+  const pathname = useParams();
   const [referral, setReferral] = useState(null);
   useEffect(() => {
     setReferral(searchParams.get("referral"));
@@ -95,7 +96,7 @@ export default function Register({ setLogin, loginCount, setMainEmail }) {
       const url = `/client/auth/google/login?redirect_url=${encodeURIComponent(
         "https://uzpin.games/google"
       )}${referral ? `&referral=${encodeURIComponent(referral)}` : ""}`;
-      
+
       const response = await axiosInstance.get(url);
 
       const { auth_url } = response.data;
@@ -114,23 +115,30 @@ export default function Register({ setLogin, loginCount, setMainEmail }) {
   const handleAppleLogin = async () => {
     await signIn("apple", { callbackUrl: "/" });
   };
+
+  const HandleTg = () => {
+    localStorage.setItem("referral", referral);
+    console.log(referral);
+    window.location.href = `https://uzpin.games/telegram-login.html`;
+  };
+
   const handleClose = () => {
     setSuccess(false);
     setError(false);
   };
   return (
-    <div className="flex justify-center items-center">
+    <div className="flex items-center justify-center">
       {success && (
         <Toast type="success" text={t("profile16")} onClose={handleClose} />
       )}
       {error && (
         <Toast status={false} text={t("profile53")} onClose={handleClose} />
       )}
-      <div className="bg-white shadow-md rounded-lg p-8 w-full max-w-md max-sm:shadow-none max-sm:p-4">
+      <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-md max-sm:shadow-none max-sm:p-4">
         <div className="flex justify-end mb-[20px]">
           <Link href="/">
             <button className="text-[#313131]">
-              <X className="h-6 w-6" />
+              <X className="w-6 h-6" />
             </button>
           </Link>
         </div>
@@ -157,7 +165,7 @@ export default function Register({ setLogin, loginCount, setMainEmail }) {
           </button>
         </div>
         <form onSubmit={handleSubmit}>
-          <div className="mb-4 mt-5">
+          <div className="mt-5 mb-4">
             <label
               className="block text-[#828282] text-[16px] leading-[18px] px-5 pb-2"
               htmlFor="name"
@@ -173,7 +181,7 @@ export default function Register({ setLogin, loginCount, setMainEmail }) {
               className="w-full px-5 py-[18px] bg-[#f4f4f4] rounded-lg outline-none font-medium text-[20px] leading-[23px] border border-[#ACACAC] text-[#000000]"
             />
             {errors.name && (
-              <p className="text-red-500 text-sm mt-1">{errors.name}</p>
+              <p className="mt-1 text-sm text-red-500">{errors.name}</p>
             )}
           </div>
 
@@ -193,11 +201,11 @@ export default function Register({ setLogin, loginCount, setMainEmail }) {
               className="w-full px-5 py-[18px] bg-[#f4f4f4] rounded-lg outline-none font-medium text-[20px] leading-[23px] border border-[#ACACAC] text-[#000000]"
             />
             {errors.email && (
-              <p className="text-red-500 text-sm mt-1">{errors.email}</p>
+              <p className="mt-1 text-sm text-red-500">{errors.email}</p>
             )}
           </div>
 
-          <div className="mb-4 relative">
+          <div className="relative mb-4">
             <label
               className="block text-[#828282] text-[16px] leading-[18px] px-5 pb-2"
               htmlFor="password"
@@ -220,7 +228,7 @@ export default function Register({ setLogin, loginCount, setMainEmail }) {
               {passwordVisible ? <AiOutlineEye /> : <PiEyeClosedBold />}
             </button>
             {errors.password && (
-              <p className="text-red-500 text-sm mt-1">{errors.password}</p>
+              <p className="mt-1 text-sm text-red-500">{errors.password}</p>
             )}
           </div>
 
@@ -240,12 +248,12 @@ export default function Register({ setLogin, loginCount, setMainEmail }) {
               className="w-full px-5 py-[18px] bg-[#f4f4f4] rounded-lg outline-none font-medium text-[20px] leading-[23px] border border-[#ACACAC] text-[#000000]"
             />
             {errors.confirmPassword && (
-              <p className="text-red-500 text-sm mt-1">
+              <p className="mt-1 text-sm text-red-500">
                 {errors.confirmPassword}
               </p>
             )}
           </div>
-          <div className="flex gap-6 justify-center items-center">
+          <div className="flex items-center justify-center gap-6">
             <div className="w-[130px] bg-[#828282] h-[1px]"></div>
             <p className="text-[#828282] font-normal text-[16px] leading-[18px]">
               {t("login-text12")}
@@ -253,16 +261,17 @@ export default function Register({ setLogin, loginCount, setMainEmail }) {
             <div className="w-[130px] bg-[#828282] h-[1px]"></div>
           </div>
 
-          <div className="flex flex-col justify-between items-center my-5">
-            <Link href="/telegram-login.html" className="w-full">
-              <button
-                type="button"
-                className="flex items-center justify-center text-[black] font-medium text-[20px] leading-[23px] py-2 px-4 rounded-[5px] gap-5 w-full mb-[10px] border-2 border-[#313131]"
-              >
-                <RiTelegram2Fill className="bg-[#2AABEE] text-[white] p-1 text-[28px] rounded-full" />
-                {t("login-text6")}
-              </button>
-            </Link>
+          <div className="flex flex-col items-center justify-between my-5">
+            {/* <Link href="/telegram-login.html" className="w-full"> */}
+            <button
+              onClick={HandleTg}
+              type="button"
+              className="flex items-center justify-center text-[black] font-medium text-[20px] leading-[23px] py-2 px-4 rounded-[5px] gap-5 w-full mb-[10px] border-2 border-[#313131]"
+            >
+              <RiTelegram2Fill className="bg-[#2AABEE] text-[white] p-1 text-[28px] rounded-full" />
+              {t("login-text6")}
+            </button>
+            {/* </Link> */}
 
             <button
               type="button"
@@ -295,7 +304,7 @@ export default function Register({ setLogin, loginCount, setMainEmail }) {
             className="w-full flex justify-center items-center bg-[#FFBA00] text-[#000000] text-[20xp] leading-[23px] py-2 px-4 font-medium  rounded-lg mt-10 mb-6 border-2 border-[transparent] border-b-[#313131]"
           >
             {isLoading ? (
-              <AiOutlineLoading3Quarters className="animate-spin mr-2" />
+              <AiOutlineLoading3Quarters className="mr-2 animate-spin" />
             ) : (
               t("login-text1")
             )}
