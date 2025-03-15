@@ -17,6 +17,7 @@ const TelegramPage1 = () => {
     const photo_url = urlParams.get("photo_url");
     const auth_date = urlParams.get("auth_date");
     const hash = urlParams.get("hash");
+    const referral = urlParams.get("referral");
 
     if (!id || !auth_date || !hash) {
       console.error("Required query parameters are missing!");
