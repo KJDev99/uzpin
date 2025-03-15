@@ -1,17 +1,11 @@
 "use client";
 import Loader from "@/components/Loader";
 import axiosInstance from "@/libs/axios";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 const TelegramPage1 = () => {
-  const searchParams = useSearchParams();
-  const [referral, setReferral] = useState(null);
   const router = useRouter();
-
-  useEffect(() => {
-    setReferral(searchParams.get("referral"));
-  }, [searchParams]);
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -23,18 +17,19 @@ const TelegramPage1 = () => {
     const photo_url = urlParams.get("photo_url");
     const auth_date = urlParams.get("auth_date");
     const hash = urlParams.get("hash");
+    // const referral = urlParams.get("referral");
 
     if (!id || !auth_date || !hash) {
       console.error("Required query parameters are missing!");
       return;
     }
 
-    console.log(referral);
-
     const fetchBanners = async () => {
+      let referral = localStorage.getItem("referral");
       try {
         // Parametrlarni qo'shish
         const params = new URLSearchParams({
+          // referral: referral || "",
           id,
           first_name: firstName || "",
           last_name: lastName || "",
@@ -44,14 +39,10 @@ const TelegramPage1 = () => {
           hash,
         });
 
-        // Referral parametri mavjud bo‘lsa, qo‘shamiz
+        let url = `client/auth/telegram/login?${params.toString()}`;
         if (referral) {
-          params.append("referral", referral);
-        }else{
-          params.append("referral", "referral=122d7b85-7b62-4c68-abd9-ad458aa1c70f");
+          url = `client/auth/telegram/login?referral=${referral}&${params.toString()}`;
         }
-
-        const url = `client/auth/telegram/login?${params.toString()}`;
 
         // URL'ni localStorage'ga saqlash
         localStorage.setItem("lastRequestURL", url);
@@ -71,7 +62,7 @@ const TelegramPage1 = () => {
     };
 
     fetchBanners();
-  }, [referral]);
+  }, []);
 
   return (
     <div>
