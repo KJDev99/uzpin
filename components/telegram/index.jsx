@@ -2,25 +2,20 @@
 import Loader from "@/components/Loader";
 import axiosInstance from "@/libs/axios";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const TelegramPage1 = () => {
   const searchParams = useSearchParams();
+  const [referral, setReferral] = useState(null);
   const router = useRouter();
-  const referral = searchParams.has("referral")
-    ? searchParams.get("referral")
-    : null; // referral mavjudligini tekshiramiz
 
-  // Referral ni localStorage ga saqlash
   useEffect(() => {
-    if (referral) {
-      localStorage.setItem("referral", referral);
-      console.log("Referral qiymati saqlandi:", referral);
-    }
-  }, [referral]);
+    setReferral(searchParams.get("referral"));
+  }, [searchParams]);
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
+
     const id = urlParams.get("id");
     const firstName = urlParams.get("first_name");
     const lastName = urlParams.get("last_name");
@@ -34,8 +29,11 @@ const TelegramPage1 = () => {
       return;
     }
 
+    console.log(referral);
+
     const fetchBanners = async () => {
       try {
+        // Parametrlarni qo'shish
         const params = new URLSearchParams({
           id,
           first_name: firstName || "",
@@ -46,19 +44,23 @@ const TelegramPage1 = () => {
           hash,
         });
 
-        // referral mavjud bo‘lsa qo‘shamiz, aks holda qo‘shmaymiz
+        // Referral parametri mavjud bo‘lsa, qo‘shamiz
         if (referral) {
           params.append("referral", referral);
+        }else{
+          params.append("referral", "referral=122d7b85-7b62-4c68-abd9-ad458aa1c70f");
         }
 
         const url = `client/auth/telegram/login?${params.toString()}`;
 
+        // URL'ni localStorage'ga saqlash
         localStorage.setItem("lastRequestURL", url);
         console.log("Saved Request URL:", url);
 
+        // So‘rovni to‘g‘ridan-to‘g‘ri URL bilan yuborish
         const response = await axiosInstance.get(url);
-        localStorage.setItem("profileData", JSON.stringify(response.data));
 
+        localStorage.setItem("profileData", JSON.stringify(response.data));
         router.push("/");
         setTimeout(() => {
           location.reload();
@@ -69,7 +71,7 @@ const TelegramPage1 = () => {
     };
 
     fetchBanners();
-  }, [searchParams, referral]); // referral ni qo‘shdik, toki o‘zgarishini kuzataylik
+  }, [referral]);
 
   return (
     <div>
