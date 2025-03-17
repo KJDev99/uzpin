@@ -182,6 +182,21 @@ const MobileGameStore = ({ cart, clear, isOpen, onClose, router }) => {
           </p>
         )}
         {error1 && <p className="text-red-600 font-medium">{t("mobile2")}</p>}
+        <div className="space-y-2 flex justify-between items-center">
+          <label
+            htmlFor="serverId"
+            className="text-lg font-semibold max-sm:font-normal max-sm:text-base"
+          >
+            Server ID
+          </label>
+          <input
+            id="serverId"
+            value={serverId}
+            onChange={(e) => setServerId(e.target.value)}
+            placeholder="Server ID"
+            className="border border-[#E7E7E7] rounded-[5px] py-3 px-5 font-semibold outline-none max-sm:max-w-[163px]"
+          />
+        </div>  
         <button
           disabled={userId.length === 0 || serverId.length === 0 || loading}
           onClick={

@@ -169,5 +169,7 @@
   "mobile1": "User:",
   "mobile2": "Invalid user id or server id",
 
-  "error3": "Such a promo code was not found."
+  "error3": "Such a promo code was not found.",
+  "error4": "You have already used this promo code before.",
+  "error5": "Such a promo code was not found."
 }

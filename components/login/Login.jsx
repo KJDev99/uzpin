@@ -11,7 +11,7 @@ import { IoLogoApple } from "react-icons/io5";
 import { signIn } from "next-auth/react";
 import axiosInstance from "@/libs/axios";
 import { Toast } from "../Toast";
-import { useRouter} from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useTranslation } from "react-i18next";
 
 export default function Login({ setLogin, loginCount }) {

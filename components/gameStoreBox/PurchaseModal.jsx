@@ -23,14 +23,15 @@ export function PurchaseModal({
   const { t } = useTranslation();
   const [playerId, setPlayerId] = useState("");
   const [promo_code, setPromo_Code] = useState("");
-
   const [token, setToken] = useState(null);
-
   const [error2, setError] = useState(false);
   const [error3, setError3] = useState(false);
+  const [error4, setError4] = useState(false);
+  const [error5, setError5] = useState(false);
   const [error401, setError401] = useState(false);
   const [success, setSuccess] = useState(false);
-
+  const [buttonLabel, setButtonLabel] = useState("Sotib olish");
+  const [discount, setDiscount] = useState(null);
   const [isOpenBuy, setIsOpenBuy] = useState(false);
   const [buyCode, setBuyCode] = useState();
   const [loading, setLoading] = useState(false);
@@ -53,6 +54,54 @@ export function PurchaseModal({
     }
   }, []);
 
+  useEffect(() => {
+    if (!promo_code?.trim()) {
+      setButtonLabel("Sotib olish");
+    } else {
+      setButtonLabel("Tekshirish");
+    }
+  }, [promo_code]);
+
+  const handleCheckPromoCode = async () => {
+    if (!promo_code?.trim()) {
+      return setButtonLabel("Sotib olish");
+    }
+
+    const formattedData = {
+      discount_promo_code: promo_code,
+    };
+
+    setLoading(true);
+    try {
+      const response = await axiosInstance.post(
+        "/client/check-discount/",
+        formattedData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setButtonLabel("Sotib olish");
+      setError4(false);
+      setError5(false);
+      setDiscount(response.data.discount);
+    } catch (error) {
+      if (
+        error.response?.data?.error_en ===
+        "You have already used this promo code before."
+      ) {
+        setError4(true);
+      } else if (
+        error.response?.data?.error_en === "Such a promo code was not found."
+      ) {
+        setError5(true);
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const fetchBuyHandle = async () => {
     const savedCurrency =
       typeof window !== "undefined"
@@ -61,12 +110,14 @@ export function PurchaseModal({
     const formattedData = {
       currency: savedCurrency,
       gamer_id: playerId == "" ? undefined : playerId,
-      promo_code: promo_code == "" ? undefined : promo_code,
       items: cart.map((item) => ({
         promocode: item.id,
         count: item.quantity,
       })),
     };
+    if (promo_code.trim() !== "") {
+      formattedData.promo_code = promo_code;
+    }
     setLoading(true);
     try {
       const response = await axiosInstance.post(
@@ -87,17 +138,34 @@ export function PurchaseModal({
         setSuccess(true);
       }
     } catch (error) {
-      // console.log(error.response.data.error_en);
-      // Such a promo code was not found.
       if (error.status == 401) {
         setError401(true);
         setTimeout(() => {
           router.push("/login");
         }, 2000);
-      } else if (error.response.data.error_en == "Such a promo code was not found.") {
+      } else if (
+        error.response.data.error_en == "Such a promo code was not found."
+      ) {
         setError3(true);
         setTimeout(() => {
           setError3(false);
+          onClose();
+        }, 2000);
+      } else if (
+        error.response.data.error_en ==
+        "You have already used this promo code before."
+      ) {
+        setError4(true);
+        setTimeout(() => {
+          setError4(false);
+          onClose();
+        }, 2000);
+      } else if (
+        error.response.data.error_en == "Such a promo code was not found."
+      ) {
+        setError5(true);
+        setTimeout(() => {
+          setError5(false);
           onClose();
         }, 2000);
       } else {
@@ -127,9 +195,7 @@ export function PurchaseModal({
       {error2 && (
         <Alert status={400} title={t("profile14")} message={t("profile15")} />
       )}
-      {error3 && (
-        <Alert status={400} title={t("error3")} />
-      )}
+      {error3 && <Alert status={400} title={t("error3")} />}
       {error401 && (
         <Alert
           status={400}
@@ -186,104 +252,181 @@ export function PurchaseModal({
                 </div>
               </div>
             </div>
-            <div className="mt-2 mb-8 max-sm:hidden">
+            <div className="mt-2 mb-8">
               {cart.length > 0 &&
                 cart.map((item) => (
-                  <div
-                    key={item.id}
-                    className="flex justify-between items-center bg-[#F4F4F4] py-3 px-5 rounded-[10px] shadow-lg mt-4"
-                  >
-                    <div className="flex items-center gap-4">
-                      {item.photo ? (
-                        <Image
-                          src={item.photo}
-                          alt={`${item.name} UC`}
-                          width={35}
-                          height={35}
-                        />
-                      ) : (
-                        <Image
-                          src={
-                            gameId === "00984e54-78f0-44f8-ad48-dac23d838bdc"
-                              ? "/mobile.webp"
-                              : "/uccard_converted.webp"
-                          }
-                          alt={`${item.name} UC`}
-                          width={35}
-                          height={35}
-                        />
-                      )}
-                      <span>{item.name}</span>
+                  <div key={item.id} className="space-y-4">
+                    <div
+                      key={item.id}
+                      className="flex justify-between items-center bg-[#F4F4F4] py-3 px-5 rounded-[10px] shadow-lg mt-4"
+                    >
+                      <div className="flex items-center gap-4">
+                        {item.photo ? (
+                          <Image
+                            src={item.photo}
+                            alt={`${item.name} UC`}
+                            width={35}
+                            height={35}
+                          />
+                        ) : (
+                          <Image
+                            src={
+                              gameId === "00984e54-78f0-44f8-ad48-dac23d838bdc"
+                                ? "/mobile.webp"
+                                : "/uccard_converted.webp"
+                            }
+                            alt={`${item.name} UC`}
+                            width={35}
+                            height={35}
+                          />
+                        )}
+                        <span>{item.name}</span>
+                      </div>
+                      <span>
+                        {(item.price * item.quantity)
+                          .toLocaleString("fr-FR", {
+                            useGrouping: true,
+                            minimumFractionDigits: 0,
+                            maximumFractionDigits: 3,
+                          })
+                          .replace(",", ".")}{" "}
+                        {savedCurrency}
+                      </span>
                     </div>
-                    <span>
-                      {(item.price * item.quantity)
-                        .toLocaleString("fr-FR", {
-                          useGrouping: true,
-                          minimumFractionDigits: 0,
-                          maximumFractionDigits: 3,
-                        })
-                        .replace(",", ".")}{" "}
-                      {savedCurrency}
-                    </span>
+                    {isOpen == 1 && (
+                      <>
+                        <div className="space-y-2 flex flex-col justify-between items-center">
+                          <div className="w-full flex items-center justify-between">
+                            <label
+                              htmlFor="playerId"
+                              className="text-lg font-semibold max-sm:font-normal max-sm:text-base"
+                            >
+                              Promokod Kiriting
+                            </label>
+                            <input
+                              id="promo_code"
+                              // value={promo_code}
+                              onChange={(e) => setPromo_Code(e.target.value)}
+                              placeholder="Promokod Kiriting"
+                              className="border border-[#E7E7E7] rounded-[5px] py-3 px-5 font-semibold outline-none max-sm:max-w-[163px]"
+                            />
+                          </div>
+                          {discount && (
+                            <p className="text-green-600 font-medium">
+                              Chegirma narxi{" "}
+                              {(item.price * (1 - discount / 100))
+                                .toLocaleString("fr-FR", {
+                                  useGrouping: true,
+                                  minimumFractionDigits: 0,
+                                  maximumFractionDigits: 3,
+                                })
+                                .replace(",", ".")}
+                            </p>
+                          )}
+                          {error4 && (
+                            <p className="text-red-600 font-medium">
+                              {t("error4")}
+                            </p>
+                          )}
+                          {error5 && (
+                            <p className="text-red-600 font-medium">
+                              {t("error5")}
+                            </p>
+                          )}
+                        </div>
+                      </>
+                    )}
+
+                    {isOpen == 2 && (
+                      <>
+                        <div className="space-y-2 flex justify-between items-center">
+                          <label
+                            htmlFor="playerId"
+                            className="text-lg font-semibold max-sm:font-normal max-sm:text-base"
+                          >
+                            {t("all-games-text13")}
+                          </label>
+                          <input
+                            id="playerId"
+                            onChange={(e) => setPlayerId(e.target.value)}
+                            placeholder={t("all-games-text13")}
+                            className="border border-[#E7E7E7] rounded-[5px] py-3 px-5 font-semibold outline-none max-sm:max-w-[163px]"
+                          />
+                        </div>
+                        <div className="space-y-2 flex flex-col justify-between items-center">
+                          <div className="w-full flex items-center justify-between">
+                            <label
+                              htmlFor="playerId"
+                              className="text-lg font-semibold max-sm:font-normal max-sm:text-base"
+                            >
+                              Promokod Kiriting
+                            </label>
+                            <input
+                              id="promo_code"
+                              // value={promo_code}
+                              onChange={(e) => setPromo_Code(e.target.value)}
+                              placeholder="Promokod Kiriting"
+                              className="border border-[#E7E7E7] rounded-[5px] py-3 px-5 font-semibold outline-none max-sm:max-w-[163px]"
+                            />
+                          </div>
+                          {discount && (
+                            <p className="text-green-600 font-medium">
+                              Chegirma narxi{" "}
+                              {(item.price * (1 - discount / 100))
+                                .toLocaleString("fr-FR", {
+                                  useGrouping: true,
+                                  minimumFractionDigits: 0,
+                                  maximumFractionDigits: 3,
+                                })
+                                .replace(",", ".")}
+                            </p>
+                          )}
+                          {error4 && (
+                            <p className="text-red-600 font-medium">
+                              {t("error4")}
+                            </p>
+                          )}
+                          {error5 && (
+                            <p className="text-red-600 font-medium">
+                              {t("error5")}
+                            </p>
+                          )}
+                        </div>
+
+                        <button
+                          onClick={
+                            buttonLabel === "Tekshirish"
+                              ? handleCheckPromoCode
+                              : fetchBuyHandle
+                          }
+                          disabled={!playerId.trim() || loading}
+                          className={`w-full flex justify-center py-2 rounded text-black font-medium border-b-2 ${
+                            !playerId.trim() || loading
+                              ? "bg-gray-400 border-gray-600 cursor-not-allowed"
+                              : "bg-[#FFBA00] border-black"
+                          }`}
+                        >
+                          {loading ? (
+                            <AiOutlineLoading3Quarters className="animate-spin" />
+                          ) : (
+                            buttonLabel
+                            // t("all-games-text10")
+                          )}
+                        </button>
+                      </>
+                    )}
                   </div>
                 ))}
             </div>
           </div>
 
-          {isOpen == 2 && (
-            <>
-              <div className="space-y-2 flex justify-between items-center">
-                <label
-                  htmlFor="playerId"
-                  className="text-lg font-semibold max-sm:font-normal max-sm:text-base"
-                >
-                  {t("all-games-text13")}
-                </label>
-                <input
-                  id="playerId"
-                  value={playerId}
-                  onChange={(e) => setPlayerId(e.target.value)}
-                  placeholder={t("all-games-text13")}
-                  className="border border-[#E7E7E7] rounded-[5px] py-3 px-5 font-semibold outline-none max-sm:max-w-[163px]"
-                />
-              </div>
-              <div className="space-y-2 flex justify-between items-center">
-                <label
-                  htmlFor="playerId"
-                  className="text-lg font-semibold max-sm:font-normal max-sm:text-base"
-                >
-                  Promokod Kiriting
-                </label>
-                <input
-                  id="promo_code"
-                  value={promo_code}
-                  onChange={(e) => setPromo_Code(e.target.value)}
-                  placeholder='Promokod Kiriting'
-                  className="border border-[#E7E7E7] rounded-[5px] py-3 px-5 font-semibold outline-none max-sm:max-w-[163px]"
-                />
-              </div>
-
-              <button
-                onClick={fetchBuyHandle}
-                disabled={!playerId.trim() || loading}
-                className={`w-full flex justify-center py-2 rounded text-black font-medium border-b-2 ${
-                  !playerId.trim() || loading
-                    ? "bg-gray-400 border-gray-600 cursor-not-allowed"
-                    : "bg-[#FFBA00] border-black"
-                }`}
-              >
-                {loading ? (
-                  <AiOutlineLoading3Quarters className="animate-spin" />
-                ) : (
-                  t("all-games-text10")
-                )}
-              </button>
-            </>
-          )}
-
           {isOpen == 1 && (
             <button
-              onClick={fetchBuyHandle}
+              onClick={
+                buttonLabel === "Tekshirish"
+                  ? handleCheckPromoCode
+                  : fetchBuyHandle
+              }
               disabled={loading}
               className={`w-full flex justify-center py-2 rounded text-black font-medium border-b-2 ${
                 loading
@@ -294,7 +437,8 @@ export function PurchaseModal({
               {loading ? (
                 <AiOutlineLoading3Quarters className="animate-spin" />
               ) : (
-                t("all-games-text10")
+                buttonLabel
+                // t("all-games-text10")
               )}
             </button>
           )}
