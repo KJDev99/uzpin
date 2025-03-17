@@ -12,11 +12,10 @@ import { signIn } from "next-auth/react";
 import axiosInstance from "@/libs/axios";
 import { useTranslation } from "react-i18next";
 import { Toast } from "../Toast";
-import { useParams, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
 export default function Register({ setLogin, loginCount, setMainEmail }) {
   const searchParams = useSearchParams();
-  const pathname = useParams();
   const [referral, setReferral] = useState(null);
   useEffect(() => {
     setReferral(searchParams.get("referral"));
