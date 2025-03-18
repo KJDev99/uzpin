@@ -38,6 +38,7 @@ export function MobileModal({
   const [discount, setDiscount] = useState(null);
   const [buttonLabel, setButtonLabel] = useState("Tekshirish");
   const [loading, setLoading] = useState(false);
+  const [errormessage, setErrorMessage] = useState("");
   useEffect(() => {
     if (typeof window !== "undefined") {
       const storedProfileData = localStorage.getItem("profileData");
@@ -172,41 +173,44 @@ export function MobileModal({
 
       setSuccess(true);
     } catch (error) {
-      if (error.status == 401) {
-        setError401(true);
-        setTimeout(() => {
-          router.push("/login");
-        }, 1000);
-      } else if (error.response.data.code == -32014) {
-        setError3(true);
-        setTimeout(() => {
-          setError3(false);
-          onClose();
-        }, 2000);
-      } else if (
-        error.response.data.error_en ==
-        "You have already used this promo code before."
-      ) {
-        setError4(true);
-        setTimeout(() => {
-          setError4(false);
-          onClose();
-        }, 2000);
-      } else if (
-        error.response.data.error_en == "Such a promo code was not found."
-      ) {
-        setError5(true);
-        setTimeout(() => {
-          setError5(false);
-          onClose();
-        }, 2000);
-      } else {
-        setError(true);
-        setTimeout(() => {
-          setError(false);
-          onClose();
-        }, 2000);
-      }
+      console.log(error.response.data.error);
+      setError3(true)
+      setErrorMessage(error.response.data.detail || error.response.data.error);
+      // if (error.status == 401) {
+      //   setError401(true);
+      //   setTimeout(() => {
+      //     router.push("/login");
+      //   }, 1000);
+      // } else if (error.response.data.code == -32014) {
+      //   setError3(true);
+      //   setTimeout(() => {
+      //     setError3(false);
+      //     onClose();
+      //   }, 2000);
+      // } else if (
+      //   error.response.data.error_en ==
+      //   "You have already used this promo code before."
+      // ) {
+      //   setError4(true);
+      //   setTimeout(() => {
+      //     setError4(false);
+      //     onClose();
+      //   }, 2000);
+      // } else if (
+      //   error.response.data.error_en == "Such a promo code was not found."
+      // ) {
+      //   setError5(true);
+      //   setTimeout(() => {
+      //     setError5(false);
+      //     onClose();
+      //   }, 2000);
+      // } else {
+      //   setError(true);
+      //   setTimeout(() => {
+      //     setError(false);
+      //     onClose();
+      //   }, 2000);
+      // }
     } finally {
       if (promo_code.trim() === "") {
         setError5(false);
@@ -245,8 +249,8 @@ export function MobileModal({
       {error3 && (
         <Alert
           status={400}
-          title={t("profile55")}
-          message={t("profile56")}
+          title="Error"
+          message={errormessage}
           onClose={handleClose}
         />
       )}
