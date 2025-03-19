@@ -27,10 +27,10 @@ const TelegramPage1 = () => {
       try {
         const params = new URLSearchParams({
           id,
-          first_name: firstName,
-          last_name: lastName,
-          username,
-          photo_url,
+          first_name: firstName || "",
+          // last_name: lastName || "",
+          username: username || "",
+          photo_url: photo_url || "",
           auth_date,
           hash,
         });
@@ -39,6 +39,9 @@ const TelegramPage1 = () => {
         const referral = localStorage.getItem("referral");
         if (referral) {
           params.set("referral", referral);
+        }
+        if (lastName !== null) {
+          params.set("last_name", lastName);
         }
 
         const url = `client/auth/telegram/login?${params.toString()}`;
