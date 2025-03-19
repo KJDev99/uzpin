@@ -27,9 +27,9 @@ const TelegramPage1 = () => {
       try {
         const params = new URLSearchParams({
           id,
-          first_name: firstName || "",
+          // first_name: firstName || "",
           // last_name: lastName || "",
-          username: username || "",
+          // username: username || "",
           photo_url: photo_url || "",
           auth_date,
           hash,
@@ -40,8 +40,16 @@ const TelegramPage1 = () => {
         if (referral) {
           params.set("referral", referral);
         }
-        if (lastName !== null) {
+        if (
+          lastName !== null ||
+          firstName !== null ||
+          username !== null ||
+          photo_url !== null
+        ) {
           params.set("last_name", lastName);
+          params.set("first_name", firstName);
+          params.set("username", username);
+          params.set("photo_url", photo_url);
         }
 
         const url = `client/auth/telegram/login?${params.toString()}`;
