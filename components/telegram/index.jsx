@@ -12,9 +12,9 @@ const TelegramPage1 = () => {
 
     const id = urlParams.get("id");
     const firstName = urlParams.get("first_name");
-    const lastName = urlParams.get("last_name" || "");
-    const username = urlParams.get("username" || "");
-    const photo_url = urlParams.get("photo_url" || "");
+    const lastName = urlParams.get("last_name");
+    const username = urlParams.get("username");
+    const photo_url = urlParams.get("photo_url");
     const auth_date = urlParams.get("auth_date");
     const hash = urlParams.get("hash");
 
@@ -27,10 +27,10 @@ const TelegramPage1 = () => {
       try {
         const params = new URLSearchParams({
           id,
-          first_name: firstName || "",
-          last_name: lastName || "",
-          username: username || "",
-          photo_url: photo_url || "",
+          first_name: firstName,
+          last_name: lastName,
+          username,
+          photo_url,
           auth_date,
           hash,
         });
