@@ -112,6 +112,13 @@ export default function BalansBox() {
         );
         setCart(response.data);
       } catch (error) {
+        if (error.status === 403) {
+          localStorage.removeItem("profileData");
+          setTimeout(() => {
+            window.location.reload();
+            router.push("/login");
+          }, 300);
+        }
         console.log(error);
       } finally {
         setLoading(false);
