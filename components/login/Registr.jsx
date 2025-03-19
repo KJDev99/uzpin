@@ -105,7 +105,9 @@ export default function Register({ setLogin, loginCount, setMainEmail }) {
   };
 
   const HandleTg = () => {
-    localStorage.setItem("referral", referral);
+    if (referral) {
+      localStorage.setItem("referral", referral);
+    }
     console.log(referral);
     window.location.href = `https://uzpin.games/telegram-login.html`;
   };
