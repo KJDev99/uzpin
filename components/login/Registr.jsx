@@ -81,17 +81,6 @@ export default function Register({ setLogin, loginCount, setMainEmail }) {
   const handleGoogleLogin = async () => {
     setIsLoading(true);
     try {
-      // const response = await axiosInstance.get(
-      //   `/client/auth/google/login?redirect_url=https://uzpin.games/google?${
-      //     referral ? `refferral=${referral}` : ""
-      //   }`
-      // );
-      // const response = await axiosInstance.get(
-      //   `/client/auth/google/login?redirect_url=${encodeURIComponent(
-      //     "https://uzpin.games/google"
-      //   )}${referral ? `&refferral=${encodeURIComponent(referral)}` : ""}`
-      // );
-
       const url = `/client/auth/google/login?redirect_url=${encodeURIComponent(
         "https://uzpin.games/google"
       )}${referral ? `&referral=${encodeURIComponent(referral)}` : ""}`;
@@ -99,8 +88,8 @@ export default function Register({ setLogin, loginCount, setMainEmail }) {
       const response = await axiosInstance.get(url);
 
       const { auth_url } = response.data;
-
       if (auth_url) {
+        localStorage.setItem("url", url);
         window.location.href = auth_url;
       } else {
         console.error("Auth URL not received from server");
