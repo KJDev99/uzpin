@@ -1,6 +1,6 @@
 "use client";
 import Login from "@/components/login/Login";
-import React, { useState } from "react";
+import React, { Suspense, useState } from "react";
 import ForgetPassword from "@/components/login/ForgetPassword";
 import PasswordCheck from "@/components/login/PasswordCheck";
 import NewPasswrod from "@/components/login/NewPasswrod";
@@ -62,12 +62,14 @@ export default function Page() {
 
   return (
     <>
-      <div className="login_bg max-md:hidden absolute left-0 top-0 min-h-screen max-h-max py-[30px] w-full flex justify-center items-center z-[99]">
-        {renderComponent()}
-      </div>
-      <div className="bg-[white] md:hidden absolute left-0 top-0 min-h-screen max-h-max py-[30px] w-full flex justify-center items-center z-[99]">
-        {renderComponent()}
-      </div>
+      <Suspense fallback={<div>Loading...</div>}>
+        <div className="login_bg max-md:hidden absolute left-0 top-0 min-h-screen max-h-max py-[30px] w-full flex justify-center items-center z-[99]">
+          {renderComponent()}
+        </div>
+        <div className="bg-[white] md:hidden absolute left-0 top-0 min-h-screen max-h-max py-[30px] w-full flex justify-center items-center z-[99]">
+          {renderComponent()}
+        </div>
+      </Suspense>
     </>
   );
 }
