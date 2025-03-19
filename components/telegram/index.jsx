@@ -17,7 +17,6 @@ const TelegramPage1 = () => {
     const photo_url = urlParams.get("photo_url");
     const auth_date = urlParams.get("auth_date");
     const hash = urlParams.get("hash");
-    // const referral = urlParams.get("referral");
 
     if (!id || !auth_date || !hash) {
       console.error("Required query parameters are missing!");
@@ -25,11 +24,8 @@ const TelegramPage1 = () => {
     }
 
     const fetchBanners = async () => {
-      let referral = localStorage.getItem("referral");
       try {
-        // Parametrlarni qo'shish
         const params = new URLSearchParams({
-          // referral: referral || "",
           id,
           first_name: firstName || "",
           last_name: lastName || "",
@@ -39,16 +35,14 @@ const TelegramPage1 = () => {
           hash,
         });
 
-        let url = `client/auth/telegram/login?${params.toString()}`;
+        // referral localStorageda bo'lsa, uni qo'shamiz
+        const referral = localStorage.getItem("referral");
         if (referral) {
-          url = `client/auth/telegram/login?referral=${referral}&${params.toString()}`;
+          params.set("referral", referral);
         }
 
-        // URL'ni localStorage'ga saqlash
-        localStorage.setItem("lastRequestURL", url);
-        console.log("Saved Request URL:", url);
+        const url = `client/auth/telegram/login?${params.toString()}`;
 
-        // So‘rovni to‘g‘ridan-to‘g‘ri URL bilan yuborish
         const response = await axiosInstance.get(url);
 
         localStorage.setItem("profileData", JSON.stringify(response.data));
