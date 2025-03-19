@@ -41,9 +41,9 @@ const TelegramPage1 = () => {
           params.set("referral", referral);
         }
         if (
-          lastName !== null ||
-          firstName !== null ||
-          username !== null ||
+          lastName !== null &&
+          firstName !== null &&
+          username !== null &&
           photo_url !== null
         ) {
           params.set("last_name", lastName);
