@@ -54,11 +54,12 @@ const TelegramPage = () => {
           photo_url,
           auth_date,
           hash,
+          ...(referral ? { referral } : {}),
         };
 
-        if (referral) {
+        /* if (referral) {
           params.referral = referral;
-        }
+        } */
 
         const response = await axiosInstance.get("client/auth/telegram/login", {
           params,
