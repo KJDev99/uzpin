@@ -31,7 +31,7 @@ const TelegramPage = () => {
           },
         });
         localStorage.setItem("profileData", JSON.stringify(response.data));
-        rounter.push("/");
+        router.push("/");
         setTimeout(() => {
           location.reload();
         }, 300);
