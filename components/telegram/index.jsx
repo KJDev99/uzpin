@@ -35,6 +35,16 @@ const TelegramPage1 = () => {
           hash,
         });
 
+        if (firstName !== null) {
+          params.set("first_name", firstName);
+        } else if (lastName !== null) {
+          params.set("last_name", lastName);
+        } else if (username !== null) {
+          params.set("username", username);
+        }else if (photo_url !== null) {
+          params.set("photo_url", photo_url);
+        }
+
         // referral localStorageda bo'lsa, uni qo'shamiz
         const referral = localStorage.getItem("referral");
         if (referral) {
