@@ -58,16 +58,37 @@ const TelegramPage = () => {
           params.set("referral", referral);
         }
 
-        if (firstName !== null) {
+        if (
+          firstName !== null &&
+          firstName !== undefined &&
+          firstName !== "" &&
+          firstName !== NaN
+        ) {
           params.set("first_name", firstName);
         }
-        if (lastName !== null) {
+        if (
+          lastName !== null &&
+          lastName !== undefined &&
+          lastName !== "" &&
+          lastName !== NaN
+        ) {
           params.set("last_name", lastName);
         }
-        if (username !== null) {
+        if (
+          username !== null &&
+          username !== undefined &&
+          username !== "" &&
+          username !== NaN
+        ) {
           params.set("username", username);
         }
-        if (photo_url !== null) {
+        if (
+          photo_url !== null &&
+          photo_url !== undefined &&
+          photo_url !== "" &&
+          photo_url !== NaN &&
+          photo_url !== null
+        ) {
           params.set("photo_url", photo_url);
         }
 
