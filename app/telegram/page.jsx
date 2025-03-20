@@ -43,10 +43,40 @@ const TelegramPage = () => {
         console.error("Error fetching slides:", error);
       } */
 
+      // try {
+      //   const referral = localStorage.getItem("referral");
+
+      //   const params = {
+      //     id,
+      //     first_name: firstName,
+      //     last_name: lastName,
+      //     username,
+      //     photo_url,
+      //     auth_date,
+      //     hash,
+      //   };
+
+      //   if (referral) {
+      //     params.set("referral", referral);
+      //   }
+
+      //   const response = await axiosInstance.get("client/auth/telegram/login", {
+      //     params,
+      //   });
+
+      //   localStorage.setItem("profileData", JSON.stringify(response.data));
+      //   router.push("/");
+      //   setTimeout(() => {
+      //     location.reload();
+      //   }, 300);
+      // } catch (error) {
+      //   console.error("Error during Telegram login:", error);
+      // }
+
       try {
         const referral = localStorage.getItem("referral");
 
-        const params = {
+        const params = new URLSearchParams({
           id,
           first_name: firstName,
           last_name: lastName,
@@ -54,21 +84,27 @@ const TelegramPage = () => {
           photo_url,
           auth_date,
           hash,
-        };
+        });
 
         if (referral) {
           params.set("referral", referral);
         }
 
-        const response = await axiosInstance.get("client/auth/telegram/login", {
-          params,
-        });
+        const fullUrl = `client/auth/telegram/login?${params.toString()}`;
 
+        // API so‘rovini yuborish
+        const response = await axiosInstance.get(fullUrl);
+
+        // API dan olingan ma’lumotni saqlash
         localStorage.setItem("profileData", JSON.stringify(response.data));
-        /* router.push("/");
+
+        // So‘nggi so‘ralgan URL ni localStorage'ga saqlash
+        localStorage.setItem("lastRequestedUrl", fullUrl);
+
+        router.push("/");
         setTimeout(() => {
           location.reload();
-        }, 300); */
+        }, 300);
       } catch (error) {
         console.error("Error during Telegram login:", error);
       }
