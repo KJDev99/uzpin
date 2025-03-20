@@ -44,8 +44,6 @@ const TelegramPage = () => {
       } */
 
       try {
-        const referral = localStorage.getItem("referral");
-
         const params = {
           id,
           first_name: firstName,
@@ -54,16 +52,17 @@ const TelegramPage = () => {
           photo_url,
           auth_date,
           hash,
-          ...(referral ? { referral } : {}),
         };
+        const referral = localStorage.getItem("referral");
+        if (referral) {
+          params.set("referral", referral);
+        }
 
-        /* if (referral) {
-          params.referral = referral;
-        } */
-
-        const response = await axiosInstance.get("client/auth/telegram/login", {
+        const url = `client/auth/telegram/login?${params.toString()}`;
+        /* const response = await axiosInstance.get("client/auth/telegram/login", {
           params,
-        });
+        }); */
+        const response = await axiosInstance.get(url);
 
         localStorage.setItem("profileData", JSON.stringify(response.data));
         /* router.push("/");
