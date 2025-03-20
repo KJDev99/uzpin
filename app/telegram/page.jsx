@@ -30,10 +30,10 @@ const TelegramPage = () => {
             hash,
           },
         });
-        const referral = localStorage.getItem("referral");
-        if (referral) {
-          params.set("referral", referral);
-        }
+        // const referral = localStorage.getItem("referral");
+        // if (referral) {
+        //   params.set("referral", referral);
+        // }
         localStorage.setItem("profileData", JSON.stringify(response.data));
         router.push("/");
         setTimeout(() => {
