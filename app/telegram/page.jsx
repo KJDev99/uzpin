@@ -60,11 +60,14 @@ const TelegramPage = () => {
 
         if (firstName !== null) {
           params.set("first_name", firstName);
-        } else if (lastName !== null) {
+        }
+        if (lastName !== null) {
           params.set("last_name", lastName);
-        } else if (username !== null) {
+        }
+        if (username !== null) {
           params.set("username", username);
-        } else if (photo_url !== null) {
+        }
+        if (photo_url !== null) {
           params.set("photo_url", photo_url);
         }
 
