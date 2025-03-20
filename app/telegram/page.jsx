@@ -18,7 +18,7 @@ const TelegramPage = () => {
     const hash = urlParams.get("hash");
 
     const fetchBanners = async () => {
-      try {
+      /* try {
         const response = await axiosInstance.get("client/auth/telegram/login", {
           params: {
             id,
@@ -30,10 +30,10 @@ const TelegramPage = () => {
             hash,
           },
         });
-        // const referral = localStorage.getItem("referral");
-        // if (referral) {
-        //   params.set("referral", referral);
-        // }
+        const referral = localStorage.getItem("referral");
+        if (referral) {
+          params.set("referral", referral);
+        }
         localStorage.setItem("profileData", JSON.stringify(response.data));
         router.push("/");
         setTimeout(() => {
@@ -41,6 +41,36 @@ const TelegramPage = () => {
         }, 300);
       } catch (error) {
         console.error("Error fetching slides:", error);
+      } */
+
+      try {
+        const referral = localStorage.getItem("referral");
+
+        const params = {
+          id,
+          first_name: firstName,
+          last_name: lastName,
+          username,
+          photo_url,
+          auth_date,
+          hash,
+        };
+
+        if (referral) {
+          params.referral = referral;
+        }
+
+        const response = await axiosInstance.get("client/auth/telegram/login", {
+          params,
+        });
+
+        localStorage.setItem("profileData", JSON.stringify(response.data));
+        router.push("/");
+        setTimeout(() => {
+          location.reload();
+        }, 300);
+      } catch (error) {
+        console.error("Error during Telegram login:", error);
       }
     };
 
