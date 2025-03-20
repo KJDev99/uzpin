@@ -1,7 +1,7 @@
 "use client";
 import Loader from "@/components/Loader";
 import axiosInstance from "@/libs/axios";
-import { useRouter} from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const TelegramPage = () => {
@@ -30,6 +30,10 @@ const TelegramPage = () => {
             hash,
           },
         });
+        const referral = localStorage.getItem("referral");
+        if (referral) {
+          params.set("referral", referral);
+        }
         localStorage.setItem("profileData", JSON.stringify(response.data));
         router.push("/");
         setTimeout(() => {
@@ -40,40 +44,40 @@ const TelegramPage = () => {
       }
     };
 
-      // try {
-      //   const params = {
-      //     id,
-      //     first_name: firstName,
-      //     last_name: lastName,
-      //     username,
-      //     photo_url,
-      //     auth_date,
-      //     hash,
-      //     ...(referral ? { referral } : {}),
-      //   };
+    // try {
+    //   const params = {
+    //     id,
+    //     first_name: firstName,
+    //     last_name: lastName,
+    //     username,
+    //     photo_url,
+    //     auth_date,
+    //     hash,
+    //     ...(referral ? { referral } : {}),
+    //   };
 
-      //   // URL ni yaratish
-      //   const url = `client/auth/telegram/login?${new URLSearchParams(
-      //     params
-      //   ).toString()}`;
+    //   // URL ni yaratish
+    //   const url = `client/auth/telegram/login?${new URLSearchParams(
+    //     params
+    //   ).toString()}`;
 
-      //   // URL'ni localStorage ga saqlash
-      //   localStorage.setItem("lastRequestURL", url);
-      //   console.log("Saved Request URL:", url);
+    //   // URL'ni localStorage ga saqlash
+    //   localStorage.setItem("lastRequestURL", url);
+    //   console.log("Saved Request URL:", url);
 
-      //   // So‘rov yuborish
-      //   const response = await axiosInstance.get("client/auth/telegram/login", {
-      //     params,
-      //   });
+    //   // So‘rov yuborish
+    //   const response = await axiosInstance.get("client/auth/telegram/login", {
+    //     params,
+    //   });
 
-      //   localStorage.setItem("profileData", JSON.stringify(response.data));
-      //   router.push("/");
-      //   setTimeout(() => {
-      //     location.reload();
-      //   }, 300);
-      // } catch (error) {
-      //   console.error("Error during Telegram login:", error);
-      // }
+    //   localStorage.setItem("profileData", JSON.stringify(response.data));
+    //   router.push("/");
+    //   setTimeout(() => {
+    //     location.reload();
+    //   }, 300);
+    // } catch (error) {
+    //   console.error("Error during Telegram login:", error);
+    // }
 
     fetchBanners();
   }, []);
