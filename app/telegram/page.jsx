@@ -63,12 +63,13 @@ const TelegramPage = () => {
           params,
         }); */
         const response = await axiosInstance.get(url);
+        localStorage.setItem("lastRequestURL", url);
 
         localStorage.setItem("profileData", JSON.stringify(response.data));
-        /* router.push("/");
+        router.push("/");
         setTimeout(() => {
           location.reload();
-        }, 300); */
+        }, 300);
       } catch (error) {
         console.error("Error during Telegram login:", error);
       }
