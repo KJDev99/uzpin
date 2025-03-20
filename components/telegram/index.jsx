@@ -35,27 +35,27 @@ const TelegramPage1 = () => {
           hash,
         });
 
-        if (firstName !== null) {
-          params.set("first_name", firstName);
-        } else if (
-          lastName !== null &&
-          lastName !== "" &&
-          lastName !== undefined
-        ) {
-          params.set("last_name", lastName);
-        } else if (
-          username !== null &&
-          username !== "" &&
-          username !== undefined
-        ) {
-          params.set("username", username);
-        } else if (
-          photo_url !== null &&
-          photo_url !== "" &&
-          photo_url !== undefined
-        ) {
-          params.set("photo_url", photo_url);
-        }
+        // if (firstName !== null) {
+        //   params.set("first_name", firstName);
+        // } else if (
+        //   lastName !== null &&
+        //   lastName !== "" &&
+        //   lastName !== undefined
+        // ) {
+        //   params.set("last_name", lastName);
+        // } else if (
+        //   username !== null &&
+        //   username !== "" &&
+        //   username !== undefined
+        // ) {
+        //   params.set("username", username);
+        // } else if (
+        //   photo_url !== null &&
+        //   photo_url !== "" &&
+        //   photo_url !== undefined
+        // ) {
+        //   params.set("photo_url", photo_url);
+        // }
 
         // referral localStorageda bo'lsa, uni qo'shamiz
         const referral = localStorage.getItem("referral");
