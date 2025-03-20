@@ -57,7 +57,7 @@ const TelegramPage = () => {
         };
 
         if (referral) {
-          params.referral = referral;
+          params.set("referral", referral);
         }
 
         const response = await axiosInstance.get("client/auth/telegram/login", {
