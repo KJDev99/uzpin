@@ -295,7 +295,7 @@ export function PurchaseModal({
                     </div>
                     {isOpen == 1 && (
                       <>
-                        <div className="space-y-2 flex flex-col justify-between items-center">
+                        {/* <div className="space-y-2 flex flex-col justify-between items-center">
                           <div className="w-full flex items-center justify-between">
                             <label
                               htmlFor="playerId"
@@ -333,7 +333,7 @@ export function PurchaseModal({
                               {t("error5")}
                             </p>
                           )}
-                        </div>
+                        </div> */}
                       </>
                     )}
 
@@ -353,7 +353,7 @@ export function PurchaseModal({
                             className="border border-[#E7E7E7] rounded-[5px] py-3 px-5 font-semibold outline-none max-sm:max-w-[163px]"
                           />
                         </div>
-                        <div className="space-y-2 flex flex-col justify-between items-center">
+                        {/* <div className="space-y-2 flex flex-col justify-between items-center">
                           <div className="w-full flex items-center justify-between">
                             <label
                               htmlFor="playerId"
@@ -391,7 +391,7 @@ export function PurchaseModal({
                               {t("error5")}
                             </p>
                           )}
-                        </div>
+                        </div> */}
 
                         <button
                           onClick={
