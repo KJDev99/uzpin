@@ -37,11 +37,23 @@ const TelegramPage1 = () => {
 
         if (firstName !== null) {
           params.set("first_name", firstName);
-        } else if (lastName !== null) {
+        } else if (
+          lastName !== null &&
+          lastName !== "" &&
+          lastName !== undefined
+        ) {
           params.set("last_name", lastName);
-        } else if (username !== null) {
+        } else if (
+          username !== null &&
+          username !== "" &&
+          username !== undefined
+        ) {
           params.set("username", username);
-        }else if (photo_url !== null) {
+        } else if (
+          photo_url !== null &&
+          photo_url !== "" &&
+          photo_url !== undefined
+        ) {
           params.set("photo_url", photo_url);
         }
 
