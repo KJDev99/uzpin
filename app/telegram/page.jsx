@@ -44,7 +44,7 @@ const TelegramPage = () => {
       } */
 
       try {
-        const params = {
+        const params = new URLSearchParams({
           id,
           first_name: firstName,
           last_name: lastName,
@@ -52,7 +52,7 @@ const TelegramPage = () => {
           photo_url,
           auth_date,
           hash,
-        };
+        });
         const referral = localStorage.getItem("referral");
         if (referral) {
           params.set("referral", referral);
