@@ -58,10 +58,10 @@ export function MobileModal({
       server_id: serverId,
     };
     if (cleanedGameId === "00984e54-78f0-44f8-ad48-dac23d838bdc") {
-      formattedData.serve = ph;
+      formattedData.server = ph;
     }
     if (cleanedGameId === "322d0721-1dca-4720-a0a3-68371ba8ed22") {
-      formattedData.serve = ru;
+      formattedData.server = ru;
     }
     setLoading(true);
     try {
@@ -170,10 +170,10 @@ export function MobileModal({
       formattedData.promo_code = promo_code;
     }
     if (cleanedGameId === "00984e54-78f0-44f8-ad48-dac23d838bdc") {
-      formattedData.serve = ph;
+      formattedData.server = ph;
     }
     if (cleanedGameId === "322d0721-1dca-4720-a0a3-68371ba8ed22") {
-      formattedData.serve = ru;
+      formattedData.server = ru;
     }
     setLoading(true);
     try {
