@@ -6,7 +6,7 @@ import Image from "next/image";
 import axiosInstance from "@/libs/axios";
 import { Alert } from "../Alert";
 import { X } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 export function MobileModal({
@@ -20,10 +20,11 @@ export function MobileModal({
   //   savedCurrency,
   gameId,
 }) {
+  const pathname = usePathname();
+  const id = pathname.replace("/all-games/", "");
   const router = useRouter();
   const { t } = useTranslation();
   const [token, setToken] = useState(null);
-
   const [error2, setError] = useState(false);
   const [error3, setError3] = useState(false);
   const [error4, setError4] = useState(false);
@@ -48,11 +49,20 @@ export function MobileModal({
       }
     }
   }, []);
+  const ru = "ru";
+  const ph = "ph";
   const handleCheckUser = async () => {
     const formattedData = {
       user_id: userId,
       server_id: serverId,
     };
+    const cleanedGameId = id ? id.trim() : "";
+    if (cleanedGameId === "00984e54-78f0-44f8-ad48-dac23d838bdc") {
+      formattedData.serve = ph;
+    }
+    if (cleanedGameId === "322d0721-1dca-4720-a0a3-68371ba8ed22") {
+      formattedData.serve = ru;
+    }
     setLoading(true);
     try {
       const response = await axiosInstance.post(
@@ -162,7 +172,7 @@ export function MobileModal({
     setLoading(true);
     try {
       const response = await axiosInstance.post(
-        "/client/mobile-legands/buy/promocode",
+        "/client/mobile-legands/buy/promocode?serve=ru",
         formattedData,
         {
           headers: {
@@ -174,43 +184,43 @@ export function MobileModal({
       setSuccess(true);
     } catch (error) {
       console.log(error.response.data.error);
-      setError3(true)
+      setError3(true);
       setErrorMessage(error.response.data.detail || error.response.data.error);
-      // if (error.status == 401) {
-      //   setError401(true);
-      //   setTimeout(() => {
-      //     router.push("/login");
-      //   }, 1000);
-      // } else if (error.response.data.code == -32014) {
-      //   setError3(true);
-      //   setTimeout(() => {
-      //     setError3(false);
-      //     onClose();
-      //   }, 2000);
-      // } else if (
-      //   error.response.data.error_en ==
-      //   "You have already used this promo code before."
-      // ) {
-      //   setError4(true);
-      //   setTimeout(() => {
-      //     setError4(false);
-      //     onClose();
-      //   }, 2000);
-      // } else if (
-      //   error.response.data.error_en == "Such a promo code was not found."
-      // ) {
-      //   setError5(true);
-      //   setTimeout(() => {
-      //     setError5(false);
-      //     onClose();
-      //   }, 2000);
-      // } else {
-      //   setError(true);
-      //   setTimeout(() => {
-      //     setError(false);
-      //     onClose();
-      //   }, 2000);
-      // }
+      if (error.status == 401) {
+        setError401(true);
+        setTimeout(() => {
+          router.push("/login");
+        }, 1000);
+      } else if (error.response.data.code == -32014) {
+        setError3(true);
+        setTimeout(() => {
+          setError3(false);
+          onClose();
+        }, 2000);
+      } else if (
+        error.response.data.error_en ==
+        "You have already used this promo code before."
+      ) {
+        setError4(true);
+        setTimeout(() => {
+          setError4(false);
+          onClose();
+        }, 2000);
+      } else if (
+        error.response.data.error_en == "Such a promo code was not found."
+      ) {
+        setError5(true);
+        setTimeout(() => {
+          setError5(false);
+          onClose();
+        }, 2000);
+      } else {
+        setError(true);
+        setTimeout(() => {
+          setError(false);
+          onClose();
+        }, 2000);
+      }
     } finally {
       if (promo_code.trim() === "") {
         setError5(false);

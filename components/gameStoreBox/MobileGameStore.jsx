@@ -196,7 +196,7 @@ const MobileGameStore = ({ cart, clear, isOpen, onClose, router }) => {
             placeholder="Server ID"
             className="border border-[#E7E7E7] rounded-[5px] py-3 px-5 font-semibold outline-none max-sm:max-w-[163px]"
           />
-        </div>  
+        </div>
         <button
           disabled={userId.length === 0 || serverId.length === 0 || loading}
           onClick={
