@@ -51,12 +51,12 @@ export function MobileModal({
   }, []);
   const ru = "ru";
   const ph = "ph";
+  const cleanedGameId = id ? id.trim() : "";
   const handleCheckUser = async () => {
     const formattedData = {
       user_id: userId,
       server_id: serverId,
     };
-    const cleanedGameId = id ? id.trim() : "";
     if (cleanedGameId === "00984e54-78f0-44f8-ad48-dac23d838bdc") {
       formattedData.serve = ph;
     }
@@ -169,10 +169,16 @@ export function MobileModal({
     if (promo_code.trim() !== "") {
       formattedData.promo_code = promo_code;
     }
+    if (cleanedGameId === "00984e54-78f0-44f8-ad48-dac23d838bdc") {
+      formattedData.serve = ph;
+    }
+    if (cleanedGameId === "322d0721-1dca-4720-a0a3-68371ba8ed22") {
+      formattedData.serve = ru;
+    }
     setLoading(true);
     try {
       const response = await axiosInstance.post(
-        "/client/mobile-legands/buy/promocode?serve=ru",
+        "/client/mobile-legands/buy/promocode",
         formattedData,
         {
           headers: {
