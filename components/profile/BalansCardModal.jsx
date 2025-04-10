@@ -39,21 +39,19 @@ export default function BalansCardModal({
     setSelectedCard(card);
   };
 
-  // useEffect(() => {
-  //   const checkBalance1 = async () => {
-  //     try {
-  //       const response = await axiosInstance.get("client/auth/check-binance/", {
-  //         headers: {
-  //           Authorization: `Bearer ${token}`,
-  //         },
-  //       });
-  //       console.log(response.data);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
-  //   checkBalance1();
-  // }, [token]);
+  const checkBalance1 = async () => {
+    try {
+      const response = await axiosInstance.get("client/auth/check-binance/", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      window.location.reload();
+      console.log(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const copyCardNumber = () => {
     if (selectedCard.card_number) {
@@ -242,10 +240,7 @@ export default function BalansCardModal({
                 <div className="flex items-start space-x-3 max-w-[450px]">
                   <span className="text-yellow-500 text-2xl">⚠️</span>
                   <p className="text-red-600 text-base">
-                    <strong>Diqqat!</strong> To‘lovni amalga oshirishdan oldin
-                    izoh (comment) yozilishi majburiy. Izohsiz yuborilgan
-                    to‘lovlar qabul qilinmaydi va avtomatik ravishda rad
-                    etiladi.
+                    {t("comment")}
                   </p>
                 </div>
                 <button
@@ -260,6 +255,15 @@ export default function BalansCardModal({
                     <MdOutlineContentCopy size={24} />
                   )}
                   {comment}
+                </button>
+                <button
+                  onClick={() => {
+                    checkBalance1();
+                    onClose();
+                  }}
+                  className={`flex items-center gap-[5px] mt-5 py-[10px] px-[15px] font-medium text-[16px] text-white leading-[18px] bg-green-600 rounded-[10px]`}
+                >
+                  {t("pay")}
                 </button>
               </div>
             ) : (
