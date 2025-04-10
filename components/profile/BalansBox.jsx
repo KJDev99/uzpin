@@ -344,10 +344,10 @@ export default function BalansBox() {
         <div className="bg-[#FFFCF6] p-6 rounded-2xl shadow-custom max-sm:pt-0 max-sm:pb-[10px] max-sm:px-5">
           <div className="space-y-4 max-sm:space-y-[10px]">
             <div className="flex items-center justify-between">
-              <h2 className="text-gray-600 max-sm:hidden">
+              <h2 className="text-gray-600 max-sm:hidden sm:w-full">
                 Uzpin {t("profile18")}
               </h2>
-              <div className="w-full flex items-center justify-between">
+              <div className="w-full flex items-center justify-between sm:justify-end">
                 <h2 className="sm:hidden font-semibold text-[20px] text-[#313131]">
                   {fullname}
                 </h2>
@@ -395,7 +395,7 @@ export default function BalansBox() {
             <div className="mt-2.5">
               <button
                 onClick={() => handleCurrencyChange("USD")}
-                className={`px-4 py-2 max-sm:px-5 ${
+                className={`px-4 py-2 rounded-tl-[5px] rounded-bl-[5px]  max-sm:px-5 ${
                   selectedCurrency === "USD"
                     ? "bg-zinc-800 text-white"
                     : "bg-gray-100 text-[#828282]"
@@ -405,7 +405,7 @@ export default function BalansBox() {
               </button>
               <button
                 onClick={() => handleCurrencyChange("UZS")}
-                className={`px-4 py-2 rounded-tl-[5px] rounded-bl-[5px] max-sm:px-5 ${
+                className={`px-4 py-2 max-sm:px-5 ${
                   selectedCurrency === "UZS"
                     ? "bg-zinc-800 text-white"
                     : "bg-gray-100 text-[#828282]"
