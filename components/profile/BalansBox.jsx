@@ -541,7 +541,7 @@ export default function BalansBox() {
                 </button>
 
                 {selectedCurrency === "USD" &&
-                  selectedCard?.id ===
+                  selectedCard?.id !==
                     "8f31f905-d153-4cb9-8514-5c3c5b53dac5" && (
                     <div className="flex flex-col items-center mt-10">
                       <label className="block font-normal text-[20px] leading-[22px] mb-2">
