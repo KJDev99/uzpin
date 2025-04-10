@@ -19,7 +19,7 @@ export default function BalansBox() {
   const { t } = useTranslation();
   const modalRef = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedCurrency, setSelectedCurrency] = useState("UZS");
+  const [selectedCurrency, setSelectedCurrency] = useState("USD");
   const [visibleCard, setVisibleCard] = useState(false);
 
   const openModal = () => setIsOpen(true);
@@ -308,16 +308,6 @@ export default function BalansBox() {
         <h1 className="text-2xl font-semibold">{t("profile2")}</h1>
         <div className="flex gap-2">
           <button
-            onClick={() => handleCurrencyChange("UZS")}
-            className={`px-4 py-2 rounded-lg ${
-              selectedCurrency === "UZS"
-                ? "bg-zinc-800 text-white"
-                : "bg-gray-100 text-gray-900"
-            }`}
-          >
-            UZS
-          </button>
-          <button
             onClick={() => handleCurrencyChange("USD")}
             className={`px-4 py-2 rounded-lg ${
               selectedCurrency === "USD"
@@ -326,6 +316,16 @@ export default function BalansBox() {
             }`}
           >
             USD
+          </button>
+          <button
+            onClick={() => handleCurrencyChange("UZS")}
+            className={`px-4 py-2 rounded-lg ${
+              selectedCurrency === "UZS"
+                ? "bg-zinc-800 text-white"
+                : "bg-gray-100 text-gray-900"
+            }`}
+          >
+            UZS
           </button>
           <button
             onClick={() => handleCurrencyChange("RUB")}
@@ -347,13 +347,13 @@ export default function BalansBox() {
               <h2 className="text-gray-600 max-sm:hidden">
                 Uzpin {t("profile18")}
               </h2>
-              <div className="flex items-center justify-between">
+              <div className="w-full flex items-center justify-between">
                 <h2 className="sm:hidden font-semibold text-[20px] text-[#313131]">
                   {fullname}
                 </h2>
                 <button
                   onClick={checkBalance}
-                  className={`flex items-center gap-2 py-3 px-3 font-medium text-[16px] text-white leading-[18px] bg-green-600 rounded-[10px]`}
+                  className={`flex items-center gap-2 py-2 px-3 font-medium text-[16px] text-white leading-[18px] bg-green-600 rounded-[10px]`}
                 >
                   {t("update")} <TfiReload size={20} />
                 </button>
@@ -394,16 +394,6 @@ export default function BalansBox() {
             <h2>{t("profile21")}</h2>
             <div className="mt-2.5">
               <button
-                onClick={() => handleCurrencyChange("UZS")}
-                className={`px-4 py-2 rounded-tl-[5px] rounded-bl-[5px] max-sm:px-5 ${
-                  selectedCurrency === "UZS"
-                    ? "bg-zinc-800 text-white"
-                    : "bg-gray-100 text-[#828282]"
-                }`}
-              >
-                UZS
-              </button>
-              <button
                 onClick={() => handleCurrencyChange("USD")}
                 className={`px-4 py-2 max-sm:px-5 ${
                   selectedCurrency === "USD"
@@ -412,6 +402,16 @@ export default function BalansBox() {
                 }`}
               >
                 USD
+              </button>
+              <button
+                onClick={() => handleCurrencyChange("UZS")}
+                className={`px-4 py-2 rounded-tl-[5px] rounded-bl-[5px] max-sm:px-5 ${
+                  selectedCurrency === "UZS"
+                    ? "bg-zinc-800 text-white"
+                    : "bg-gray-100 text-[#828282]"
+                }`}
+              >
+                UZS
               </button>
               <button
                 onClick={() => handleCurrencyChange("RUB")}
