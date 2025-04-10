@@ -540,24 +540,28 @@ export default function BalansBox() {
                   {selectedCard.card_number}
                 </button>
 
-                <div className="flex flex-col items-center mt-10">
-                  <label className="block font-normal text-[20px] leading-[22px] mb-2">
-                    {t("profile22")} {selectedCurrency}
-                  </label>
-                  <input
-                    type="text"
-                    value={inputValue}
-                    onChange={(e) => {
-                      const value = e.target.value;
-                      // Faqat raqamlar va '.' ni qabul qilish uchun tekshirish
-                      if (/^[0-9.]*$/.test(value)) {
-                        setInputValue(value);
-                      }
-                    }}
-                    placeholder={t("profile22")}
-                    className="max-w-[482px] w-full p-3 border rounded-lg border-[#E7E7E7] bg-[#F9F9F9] focus:ring-yellow-400"
-                  />
-                </div>
+                {selectedCurrency === "USD" &&
+                  selectedCard?.id ===
+                    "8f31f905-d153-4cb9-8514-5c3c5b53dac5" && (
+                    <div className="flex flex-col items-center mt-10">
+                      <label className="block font-normal text-[20px] leading-[22px] mb-2">
+                        {t("profile22")} {selectedCurrency}
+                      </label>
+                      <input
+                        type="text"
+                        value={inputValue}
+                        onChange={(e) => {
+                          const value = e.target.value;
+                          // Faqat raqamlar va '.' ni qabul qilish uchun tekshirish
+                          if (/^[0-9.]*$/.test(value)) {
+                            setInputValue(value);
+                          }
+                        }}
+                        placeholder={t("profile22")}
+                        className="max-w-[482px] w-full p-3 border rounded-lg border-[#E7E7E7] bg-[#F9F9F9] focus:ring-yellow-400"
+                      />
+                    </div>
+                  )}
               </div>
             )}
 
