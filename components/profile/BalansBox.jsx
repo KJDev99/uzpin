@@ -39,6 +39,8 @@ export default function BalansBox() {
   const [inputValue, setInputValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [text, setText] = useState(false);
+  const [comment, setComment] = useState("");
+  const [copied1, setCopied1] = useState(false);
 
   const handleCardSelect = (card) => {
     setSelectedCard(card);
@@ -51,6 +53,20 @@ export default function BalansBox() {
         .then(() => {
           setCopied(true);
           setTimeout(() => setCopied(false), 4000);
+        })
+        .catch(() => {
+          console.log("Karta raqamini nusxalashda xatolik yuz berdi.");
+        });
+    }
+  };
+
+  const copyCardNumber1 = () => {
+    if (selectedCard.card_number) {
+      navigator.clipboard
+        .writeText(comment)
+        .then(() => {
+          setCopied1(true);
+          setTimeout(() => setCopied1(false), 4000);
         })
         .catch(() => {
           console.log("Karta raqamini nusxalashda xatolik yuz berdi.");
@@ -97,6 +113,29 @@ export default function BalansBox() {
       fetchHandle();
     }
   }, [token]);
+
+  useEffect(() => {
+    const checkBalance = async () => {
+      if (token) {
+        try {
+          const headers = {
+            Authorization: `Bearer ${token}`,
+          };
+
+          const response = await axiosInstance.get(
+            "client/auth/check-binance/",
+            { headers }
+          );
+        } catch (error) {
+          console.log(error);
+        }
+      } else {
+        console.log("Token mavjud emas!");
+      }
+    };
+
+    checkBalance();
+  }, [token]); // token o'zgarganda useEffect qayta ishlaydi
 
   useEffect(() => {
     setLoading(true);
@@ -195,6 +234,27 @@ export default function BalansBox() {
 
   if (loading) {
     return <Loader />;
+  }
+
+  if (selectedCard?.id === "8f31f905-d153-4cb9-8514-5c3c5b53dac5") {
+    const fetchComment = async () => {
+      try {
+        const response = await axiosInstance.get(
+          "client/auth/user-binance-comment/",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        setComment(response.data.comment);
+      } catch (error) {
+        console.error("Ma'lumotni olishda xatolik:", error);
+      }
+    };
+
+    fetchComment();
   }
 
   return (
@@ -360,29 +420,32 @@ export default function BalansBox() {
           </div>
 
           <div className="space-y-4">
-            <div>
-              <label className="block text-sm text-gray-600 mb-2">
-                {t("profile22")} {selectedCurrency}
-              </label>
-              <input
-                type="text"
-                value={inputValue}
-                onChange={(e) => {
-                  const value = e.target.value;
-                  // Faqat raqamlar va '.' ni qabul qilish uchun tekshirish
-                  if (/^[0-9.]*$/.test(value)) {
-                    setInputValue(value);
-                  }
-                }}
-                placeholder={t("profile22")}
-                className="w-full p-3 border rounded-lg border-[#E7E7E7] bg-[#F9F9F9] focus:ring-yellow-400"
-              />
-            </div>
+            {selectedCurrency !== "USD" && (
+              <div>
+                <label className="block text-sm text-gray-600 mb-2">
+                  {t("profile22")} {selectedCurrency}
+                </label>
+                <input
+                  type="text"
+                  value={inputValue}
+                  onChange={(e) => {
+                    const value = e.target.value;
+                    // Faqat raqamlar va '.' ni qabul qilish uchun tekshirish
+                    if (/^[0-9.]*$/.test(value)) {
+                      setInputValue(value);
+                    }
+                  }}
+                  placeholder={t("profile22")}
+                  className="w-full p-3 border rounded-lg border-[#E7E7E7] bg-[#F9F9F9] focus:ring-yellow-400"
+                />
+              </div>
+            )}
             <button
               onClick={openModal}
-              disabled={!inputValue.trim()}
+              // disabled={!inputValue.trim()}
+              disabled={selectedCurrency !== "USD" && !inputValue.trim()}
               className={`w-full py-3 bg-[#FFC149] hover:bg-[#FFB529] text-black font-medium rounded-lg transition-colors max-sm:hidden ${
-                !inputValue.trim()
+                !inputValue.trim() && selectedCurrency !== "USD"
                   ? "bg-[#b7b7b7] hover:bg-[#b7b7b7] cursor-not-allowed"
                   : ""
               }`}
@@ -391,9 +454,10 @@ export default function BalansBox() {
             </button>
             <button
               onClick={toggleCardVisibile}
-              disabled={!inputValue.trim()}
+              // disabled={!inputValue.trim()}
+              disabled={selectedCurrency !== "USD" && !inputValue.trim()}
               className={`w-full py-3 bg-[#FFC149] hover:bg-[#FFB529] text-black font-medium rounded-lg transition-colors sm:hidden ${
-                !inputValue.trim()
+                !inputValue.trim() && selectedCurrency !== "USD"
                   ? "bg-[#b7b7b7] hover:bg-[#b7b7b7] cursor-not-allowed"
                   : ""
               }`}
@@ -451,7 +515,7 @@ export default function BalansBox() {
                   alt="card"
                 />
                 <button
-                  className={`flex items-center gap-[5px] mt-10 py-[10px] px-[15px] font-medium ${
+                  className={`flex mx-auto items-center gap-[5px] mt-10 py-[10px] px-[15px] font-medium ${
                     selectedCard.card_number.length > 19 ? "text-[10px]" : ""
                   } text-[16px] leading-[18px] bg-[#ffba00] rounded-[10px]`}
                   style={{
@@ -475,71 +539,124 @@ export default function BalansBox() {
                   )}
                   {selectedCard.card_number}
                 </button>
+
+                <div className="flex flex-col items-center mt-10">
+                  <label className="block font-normal text-[20px] leading-[22px] mb-2">
+                    {t("profile22")} {selectedCurrency}
+                  </label>
+                  <input
+                    type="text"
+                    value={inputValue}
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      // Faqat raqamlar va '.' ni qabul qilish uchun tekshirish
+                      if (/^[0-9.]*$/.test(value)) {
+                        setInputValue(value);
+                      }
+                    }}
+                    placeholder={t("profile22")}
+                    className="max-w-[482px] w-full p-3 border rounded-lg border-[#E7E7E7] bg-[#F9F9F9] focus:ring-yellow-400"
+                  />
+                </div>
               </div>
             )}
 
             <div>
-              <div
-                className={`max-w-[482px] mt-5 p-5 mx-auto border-2 border-gray-500 border-dashed rounded-lg text-center ${
-                  photo ? "hidden" : ""
-                }`}
-              >
-                <Image
-                  src="/file-upload.svg"
-                  className="mx-auto"
-                  width={26}
-                  height={26}
-                  alt="img"
-                />
-                <p className="mt-2.5 text-[14px] text-[#313131]">
-                  {t("profile26")}
-                </p>
-                <p className="mt-2.5 text-[12px] text-[#acacac]">
-                  {t("login-text12")}
-                </p>
-                <div className="hidden">
-                  <UploadComponent
-                    onUploadingChange={setLoading1}
-                    triggerRef={modalRef}
-                    onUploadSuccess={(url) => handleUploadSuccess("cover", url)}
-                  />
-                </div>
-                <button
-                  onClick={() => modalRef.current.click()}
-                  className="mt-2.5 font-medium text-[14px] bg-[#ffba00] py-3 px-10 rounded-[5px]"
-                >
-                  {loading1 ? (
-                    <AiOutlineLoading3Quarters className="animate-spin mr-2" />
-                  ) : (
-                    t("profile27")
-                  )}
-                </button>
-              </div>
-              {photo.length ? (
-                <div className="flex flex-col">
-                  <div className="max-w-[482px] w-full mx-auto mt-5 py-5 px-8 border border-[#828282] rounded-[10px] flex items-center justify-between">
-                    <div>
-                      <p>{photo.split("/").pop()}</p>
-                    </div>
-                    <button
-                      onClick={clearFile}
-                      className="text-black underline"
-                    >
-                      <X className="h-6 w-6" />
-                    </button>
+              {selectedCard?.id === "8f31f905-d153-4cb9-8514-5c3c5b53dac5" ? (
+                <div className="p-5 mt-10 flex flex-col items-center">
+                  <div className="flex items-start space-x-3 max-w-[450px]">
+                    <span className="text-yellow-500 text-2xl">⚠️</span>
+                    <p className="text-red-600 text-base">
+                      <strong>Diqqat!</strong> To‘lovni amalga oshirishdan oldin
+                      izoh (comment) yozilishi majburiy. Izohsiz yuborilgan
+                      to‘lovlar qabul qilinmaydi va avtomatik ravishda rad
+                      etiladi.
+                    </p>
                   </div>
                   <button
-                    onClick={fetchHandle}
-                    className={`flex justify-center mx-auto mt-5 font-medium leading-[18px] bg-[#ffba00] py-[10px] px-[60px] rounded-[10px]`}
+                    className={`flex items-center gap-[5px] mt-10 py-[10px] px-[15px] font-medium ${
+                      selectedCard.card_number.length > 19 ? "text-[9px]" : ""
+                    } text-[16px] leading-[18px] bg-[#ffba00] rounded-[10px]`}
+                    onClick={copyCardNumber1}
                   >
-                    {isLoading ? (
-                      <AiOutlineLoading3Quarters className="animate-spin mr-2" />
+                    {copied1 ? (
+                      <MdCheck size={24} />
                     ) : (
-                      t("profile28")
+                      <MdOutlineContentCopy size={24} />
                     )}
+                    {comment}
                   </button>
                 </div>
-              ) : null}
+              ) : (
+                selectedCard && (
+                  <>
+                    <div
+                      className={`max-w-[482px] mt-5 p-5 mx-auto border-2 border-gray-500 border-dashed rounded-lg text-center ${
+                        photo ? "hidden" : ""
+                      }`}
+                    >
+                      <Image
+                        src="/file-upload.svg"
+                        className="mx-auto"
+                        width={26}
+                        height={26}
+                        alt="img"
+                      />
+                      <p className="mt-2.5 text-[14px] text-[#313131]">
+                        {t("profile26")}
+                      </p>
+                      <p className="mt-2.5 text-[12px] text-[#acacac]">
+                        {t("login-text12")}
+                      </p>
+                      <div className="hidden">
+                        <UploadComponent
+                          onUploadingChange={setLoading1}
+                          triggerRef={modalRef}
+                          onUploadSuccess={(url) =>
+                            handleUploadSuccess("cover", url)
+                          }
+                        />
+                      </div>
+                      <button
+                        onClick={() => modalRef.current.click()}
+                        className="mt-2.5 font-medium text-[14px] bg-[#ffba00] py-3 px-10 rounded-[5px]"
+                      >
+                        {loading1 ? (
+                          <AiOutlineLoading3Quarters className="animate-spin mr-2" />
+                        ) : (
+                          t("profile27")
+                        )}
+                      </button>
+                    </div>
+
+                    {photo.length ? (
+                      <div className="flex flex-col">
+                        <div className="max-w-[482px] w-full mx-auto mt-5 py-5 px-8 border border-[#828282] rounded-[10px] flex items-center justify-between">
+                          <div>
+                            <p>{photo.split("/").pop()}</p>
+                          </div>
+                          <button
+                            onClick={clearFile}
+                            className="text-black underline"
+                          >
+                            <X className="h-6 w-6" />
+                          </button>
+                        </div>
+                        <button
+                          onClick={fetchHandle}
+                          className={`flex justify-center mx-auto mt-5 font-medium leading-[18px] bg-[#ffba00] py-[10px] px-[60px] rounded-[10px]`}
+                        >
+                          {isLoading ? (
+                            <AiOutlineLoading3Quarters className="animate-spin mr-2" />
+                          ) : (
+                            t("profile28")
+                          )}
+                        </button>
+                      </div>
+                    ) : null}
+                  </>
+                )
+              )}
             </div>
           </div>
         </div>

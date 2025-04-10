@@ -31,11 +31,29 @@ export default function BalansCardModal({
   const [isLoading, setIsLoading] = useState(false);
 
   const [selectedCard, setSelectedCard] = useState(null);
+  const [comment, setComment] = useState("");
 
   const [copied, setCopied] = useState(false);
+  const [copied1, setCopied1] = useState(false);
   const handleCardSelect = (card) => {
     setSelectedCard(card);
   };
+
+  // useEffect(() => {
+  //   const checkBalance1 = async () => {
+  //     try {
+  //       const response = await axiosInstance.get("client/auth/check-binance/", {
+  //         headers: {
+  //           Authorization: `Bearer ${token}`,
+  //         },
+  //       });
+  //       console.log(response.data);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
+  //   checkBalance1();
+  // }, [token]);
 
   const copyCardNumber = () => {
     if (selectedCard.card_number) {
@@ -43,6 +61,20 @@ export default function BalansCardModal({
         .writeText(selectedCard.card_number)
         .then(() => {
           setCopied(true);
+          setTimeout(() => setCopied(false), 4000);
+        })
+        .catch(() => {
+          console.log("Karta raqamini nusxalashda xatolik yuz berdi.");
+        });
+    }
+  };
+
+  const copyCardNumber1 = () => {
+    if (comment) {
+      navigator.clipboard
+        .writeText(comment)
+        .then(() => {
+          setCopied1(true);
           setTimeout(() => setCopied(false), 4000);
         })
         .catch(() => {
@@ -143,6 +175,27 @@ export default function BalansCardModal({
     }
   };
 
+  if (selectedCard?.id === "8f31f905-d153-4cb9-8514-5c3c5b53dac5") {
+    const fetchComment = async () => {
+      try {
+        const response = await axiosInstance.get(
+          "client/auth/user-binance-comment/",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        setComment(response.data.comment);
+      } catch (error) {
+        console.error("Ma'lumotni olishda xatolik:", error);
+      }
+    };
+
+    fetchComment();
+  }
+
   if (loading) {
     return <Loader />;
   }
@@ -184,77 +237,134 @@ export default function BalansCardModal({
                   </div>
                 ))}
             </div>
-            <p className="mt-[38px] font-medium text-[20px] leading-[22px]">
-              {t("profile29")}
-            </p>
-            <div
-              className={`max-w-[482px] mt-5 p-[35px] mx-auto border-2 border-gray-500 border-dashed rounded-lg text-center ${
-                photo ? "hidden" : ""
-              }`}
-            >
-              <Image
-                src="/file-upload.svg"
-                className="mx-auto"
-                width={40}
-                height={40}
-                alt="img"
-              />
-              <p className="mt-2.5 text-[14px] leading-4 text-[#828282]">
-                {t("profile26")}
-              </p>
-              <div className="hidden">
-                <UploadComponent
-                  triggerRef={modalRef}
-                  onUploadingChange={setLoading1}
-                  onUploadSuccess={(url) => handleUploadSuccess("cover", url)}
-                />
-              </div>
-              <button
-                onClick={() => modalRef.current.click()}
-                className="mt-2.5 font-medium text-[14px] bg-[#ffba00] py-3 px-10 rounded-[5px]"
-              >
-                {loading1 ? (
-                  <AiOutlineLoading3Quarters className="animate-spin mr-2" />
-                ) : (
-                  t("profile27")
-                )}
-              </button>
-            </div>
-            {photo.length ? (
-              <div className="flex flex-col">
-                <div className="max-w-[482px] w-full mx-auto mt-5 py-5 px-8 border border-[#828282] rounded-[10px] flex items-center justify-between">
-                  <div>
-                    <p>{photo.split("/").pop()}</p>
-                  </div>
-                  <button onClick={clearFile} className="text-black underline">
-                    <X className="h-6 w-6" />
-                  </button>
+            {selectedCard?.id === "8f31f905-d153-4cb9-8514-5c3c5b53dac5" ? (
+              <div className="p-5 mt-10 flex flex-col items-center">
+                <div className="flex items-start space-x-3 max-w-[450px]">
+                  <span className="text-yellow-500 text-2xl">⚠️</span>
+                  <p className="text-red-600 text-base">
+                    <strong>Diqqat!</strong> To‘lovni amalga oshirishdan oldin
+                    izoh (comment) yozilishi majburiy. Izohsiz yuborilgan
+                    to‘lovlar qabul qilinmaydi va avtomatik ravishda rad
+                    etiladi.
+                  </p>
                 </div>
-                <div className="relative mx-auto">
-                  <button
-                    onClick={fetchHandle}
-                    disabled={!selectedCard}
-                    className={`mx-auto mt-5 font-medium leading-[18px] py-[10px] px-[60px] rounded-[10px] ${
-                      selectedCard
-                        ? "bg-[#ffba00] cursor-pointer"
-                        : "bg-[#b7b7b7] cursor-not-allowed"
-                    } relative group`}
-                  >
-                    {isLoading ? (
-                      <AiOutlineLoading3Quarters className="animate-spin mr-2" />
-                    ) : (
-                      t("profile28")
-                    )}
-                    {!selectedCard && (
-                      <span className="absolute w-max bottom-[-30px] left-1/2 transform -translate-x-1/2 text-xs text-red-500 bg-white px-2 py-1 rounded shadow-md opacity-0 group-hover:opacity-100 transition-opacity">
-                        {t("profile51")}
-                      </span>
-                    )}
-                  </button>
-                </div>
+                <button
+                  className={`flex items-center gap-[5px] mt-10 py-[10px] px-[15px] font-medium ${
+                    selectedCard.card_number.length > 19 ? "text-[9px]" : ""
+                  } text-[16px] leading-[18px] bg-[#ffba00] rounded-[10px]`}
+                  onClick={copyCardNumber1}
+                >
+                  {copied1 ? (
+                    <MdCheck size={24} />
+                  ) : (
+                    <MdOutlineContentCopy size={24} />
+                  )}
+                  {comment}
+                </button>
               </div>
             ) : (
-              ""
+              <>
+                {selectedCurrency === "USD" &&
+                  selectedCard?.id !== "8f31f905-d153-4cb9-8514-5c3c5b53dac5" &&
+                  selectedCard && (
+                    <div className="flex flex-col items-center mt-10">
+                      <label className="block font-medium text-[20px] leading-[22px] mb-2">
+                        {t("profile22")} {selectedCurrency}
+                      </label>
+                      <input
+                        type="text"
+                        value={inputValue}
+                        onChange={(e) => {
+                          const value = e.target.value;
+                          // Faqat raqamlar va '.' ni qabul qilish uchun tekshirish
+                          if (/^[0-9.]*$/.test(value)) {
+                            setInputValue(value);
+                          }
+                        }}
+                        placeholder={t("profile22")}
+                        className="max-w-[482px] w-full p-3 border rounded-lg border-[#E7E7E7] bg-[#F9F9F9] focus:ring-yellow-400"
+                      />
+                    </div>
+                  )}
+
+                <p className="mt-5 text-center font-medium text-[20px] leading-[22px]">
+                  {t("profile29")}
+                </p>
+                <div
+                  className={`max-w-[482px] mt-5 p-[35px] mx-auto border-2 border-gray-500 border-dashed rounded-lg text-center ${
+                    photo ? "hidden" : ""
+                  }`}
+                >
+                  <Image
+                    src="/file-upload.svg"
+                    className="mx-auto"
+                    width={40}
+                    height={40}
+                    alt="img"
+                  />
+                  <p className="mt-2.5 text-[14px] leading-4 text-[#828282]">
+                    {t("profile26")}
+                  </p>
+                  <div className="hidden">
+                    <UploadComponent
+                      triggerRef={modalRef}
+                      onUploadingChange={setLoading1}
+                      onUploadSuccess={(url) =>
+                        handleUploadSuccess("cover", url)
+                      }
+                    />
+                  </div>
+                  <button
+                    onClick={() => modalRef.current.click()}
+                    className="mt-2.5 font-medium text-[14px] bg-[#ffba00] py-3 px-10 rounded-[5px]"
+                  >
+                    {loading1 ? (
+                      <AiOutlineLoading3Quarters className="animate-spin mr-2" />
+                    ) : (
+                      t("profile27")
+                    )}
+                  </button>
+                  {photo.length ? (
+                    <div className="flex flex-col">
+                      <div className="max-w-[482px] w-full mx-auto mt-5 py-5 px-8 border border-[#828282] rounded-[10px] flex items-center justify-between">
+                        <div>
+                          <p>{photo.split("/").pop()}</p>
+                        </div>
+                        <button
+                          onClick={clearFile}
+                          className="text-black underline"
+                        >
+                          <X className="h-6 w-6" />
+                        </button>
+                      </div>
+                      <div className="relative mx-auto">
+                        <button
+                          onClick={fetchHandle}
+                          disabled={!selectedCard}
+                          className={`mx-auto mt-5 font-medium leading-[18px] py-[10px] px-[60px] rounded-[10px] ${
+                            selectedCard
+                              ? "bg-[#ffba00] cursor-pointer"
+                              : "bg-[#b7b7b7] cursor-not-allowed"
+                          } relative group`}
+                        >
+                          {isLoading ? (
+                            <AiOutlineLoading3Quarters className="animate-spin mr-2" />
+                          ) : (
+                            t("profile28")
+                          )}
+                          {!selectedCard && (
+                            <span className="absolute w-max bottom-[-30px] left-1/2 transform -translate-x-1/2 text-xs text-red-500 bg-white px-2 py-1 rounded shadow-md opacity-0 group-hover:opacity-100 transition-opacity">
+                              {t("profile51")}
+                            </span>
+                          )}
+                        </button>
+                      </div>
+                    </div>
+                  ) : (
+                    ""
+                  )}
+                </div>
+              </>
             )}
           </div>
           {selectedCard && (
@@ -283,7 +393,6 @@ export default function BalansCardModal({
                 ) : (
                   <MdOutlineContentCopy size={24} />
                 )}
-                {console.log(selectedCard.card_number.length)}
                 {selectedCard.card_number}
               </button>
               <p className="mt-[87px] text-[14px] leading-[18px]">
@@ -293,7 +402,13 @@ export default function BalansCardModal({
               </p>
             </div>
           )}
-          <button onClick={onClose} className="absolute top-2 right-2">
+          <button
+            onClick={() => {
+              onClose;
+              window.location.reload();
+            }}
+            className="absolute top-2 right-2"
+          >
             <X className="h-6 w-6" />
           </button>
         </div>
