@@ -239,9 +239,7 @@ export default function BalansCardModal({
               <div className="p-5 mt-10 flex flex-col items-center">
                 <div className="flex items-start space-x-3 max-w-[450px]">
                   <span className="text-yellow-500 text-2xl">⚠️</span>
-                  <p className="text-red-600 text-base">
-                    {t("comment")}
-                  </p>
+                  <p className="text-red-600 text-base">{t("comment")}</p>
                 </div>
                 <button
                   className={`flex items-center gap-[5px] mt-10 py-[10px] px-[15px] font-medium ${
@@ -328,47 +326,44 @@ export default function BalansCardModal({
                       t("profile27")
                     )}
                   </button>
-                  {photo.length ? (
-                    <div className="flex flex-col">
-                      <div className="max-w-[482px] w-full mx-auto mt-5 py-5 px-8 border border-[#828282] rounded-[10px] flex items-center justify-between">
-                        <div>
-                          <p>{photo.split("/").pop()}</p>
-                        </div>
-                        <button
-                          onClick={clearFile}
-                          className="text-black underline"
-                        >
-                          <X className="h-6 w-6" />
-                        </button>
-                      </div>
-                      <div className="relative mx-auto">
-                        <button
-                          onClick={fetchHandle}
-                          disabled={!selectedCard}
-                          className={`mx-auto mt-5 font-medium leading-[18px] py-[10px] px-[60px] rounded-[10px] ${
-                            selectedCard
-                              ? "bg-[#ffba00] cursor-pointer"
-                              : "bg-[#b7b7b7] cursor-not-allowed"
-                          } relative group`}
-                        >
-                          {isLoading ? (
-                            <AiOutlineLoading3Quarters className="animate-spin mr-2" />
-                          ) : (
-                            t("profile28")
-                          )}
-                          {!selectedCard && (
-                            <span className="absolute w-max bottom-[-30px] left-1/2 transform -translate-x-1/2 text-xs text-red-500 bg-white px-2 py-1 rounded shadow-md opacity-0 group-hover:opacity-100 transition-opacity">
-                              {t("profile51")}
-                            </span>
-                          )}
-                        </button>
-                      </div>
-                    </div>
-                  ) : (
-                    ""
-                  )}
                 </div>
               </>
+            )}
+            {photo.length ? (
+              <div className="flex flex-col">
+                <div className="max-w-[482px] w-full mx-auto mt-5 py-5 px-8 border border-[#828282] rounded-[10px] flex items-center justify-between">
+                  <div>
+                    <p>{photo.split("/").pop()}</p>
+                  </div>
+                  <button onClick={clearFile} className="text-black underline">
+                    <X className="h-6 w-6" />
+                  </button>
+                </div>
+                <div className="relative mx-auto">
+                  <button
+                    onClick={fetchHandle}
+                    disabled={!selectedCard}
+                    className={`mx-auto mt-5 font-medium leading-[18px] py-[10px] px-[60px] rounded-[10px] ${
+                      selectedCard
+                        ? "bg-[#ffba00] cursor-pointer"
+                        : "bg-[#b7b7b7] cursor-not-allowed"
+                    } relative group`}
+                  >
+                    {isLoading ? (
+                      <AiOutlineLoading3Quarters className="animate-spin mr-2" />
+                    ) : (
+                      t("profile28")
+                    )}
+                    {!selectedCard && (
+                      <span className="absolute w-max bottom-[-30px] left-1/2 transform -translate-x-1/2 text-xs text-red-500 bg-white px-2 py-1 rounded shadow-md opacity-0 group-hover:opacity-100 transition-opacity">
+                        {t("profile51")}
+                      </span>
+                    )}
+                  </button>
+                </div>
+              </div>
+            ) : (
+              ""
             )}
           </div>
           {selectedCard && (

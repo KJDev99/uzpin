@@ -641,7 +641,7 @@ export default function BalansBox() {
                       </button>
                     </div>
 
-                    {photo.length ? (
+                    {/* {photo.length ? (
                       <div className="flex flex-col">
                         <div className="max-w-[482px] w-full mx-auto mt-5 py-5 px-8 border border-[#828282] rounded-[10px] flex items-center justify-between">
                           <div>
@@ -665,10 +665,35 @@ export default function BalansBox() {
                           )}
                         </button>
                       </div>
-                    ) : null}
+                    ) : null} */}
                   </>
                 )
               )}
+              {photo.length ? (
+                <div className="flex flex-col">
+                  <div className="max-w-[482px] w-full mx-auto mt-5 py-5 px-8 border border-[#828282] rounded-[10px] flex items-center justify-between">
+                    <div>
+                      <p>{photo.split("/").pop()}</p>
+                    </div>
+                    <button
+                      onClick={clearFile}
+                      className="text-black underline"
+                    >
+                      <X className="h-6 w-6" />
+                    </button>
+                  </div>
+                  <button
+                    onClick={fetchHandle}
+                    className={`flex justify-center mx-auto mt-5 font-medium leading-[18px] bg-[#ffba00] py-[10px] px-[60px] rounded-[10px]`}
+                  >
+                    {isLoading ? (
+                      <AiOutlineLoading3Quarters className="animate-spin mr-2" />
+                    ) : (
+                      t("profile28")
+                    )}
+                  </button>
+                </div>
+              ) : null}
             </div>
           </div>
         </div>
