@@ -145,6 +145,19 @@ export default function PurchasesModal({ selectedPurchase, isOpen, onClose }) {
                   )}
                 </li>
               ))}
+            {data && data.gamer_id && (
+              <li className="w-full mb-3 font-light text-[16px]">
+                <span className="font-semibold">Gamer id:</span> {data.gamer_id}
+              </li>
+            )}
+            {data && data._user_id && (
+              <li className="w-full mb-3 font-light text-[16px]">
+                {data.promocode} |{" "}
+                <span className="font-semibold">User id:</span> {data._user_id}{" "}
+                | <span className="font-semibold">Server id:</span>{" "}
+                {data.server_id}
+              </li>
+            )}
             <div className="flex mt-[30px] gap-5 items-center sm:hidden">
               <button
                 onClick={copyAllValues}
