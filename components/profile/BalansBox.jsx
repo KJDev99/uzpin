@@ -14,10 +14,12 @@ import { Alert } from "../Alert";
 import { useTranslation } from "react-i18next";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { TfiReload } from "react-icons/tfi";
+import { FaCheck } from "react-icons/fa6";
 
 export default function BalansBox() {
   const { t } = useTranslation();
   const modalRef = useRef(null);
+  const buttonRef = useRef(null);
   const [isOpen, setIsOpen] = useState(false);
   const [selectedCurrency, setSelectedCurrency] = useState("UZS");
   const [visibleCard, setVisibleCard] = useState(false);
@@ -36,17 +38,41 @@ export default function BalansBox() {
   const [copied, setCopied] = useState(false);
   const [error, setError] = useState(false);
   const [error1, setError1] = useState(false);
+  const [error2, setError2] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const [success, setSuccess] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [text, setText] = useState(false);
   const [comment, setComment] = useState("");
   const [copied1, setCopied1] = useState(false);
+  const [copied2, setCopied2] = useState(false);
+  const [crypto, setCrypto] = useState(false);
+  const [language, setLanguage] = useState("");
 
   const handleCardSelect = (card) => {
     setSelectedCard(card);
   };
 
+  useEffect(() => {
+    const language = localStorage.getItem("language");
+    setLanguage(language);
+  }, []);
+
+  const copyCryptoNumber = () => {
+    const text = buttonRef.current.innerText;
+    if (text) {
+      navigator.clipboard
+        .writeText(text)
+        .then(() => {
+          setCopied2(true);
+          setTimeout(() => setCopied2(false), 4000);
+        })
+        .catch(() => {
+          console.log("Karta raqamini nusxalashda xatolik yuz berdi.");
+        });
+    }
+  };
   const copyCardNumber = () => {
     if (selectedCard.card_number) {
       navigator.clipboard
@@ -229,6 +255,70 @@ export default function BalansBox() {
     return str;
   };
 
+  const FetchCryptoType1 = async () => {
+    const formattedData = {
+      amount: +inputValue,
+    };
+    if (selectedCard?.id === "36832140-0df0-4541-9644-6bb7b8f20540") {
+      formattedData.type = "trc20";
+    }
+    if (selectedCard?.id === "444e1647-80ac-4777-a209-0e28f3a66f84") {
+      formattedData.type = "bep20";
+    }
+    if (selectedCard?.id === "07873980-c9d4-4de6-8e19-964f7d37afbe") {
+      formattedData.type = "aptos";
+    }
+    try {
+      const response = await axiosInstance.post(
+        "/client/transfer-amount/create/",
+        formattedData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setCrypto(true);
+    } catch (error) {
+      setCrypto(false);
+      setError2(true);
+      if (language === "uz") {
+        setErrorMessage(error.response.data.uz[0]);
+      }
+      if (language === "ru") {
+        setErrorMessage(error.response.data.ru[0]);
+      }
+      if (language === "en") {
+        setErrorMessage(error.response.data.en[0]);
+      }
+    } finally {
+      setErrorMessage("");
+    }
+  };
+
+  const checkBalance2 = async () => {
+    try {
+      const response = await axiosInstance.get("client/auth/check-binance/", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      window.location.reload();
+    } catch (error) {
+      if (language === "uz") {
+        setErrorMessage(error.response.data.uz[0]);
+      }
+      if (language === "ru") {
+        setErrorMessage(error.response.data.ru[0]);
+      }
+      if (language === "en") {
+        setErrorMessage(error.response.data.en[0]);
+      }
+    } finally {
+      setErrorMessage("");
+    }
+  };
+
   if (loading) {
     return <Loader />;
   }
@@ -277,6 +367,17 @@ export default function BalansBox() {
           title={t("profile54")}
         />
       )}
+      {error2 && (
+        <Alert
+          status={400}
+          title={"Error"}
+          message={errorMessage}
+          onClose={() => {
+            setError2(false);
+            window.location.reload();
+          }}
+        />
+      )}
       {text && (
         <Alert
           onClose={() => {
@@ -304,6 +405,7 @@ export default function BalansBox() {
         <IoIosArrowBack className="text-2xl md:hidden" />
         <h2 className="text-xl font-bold md:mb-4">{t("profile2")}</h2>
       </Link>
+      {/* web */}
       <div className="flex justify-between items-center mt-5 mb-8 max-sm:hidden">
         <h1 className="text-2xl font-semibold">{t("profile2")}</h1>
         <div className="flex gap-2">
@@ -318,7 +420,9 @@ export default function BalansBox() {
             UZS
           </button>
           <button
-            onClick={() => handleCurrencyChange("USD")}
+            onClick={() => {
+              handleCurrencyChange("USD");
+            }}
             className={`px-4 py-2 rounded-lg ${
               selectedCurrency === "USD"
                 ? "bg-zinc-800 text-white"
@@ -339,6 +443,7 @@ export default function BalansBox() {
           </button>
         </div>
       </div>
+      {/* web */}
 
       <div className="grid md:grid-cols-2 gap-8 max-sm:mt-5 max-sm:gap-20">
         <div className="bg-[#FFFCF6] p-6 rounded-2xl shadow-custom max-sm:pt-0 max-sm:pb-[10px] max-sm:px-5">
@@ -389,7 +494,7 @@ export default function BalansBox() {
 
         <div className="space-y-6">
           <h2 className="text-xl font-semibold">{t("profile20")}</h2>
-
+          {/* mobile */}
           <div className="flex flex-col sm:hidden">
             <h2>{t("profile21")}</h2>
             <div className="mt-2.5">
@@ -404,7 +509,9 @@ export default function BalansBox() {
                 UZS
               </button>
               <button
-                onClick={() => handleCurrencyChange("USD")}
+                onClick={() => {
+                  handleCurrencyChange("USD");
+                }}
                 className={`px-4 py-2  max-sm:px-5 ${
                   selectedCurrency === "USD"
                     ? "bg-zinc-800 text-white"
@@ -425,6 +532,7 @@ export default function BalansBox() {
               </button>
             </div>
           </div>
+          {/* mobile */}
 
           <div className="space-y-4">
             {selectedCurrency !== "USD" && (
@@ -437,7 +545,6 @@ export default function BalansBox() {
                   value={inputValue}
                   onChange={(e) => {
                     const value = e.target.value;
-                    // Faqat raqamlar va '.' ni qabul qilish uchun tekshirish
                     if (/^[0-9.]*$/.test(value)) {
                       setInputValue(value);
                     }
@@ -449,7 +556,6 @@ export default function BalansBox() {
             )}
             <button
               onClick={openModal}
-              // disabled={!inputValue.trim()}
               disabled={selectedCurrency !== "USD" && !inputValue.trim()}
               className={`w-full py-3 bg-[#FFC149] hover:bg-[#FFB529] text-black font-medium rounded-lg transition-colors max-sm:hidden ${
                 !inputValue.trim() && selectedCurrency !== "USD"
@@ -461,7 +567,6 @@ export default function BalansBox() {
             </button>
             <button
               onClick={toggleCardVisibile}
-              // disabled={!inputValue.trim()}
               disabled={selectedCurrency !== "USD" && !inputValue.trim()}
               className={`w-full py-3 bg-[#FFC149] hover:bg-[#FFB529] text-black font-medium rounded-lg transition-colors sm:hidden ${
                 !inputValue.trim() && selectedCurrency !== "USD"
@@ -476,6 +581,14 @@ export default function BalansBox() {
           {/* {visibleCard && <BalansCardModal />} */}
           <div className={`${visibleCard ? "block" : "hidden"}`}>
             <div>
+              <iframe
+                width="100%"
+                height="200"
+                src="https://www.youtube.com/embed/pGQIF5HfV24"
+                frameBorder="0"
+                className="mb-5"
+                allowFullScreen
+              ></iframe>
               <h3 className="font-semibold text-[16px]">{t("profile24")}</h3>
               <p className="mt-2.5 font-medium text-[#313131] text-[14px]">
                 {t("profile25")}
@@ -508,45 +621,150 @@ export default function BalansBox() {
 
             {selectedCard && (
               <div className="mt-[30px] bg-[#f9f9f9] rounded-[5px] p-[10px]">
-                <p className="font-semibold text-[16px]">
-                  {selectedCard.card_name}
-                </p>
-                <p className="mt-[6px] font-semibold text-[16px]">
-                  {selectedCard.card_holder}
-                </p>
-                <Image
-                  src={selectedCard.photo}
-                  className="w-[210px] h-[132px] rounded-[10px] mt-5 mx-auto"
-                  width={210}
-                  height={132}
-                  alt="card"
-                />
-                <button
-                  className={`flex mx-auto items-center gap-[5px] mt-10 py-[10px] px-[15px] font-medium ${
-                    selectedCard.card_number.length > 19 ? "text-[10px]" : ""
-                  } text-[16px] leading-[18px] bg-[#ffba00] rounded-[10px]`}
-                  style={{
-                    wordBreak:
-                      selectedCard.card_number.length > 33
-                        ? "break-word"
-                        : "normal", // Agar 33 ta belgidan ortiq bo'lsa, matnni bo'lish
-                    whiteSpace:
-                      selectedCard.card_number.length > 33
-                        ? "pre-line"
-                        : "nowrap", // 33 ta belgidan oshsa, yangi qatorni ajratish
-                    fontSize:
-                      selectedCard.card_number.length > 33 ? "10px" : "",
-                  }}
-                  onClick={copyCardNumber}
-                >
-                  {copied ? (
-                    <MdCheck size={24} />
-                  ) : (
-                    <MdOutlineContentCopy size={24} />
+                {selectedCard.id !== "36832140-0df0-4541-9644-6bb7b8f20540" &&
+                  selectedCard.id !== "444e1647-80ac-4777-a209-0e28f3a66f84" &&
+                  selectedCard.id !==
+                    "07873980-c9d4-4de6-8e19-964f7d37afbe" && (
+                    <>
+                      <p className="font-semibold text-[16px]">
+                        {selectedCard.card_name}
+                      </p>
+                      <p className="mt-[6px] font-semibold text-[16px]">
+                        {selectedCard.card_holder}
+                      </p>
+                      <Image
+                        src={selectedCard.photo}
+                        className="w-[210px] h-[132px] rounded-[10px] mt-5 mx-auto"
+                        width={210}
+                        height={132}
+                        alt="card"
+                      />
+                      <button
+                        className={`flex mx-auto items-center gap-[5px] mt-10 py-[10px] px-[15px] font-medium ${
+                          selectedCard.card_number.length > 19
+                            ? "text-[10px]"
+                            : ""
+                        } text-[16px] leading-[18px] bg-[#ffba00] rounded-[10px]`}
+                        style={{
+                          wordBreak:
+                            selectedCard.card_number.length > 33
+                              ? "break-word"
+                              : "normal",
+                          whiteSpace:
+                            selectedCard.card_number.length > 33
+                              ? "pre-line"
+                              : "nowrap",
+                          fontSize:
+                            selectedCard.card_number.length > 33 ? "10px" : "",
+                        }}
+                        onClick={copyCardNumber}
+                      >
+                        {copied ? (
+                          <MdCheck size={24} />
+                        ) : (
+                          <MdOutlineContentCopy size={24} />
+                        )}
+                        {selectedCard.card_number}
+                      </button>
+                    </>
                   )}
-                  {selectedCard.card_number}
-                </button>
-
+                {selectedCard.id === "36832140-0df0-4541-9644-6bb7b8f20540" ? (
+                  <>
+                    {crypto && (
+                      <>
+                        <Image
+                          src="/trc20.jpg"
+                          className="mt-5 mx-auto w-[200px] h-[200px]"
+                          width={241}
+                          height={241}
+                          alt="img"
+                        />
+                        <button
+                          ref={buttonRef}
+                          className={`flex items-center gap-[5px] mx-auto mt-3 py-[10px] px-[15px] font-medium ${
+                            selectedCard.card_number.length > 19
+                              ? "text-[9px]"
+                              : ""
+                          } text-[16px] leading-[18px] bg-[#ffba00] rounded-[10px]`}
+                          onClick={copyCryptoNumber}
+                        >
+                          {copied2 ? (
+                            <MdCheck size={24} />
+                          ) : (
+                            <MdOutlineContentCopy size={24} />
+                          )}
+                          TAKhi9hHNuajmi5WyWj2fLDmaCFUKPuGVQ
+                        </button>
+                      </>
+                    )}
+                  </>
+                ) : selectedCard.id ===
+                  "444e1647-80ac-4777-a209-0e28f3a66f84" ? (
+                  <>
+                    {crypto && (
+                      <>
+                        <Image
+                          src="/bep20.jpg"
+                          className="mt-5 mx-auto w-[200px] h-[200px]"
+                          width={241}
+                          height={241}
+                          alt="img"
+                        />
+                        <button
+                          ref={buttonRef}
+                          className={`flex items-center gap-[5px] mx-auto mt-3 py-[10px] px-[15px] font-medium ${
+                            selectedCard.card_number.length > 19
+                              ? "text-[9px]"
+                              : ""
+                          } text-[16px] leading-[18px] bg-[#ffba00] rounded-[10px]`}
+                          onClick={copyCryptoNumber}
+                        >
+                          {copied2 ? (
+                            <MdCheck size={24} />
+                          ) : (
+                            <MdOutlineContentCopy size={24} />
+                          )}
+                          0x1b246eee83c122106612d36bbaedc241933f4d94
+                        </button>
+                      </>
+                    )}
+                  </>
+                ) : selectedCard.id ===
+                  "07873980-c9d4-4de6-8e19-964f7d37afbe" ? (
+                  <>
+                    {crypto && (
+                      <>
+                        <Image
+                          src="/aptos.jpg"
+                          className="mt-5 mx-auto w-[200px] h-[200px]"
+                          width={241}
+                          height={241}
+                          alt="img"
+                        />
+                        <button
+                          ref={buttonRef}
+                          className={`flex items-center gap-[5px] mx-auto mt-3 py-[10px] px-[15px] font-medium ${
+                            selectedCard.card_number.length > 19
+                              ? "text-[9px]"
+                              : ""
+                          } text-[16px] leading-[18px] bg-[#ffba00] rounded-[10px]`}
+                          onClick={copyCryptoNumber}
+                        >
+                          {copied2 ? (
+                            <MdCheck size={24} />
+                          ) : (
+                            <MdOutlineContentCopy size={24} />
+                          )}
+                          <span className="text-left">
+                            0x523f93300e905007437ca0c7180716
+                            <br className="block sm:hidden" />
+                            384b6d690b11093f7b50816cff4b9c005d
+                          </span>
+                        </button>
+                      </>
+                    )}
+                  </>
+                ) : null}
                 {selectedCurrency === "USD" &&
                   selectedCard?.id !==
                     "8f31f905-d153-4cb9-8514-5c3c5b53dac5" && (
@@ -559,7 +777,6 @@ export default function BalansBox() {
                         value={inputValue}
                         onChange={(e) => {
                           const value = e.target.value;
-                          // Faqat raqamlar va '.' ni qabul qilish uchun tekshirish
                           if (/^[0-9.]*$/.test(value)) {
                             setInputValue(value);
                           }
@@ -569,6 +786,36 @@ export default function BalansBox() {
                       />
                     </div>
                   )}
+                {selectedCard.id === "36832140-0df0-4541-9644-6bb7b8f20540" && (
+                  <div className="flex justify-center">
+                    {!crypto ? (
+                      <button
+                        onClick={FetchCryptoType1}
+                        disabled={!inputValue}
+                        className={`mx-auto mt-5 font-medium leading-[18px] py-[10px] px-[60px] rounded-[10px] ${
+                          selectedCard && inputValue
+                            ? "bg-[#ffba00] cursor-pointer"
+                            : "bg-[#b7b7b7] cursor-not-allowed"
+                        } relative group`}
+                      >
+                        Keyingisi
+                      </button>
+                    ) : (
+                      <button
+                        onClick={() => {
+                          checkBalance2();
+                        }}
+                        className={`max-w-[482px] mx-auto mt-5 flex items-center gap-[5px] py-[10px] px-[15px] font-medium text-[16px] text-white leading-[18px] rounded-[10px] ${
+                          selectedCard && inputValue
+                            ? "cursor-pointer bg-green-600"
+                            : "cursor-not-allowed bg-[#b7b7b7]"
+                        }`}
+                      >
+                        {t("pay")} <FaCheck size={18} />
+                      </button>
+                    )}
+                  </div>
+                )}
               </div>
             )}
 
@@ -596,11 +843,12 @@ export default function BalansBox() {
                     onClick={checkBalance}
                     className={`flex items-center gap-[5px] mt-5 py-[10px] px-[15px] font-medium text-[16px] text-white leading-[18px] bg-green-600 rounded-[10px]`}
                   >
-                    {t("pay")}
+                    {t("pay")} <FaCheck size={18} />
                   </button>
                 </div>
               ) : (
-                selectedCard && (
+                selectedCard &&
+                selectedCurrency !== "USD" && (
                   <>
                     <div
                       className={`max-w-[482px] mt-5 p-5 mx-auto border-2 border-gray-500 border-dashed rounded-lg text-center ${
@@ -640,32 +888,6 @@ export default function BalansBox() {
                         )}
                       </button>
                     </div>
-
-                    {/* {photo.length ? (
-                      <div className="flex flex-col">
-                        <div className="max-w-[482px] w-full mx-auto mt-5 py-5 px-8 border border-[#828282] rounded-[10px] flex items-center justify-between">
-                          <div>
-                            <p>{photo.split("/").pop()}</p>
-                          </div>
-                          <button
-                            onClick={clearFile}
-                            className="text-black underline"
-                          >
-                            <X className="h-6 w-6" />
-                          </button>
-                        </div>
-                        <button
-                          onClick={fetchHandle}
-                          className={`flex justify-center mx-auto mt-5 font-medium leading-[18px] bg-[#ffba00] py-[10px] px-[60px] rounded-[10px]`}
-                        >
-                          {isLoading ? (
-                            <AiOutlineLoading3Quarters className="animate-spin mr-2" />
-                          ) : (
-                            t("profile28")
-                          )}
-                        </button>
-                      </div>
-                    ) : null} */}
                   </>
                 )
               )}
