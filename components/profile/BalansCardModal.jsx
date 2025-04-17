@@ -70,7 +70,7 @@ export default function BalansCardModal({
       if (language === "en") {
         setErrorMessage(error.response.data.en[0]);
       }
-    }finally{
+    } finally {
       setErrorMessage("");
     }
   };
@@ -453,7 +453,7 @@ export default function BalansCardModal({
                                 : "bg-[#b7b7b7] cursor-not-allowed"
                             } relative group`}
                           >
-                            Keyingisi
+                            {t("next")}
                           </button>
                         )}
                         {crypto && (

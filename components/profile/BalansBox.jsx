@@ -58,7 +58,7 @@ export default function BalansBox() {
     const language = localStorage.getItem("language");
     setLanguage(language);
   }, []);
-
+  console.log(language);
   const copyCryptoNumber = () => {
     const text = buttonRef.current.innerText;
     if (text) {
@@ -153,7 +153,15 @@ export default function BalansBox() {
         });
         window.location.reload();
       } catch (error) {
-        console.log(error);
+        if (language === "uz") {
+          setErrorMessage(error.response.data.uz[0]);
+        }
+        if (language === "ru") {
+          setErrorMessage(error.response.data.ru[0]);
+        }
+        if (language === "en") {
+          setErrorMessage(error.response.data.en[0]);
+        }
       }
     } else {
       console.log("Token mavjud emas!");
@@ -291,8 +299,6 @@ export default function BalansBox() {
       if (language === "en") {
         setErrorMessage(error.response.data.en[0]);
       }
-    } finally {
-      setErrorMessage("");
     }
   };
 
@@ -786,7 +792,10 @@ export default function BalansBox() {
                       />
                     </div>
                   )}
-                {selectedCard.id === "36832140-0df0-4541-9644-6bb7b8f20540" && (
+                {(selectedCard.id === "36832140-0df0-4541-9644-6bb7b8f20540" ||
+                  selectedCard.id === "444e1647-80ac-4777-a209-0e28f3a66f84" ||
+                  selectedCard.id ===
+                    "07873980-c9d4-4de6-8e19-964f7d37afbe") && (
                   <div className="flex justify-center">
                     {!crypto ? (
                       <button
@@ -798,7 +807,7 @@ export default function BalansBox() {
                             : "bg-[#b7b7b7] cursor-not-allowed"
                         } relative group`}
                       >
-                        Keyingisi
+                        {t('next')}
                       </button>
                     ) : (
                       <button
