@@ -525,8 +525,12 @@ export default function BalansCardModal({
               <iframe
                 width="100%"
                 height="200"
-                src="https://www.youtube.com/embed/1SLF36y9qMk?si=r9tWQMx06YW7_C3L"
-                frameBorder="0"
+                src={
+                  selectedCard?.video_url ||
+                  "https://www.youtube.com/embed/1SLF36y9qMk?si=r9tWQMx06YW7_C3L"
+                }
+                // src="https://www.youtube.com/embed/1SLF36y9qMk?si=r9tWQMx06YW7_C3L"
+                // frameBorder="0"
                 allowFullScreen
               ></iframe>
               {selectedCard.id === "36832140-0df0-4541-9644-6bb7b8f20540" ? (
