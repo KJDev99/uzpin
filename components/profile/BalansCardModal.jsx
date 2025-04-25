@@ -141,7 +141,20 @@ export default function BalansCardModal({
         );
         setCart(response.data);
       } catch (error) {
-        console.log(error);
+        if (error.status === 403) {
+          localStorage.removeItem("profileData");
+          setTimeout(() => {
+            window.location.reload();
+            router.push("/login");
+          }, 300);
+        }
+        if (error.status === 401) {
+          localStorage.removeItem("profileData");
+          setTimeout(() => {
+            window.location.reload();
+            router.push("/login");
+          }, 300);
+        }
       } finally {
         setLoading(false);
       }
