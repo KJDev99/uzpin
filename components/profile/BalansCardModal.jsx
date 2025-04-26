@@ -233,6 +233,18 @@ export default function BalansCardModal({
     if (selectedCard?.id === "07873980-c9d4-4de6-8e19-964f7d37afbe") {
       formattedData.type = "aptos";
     }
+    if (
+      selectedCard?.id === "7edfd32a-e076-41da-acbc-862e9c0aa47d" ||
+      selectedCard?.id === "faf3ef4a-9156-487b-a7a0-53f8c75397ac"
+    ) {
+      formattedData.type = "uzcard";
+    }
+    if (
+      selectedCard?.id === "f0488bed-7934-4ae9-94b3-f0ffc4baa4a0" ||
+      selectedCard?.id === "c5b8b570-e2c1-49c1-a6b7-7d2342109393"
+    ) {
+      formattedData.type = "humo";
+    }
     try {
       const response = await axiosInstance.post(
         "/client/transfer-amount/create/",
@@ -385,7 +397,7 @@ export default function BalansCardModal({
               </div>
             ) : (
               <>
-                {selectedCurrency === "USD" &&
+                {(selectedCurrency === "USD" || selectedCurrency === "UZS") &&
                   selectedCard?.id !== "8f31f905-d153-4cb9-8514-5c3c5b53dac5" &&
                   selectedCard && (
                     <>
@@ -411,6 +423,7 @@ export default function BalansCardModal({
                   )}
 
                 {selectedCurrency !== "USD" &&
+                selectedCurrency !== "UZS" &&
                 selectedCard?.id !== "8f31f905-d153-4cb9-8514-5c3c5b53dac5" ? (
                   <>
                     <p className="mt-5 text-center font-medium text-[20px] leading-[22px]">
@@ -459,12 +472,20 @@ export default function BalansCardModal({
                         {!crypto && (
                           <button
                             onClick={FetchCryptoType}
-                            disabled={!inputValue}
-                            className={`mx-auto mt-10 font-medium leading-[18px] py-[10px] px-[60px] rounded-[10px] ${
-                              selectedCard && inputValue
-                                ? "bg-[#ffba00] cursor-pointer"
-                                : "bg-[#b7b7b7] cursor-not-allowed"
-                            } relative group`}
+                            disabled={
+                              !selectedCard ||
+                              !inputValue ||
+                              (selectedCurrency === "UZS" &&
+                                parseFloat(inputValue) < 1000)
+                            }
+                            className={`mx-auto mt-10 font-medium leading-[18px] py-[10px] px-[60px] rounded-[10px] relative group ${
+                              !selectedCard ||
+                              !inputValue ||
+                              (selectedCurrency === "UZS" &&
+                                parseFloat(inputValue) < 1000)
+                                ? "bg-[#b7b7b7] cursor-not-allowed"
+                                : "bg-[#ffba00] cursor-pointer"
+                            }`}
                           >
                             {t("next")}
                           </button>
@@ -664,19 +685,21 @@ export default function BalansCardModal({
                 height={152}
                 alt="img"
               />
-              <button
-                className={`flex items-center gap-[5px] mt-10 py-[10px] px-[15px] font-medium ${
-                  selectedCard.card_number.length > 19 ? "text-[9px]" : ""
-                } text-[16px] leading-[18px] bg-[#ffba00] rounded-[10px]`}
-                onClick={copyCardNumber}
-              >
-                {copied ? (
-                  <MdCheck size={24} />
-                ) : (
-                  <MdOutlineContentCopy size={24} />
-                )}
-                {selectedCard.card_number}
-              </button>
+              {crypto && (
+                <button
+                  className={`flex items-center gap-[5px] mt-10 py-[10px] px-[15px] font-medium ${
+                    selectedCard.card_number.length > 19 ? "text-[9px]" : ""
+                  } text-[16px] leading-[18px] bg-[#ffba00] rounded-[10px]`}
+                  onClick={copyCardNumber}
+                >
+                  {copied ? (
+                    <MdCheck size={24} />
+                  ) : (
+                    <MdOutlineContentCopy size={24} />
+                  )}
+                  {selectedCard.card_number}
+                </button>
+              )}
               <p className="mt-[87px] text-[14px] leading-[18px]">
                 {t("profile30")}{" "}
                 <a href="t.me/Barbossa_gaming">@Barbossa_gaming</a>{" "}

@@ -282,6 +282,18 @@ export default function BalansBox() {
     if (selectedCard?.id === "07873980-c9d4-4de6-8e19-964f7d37afbe") {
       formattedData.type = "aptos";
     }
+    if (
+      selectedCard?.id === "7edfd32a-e076-41da-acbc-862e9c0aa47d" ||
+      selectedCard?.id === "faf3ef4a-9156-487b-a7a0-53f8c75397ac"
+    ) {
+      formattedData.type = "uzcard";
+    }
+    if (
+      selectedCard?.id === "f0488bed-7934-4ae9-94b3-f0ffc4baa4a0" ||
+      selectedCard?.id === "c5b8b570-e2c1-49c1-a6b7-7d2342109393"
+    ) {
+      formattedData.type = "humo";
+    }
     try {
       const response = await axiosInstance.post(
         "/client/transfer-amount/create/",
@@ -547,7 +559,7 @@ export default function BalansBox() {
           {/* mobile */}
 
           <div className="space-y-4">
-            {selectedCurrency !== "USD" && (
+            {selectedCurrency !== "USD" && selectedCurrency !== "UZS" && (
               <div>
                 <label className="block text-sm text-gray-600 mb-2">
                   {t("profile22")} {selectedCurrency}
@@ -568,9 +580,15 @@ export default function BalansBox() {
             )}
             <button
               onClick={openModal}
-              disabled={selectedCurrency !== "USD" && !inputValue.trim()}
+              disabled={
+                selectedCurrency !== "USD" &&
+                selectedCurrency !== "UZS" &&
+                !inputValue.trim()
+              }
               className={`w-full py-3 bg-[#FFC149] hover:bg-[#FFB529] text-black font-medium rounded-lg transition-colors max-sm:hidden ${
-                !inputValue.trim() && selectedCurrency !== "USD"
+                !inputValue.trim() &&
+                selectedCurrency !== "USD" &&
+                selectedCurrency !== "UZS"
                   ? "bg-[#b7b7b7] hover:bg-[#b7b7b7] cursor-not-allowed"
                   : ""
               }`}
@@ -579,9 +597,15 @@ export default function BalansBox() {
             </button>
             <button
               onClick={toggleCardVisibile}
-              disabled={selectedCurrency !== "USD" && !inputValue.trim()}
+              disabled={
+                selectedCurrency !== "USD" &&
+                selectedCurrency !== "UZS" &&
+                !inputValue.trim()
+              }
               className={`w-full py-3 bg-[#FFC149] hover:bg-[#FFB529] text-black font-medium rounded-lg transition-colors sm:hidden ${
-                !inputValue.trim() && selectedCurrency !== "USD"
+                !inputValue.trim() &&
+                selectedCurrency !== "USD" &&
+                selectedCurrency !== "UZS"
                   ? "bg-[#b7b7b7] hover:bg-[#b7b7b7] cursor-not-allowed"
                   : ""
               }`}
@@ -637,8 +661,8 @@ export default function BalansBox() {
               <div className="mt-[30px] bg-[#f9f9f9] rounded-[5px] p-[10px]">
                 {selectedCard.id !== "36832140-0df0-4541-9644-6bb7b8f20540" &&
                   selectedCard.id !== "444e1647-80ac-4777-a209-0e28f3a66f84" &&
-                  selectedCard.id !==
-                    "07873980-c9d4-4de6-8e19-964f7d37afbe" && (
+                  selectedCard.id !== "07873980-c9d4-4de6-8e19-964f7d37afbe" &&
+                  selectedCurrency !== "UZS" && (
                     <>
                       <p className="font-semibold text-[16px]">
                         {selectedCard.card_name}
@@ -779,7 +803,7 @@ export default function BalansBox() {
                     )}
                   </>
                 ) : null}
-                {selectedCurrency === "USD" &&
+                {(selectedCurrency === "USD" || selectedCurrency === "UZS") &&
                   selectedCard?.id !==
                     "8f31f905-d153-4cb9-8514-5c3c5b53dac5" && (
                     <div className="flex flex-col items-center mt-10">
@@ -800,20 +824,55 @@ export default function BalansBox() {
                       />
                     </div>
                   )}
+                {selectedCurrency === "UZS" && crypto && (
+                  <button
+                    className={`flex mx-auto items-center gap-[5px] mt-8 py-[10px] px-[15px] font-medium ${
+                      selectedCard.card_number.length > 19 ? "text-[10px]" : ""
+                    } text-[16px] leading-[18px] bg-[#ffba00] rounded-[10px]`}
+                    style={{
+                      wordBreak:
+                        selectedCard.card_number.length > 33
+                          ? "break-word"
+                          : "normal",
+                      whiteSpace:
+                        selectedCard.card_number.length > 33
+                          ? "pre-line"
+                          : "nowrap",
+                      fontSize:
+                        selectedCard.card_number.length > 33 ? "10px" : "",
+                    }}
+                    onClick={copyCardNumber}
+                  >
+                    {copied ? (
+                      <MdCheck size={24} />
+                    ) : (
+                      <MdOutlineContentCopy size={24} />
+                    )}
+                    {selectedCard.card_number}
+                  </button>
+                )}
                 {(selectedCard.id === "36832140-0df0-4541-9644-6bb7b8f20540" ||
                   selectedCard.id === "444e1647-80ac-4777-a209-0e28f3a66f84" ||
-                  selectedCard.id ===
-                    "07873980-c9d4-4de6-8e19-964f7d37afbe") && (
+                  selectedCard.id === "07873980-c9d4-4de6-8e19-964f7d37afbe" ||
+                  selectedCurrency === "UZS") && (
                   <div className="flex justify-center">
                     {!crypto ? (
                       <button
                         onClick={FetchCryptoType1}
-                        disabled={!inputValue}
-                        className={`mx-auto mt-5 font-medium leading-[18px] py-[10px] px-[60px] rounded-[10px] ${
-                          selectedCard && inputValue
-                            ? "bg-[#ffba00] cursor-pointer"
-                            : "bg-[#b7b7b7] cursor-not-allowed"
-                        } relative group`}
+                        disabled={
+                          !selectedCard ||
+                          !inputValue ||
+                          (selectedCurrency === "UZS" &&
+                            parseFloat(inputValue) < 1000)
+                        }
+                        className={`mx-auto mt-10 font-medium leading-[18px] py-[10px] px-[60px] rounded-[10px] relative group ${
+                          !selectedCard ||
+                          !inputValue ||
+                          (selectedCurrency === "UZS" &&
+                            parseFloat(inputValue) < 1000)
+                            ? "bg-[#b7b7b7] cursor-not-allowed"
+                            : "bg-[#ffba00] cursor-pointer"
+                        }`}
                       >
                         {t("next")}
                       </button>
@@ -865,7 +924,8 @@ export default function BalansBox() {
                 </div>
               ) : (
                 selectedCard &&
-                selectedCurrency !== "USD" && (
+                selectedCurrency !== "USD" &&
+                selectedCurrency !== "UZS" && (
                   <>
                     <div
                       className={`max-w-[482px] mt-5 p-5 mx-auto border-2 border-gray-500 border-dashed rounded-lg text-center ${
