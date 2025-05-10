@@ -68,18 +68,18 @@ export default function GameInfo({ data }) {
                   loop
                   width="100%"
                   height="335px"
+                  className="max-w-[600px] w-full h-[335px] max-sm:h-[191px]"
                 ></video>
               </div>
             </>
           ) : (
             <iframe
-              src={data.video||null}
+              src={data.video || null}
               width="100%"
               height="335px"
-              allow="autoplay; fullscreen"
               allowFullScreen
-            >
-            </iframe>
+              style={{ height: "335px" }}
+            ></iframe>
           )}
         </div>
       </div>
