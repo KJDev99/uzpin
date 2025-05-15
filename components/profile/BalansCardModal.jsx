@@ -1,16 +1,16 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import axiosInstance from "@/libs/axios";
 import { X } from "lucide-react";
 import Image from "next/image";
-import { MdCheck, MdOutlineContentCopy } from "react-icons/md";
-import UploadComponent from "../UploadComponent";
-import axiosInstance from "@/libs/axios";
-import { Alert } from "../Alert";
-import Loader from "../Loader";
+import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { FaCheck } from "react-icons/fa6";
+import { MdCheck, MdOutlineContentCopy } from "react-icons/md";
+import { Alert } from "../Alert";
+import Loader from "../Loader";
+import UploadComponent from "../UploadComponent";
 
 export default function BalansCardModal({
   isOpen,
@@ -555,18 +555,22 @@ export default function BalansCardModal({
             )}
           </div>
           {selectedCard && selectedCurrency === "USD" && (
-            <div className="max-w-[430px] w-full px-[24px] pt-8 pb-8 bg-[#f9f9f9] rounded-tr-[10px] rounded-br-[10px]">
-              <iframe
-                width="100%"
-                height="200"
-                src={
-                  selectedCard?.video_url ||
-                  "https://www.youtube.com/embed/1SLF36y9qMk?si=r9tWQMx06YW7_C3L"
-                }
-                // src="https://www.youtube.com/embed/1SLF36y9qMk?si=r9tWQMx06YW7_C3L"
-                // frameBorder="0"
-                allowFullScreen
-              ></iframe>
+            <div
+              className={`max-w-[430px] ${
+                (selectedCard.video_url ||
+                  crypto ||
+                  selectedCard.id === "8f31f905-d153-4cb9-8514-5c3c5b53dac5") &&
+                "w-full px-6"
+              } pt-8 pb-8 bg-[#f9f9f9] rounded-tr-[10px] rounded-br-[10px]`}
+            >
+              {selectedCard?.video_url && (
+                <iframe
+                  width="100%"
+                  height="200"
+                  src={selectedCard?.video_url}
+                  allowFullScreen
+                ></iframe>
+              )}
               {selectedCard.id === "36832140-0df0-4541-9644-6bb7b8f20540" ? (
                 <>
                   {crypto && (
@@ -678,13 +682,13 @@ export default function BalansCardModal({
               <p className="mt-2.5 font-semibold text-[24px] leading-[28px]">
                 {selectedCard.card_holder}
               </p>
-              <Image
-                src={selectedCard.photo}
-                className="mt-5 rounded-xl w-[241px] h-[152px]"
-                width={241}
-                height={152}
-                alt="img"
-              />
+              <iframe
+                width="100%"
+                height="200"
+                src={selectedCard?.video_url}
+                className="mt-5 rounded-xl"
+                allowFullScreen
+              ></iframe>
               {crypto && (
                 <button
                   className={`flex items-center gap-[5px] mt-10 py-[10px] px-[15px] font-medium ${
