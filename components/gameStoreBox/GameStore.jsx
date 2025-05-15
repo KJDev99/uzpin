@@ -1,13 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import Image from "next/image";
-import { GoTrash } from "react-icons/go";
-import { PurchaseModal } from "./PurchaseModal";
-import { MobileModal } from "./MobileModal";
 import axiosInstance from "@/libs/axios";
+import Image from "next/image";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { GoTrash } from "react-icons/go";
 import MobileGameStore from "./MobileGameStore";
+import { MobileModal } from "./MobileModal";
+import { PurchaseModal } from "./PurchaseModal";
 
 export default function GameStore({ data, gameId }) {
   const { t } = useTranslation();
@@ -145,18 +145,23 @@ export default function GameStore({ data, gameId }) {
             {data.name} {t("all-games-text1")}
           </p>
           <p className="col-span-3 text-lg text-[#313131] mb-[10px] max-sm:text-sm max-sm:col-span-5">
+            {data.note}
+          </p>
+          {/* <p className="col-span-3 text-lg text-[#313131] mb-[10px] max-sm:text-sm max-sm:col-span-5">
             {t("all-games-text2")} {data.name} {t("all-games-text3")}
-          </p>
-          <p className="col-span-3 text text-[#313131] mb-10 flex items-start gap-[10px] max-sm:col-span-5 max-sm:text-sm max-sm:leading-[14px]">
-            <Image
-              src="/Info.svg"
-              alt="info"
-              width={16}
-              height={16}
-              className="mt-1"
-            />
-            {data.note ? data.note : t("all-games-text4")}
-          </p>
+          </p> */}
+          {/* {data?.note && (
+            <p className="col-span-3 text-[#313131] mb-10 flex items-start gap-[10px] max-sm:col-span-5 max-sm:text-sm max-sm:leading-[14px]">
+              <Image
+                src="/Info.svg"
+                alt="info"
+                width={16}
+                height={16}
+                className="mt-1"
+              />
+              {data?.note}
+            </p>
+          )} */}
         </div>
         <div className="grid grid-cols-5 gap-[50px] mb-[40px]">
           <div
