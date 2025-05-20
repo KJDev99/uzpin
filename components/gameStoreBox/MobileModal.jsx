@@ -159,12 +159,15 @@ export function MobileModal({ isOpen, onClose, cart, clear, gameId, server }) {
     if (promo_code.trim() !== "") {
       formattedData.promo_code = promo_code;
     }
-    if (cleanedGameId === "00984e54-78f0-44f8-ad48-dac23d838bdc") {
+    if (
+      cleanedGameId === "00984e54-78f0-44f8-ad48-dac23d838bdc" ||
+      server === "ph"
+    ) {
       formattedData.server = ph;
     }
     if (
       cleanedGameId === "322d0721-1dca-4720-a0a3-68371ba8ed22" ||
-      cleanedGameId === "7d64856a-ae76-4ddc-be75-3a361dcbf9a2"
+      server === "ru"
     ) {
       formattedData.server = ru;
     }
