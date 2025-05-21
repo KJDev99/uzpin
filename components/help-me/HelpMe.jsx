@@ -1,8 +1,8 @@
 "use client";
 
 import AccordionComponent from "@/components/accordion/accordion";
-import React, { useState, useEffect } from "react";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import Loader from "../Loader";
 
@@ -32,7 +32,7 @@ export default function HelpMeComponent() {
         </p>
         <div className="mt-10 flex justify-center gap-[30px] mx-auto max-sm:flex-col max-sm:items-center">
           <a
-            href="tel:+998901112233"
+            href="tel:+998905890192"
             target="_blank"
             className="max-w-[360px] w-full bg-white rounded-[20px] p-5 flex gap-5 shadow-custom max-sm:max-w-[260px]"
           >
@@ -49,7 +49,7 @@ export default function HelpMeComponent() {
                 {t("help-text11")}
               </p>
               <p className="mt-5 font-medium text-[24px] leading-[28px] max-sm:mt-2 max-sm:text-base">
-                +998 90 111 22 33
+                +998 90 589 01 92
               </p>
             </div>
           </a>
@@ -78,7 +78,7 @@ export default function HelpMeComponent() {
           </a>
 
           <a
-            href="mailto:uzpin@mail.ru"
+            href="mailto:uzpin.com@gmail.com"
             target="_blank"
             className="max-w-[360px] w-full bg-white rounded-[20px] p-5 flex gap-5 shadow-custom max-sm:max-w-[260px]"
           >
@@ -95,7 +95,7 @@ export default function HelpMeComponent() {
                 {t("help-text13")}
               </p>
               <p className="mt-5 font-medium text-[24px] leading-[28px] max-sm:mt-2 max-sm:text-base">
-                uzpin@mail.ru
+                uzpin.com@gmail.com
               </p>
             </div>
           </a>

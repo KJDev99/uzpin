@@ -37,15 +37,15 @@ const GameStore = ({ data, gameId }) => {
           <TabsList className="w-full bg-transparent justify-start gap-5">
             <TabsTrigger
               value="PH"
-              className="w-[25%] py-3 text-[18px] border-2 border-[#c0bfbf] data-[state=active]:bg-[#ffba00] text-black data-[state=active]:text-black data-[state=active]:border-none"
+              className="w-[25%] max-sm:w-full py-3 text-[18px] border-2 border-[#c0bfbf] data-[state=active]:bg-[#ffba00] text-black data-[state=active]:text-black data-[state=active]:border-none"
             >
-              Mobile Legends PH reg
+              MLBB Uz region
             </TabsTrigger>
             <TabsTrigger
               value="RU"
-              className="w-[25%] py-3 text-[18px] border-2 border-[#c0bfbf] data-[state=active]:bg-[#ffba00] text-black data-[state=active]:text-black data-[state=active]:border-none"
+              className="w-[25%] max-sm:w-full py-3 text-[18px] border-2 border-[#c0bfbf] data-[state=active]:bg-[#ffba00] text-black data-[state=active]:text-black data-[state=active]:border-none"
             >
-              Mobile Legends RU reg
+              MLBB Ru region
             </TabsTrigger>
           </TabsList>
 
