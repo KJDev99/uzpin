@@ -187,7 +187,7 @@ export function MobileModal({ isOpen, onClose, cart, clear, gameId, server }) {
 
         setSuccess(true);
       } catch (error) {
-        console.log(error.response.data.error);
+        // console.log(error.response.data.message);
         setError3(true);
         setErrorMessage(
           error.response.data.detail || error.response.data.error
@@ -197,6 +197,12 @@ export function MobileModal({ isOpen, onClose, cart, clear, gameId, server }) {
           setTimeout(() => {
             router.push("/login");
           }, 1000);
+        } else if (error.response.data.code == 102) {
+          setErrorMessage(error.response.data.message);
+          setTimeout(() => {
+            setErrorMessage(false);
+            onClose();
+          }, 2000);
         } else if (error.response.data.code == -32014) {
           setError3(true);
           setTimeout(() => {
@@ -271,6 +277,12 @@ export function MobileModal({ isOpen, onClose, cart, clear, gameId, server }) {
           setTimeout(() => {
             router.push("/login");
           }, 1000);
+        } else if (error.response.data.code == 102) {
+          setErrorMessage(error.response.data.message);
+          setTimeout(() => {
+            setErrorMessage(false);
+            onClose();
+          }, 2000);
         } else if (error.response.data.code == -32014) {
           setError3(true);
           setTimeout(() => {
