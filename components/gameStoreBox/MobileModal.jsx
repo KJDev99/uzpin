@@ -613,8 +613,7 @@ export function MobileModal({ isOpen, onClose, cart, clear, gameId, server }) {
                               loading
                             }
                             onClick={
-                              // buttonLabel === "Sotib Olish"
-                              buttonLabel
+                              buttonLabel === "Tekshirish"
                                 ? handleCheckUserAndPromo
                                 : fetchBuyHandle
                             }
