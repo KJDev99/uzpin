@@ -121,6 +121,7 @@ const GameContent = ({ data, gameId, savedCurrency, t, server }) => {
   // Komponent yuklanganda va kerakli o'zgarishlarda ma'lumotlarni yangilash
   useEffect(() => {
     fetchStats();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data.id, token, showPurchaseModal, showMobileModal]);
 
   // Korzinkadagi miqdorni yangilash
