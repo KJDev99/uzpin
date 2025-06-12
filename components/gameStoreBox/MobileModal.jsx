@@ -197,7 +197,10 @@ export function MobileModal({ isOpen, onClose, cart, clear, gameId, server }) {
       formattedData.server = ru;
     }
     setLoading(true);
-    if (cleanedGameId === "00984e54-78f0-44f8-ad48-dac23d838bdc") {
+    if (
+      cleanedGameId === "00984e54-78f0-44f8-ad48-dac23d838bdc" ||
+      cleanedGameId === "322d0721-1dca-4720-a0a3-68371ba8ed22"
+    ) {
       try {
         const response = await axiosInstance.post(
           "/client/mobile-legands/buy/promocode",
@@ -605,7 +608,9 @@ export function MobileModal({ isOpen, onClose, cart, clear, gameId, server }) {
                           </p>
                         )}
                         {cleanedGameId ===
-                        "00984e54-78f0-44f8-ad48-dac23d838bdc" ? (
+                          "00984e54-78f0-44f8-ad48-dac23d838bdc" ||
+                        cleanedGameId ===
+                          "322d0721-1dca-4720-a0a3-68371ba8ed22" ? (
                           <button
                             disabled={
                               userId.length === 0 ||
