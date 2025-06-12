@@ -202,6 +202,7 @@ export function MobileModal({ isOpen, onClose, cart, clear, gameId, server }) {
       cleanedGameId === "322d0721-1dca-4720-a0a3-68371ba8ed22"
     ) {
       try {
+        setLoading(true);
         const response = await axiosInstance.post(
           "/client/mobile-legands/buy/promocode",
           formattedData,
@@ -282,6 +283,7 @@ export function MobileModal({ isOpen, onClose, cart, clear, gameId, server }) {
       }
     } else {
       try {
+        setLoading(true);
         const response = await axiosInstance.post(
           "/client/mobile-legands/buy/promocode/new/",
           formattedData,
@@ -641,7 +643,9 @@ export function MobileModal({ isOpen, onClose, cart, clear, gameId, server }) {
                         ) : (
                           <button
                             disabled={
-                              userId.length === 0 || serverId.length === 0
+                              userId.length === 0 ||
+                              serverId.length === 0 ||
+                              loading
                             }
                             onClick={fetchBuyHandle}
                             className={`w-full flex justify-center py-2 rounded text-black font-medium border-b-2 disabled:cursor-not-allowed ${
