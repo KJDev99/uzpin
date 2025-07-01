@@ -1,12 +1,11 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 
 export default function GameInfo({ data }) {
   const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState("description");
-  console.log(data?.video?.slice(0, 23));
 
   return (
     <div className="max-w-[1200px] mx-auto mt-10 pb-[100px] max-sm:px-4">

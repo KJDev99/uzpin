@@ -14,15 +14,26 @@ export default function GameDetails() {
   useEffect(() => {
     setLoading(true);
     const fetchStats = async () => {
-      try {
-        const response = await axiosInstance.get(
-          `/client/games/${pathname.game}/detail`
-        );
-        setData(response.data || []);
-      } catch (error) {
-        console.error("Ma'lumotlarni yuklashda xatolik:", error);
-      } finally {
-        setLoading(false);
+      if (pathname.game !== "1") {
+        try {
+          const response = await axiosInstance.get(
+            `/client/games/${pathname.game}/detail`
+          );
+          setData(response.data || []);
+        } catch (error) {
+          console.error("Ma'lumotlarni yuklashda xatolik:", error);
+        } finally {
+          setLoading(false);
+        }
+      } else {
+        try {
+          const response = await axiosInstance.get(`/client/tap-games/`);
+          setData(response.data || []);
+        } catch (error) {
+          console.error("Ma'lumotlarni yuklashda xatolik:", error);
+        } finally {
+          setLoading(false);
+        }
       }
     };
     fetchStats();
