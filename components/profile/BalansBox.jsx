@@ -227,6 +227,13 @@ export default function BalansBox() {
     }
   }, [token, selectedCurrency]);
 
+  useEffect(() => {
+    if (selectedCard) {
+      setCrypto(false);
+      setInputValue("");
+    }
+  }, [selectedCard]);
+
   const handleUploadSuccess = (key, url) => {
     setPhoto(url);
   };
@@ -624,11 +631,9 @@ export default function BalansBox() {
               disabled={
                 selectedCurrency !== "USD" &&
                 selectedCurrency !== "UZS" &&
-                // !inputValue.trim() &&
                 inputValue < 10
               }
               className={`w-full py-3 bg-[#FFC149] hover:bg-[#FFB529] text-black font-medium rounded-lg transition-colors max-sm:hidden ${
-                // !inputValue.trim() &&
                 selectedCurrency !== "USD" &&
                 selectedCurrency !== "UZS" &&
                 inputValue < 10
@@ -646,10 +651,8 @@ export default function BalansBox() {
                 selectedCurrency !== "USD" &&
                 selectedCurrency !== "UZS" &&
                 inputValue < 10
-                // !inputValue.trim()
               }
               className={`w-full py-3 bg-[#FFC149] hover:bg-[#FFB529] text-black font-medium rounded-lg transition-colors sm:hidden ${
-                // !inputValue.trim() &&
                 inputValue < 10 &&
                 selectedCurrency !== "USD" &&
                 selectedCurrency !== "UZS"
@@ -672,13 +675,6 @@ export default function BalansBox() {
                   height="200px"
                   className="mb-5"
                 />
-                // <iframe
-                //   width="100%"
-                //   height="200"
-                //   src={selectedCard?.video_url}
-                //   className="mb-5"
-                //   allowFullScreen
-                // ></iframe>
               )}
               <h3 className="font-semibold text-[16px]">{t("profile24")}</h3>
               <p className="mt-2.5 font-medium text-[#313131] text-[14px]">
@@ -760,7 +756,33 @@ export default function BalansBox() {
                     </>
                   )}
 
-                {selectedCard.id === "36832140-0df0-4541-9644-6bb7b8f20540" ? (
+                {crypto && selectedCurrency === "USD" && (
+                  <>
+                    <Image
+                      src={selectedCard.qr_code}
+                      className="mt-5 mx-auto w-[200px] h-[200px]"
+                      width={241}
+                      height={241}
+                      alt="img"
+                    />
+                    <button
+                      ref={buttonRef}
+                      className={`flex items-center gap-[5px] mx-auto mt-3 py-[10px] px-[8px] font-medium ${
+                        selectedCard.card_number.length > 19 ? "text-[8px]" : ""
+                      } text-[16px] leading-[18px] bg-[#ffba00] rounded-[10px]`}
+                      onClick={copyCryptoNumber}
+                    >
+                      {copied2 ? (
+                        <MdCheck size={24} />
+                      ) : (
+                        <MdOutlineContentCopy size={24} />
+                      )}
+                      {selectedCard.card_number}
+                    </button>
+                  </>
+                )}
+
+                {/* {selectedCard.id === "36832140-0df0-4541-9644-6bb7b8f20540" ? (
                   <>
                     {crypto && (
                       <>
@@ -856,9 +878,10 @@ export default function BalansBox() {
                       </>
                     )}
                   </>
-                ) : null}
+                ) : null} */}
 
                 {(crypto || selectedCard?.is_auto_pay === false) &&
+                  inputValue &&
                   selectedCard?.extra_cards.map((card, index) => (
                     <div
                       key={index}
