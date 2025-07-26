@@ -1,10 +1,8 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
 import axiosInstance from "@/libs/axios";
-import { Alert } from "../Alert";
-import { Toast } from "../Toast";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { Alert } from "../Alert";
 
 const MobileGameStore = ({ cart, clear, isOpen, onClose, router }) => {
   const [userId, setUserId] = useState("");
