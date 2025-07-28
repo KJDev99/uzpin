@@ -7,10 +7,11 @@ import { Alert } from "../Alert";
 const MobileGameStore = ({ cart, clear, isOpen, onClose, router }) => {
   const [userId, setUserId] = useState("");
   const [serverId, setServerId] = useState("");
-  const [userName, setUserName] = useState(null); // Backenddan kelgan `name`ni saqlash
-  const [buttonLabel, setButtonLabel] = useState("Tekshirish"); // Tugma uchun matn
+  const [userName, setUserName] = useState(null);
+  const [buttonLabel, setButtonLabel] = useState("Tekshirish");
   const [token, setToken] = useState(null);
   const [error2, setError] = useState(false);
+  const [apiError, setApiError] = useState(false);
   const [error1, setError1] = useState(false);
   const [error401, setError401] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -44,8 +45,8 @@ const MobileGameStore = ({ cart, clear, isOpen, onClose, router }) => {
       );
 
       if (response.data) {
-        setUserName(response.data.username); // `name` qiymatini saqlash
-        setButtonLabel("Sotib olish"); // Tugma matnini o'zgartirish
+        setUserName(response.data.username);
+        setButtonLabel("Sotib olish");
         setError1(false);
       }
     } catch (error) {
@@ -89,10 +90,18 @@ const MobileGameStore = ({ cart, clear, isOpen, onClose, router }) => {
         setTimeout(() => {
           router.push("/login");
         }, 2000);
-      } else {
+      } else if (
+        error.response.data.error === "hisobingizda mablag' yetarli emas"
+      ) {
         setError(true);
         setTimeout(() => {
           setError(false);
+          onClose();
+        }, 2000);
+      } else {
+        setApiError(true);
+        setTimeout(() => {
+          setApiError(false);
           onClose();
         }, 2000);
       }
@@ -116,10 +125,19 @@ const MobileGameStore = ({ cart, clear, isOpen, onClose, router }) => {
   const handleClose = () => {
     setSuccess(false);
     setError(false);
+    setApiError(false);
   };
 
   return (
     <div className="space-y-4">
+      {apiError && (
+        <Alert
+          status={400}
+          title={t("error_text")}
+          message={t("profile56")}
+          onClose={handleClose}
+        />
+      )}
       {error2 && (
         <Alert
           status={400}
